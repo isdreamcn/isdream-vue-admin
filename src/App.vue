@@ -3,13 +3,11 @@
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 // 国际化
 import zhCn from 'element-plus/lib/locale/lang/zh-cn'
-
-import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
   <ElConfigProvider :locale="zhCn">
-    <HelloWorld msg="Vite + Vue" />
+    <HelloWorld />
   </ElConfigProvider>
 </template>
 

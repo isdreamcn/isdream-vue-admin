@@ -1,10 +1,3 @@
-<!--
- * @Description:
- * @Author: mtm
- * @Date: 2022-08-29 22:40:35
- * @LastEditTime: 2022-08-30 18:35:12
- * @LastEditors: mtm
--->
 <script setup lang="ts">
 import { ElMessage } from 'element-plus'
 
@@ -20,10 +13,19 @@ const open = () => {
     <el-link type="info">info</el-link>
   </div>
   <el-date-picker type="date" placeholder="选择日期" />
+
+  <div class="test">
+    <div class="test-item">test-item</div>
+  </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .read-the-docs {
   color: #888;
+}
+.test {
+  .test-item {
+    color: red;
+  }
 }
 </style>
