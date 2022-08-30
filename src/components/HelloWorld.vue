@@ -1,9 +1,19 @@
+<!--
+ * @Description:
+ * @Author: mtm
+ * @Date: 2022-08-29 22:40:35
+ * @LastEditTime: 2022-08-30 13:31:14
+ * @LastEditors: mtm
+-->
 <script setup lang="ts">
 import { ref } from 'vue'
 
 defineProps<{ msg: string }>()
 
 const count = ref(0)
+
+const a = 123
+console.log(a == 1)
 </script>
 
 <template>
