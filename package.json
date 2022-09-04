@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "element-plus": "^2.2.15",
+    "lodash-unified": "^1.0.2",
     "vue": "^3.2.37"
   },
   "devDependencies": {
@@ -42,6 +43,7 @@
     "unplugin-auto-import": "^0.11.2",
     "unplugin-element-plus": "^0.4.1",
     "unplugin-vue-components": "^0.22.4",
+    "unplugin-vue-define-options": "^0.11.1",
     "vite": "^3.0.7",
     "vue-tsc": "^0.39.5"
   }

@@ -1,3 +1,10 @@
+<!--
+ * @Description:
+ * @Author: mtm
+ * @Date: 2022-09-01 22:58:06
+ * @LastEditTime: 2022-09-04 13:53:47
+ * @LastEditors: mtm
+-->
 <script setup lang="ts">
 import { ElMessage } from 'element-plus'
 
@@ -17,6 +24,7 @@ const open = () => {
   <div class="test">
     <div class="test-item">test-item</div>
   </div>
+  <MDemo type="c"></MDemo>
 </template>
 
 <style scoped lang="scss">
