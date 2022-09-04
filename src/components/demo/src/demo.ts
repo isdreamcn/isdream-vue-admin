@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mtm
  * @Date: 2022-09-04 11:08:49
- * @LastEditTime: 2022-09-04 14:15:49
+ * @LastEditTime: 2022-09-04 22:45:36
  * @LastEditors: mtm
  */
 import { buildProps } from '@/utils/components/props'
@@ -14,7 +14,7 @@ export const demoProps = buildProps({
   disabled: Boolean,
   type: {
     type: String,
-    values: ['a, b'],
+    values: ['a', 'b'],
     default: 456,
     demo: 123
   }

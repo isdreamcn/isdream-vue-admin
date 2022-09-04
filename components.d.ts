@@ -14,5 +14,7 @@ declare module '@vue/runtime-core' {
     ElLink: typeof import('element-plus/es')['ElLink']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     MDemo: typeof import('@/components')['MDemo']
+    RouterLink: typeof import('vue-router')['RouterLink']
+    RouterView: typeof import('vue-router')['RouterView']
   }
 }

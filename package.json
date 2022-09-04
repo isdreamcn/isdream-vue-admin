@@ -19,9 +19,12 @@
     }
   },
   "dependencies": {
+    "@vue/shared": "^3.2.38",
     "element-plus": "^2.2.15",
     "lodash-unified": "^1.0.2",
-    "vue": "^3.2.37"
+    "normalize.css": "^8.0.1",
+    "vue": "^3.2.37",
+    "vue-router": "4"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.1.2",

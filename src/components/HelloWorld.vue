@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mtm
  * @Date: 2022-09-01 22:58:06
- * @LastEditTime: 2022-09-04 13:53:47
+ * @LastEditTime: 2022-09-04 22:35:56
  * @LastEditors: mtm
 -->
 <script setup lang="ts">
@@ -24,7 +24,7 @@ const open = () => {
   <div class="test">
     <div class="test-item">test-item</div>
   </div>
-  <MDemo type="c"></MDemo>
+  <MDemo type="a"></MDemo>
 </template>
 
 <style scoped lang="scss">
