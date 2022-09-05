@@ -1,10 +1,3 @@
-/*
- * @Description:
- * @Author: mtm
- * @Date: 2022-09-04 13:44:32
- * @LastEditTime: 2022-09-04 13:44:33
- * @LastEditors: mtm
- */
 import { isArray, isObject } from '@vue/shared'
 import { isNil } from 'lodash-unified'
 

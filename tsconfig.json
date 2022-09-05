@@ -12,8 +12,9 @@
     "esModuleInterop": true,
     "lib": ["ESNext", "DOM"],
     "skipLibCheck": true,
+    "baseUrl": "./",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["src/*"]
     },
     "types": ["element-plus/global", "unplugin-vue-define-options/macros-global"]
   },

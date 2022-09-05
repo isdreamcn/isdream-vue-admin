@@ -1,2 +1,11 @@
 // 清除默认样式
-@use 'normalize.css'
+@use 'normalize.css';
+
+html, body, #app {
+  height: 100%;
+}
+
+#app {
+  overflow-y: auto;
+  overflow-x: hidden;
+}

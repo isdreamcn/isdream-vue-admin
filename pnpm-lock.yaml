@@ -17,6 +17,7 @@ specifiers:
   eslint-plugin-vue: ^9.4.0
   husky: ^8.0.0
   lodash-unified: ^1.0.2
+  lottie-web: ^5.9.6
   normalize.css: ^8.0.1
   prettier: ^2.7.1
   sass: ^1.54.6
@@ -34,6 +35,7 @@ dependencies:
   '@vue/shared': 3.2.38
   element-plus: 2.2.15_vue@3.2.38
   lodash-unified: 1.0.2
+  lottie-web: 5.9.6
   normalize.css: 8.0.1
   vue: 3.2.38
   vue-router: 4.1.5_vue@3.2.38
@@ -2304,6 +2306,10 @@ packages:
     resolution: {integrity: sha512-Ajzxb8CM6WAnFjgiloPsI3bF+WCxcvhdIG3KNA2KN962+tdBsHcuQ4k4qX/EcS/2CRkcc0iAkR956Nib6aXU/Q==}
     engines: {node: '>=0.10.0'}
     dev: true
+
+  /lottie-web/5.9.6:
+    resolution: {integrity: sha512-JFs7KsHwflugH5qIXBpB4905yC1Sub2MZWtl/elvO/QC6qj1ApqbUZJyjzJseJUtVpgiDaXQLjBlIJGS7UUUXA==}
+    dev: false
 
   /lru-cache/6.0.0:
     resolution: {integrity: sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==}

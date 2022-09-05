@@ -1,10 +1,3 @@
-/*
- * @Description:
- * @Author: mtm
- * @Date: 2022-09-04 22:11:59
- * @LastEditTime: 2022-09-04 23:38:20
- * @LastEditors: mtm
- */
 import config from '@/config'
 import { loadFiles } from '@/utils/files'
 
@@ -18,7 +11,7 @@ const routes: RouteRecordRaw[] = [
     redirect: {
       name: config.mainName
     },
-    component: () => import('@/views/layout/homeLayout.vue'),
+    component: () => import('@/views/layout/mainLayout/mainLayout.vue'),
     children: loadRoutes(import.meta.glob('./main/*.ts', { eager: true }))
   },
   {
@@ -26,7 +19,7 @@ const routes: RouteRecordRaw[] = [
     redirect: {
       name: config.loginName
     },
-    component: () => import('@/views/layout/loginLayout.vue'),
+    component: () => import('@/views/layout/userLayout/userLayout.vue'),
     children: loadRoutes(import.meta.glob('./user/*.ts', { eager: true }))
   },
   {

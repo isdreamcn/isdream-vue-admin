@@ -13,7 +13,9 @@ declare module '@vue/runtime-core' {
     ElDatePicker: typeof import('element-plus/es')['ElDatePicker']
     ElLink: typeof import('element-plus/es')['ElLink']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
+    Lottie: typeof import('./src/components/lottie/src/lottie.vue')['default']
     MDemo: typeof import('@/components')['MDemo']
+    MLottie: typeof import('@/components')['MLottie']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

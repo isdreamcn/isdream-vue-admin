@@ -1,10 +1,3 @@
-/*
- * @Description:
- * @Author: mtm
- * @Date: 2022-08-29 22:40:35
- * @LastEditTime: 2022-09-04 13:07:56
- * @LastEditors: mtm
- */
 import { defineConfig } from 'vite'
 import path from 'path'
 
@@ -25,6 +18,7 @@ function _resolve(dir: string) {
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/',
   server: {
     host: '0.0.0.0'
   },

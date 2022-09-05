@@ -1,17 +1,13 @@
-/*
- * @Description:
- * @Author: mtm
- * @Date: 2022-09-04 11:12:32
- * @LastEditTime: 2022-09-04 14:12:04
- * @LastEditors: mtm
- */
 import { warn } from 'vue'
 import { fromPairs } from 'lodash-unified'
-
 import { hasOwn } from '../objects'
 import { isObject } from '../types'
 
+import type { PropType } from 'vue'
+
 import type { NativePropType, PropInput, Prop } from './types'
+
+export const definePropType = <T>(): PropType<T> => ({} as PropType<T>)
 
 export const buildProp = <Type = never>(
   prop: PropInput<Type>,
@@ -65,7 +61,7 @@ export const buildProps = <
   Props extends Record<string, NativePropType | PropInput<any>>
 >(
   props: Props
-) =>
+): Props =>
   fromPairs(
     Object.entries(props).map(([key, option]) => [
       key,

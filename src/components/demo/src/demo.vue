@@ -1,10 +1,3 @@
-<!--
- * @Description:
- * @Author: mtm
- * @Date: 2022-09-04 11:08:45
- * @LastEditTime: 2022-09-04 13:00:43
- * @LastEditors: mtm
--->
 <template>
   <div>
     <el-button @click="handleClick">use el-button demo</el-button>

@@ -1,10 +1,3 @@
-/*
- * @Description:
- * @Author: mtm
- * @Date: 2022-09-04 13:22:15
- * @LastEditTime: 2022-09-04 14:17:12
- * @LastEditors: mtm
- */
 export type NativePropType =
   | ((...args: any) => any)
   | { new (...args: any): any }

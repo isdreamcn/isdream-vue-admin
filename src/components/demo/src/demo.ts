@@ -1,10 +1,3 @@
-/*
- * @Description:
- * @Author: mtm
- * @Date: 2022-09-04 11:08:49
- * @LastEditTime: 2022-09-04 22:45:36
- * @LastEditors: mtm
- */
 import { buildProps } from '@/utils/components/props'
 
 import type { ExtractPropTypes } from 'vue'
@@ -18,7 +11,7 @@ export const demoProps = buildProps({
     default: 456,
     demo: 123
   }
-})
+} as const)
 
 export const demoEmits = {
   click: (evt: MouseEvent) => evt instanceof MouseEvent

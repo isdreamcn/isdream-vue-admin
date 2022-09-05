@@ -1,5 +1,5 @@
 {
-  "name": "vite-project",
+  "name": "isdream-vue-admin",
   "private": true,
   "version": "1.0.0",
   "author": "mtm2233",
@@ -22,6 +22,7 @@
     "@vue/shared": "^3.2.38",
     "element-plus": "^2.2.15",
     "lodash-unified": "^1.0.2",
+    "lottie-web": "^5.9.6",
     "normalize.css": "^8.0.1",
     "vue": "^3.2.37",
     "vue-router": "4"
