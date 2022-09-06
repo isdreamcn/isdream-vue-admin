@@ -24,6 +24,7 @@
     "lodash-unified": "^1.0.2",
     "lottie-web": "^5.9.6",
     "normalize.css": "^8.0.1",
+    "pinia": "^2.0.21",
     "vue": "^3.2.37",
     "vue-router": "4"
   },
