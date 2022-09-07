@@ -4,6 +4,7 @@ export interface AppConfig {
   storage: StorageConfig
   loginName: string
   mainName: string
+  useMock: boolean
 }
 
 const config: AppConfig = {
@@ -13,6 +14,7 @@ const config: AppConfig = {
     expires: 60 * 1000,
     version: 1
   },
+  useMock: true,
   // router
   loginName: 'Login',
   mainName: 'Main'

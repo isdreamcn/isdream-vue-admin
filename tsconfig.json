@@ -16,8 +16,21 @@
     "paths": {
       "@/*": ["src/*"]
     },
-    "types": ["element-plus/global", "unplugin-vue-define-options/macros-global"]
+    "types": [
+      "element-plus/global",
+      "unplugin-vue-define-options/macros-global"
+    ]
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "components.d.ts"],
-  "references": [{ "path": "./tsconfig.node.json" }],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+
+    "mock/**/*.ts",
+    "vite.config.ts",
+    "components.d.ts",
+    "auto-imports.d.ts"
+  ],
+  // "references": [{ "path": "./tsconfig.node.json" }]
 }
