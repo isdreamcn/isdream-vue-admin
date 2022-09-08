@@ -1,11 +1,11 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 
 import routes from './routes'
 import useGuard from './guard'
 
 const router = createRouter({
   routes,
-  history: createWebHashHistory()
+  history: createWebHistory()
 })
 
 useGuard(router)

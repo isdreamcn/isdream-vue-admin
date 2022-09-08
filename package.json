@@ -5,8 +5,8 @@
   "author": "mtm2233",
   "license": "MIT",
   "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
+    "dev": "vite --mode dev",
+    "build": "vue-tsc --noEmit && vite build --mode prod",
     "preview": "vite preview",
     "prettier": "prettier --write .",
     "lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx --fix",
@@ -37,6 +37,7 @@
     "@typescript-eslint/parser": "^5.36.0",
     "@vitejs/plugin-vue": "^3.0.3",
     "commitizen": "^4.2.5",
+    "cross-env": "^7.0.3",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.23.0",
     "eslint-config-prettier": "^8.5.0",
@@ -52,6 +53,7 @@
     "unplugin-vue-components": "^0.22.4",
     "unplugin-vue-define-options": "^0.11.1",
     "vite": "^3.0.7",
+    "vite-plugin-html": "^3.2.0",
     "vite-plugin-mock": "^2.9.6",
     "vue-tsc": "^0.39.5"
   }

@@ -28,6 +28,7 @@
     "src/**/*.vue",
 
     "mock/**/*.ts",
+    "build/**/*.ts",
     "vite.config.ts",
     "components.d.ts",
     "auto-imports.d.ts"
