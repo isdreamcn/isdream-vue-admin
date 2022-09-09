@@ -1,7 +1,7 @@
 // TODO:https://github.com/vbenjs/vite-plugin-mock/blob/main/README.zh_CN.md
 import { viteMockServe } from 'vite-plugin-mock'
 
-export const useMock = (viteEnv: ViteEnv) => {
+export const useMock = (viteEnv: DefineEnv) => {
   return [
     viteMockServe({
       mockPath: 'mock',

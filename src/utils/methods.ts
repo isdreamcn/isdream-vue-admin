@@ -22,3 +22,10 @@ export const composeFns = <T = any>(
     return result
   }
 }
+
+export const wrapperImportMetaEnv = (env: ImportMetaEnv): ViteEnv => {
+  return {
+    ...env,
+    VITE_USE_MOCK: env.VITE_USE_MOCK === 'true' ? true : false
+  }
+}

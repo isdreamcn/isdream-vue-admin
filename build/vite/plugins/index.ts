@@ -6,7 +6,7 @@ import { useAutoImportComponents } from './autoImportComponents'
 import { useMock } from './mock'
 import { useHtmlDev } from './htmlDev'
 
-export const createVitePlugins = (viteEnv: ViteEnv, isBuild: boolean) => {
+export const createVitePlugins = (viteEnv: DefineEnv, isBuild: boolean) => {
   const plugins: PluginOption[] = [vue(), DefineOptions()]
 
   plugins.push(useAutoImportComponents())

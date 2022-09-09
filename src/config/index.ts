@@ -1,6 +1,10 @@
 import type { StorageConfig } from '@/storage'
+import type { ServiceTokenConfig } from '@/service/interceptors'
+import { wrapperImportMetaEnv } from '@/utils'
+
 export interface AppConfig {
-  storage: StorageConfig
+  storageConfig: StorageConfig
+  serviceTokenConfig: ServiceTokenConfig
   loginName: string
   mainName: string
   baseUrlApi: string
@@ -8,20 +12,29 @@ export interface AppConfig {
   useMock: boolean
 }
 
+const viteEnv = wrapperImportMetaEnv(import.meta.env)
+
 const config: AppConfig = {
-  storage: {
+  storageConfig: {
     type: 'localStorage',
     prefix: 'isdream',
     expires: 60 * 1000,
     version: 1
   },
+  // service
+  serviceTokenConfig: {
+    position: 'headers',
+    key: 'Authorization',
+    value: 'Bearer TOKEN',
+    expires: 7 * 24 * 3600
+  },
+  baseUrlApi: viteEnv.VITE_BASE_URL_API,
+  baseUrlFile: viteEnv.VITE_BASE_URL_FILE,
+  useMock: viteEnv.VITE_USE_MOCK,
+
   // router
   loginName: 'Login',
-  mainName: 'Main',
-  // service
-  baseUrlApi: import.meta.env.VITE_BASE_URL_API,
-  baseUrlFile: import.meta.env.VITE_BASE_URL_FILE,
-  useMock: import.meta.env.VITE_USE_MOCK
+  mainName: 'Main'
 }
 
 export default config

@@ -1,18 +1,15 @@
-import type { AxiosRequestConfig } from './types'
 import { BasicRequest } from './basicRequest'
-import { requestHandleUrl, requestSetupToken } from './interceptors'
-
 import config from '@/config'
-import { composeFns } from '@/utils'
+
+import { useHandleUrl, useSetupToken } from './interceptors'
+import { mergeInterceptors } from './utils'
 
 export const service = new BasicRequest({
-  baseURL: config.useMock ? '/' : config.baseUrlApi,
-  interceptors: {
-    requestInterceptor: composeFns<AxiosRequestConfig>(
-      requestSetupToken,
-      requestHandleUrl
-    )
-  }
+  baseURL: config.useMock || import.meta.env.DEV ? '/' : config.baseUrlApi,
+  interceptors: mergeInterceptors([
+    useHandleUrl(config.useMock),
+    useSetupToken(config.serviceTokenConfig)
+  ])
 })
 
 export default service

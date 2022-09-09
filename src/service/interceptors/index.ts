@@ -1,2 +1,2 @@
-export * from './setupToken'
-export * from './handleUrl'
+export * from './useSetupToken'
+export * from './useHandleUrl'

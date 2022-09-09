@@ -2,7 +2,7 @@ import type { ConfigEnv, UserConfig } from 'vite'
 import { loadEnv } from 'vite'
 import path from 'path'
 
-import { wrapperEnv } from './build/utils'
+import { wrapperLoadEnv } from './build/utils'
 import { createVitePlugins } from './build/vite/plugins'
 const pathResolve = (dir: string) => {
   return path.resolve(__dirname, dir)
@@ -12,13 +12,22 @@ const pathResolve = (dir: string) => {
 export default ({ command, mode }: ConfigEnv): UserConfig => {
   const root = process.cwd()
   const env = loadEnv(mode, root) as LoadViteEnv
-  const viteEnv = wrapperEnv(env)
+  const viteEnv = wrapperLoadEnv(env)
   const isBuild = command === 'build'
 
   return {
     base: '/',
     server: {
-      host: '0.0.0.0'
+      host: '0.0.0.0',
+      proxy: !viteEnv.VITE_USE_MOCK
+        ? {
+            '^/api/.*': {
+              target: viteEnv.VITE_BASE_URL_API,
+              changeOrigin: true,
+              rewrite: (path) => path.replace(/^\/api/, '')
+            }
+          }
+        : {}
     },
     resolve: {
       alias: {
