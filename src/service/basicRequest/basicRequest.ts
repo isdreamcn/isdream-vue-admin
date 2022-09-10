@@ -16,11 +16,27 @@ export class BasicRequest {
     // 拦截器
     this.instance.interceptors.request.use(
       this.interceptors?.requestInterceptor,
-      this.interceptors?.requestInterceptorCatch
+      // return Promise.reject(error)
+      (error) => {
+        const requestInterceptorCatch =
+          this.interceptors?.requestInterceptorCatch
+        const _error = requestInterceptorCatch
+          ? requestInterceptorCatch(error)
+          : error
+        return Promise.reject(_error)
+      }
     )
     this.instance.interceptors.response.use(
       this.interceptors?.responseInterceptor,
-      this.interceptors?.responseInterceptorCatch
+      // return Promise.reject(error)
+      (error) => {
+        const responseInterceptorCatch =
+          this.interceptors?.responseInterceptorCatch
+        const _error = responseInterceptorCatch
+          ? responseInterceptorCatch(error)
+          : error
+        return Promise.reject(_error)
+      }
     )
   }
 

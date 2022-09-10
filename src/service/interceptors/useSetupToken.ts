@@ -20,7 +20,7 @@ export const useSetupToken = (
         config[position] = {}
       }
 
-      // config[position][key] = value.replace('TOKEN', '123456789')
+      config[position][key] = value.replace('TOKEN', '123456789')
       return config
     }
   }

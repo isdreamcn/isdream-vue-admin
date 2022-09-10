@@ -1,6 +1,5 @@
 <template>
   <div>
-    userLayout
     <RouterView></RouterView>
   </div>
 </template>

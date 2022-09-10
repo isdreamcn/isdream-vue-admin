@@ -4,7 +4,6 @@ import { createHtmlPlugin } from 'vite-plugin-html'
 export const useHtmlDev = () => {
   return [
     createHtmlPlugin({
-      entry: 'src/main.ts',
       inject: {}
     })
   ]

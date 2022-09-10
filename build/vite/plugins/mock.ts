@@ -5,7 +5,7 @@ export const useMock = (viteEnv: DefineEnv) => {
   return [
     viteMockServe({
       mockPath: 'mock',
-      ignore: /^index/,
+      ignore: /^(index|_)/,
       // false 将禁用 mock 功能
       localEnabled: viteEnv.VITE_USE_MOCK,
       prodEnabled: viteEnv.VITE_USE_MOCK,

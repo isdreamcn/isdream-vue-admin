@@ -1,5 +1,6 @@
-// 组合函数
+import { ElMessage } from 'element-plus'
 
+// 组合函数
 type ComposeFn<T = any, R = T> = (payload: T) => R
 
 export const composeFns = <T = any>(
@@ -19,6 +20,7 @@ export const composeFns = <T = any>(
         return payload
       }
     }
+
     return result
   }
 }
@@ -28,4 +30,32 @@ export const wrapperImportMetaEnv = (env: ImportMetaEnv): ViteEnv => {
     ...env,
     VITE_USE_MOCK: env.VITE_USE_MOCK === 'true' ? true : false
   }
+}
+
+type verifyObjTip = Record<
+  string,
+  string | ((val?: any, key?: string) => string | void)
+>
+
+export const verifyObj = (
+  tip: verifyObjTip,
+  obj: Record<string, any>,
+  verifyFn = (val: any) => (val ?? false) !== false
+): boolean => {
+  for (const key of Object.keys(tip)) {
+    const val = tip[key]
+    if (typeof val === 'function') {
+      const res = val(obj[key], key)
+      if (res) {
+        ElMessage.info(res)
+        return false
+      }
+    } else {
+      if (!verifyFn(obj[key])) {
+        ElMessage.info(val)
+        return false
+      }
+    }
+  }
+  return true
 }
