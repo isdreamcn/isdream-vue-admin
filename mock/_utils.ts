@@ -1,7 +1,7 @@
 import type { IncomingMessage, ServerResponse } from 'http'
 import type { requestParams } from './_types'
-
 import url from 'url'
+import httpStatusCode from '@/constants/httpStatusCode'
 
 export const useUserList = () => {
   return [
@@ -53,7 +53,7 @@ export const rawResponseHandler = <T extends object>(
       query: url.parse(req.url || '', true).query
     } as requestParams<T>
 
-    const { statusCode = 200, data } = fn(config)
+    const { statusCode = httpStatusCode.ok, data } = fn(config)
 
     res.statusCode = statusCode
     res.setHeader('Content-Type', 'text/plain;charset=utf-8')

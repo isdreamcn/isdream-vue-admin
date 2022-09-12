@@ -1,6 +1,7 @@
 import type { MockMethod } from 'vite-plugin-mock'
 import type { UserLoginData, UserSigninData } from '@/api/user/login'
 import { useUserList, rawResponseHandler } from '../_utils'
+import httpStatusCode from '@/constants/httpStatusCode'
 
 export default [
   {
@@ -21,7 +22,7 @@ export default [
         data: {
           msg: '用户名或密码错误'
         },
-        statusCode: 422
+        statusCode: httpStatusCode.unauthorized
       }
     })
   },
@@ -35,7 +36,7 @@ export default [
         data: {
           msg: '拒绝注册'
         },
-        statusCode: 403
+        statusCode: httpStatusCode.notFound
       }
     })
   }
