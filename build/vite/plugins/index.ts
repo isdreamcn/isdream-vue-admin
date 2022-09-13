@@ -10,7 +10,7 @@ export const createVitePlugins = (viteEnv: DefineEnv, isBuild: boolean) => {
   const plugins: PluginOption[] = [vue(), DefineOptions()]
 
   plugins.push(useAutoImportComponents())
-  plugins.push(useMock(viteEnv))
+  plugins.push(useMock(viteEnv, isBuild))
   plugins.push(useHtmlDev())
 
   return plugins

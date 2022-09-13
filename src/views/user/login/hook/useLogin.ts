@@ -25,11 +25,11 @@ export const useLogin = () => {
         (val) => val || val === 0
       )
     ) {
-      userLogin(loginForm).then((res) => {
+      userLogin(loginForm).then(({ data }) => {
         useStore.setState({
-          token: res.token,
-          userInfo: res.user,
-          userMenu: res.menu
+          token: data.token,
+          userInfo: data.user,
+          userMenu: data.menu
         })
         router.push({
           name: appConfig.mainName

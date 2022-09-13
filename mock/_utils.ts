@@ -44,6 +44,7 @@ type rawResponseHandlerFn<T extends object> = (config: requestParams<T>) => {
 /**
  * @description: rawResponse => response
  */
+// 生产模式rawResponse不支持
 export const rawResponseHandler = <T extends object>(
   fn: rawResponseHandlerFn<T>
 ) => {

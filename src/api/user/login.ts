@@ -11,7 +11,7 @@ enum Api {
 }
 
 export const userLogin = (data: UserLoginParams) => {
-  return service.request<UserLoginResult>({
+  return service.request<Service.Result<UserLoginResult>>({
     url: Api.Login,
     method: 'POST',
     data
