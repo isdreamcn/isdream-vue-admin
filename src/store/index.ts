@@ -6,7 +6,10 @@ export const useStores = () => ({
   user: useUserStore()
 })
 
-export const setupStore = () => {}
+export const setupStore = () => {
+  const { user } = useStores()
+  user.setupState()
+}
 
 export * from './modules'
 

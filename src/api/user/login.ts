@@ -1,27 +1,26 @@
+import type {
+  UserLoginParams,
+  UserLoginResult,
+  UserSigninParams
+} from './types/loginTypes'
 import service from '@/service'
 
-export interface UserLoginData {
-  username: string
-  password: string
+enum Api {
+  Login = '/api/user/login',
+  Signin = '/api/user/signin'
 }
 
-export const userLogin = (data: UserLoginData) => {
-  return service.request({
-    url: '/api/user/login',
+export const userLogin = (data: UserLoginParams) => {
+  return service.request<UserLoginResult>({
+    url: Api.Login,
     method: 'POST',
     data
   })
 }
 
-export interface UserSigninData {
-  username: string
-  password: string
-  email?: string
-}
-
-export const userSignin = (data: UserSigninData) => {
+export const userSignin = (data: UserSigninParams) => {
   return service.request({
-    url: '/api/user/signin',
+    url: Api.Signin,
     method: 'POST',
     data
   })

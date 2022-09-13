@@ -1,11 +1,14 @@
 import type { Router } from 'vue-router'
+import { composeFns } from '@/utils'
+import { useHasToken } from './utils'
 
+const pause = (val: any) => val === false
 const useGuard = (router: Router) => {
-  router.beforeEach((to, from) => {
-    false && console.log(to, from)
+  router.beforeEach((to) => {
+    return composeFns<any>([useHasToken(to)], pause)(true)
   })
 
-  router.beforeEach((to, from) => {
+  router.afterEach((to, from) => {
     false && console.log(to, from)
   })
 }

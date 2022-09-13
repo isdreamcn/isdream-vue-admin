@@ -1,16 +1,26 @@
 import type { IncomingMessage, ServerResponse } from 'http'
 import type { requestParams } from './_types'
+import type { UserLoginResult } from '@/api/user/types/loginTypes'
 import url from 'url'
-import httpStatusCode from '@/constants/httpStatusCode'
+import HttpStatusCode from '@/constants/httpStatusCode'
 
-export const useUserList = () => {
+interface UserList extends UserLoginResult {
+  username: string
+  password: string
+}
+
+export const useUserList = (): UserList[] => {
   return [
     {
       id: 1,
       username: 'admin',
       password: '123456',
       token: '123456789',
-      user: {},
+      user: {
+        id: 1,
+        username: 'admin',
+        email: '123456@mock.com'
+      },
       // 路由
       menu: [
         {
@@ -53,7 +63,7 @@ export const rawResponseHandler = <T extends object>(
       query: url.parse(req.url || '', true).query
     } as requestParams<T>
 
-    const { statusCode = httpStatusCode.ok, data } = fn(config)
+    const { statusCode = HttpStatusCode.OK, data } = fn(config)
 
     res.statusCode = statusCode
     res.setHeader('Content-Type', 'text/plain;charset=utf-8')

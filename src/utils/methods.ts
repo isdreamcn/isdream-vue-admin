@@ -1,23 +1,25 @@
 import { ElMessage } from 'element-plus'
 
 // 组合函数
-type ComposeFn<T = any, R = T> = (payload: T) => R
+type ComposeFn<T = any> = (payload: T) => T
+type ComposePause<T = any> = (result: T) => boolean
 
 export const composeFns = <T = any>(
-  ...fns: ComposeFn<T, T | false>[]
+  fns: ComposeFn<T>[],
+  pause?: ComposePause<T>
 ): ComposeFn<T> => {
   const length = fns.length
 
   return (payload) => {
     let result = length ? fns[0](payload) : payload
-    if (result === false) {
-      return payload
+    if (pause && pause(result)) {
+      return result
     }
     let index = 0
     while (++index < length) {
       result = fns[index](result)
-      if (result === false) {
-        return payload
+      if (pause && pause(result)) {
+        return result
       }
     }
 

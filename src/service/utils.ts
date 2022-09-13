@@ -32,9 +32,9 @@ export const mergeInterceptors = (
   }
 
   return {
-    requestInterceptor: composeFns(...requestInterceptorList),
-    requestInterceptorCatch: composeFns(...requestInterceptorCatchList),
-    responseInterceptor: composeFns(...responseInterceptorList),
-    responseInterceptorCatch: composeFns(...responseInterceptorCatchList)
+    requestInterceptor: composeFns(requestInterceptorList),
+    requestInterceptorCatch: composeFns(requestInterceptorCatchList),
+    responseInterceptor: composeFns(responseInterceptorList),
+    responseInterceptorCatch: composeFns(responseInterceptorCatchList)
   }
 }

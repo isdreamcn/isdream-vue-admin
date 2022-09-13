@@ -11,11 +11,13 @@
             <input
               v-model="loginForm.username"
               type="text"
+              autocomplete="username"
               placeholder="用户名"
             />
             <input
               v-model="loginForm.password"
               type="password"
+              autocomplete="current-password"
               placeholder="密码"
             />
             <input type="button" value="登 录" @click="login" />
@@ -44,11 +46,13 @@
             <input
               v-model="signinForm.password"
               type="password"
+              autocomplete="new-password"
               placeholder="密码"
             />
             <input
               v-model="signinForm.confirmPassword"
               type="password"
+              autocomplete="new-password"
               placeholder="确认密码"
             />
             <input type="button" value="注 册" @click="signin" />

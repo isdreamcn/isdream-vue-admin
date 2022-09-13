@@ -1,4 +1,5 @@
 import type { RequestInterceptors } from '../types'
+import { useUserStore } from '@/store'
 
 type ServiceTokenPosition = 'headers' | 'params' | 'data'
 
@@ -9,6 +10,7 @@ export interface ServiceTokenConfig {
   expires?: number
 }
 
+const userStore = useUserStore()
 export const useSetupToken = (
   appConfig: ServiceTokenConfig
 ): RequestInterceptors => {
@@ -16,11 +18,14 @@ export const useSetupToken = (
 
   return {
     requestInterceptor(config) {
+      if (!userStore.token) {
+        return config
+      }
       if (!config[position]) {
         config[position] = {}
       }
 
-      config[position][key] = value.replace('TOKEN', '123456789')
+      config[position][key] = value.replace('TOKEN', userStore.token)
       return config
     }
   }

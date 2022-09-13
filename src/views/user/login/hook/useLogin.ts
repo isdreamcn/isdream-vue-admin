@@ -1,8 +1,14 @@
 import { reactive } from 'vue'
+import { useRouter } from 'vue-router'
 import { verifyObj } from '@/utils'
 import { userLogin } from '@/api/user/login'
+import { useUserStore } from '@/store'
+import appConfig from '@/config'
 
 export const useLogin = () => {
+  const useStore = useUserStore()
+  const router = useRouter()
+
   const loginForm = reactive({
     username: '',
     password: ''
@@ -19,13 +25,16 @@ export const useLogin = () => {
         (val) => val || val === 0
       )
     ) {
-      userLogin(loginForm)
-        .then((res) => {
-          console.log(res)
+      userLogin(loginForm).then((res) => {
+        useStore.setState({
+          token: res.token,
+          userInfo: res.user,
+          userMenu: res.menu
         })
-        .catch((err) => {
-          console.log(err)
+        router.push({
+          name: appConfig.mainName
         })
+      })
     }
   }
 

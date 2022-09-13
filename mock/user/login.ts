@@ -1,14 +1,17 @@
 import type { MockMethod } from 'vite-plugin-mock'
-import type { UserLoginData, UserSigninData } from '@/api/user/login'
+import type {
+  UserLoginParams,
+  UserSigninParams
+} from '@/api/user/types/loginTypes'
 import { useUserList, rawResponseHandler } from '../_utils'
-import httpStatusCode from '@/constants/httpStatusCode'
+import HttpStatusCode from '@/constants/httpStatusCode'
 
 export default [
   {
     url: '/api/user/login',
     method: 'post',
     timeout: 200,
-    rawResponse: rawResponseHandler<UserLoginData>(({ body }) => {
+    rawResponse: rawResponseHandler<UserLoginParams>(({ body }) => {
       const userInfo = useUserList().find(
         ({ username, password }) =>
           username === body.username && password === body.password
@@ -22,7 +25,7 @@ export default [
         data: {
           msg: '用户名或密码错误'
         },
-        statusCode: httpStatusCode.unauthorized
+        statusCode: HttpStatusCode.Unauthorized
       }
     })
   },
@@ -31,12 +34,12 @@ export default [
     url: '/api/user/signin',
     method: 'post',
     timeout: 200,
-    rawResponse: rawResponseHandler<UserSigninData>(() => {
+    rawResponse: rawResponseHandler<UserSigninParams>(() => {
       return {
         data: {
           msg: '拒绝注册'
         },
-        statusCode: httpStatusCode.notFound
+        statusCode: HttpStatusCode.Not_Found
       }
     })
   }
