@@ -1,7 +1,6 @@
+import type { RouteRecordRaw } from 'vue-router'
 import config from '@/config'
 import { loadFiles } from '@/utils/files'
-
-import type { RouteRecordRaw } from 'vue-router'
 
 const loadRoutes = loadFiles<RouteRecordRaw>
 

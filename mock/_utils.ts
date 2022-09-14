@@ -2,7 +2,7 @@ import type { IncomingMessage, ServerResponse } from 'http'
 import type { requestParams } from './_types'
 import type { UserLoginResult } from '@/api/user/types/loginTypes'
 import url from 'url'
-import HttpStatusCode from '@/constants/httpStatusCode'
+import { HttpStatusCode } from '@/constants'
 
 interface UserList extends UserLoginResult {
   username: string

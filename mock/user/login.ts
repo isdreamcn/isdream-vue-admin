@@ -8,7 +8,7 @@ import {
   useUserList
   /* rawResponseHandler */
 } from '../_utils'
-import HttpStatusCode from '@/constants/httpStatusCode'
+import { HttpStatusCode } from '@/constants'
 
 export default [
   {

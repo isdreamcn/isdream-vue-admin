@@ -14,7 +14,9 @@
     "skipLibCheck": true,
     "baseUrl": "./",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "#/*": ["typings/*"],
+      "~/*": ["./*"]
     },
     "types": [
       "element-plus/global",
@@ -22,6 +24,9 @@
     ]
   },
   "include": [
+    "typings/**/*.ts",
+    "typings/**/*.d.ts",
+
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",
@@ -32,6 +37,6 @@
     "vite.config.ts",
     "components.d.ts",
     "auto-imports.d.ts"
-  ],
+, "typings/env.d.ts"  ],
   // "references": [{ "path": "./tsconfig.node.json" }]
 }

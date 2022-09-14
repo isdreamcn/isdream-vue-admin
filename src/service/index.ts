@@ -16,3 +16,4 @@ export const service = new BasicRequest({
 export default service
 
 export * from './types'
+export type { ServiceTokenConfig } from './interceptors/index'

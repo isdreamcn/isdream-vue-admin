@@ -1,3 +1,4 @@
+import type { StorageSetOptions } from '@/storage'
 import { defineStore } from 'pinia'
 import db from '@/storage'
 
@@ -42,15 +43,15 @@ export const useUserStore = defineStore('user', {
         userMenu
       })
     },
-    setState(state: UserState) {
+    setState(state: UserState, dbOptions?: StorageSetOptions) {
       this.$patch(state)
-      db.set('token', state.token)
-      db.set('userInfo', state.userInfo)
-      db.set('userMenu', state.userMenu)
+      db.set('token', state.token, dbOptions)
+      db.set('userInfo', state.userInfo, dbOptions)
+      db.set('userMenu', state.userMenu, dbOptions)
     },
-    setToken(token: string) {
+    setToken(token: string, dbOptions?: StorageSetOptions) {
       this.token = token
-      db.set('token', this.token)
+      db.set('token', this.token, dbOptions)
     }
   }
 })

@@ -31,7 +31,9 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     },
     resolve: {
       alias: {
-        '@': pathResolve('src')
+        '@': pathResolve('src'),
+        '#': pathResolve('typings'),
+        '~': pathResolve('./')
       }
     },
     plugins: createVitePlugins(viteEnv, isBuild)

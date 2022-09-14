@@ -26,11 +26,16 @@ export const useLogin = () => {
       )
     ) {
       userLogin(loginForm).then(({ data }) => {
-        useStore.setState({
-          token: data.token,
-          userInfo: data.user,
-          userMenu: data.menu
-        })
+        useStore.setState(
+          {
+            token: data.token,
+            userInfo: data.user,
+            userMenu: data.menu
+          },
+          {
+            expires: appConfig.serviceTokenConfig.expires
+          }
+        )
         router.push({
           name: appConfig.mainName
         })

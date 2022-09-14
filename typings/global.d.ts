@@ -1,4 +1,4 @@
-import HttpStatusCode from '@/constants/httpStatusCode'
+import { HttpStatusCode } from '@/constants'
 
 declare global {
   declare type Nullable<T> = T | null

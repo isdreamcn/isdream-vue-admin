@@ -1,8 +1,7 @@
 import type { RouteMeta } from 'vue-router'
 import type { StorageConfig } from '@/storage'
-import type { ServiceTokenConfig } from '@/service/interceptors'
+import type { ServiceTokenConfig } from '@/service'
 import { wrapperImportMetaEnv } from '@/utils'
-
 export interface AppConfig {
   storageConfig: StorageConfig
   serviceTokenConfig: ServiceTokenConfig
@@ -20,7 +19,7 @@ const config: AppConfig = {
   storageConfig: {
     type: 'localStorage',
     prefix: 'isdream',
-    expires: 60 * 1000,
+    expires: 7 * 24 * 60 * 60 * 1000,
     version: 1
   },
   // service
@@ -28,7 +27,7 @@ const config: AppConfig = {
     position: 'headers',
     key: 'Authorization',
     value: 'Bearer TOKEN',
-    expires: 7 * 24 * 3600
+    expires: 7 * 24 * 60 * 60 * 1000
   },
   // router
   defaultRouteMeta: {

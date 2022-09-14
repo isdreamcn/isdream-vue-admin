@@ -1,3 +1,10 @@
+/*
+ * @Description:
+ * @Author: mtm
+ * @Date: 2022-09-14 17:58:01
+ * @LastEditTime: 2022-09-14 17:58:02
+ * @LastEditors: mtm
+ */
 /// <reference types="vite/client" />
 
 interface DefineEnv {
