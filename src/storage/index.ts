@@ -4,4 +4,4 @@ import config from '@/config'
 export const db = new Storage(config.storageConfig)
 export default db
 
-export * from './types'
+export type { StorageType, StorageConfig, StorageSetOptions } from './types'

@@ -43,11 +43,9 @@ export const useUserStore = defineStore('user', {
         userMenu
       })
     },
-    setState(state: UserState, dbOptions?: StorageSetOptions) {
+    setState(state: Partial<UserState>, dbOptions?: StorageSetOptions) {
       this.$patch(state)
-      db.set('token', state.token, dbOptions)
-      db.set('userInfo', state.userInfo, dbOptions)
-      db.set('userMenu', state.userMenu, dbOptions)
+      db.setData(state, dbOptions)
     },
     setToken(token: string, dbOptions?: StorageSetOptions) {
       this.token = token

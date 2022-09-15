@@ -36,6 +36,12 @@ export class Storage {
     this.storage.setItem(_key, JSON.stringify(data))
   }
 
+  setData(data: Record<string, any>, options?: StorageSetOptions): void {
+    Object.entries(data).forEach(([key, val]) => {
+      this.set(key, val, options)
+    })
+  }
+
   has(key: string) {
     return !!this.storage.getItem(this._key(key))
   }

@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="main-box">
     Main
-    <el-button @click="update">123</el-button>
+    <el-button type="primary" @click="update">123</el-button>
 
     <div class="test">
       <div class="test-item">test-item</div>
@@ -13,17 +13,23 @@
       <el-button @click="dbSet">保存</el-button>
       <el-button @click="dbGet">获取</el-button>
     </div>
+
+    <el-button @click="toggleDark">toggleDark: {{ isDark }}</el-button>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ElMessage } from 'element-plus'
 import config from '@/config'
-import { demo } from '@/api/main/demo'
 import db from '@/storage'
+
+import { useDark } from '@/hooks'
+
 defineOptions({
   name: config.mainName
 })
+
+const { isDark, toggleDark } = useDark()
 
 const update = () => {
   ElMessage('this is a message.')
@@ -37,14 +43,10 @@ const dbGet = () => {
   const data = db.get('name')
   console.log(data)
 }
-
-demo()
-  .then((res) => {
-    console.log(res)
-  })
-  .catch((err) => {
-    console.log(err)
-  })
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.main-box {
+  color: var(--el-color-primary);
+}
+</style>

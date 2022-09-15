@@ -7,8 +7,9 @@ export const useStores = () => ({
 })
 
 export const setupStore = () => {
-  const { user } = useStores()
+  const { user, app } = useStores()
   user.setupState()
+  app.setupState()
 }
 
 export * from './modules'

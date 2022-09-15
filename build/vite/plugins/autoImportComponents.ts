@@ -3,7 +3,7 @@ import AutoImport from 'unplugin-auto-import/vite'
 // TODO:https://github.com/antfu/unplugin-vue-components
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-// ElMessage样式失效
+// Feedback反馈组件 缺少样式
 import ElementPlus from 'unplugin-element-plus/vite'
 
 export const useAutoImportComponents = () => {
@@ -14,13 +14,17 @@ export const useAutoImportComponents = () => {
     Components({
       dts: true,
       resolvers: [
-        ElementPlusResolver(),
+        ElementPlusResolver({
+          importStyle: 'sass'
+        }),
         (componentName) => {
           if (componentName.startsWith('M'))
             return { name: componentName, from: '@/components' }
         }
       ]
     }),
-    ElementPlus()
+    ElementPlus({
+      useSource: true
+    })
   ]
 }

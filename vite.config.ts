@@ -36,6 +36,13 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         '~': pathResolve('./')
       }
     },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `@use "@/assets/styles/element.scss" as *;`
+        }
+      }
+    },
     plugins: createVitePlugins(viteEnv, isBuild)
   }
 }
