@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@commitlint/cli': ^17.1.2
   '@commitlint/config-conventional': ^17.1.0
+  '@element-plus/icons-vue': ^2.0.9
   '@types/sass': ^1.43.1
   '@typescript-eslint/eslint-plugin': ^5.36.0
   '@typescript-eslint/parser': ^5.36.0
@@ -38,6 +39,7 @@ specifiers:
   vue-tsc: ^0.39.5
 
 dependencies:
+  '@element-plus/icons-vue': 2.0.9_vue@3.2.38
   '@vue/shared': 3.2.38
   axios: 0.27.2
   element-plus: 2.2.15_vue@3.2.38

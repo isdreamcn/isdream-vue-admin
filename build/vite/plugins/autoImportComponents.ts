@@ -17,9 +17,18 @@ export const useAutoImportComponents = () => {
         ElementPlusResolver({
           importStyle: 'sass'
         }),
+        // @/components
         (componentName) => {
           if (componentName.startsWith('M'))
             return { name: componentName, from: '@/components' }
+        },
+        // @element-plus/icons-vue
+        (componentName) => {
+          if (componentName.startsWith('Icon'))
+            return {
+              name: componentName.substring(4),
+              from: '@element-plus/icons-vue'
+            }
         }
       ]
     }),
