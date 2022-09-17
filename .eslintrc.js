@@ -29,6 +29,7 @@ module.exports = {
     '@typescript-eslint/no-empty-function': 'off',
 
     'vue/multi-word-component-names': 'off',
-    'vue/prefer-import-from-vue': 'off'
+    'vue/prefer-import-from-vue': 'off',
+    'vue/require-component-is': 'off'
   }
 }

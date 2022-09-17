@@ -1,5 +1,6 @@
 // 清除默认样式
 @use 'normalize.css';
+@use '~/public/iconfont/iconfont.css';
 
 html, body, #app {
   height: 100%;

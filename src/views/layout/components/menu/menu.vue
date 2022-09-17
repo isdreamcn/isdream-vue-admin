@@ -2,7 +2,7 @@
   <el-menu default-active="2" class="menu-container" :collapse="isCollapse">
     <el-sub-menu index="1">
       <template #title>
-        <el-icon><icon-location /></el-icon>
+        <MIcon name="icon-location"></MIcon>
         <span>Navigator One</span>
       </template>
       <el-menu-item-group>
@@ -19,15 +19,15 @@
       </el-sub-menu>
     </el-sub-menu>
     <el-menu-item index="2">
-      <el-icon><icon-menu /></el-icon>
+      <MIcon name="icon-menu"></MIcon>
       <template #title>Navigator Two</template>
     </el-menu-item>
     <el-menu-item index="3" disabled>
-      <el-icon><icon-document /></el-icon>
+      <MIcon name="icon-document"></MIcon>
       <template #title>Navigator Three</template>
     </el-menu-item>
     <el-menu-item index="4">
-      <el-icon><icon-setting /></el-icon>
+      <MIcon name="icon-setting"></MIcon>
       <template #title>Navigator Four</template>
     </el-menu-item>
   </el-menu>

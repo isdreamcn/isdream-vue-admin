@@ -1,15 +1,11 @@
 import { createApp } from 'vue'
-import { createPinia } from 'pinia'
+import App from './App.vue'
+import { setupAppPlugins } from '@/plugins'
 import './assets/styles/global.scss'
 
-import App from './App.vue'
-import router from './router'
-import { setupStore } from '@/store'
-
 const app = createApp(App)
-const pinia = createPinia()
 
-app.use(pinia)
-setupStore()
-app.use(router)
+// 注册插件、全局组件、方法
+app.use(setupAppPlugins)
+
 app.mount('#app')

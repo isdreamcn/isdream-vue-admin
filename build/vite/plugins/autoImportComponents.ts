@@ -21,15 +21,15 @@ export const useAutoImportComponents = () => {
         (componentName) => {
           if (componentName.startsWith('M'))
             return { name: componentName, from: '@/components' }
-        },
-        // @element-plus/icons-vue
-        (componentName) => {
-          if (componentName.startsWith('Icon'))
-            return {
-              name: componentName.substring(4),
-              from: '@element-plus/icons-vue'
-            }
         }
+        // @element-plus/icons-vue 已全局注册(为了支出动态组件)
+        // (componentName) => {
+        //   if (componentName.startsWith('Icon'))
+        //     return {
+        //       name: componentName.substring(4),
+        //       from: '@element-plus/icons-vue'
+        //     }
+        // }
       ]
     }),
     ElementPlus({

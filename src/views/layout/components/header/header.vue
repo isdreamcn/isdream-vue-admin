@@ -2,8 +2,8 @@
   <div class="header-container">
     <div class="header-container__tips">
       <div class="fold-expand">
-        <!-- <el-icon><icon-expand /></el-icon> -->
-        <el-icon><icon-fold /></el-icon>
+        <!-- <MIcon name="icon-expand"></MIcon> -->
+        <MIcon name="icon-fold"></MIcon>
       </div>
     </div>
     <div class="header-container__actions">

@@ -1,0 +1,17 @@
+import type { ExtractPropTypes } from 'vue'
+import type Icon from './icon.vue'
+import { buildProps } from '@/utils/components/props'
+
+export const iconProps = buildProps({
+  size: Number,
+  color: String,
+  name: {
+    type: String,
+    required: true,
+    validator: (val: string) => val.startsWith('icon') || val.startsWith('Icon')
+  }
+} as const)
+
+export type IconProps = ExtractPropTypes<typeof iconProps>
+
+export type IconInstance = InstanceType<typeof Icon>

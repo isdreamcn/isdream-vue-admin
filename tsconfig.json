@@ -36,7 +36,8 @@
     "build/**/*.ts",
     "vite.config.ts",
     "components.d.ts",
-    "auto-imports.d.ts"
-, "typings/env.d.ts"  ],
+    "auto-imports.d.ts",
+    "typings/env.d.ts"
+  ],
   // "references": [{ "path": "./tsconfig.node.json" }]
 }
