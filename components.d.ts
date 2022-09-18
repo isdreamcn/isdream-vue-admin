@@ -23,8 +23,8 @@ declare module '@vue/runtime-core' {
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     Icon: typeof import('./src/components/icon/src/icon.vue')['default']
     Lottie: typeof import('./src/components/lottie/src/lottie.vue')['default']
-    MDemo: typeof import('@/components')['MDemo']
     MIcon: typeof import('@/components')['MIcon']
+    MLottie: typeof import('@/components')['MLottie']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

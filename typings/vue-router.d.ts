@@ -9,5 +9,7 @@ declare module 'vue-router' {
     icon?: string
     // 验证权限: true
     verifyAuth?: boolean
+    // 外部链接
+    link?: string
   }
 }

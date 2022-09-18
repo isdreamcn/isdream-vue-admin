@@ -5,11 +5,11 @@ export interface UserLoginParams {
 
 export interface UserMenu {
   id: number
-  title: string
+  title?: string
   // 路由name
   name: string
-  icon: string
-  children: UserMenu[]
+  icon?: string
+  children?: UserMenu[]
 }
 
 export interface UserInfo {

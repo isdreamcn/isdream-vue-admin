@@ -25,11 +25,52 @@ export const useUserList = (): UserList[] => {
       menu: [
         {
           id: 1,
-          title: '系统总览',
+          title: '首页',
           // 路由name
-          name: '',
-          icon: '',
-          children: []
+          name: 'Main',
+          icon: 'iconfont-shoucang'
+        },
+        {
+          id: 2,
+          // title: '关于',
+          // 路由name
+          name: 'About'
+        },
+        {
+          id: 3,
+          // title: '关于',
+          // 路由name
+          name: 'Menu',
+          children: [
+            {
+              id: 4,
+              name: 'Menu1',
+              children: [
+                {
+                  id: 5,
+                  name: 'Menu11'
+                }
+              ]
+            },
+            {
+              id: 6,
+              name: 'Menu2'
+            }
+          ]
+        },
+        {
+          id: 7,
+          name: 'System',
+          children: [
+            {
+              id: 8,
+              name: 'SystemUser'
+            }
+          ]
+        },
+        {
+          id: 9,
+          name: 'Link'
         }
       ]
     }

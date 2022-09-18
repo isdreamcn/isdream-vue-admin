@@ -5,5 +5,9 @@ import type { RouteRecordRaw } from 'vue-router'
 export default {
   path: 'home',
   name: config.mainName,
+  meta: {
+    title: '首页',
+    icon: 'IconHomeFilled'
+  },
   component: () => import('@/views/main/home/home.vue')
 } as RouteRecordRaw
