@@ -15,4 +15,5 @@ const router = createRouter({
 
 useGuard(router)
 
+export { routesHandler } from './routes'
 export default router

@@ -5,7 +5,7 @@ import { fromPairs } from 'lodash-unified'
 import { hasOwn } from '../objects'
 import { isObject } from '../types'
 
-export const definePropType = <T>(): PropType<T> => ({} as PropType<T>)
+export const definePropType = <T>(val: any): PropType<T> => val
 
 export const buildProp = <Type = never>(
   prop: PropInput<Type>,

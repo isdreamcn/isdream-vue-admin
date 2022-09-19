@@ -8,7 +8,8 @@ export default {
   },
   meta: {
     title: '系统设置',
-    icon: 'icon-setting'
+    icon: 'icon-setting',
+    sort: 5
   },
   children: [
     {

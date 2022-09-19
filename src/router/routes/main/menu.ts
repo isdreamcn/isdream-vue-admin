@@ -8,14 +8,17 @@ export default {
   },
   meta: {
     title: '多级菜单',
-    icon: 'menu'
+    icon: 'icon-menu',
+    sort: 4
   },
   children: [
     {
       path: 'menu1',
       name: 'Menu1',
       meta: {
-        title: 'Menu1'
+        title: 'Menu1',
+        sort: 2,
+        icon: 'icon-ticket'
       },
       redirect: {
         name: 'Menu11'
@@ -26,7 +29,8 @@ export default {
           path: 'menu11',
           name: 'Menu11',
           meta: {
-            title: 'Menu1-1'
+            title: 'Menu1-1',
+            icon: 'icon-ticket'
           },
           component: () => import('@/views/main/menu/menu1/menu11/menu11.vue')
         }
@@ -36,7 +40,9 @@ export default {
       path: 'menu2',
       name: 'Menu2',
       meta: {
-        title: 'Menu2'
+        title: 'Menu2',
+        sort: 1,
+        icon: 'icon-ticket'
       },
       component: () => import('@/views/main/menu/menu2/menu2.vue')
     }

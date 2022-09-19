@@ -6,7 +6,7 @@ import type Lottie from './lottie.vue'
 
 export const lottieProps = buildProps({
   config: {
-    type: definePropType<AnimationConfig>,
+    type: definePropType<AnimationConfig>(Object),
     default: () => {}
   },
   width: Number,

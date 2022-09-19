@@ -1,46 +1,48 @@
 <template>
-  <el-menu default-active="2" class="menu-container" :collapse="isCollapse">
-    <el-sub-menu index="1">
-      <template #title>
-        <MIcon name="icon-location"></MIcon>
-        <span>Navigator One</span>
-      </template>
-      <el-menu-item-group>
-        <template #title><span>Group One</span></template>
-        <el-menu-item index="1-1">item one</el-menu-item>
-        <el-menu-item index="1-2">item two</el-menu-item>
-      </el-menu-item-group>
-      <el-menu-item-group title="Group Two">
-        <el-menu-item index="1-3">item three</el-menu-item>
-      </el-menu-item-group>
-      <el-sub-menu index="1-4">
-        <template #title><span>item four</span></template>
-        <el-menu-item index="1-4-1">item one</el-menu-item>
-      </el-sub-menu>
-    </el-sub-menu>
-    <el-menu-item index="2">
-      <MIcon name="icon-menu"></MIcon>
-      <template #title>Navigator Two</template>
-    </el-menu-item>
-    <el-menu-item index="3" disabled>
-      <MIcon name="icon-document"></MIcon>
-      <template #title>Navigator Three</template>
-    </el-menu-item>
-    <el-menu-item index="4">
-      <MIcon name="icon-setting"></MIcon>
-      <template #title>Navigator Four</template>
-    </el-menu-item>
+  <Logo></Logo>
+  <el-menu
+    :default-active="routeName"
+    class="menu-container"
+    :collapse="isCollapse"
+  >
+    <SubMenu :menu="menu" @click="clickMenuItem" />
   </el-menu>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import type { UserMenu } from '@/store'
+import { ref, computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { useUserStore } from '@/store'
+import SubMenu from './subMenu.vue'
+import Logo from './logo.vue'
 
 defineOptions({
   name: 'LayoutCpnMenu'
 })
 
+const router = useRouter()
+const routeName = computed<string | undefined>(() => {
+  const route = useRoute()
+  return String(route.name)
+})
+
 const isCollapse = ref(false)
+
+const userStore = useUserStore()
+const menu = userStore.userMenu || []
+
+const clickMenuItem = (item: UserMenu) => {
+  if (item.link) {
+    window.open(item.link)
+    return
+  }
+  if (item.name !== routeName.value) {
+    router.push({
+      name: item.name
+    })
+  }
+}
 </script>
 
 <style lang="scss" scoped>

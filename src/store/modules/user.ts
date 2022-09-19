@@ -3,11 +3,12 @@ import { defineStore } from 'pinia'
 import db from '@/storage'
 
 export interface UserMenu {
-  id: number
-  title?: string
+  id?: number
+  title: string
   // 路由name
   name: string
   icon?: string
+  link?: string
   children?: UserMenu[]
 }
 

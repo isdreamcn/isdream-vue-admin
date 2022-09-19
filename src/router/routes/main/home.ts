@@ -7,7 +7,8 @@ export default {
   name: config.mainName,
   meta: {
     title: '首页',
-    icon: 'IconHomeFilled'
+    icon: 'IconHomeFilled',
+    sort: 1
   },
   component: () => import('@/views/main/home/home.vue')
 } as RouteRecordRaw

@@ -7,6 +7,8 @@ declare module 'vue-router' {
     title?: string
     // 该页面在菜单、面包屑和标签导航处显示的图标
     icon?: string
+    // 顺序
+    sort?: number
     // 验证权限: true
     verifyAuth?: boolean
     // 外部链接

@@ -29,8 +29,8 @@ export const useLogin = () => {
         useStore.setState(
           {
             token: data.token,
-            userInfo: data.user,
-            userMenu: data.menu
+            userInfo: data.user
+            // userMenu: data.menu
           },
           {
             expires: appConfig.serviceTokenConfig.expires

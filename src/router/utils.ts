@@ -1,0 +1,74 @@
+import type { RouteRecordRaw } from 'vue-router'
+import type { UserMenu } from '@/store/index'
+
+import { nextTick } from 'vue'
+import { useUserStore } from '@/store'
+
+export interface RoutesHandlerOptions {
+  // 生成全部菜单，不使用权限菜单
+  generatorMenu: boolean
+}
+
+export class RoutesHandler {
+  originRoutes: RouteRecordRaw[] = []
+  // 菜单
+  userMenu: UserMenu[] = []
+  // name => route
+  routeMap: Map<string, RouteRecordRaw> = new Map()
+
+  constructor(routes: RouteRecordRaw[], options: RoutesHandlerOptions) {
+    if (options.generatorMenu) {
+      routes = this.sortRoutes(routes)
+      this.originRoutes = routes
+      this.userMenu = this.generatorMenu(routes)
+      this.saveUserMenu()
+    } else {
+      this.setNameToRouteMap(routes)
+      this.originRoutes = []
+    }
+  }
+
+  setNameToRouteMap(routes: RouteRecordRaw[]) {
+    routes.forEach((route) => {
+      if (route.name) {
+        this.routeMap.set(String(route.name), route)
+      }
+      this.setNameToRouteMap(route.children || [])
+    })
+  }
+
+  // 排序
+  sortRoutes(routes: RouteRecordRaw[]) {
+    return routes
+      .sort((a, b) => (a.meta?.sort || 0) - (b.meta?.sort || 0))
+      .map(
+        (route): RouteRecordRaw => ({
+          ...route,
+          children: this.sortRoutes(route.children || [])
+        })
+      )
+  }
+
+  // routes => 菜单
+  generatorMenu(routes: RouteRecordRaw[]): UserMenu[] {
+    return routes
+      .filter((route) => route.name)
+      .map((route) => ({
+        name: String(route.name),
+        title: route.meta?.title || String(route.name),
+        icon: route.meta?.icon,
+        link: route.meta?.link,
+        children: this.generatorMenu(route.children || [])
+      }))
+  }
+
+  saveUserMenu() {
+    // app.use(pinia)还没有执行
+    nextTick(() => {
+      const userStore = useUserStore()
+      userStore.setState({
+        userMenu: this.userMenu
+      })
+    })
+  }
+}

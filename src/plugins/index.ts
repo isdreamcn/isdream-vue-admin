@@ -3,7 +3,6 @@ import { usePinia } from './pinia'
 import { useVueRouter } from './vueRouter'
 import { useDirectives } from './directives'
 import { useComponents } from './components'
-// import { useElementPlusIcons } from './elementPlusIcons'
 
 export const setupAppPlugins: AppUsePlugin = (app) => {
   usePinia(app)
@@ -12,5 +11,4 @@ export const setupAppPlugins: AppUsePlugin = (app) => {
   useDirectives(app)
   // 全局组件
   useComponents(app)
-  // useElementPlusIcons(app)
 }
