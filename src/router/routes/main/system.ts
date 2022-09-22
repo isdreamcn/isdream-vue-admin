@@ -1,7 +1,7 @@
 import type { RouteRecordRaw } from 'vue-router'
 
 export default {
-  path: '/system',
+  path: 'system',
   name: 'System',
   redirect: {
     name: 'SystemUser'

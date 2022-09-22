@@ -4,8 +4,6 @@ import { useAppStore } from '@/store/index'
 export const useDark = () => {
   const appStore = useAppStore()
 
-  console.log(appStore.theme)
-
   const isDark = ref(appStore.theme === 'dark')
   const htmlEl = document.querySelector('html')
 

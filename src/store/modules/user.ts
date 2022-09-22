@@ -1,6 +1,7 @@
 import type { StorageSetOptions } from '@/storage'
 import { defineStore } from 'pinia'
 import db from '@/storage'
+import { routesHandler } from '@/router'
 
 export interface UserMenu {
   id?: number
@@ -43,6 +44,9 @@ export const useUserStore = defineStore('user', {
         userInfo,
         userMenu
       })
+      if (userMenu) {
+        routesHandler.useRoleMenu(userMenu)
+      }
     },
     setState(state: Partial<UserState>, dbOptions?: StorageSetOptions) {
       this.$patch(state)

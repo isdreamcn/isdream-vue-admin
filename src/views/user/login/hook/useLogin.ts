@@ -1,5 +1,6 @@
 import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
+import { routesHandler } from '@/router'
 import { verifyObj } from '@/utils'
 import { userLogin } from '@/api/user/login'
 import { useUserStore } from '@/store'
@@ -10,8 +11,8 @@ export const useLogin = () => {
   const router = useRouter()
 
   const loginForm = reactive({
-    username: '',
-    password: ''
+    username: 'admin',
+    password: '123456'
   })
 
   const login = () => {
@@ -26,11 +27,11 @@ export const useLogin = () => {
       )
     ) {
       userLogin(loginForm).then(({ data }) => {
+        routesHandler.useRoleMenu(data.menu)
         useStore.setState(
           {
             token: data.token,
             userInfo: data.user
-            // userMenu: data.menu
           },
           {
             expires: appConfig.serviceTokenConfig.expires

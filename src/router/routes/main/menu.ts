@@ -1,7 +1,7 @@
 import type { RouteRecordRaw } from 'vue-router'
 
 export default {
-  path: '/menu',
+  path: 'menu',
   name: 'Menu',
   redirect: {
     name: 'Menu1'

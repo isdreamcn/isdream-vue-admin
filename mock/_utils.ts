@@ -25,20 +25,18 @@ export const useUserList = (): UserList[] => {
       menu: [
         {
           id: 1,
-          title: '首页',
+          title: '首页MockRole',
           // 路由name
           name: 'Main',
           icon: 'iconfont-shoucang'
         },
         {
           id: 2,
-          // title: '关于',
           // 路由name
           name: 'About'
         },
         {
           id: 3,
-          // title: '关于',
           // 路由name
           name: 'Menu',
           children: [

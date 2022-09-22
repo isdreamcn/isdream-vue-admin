@@ -9,6 +9,7 @@ export interface UserMenu {
   // 路由name
   name: string
   icon?: string
+  link?: string
   children?: UserMenu[]
 }
 

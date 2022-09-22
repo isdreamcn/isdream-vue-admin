@@ -8,13 +8,15 @@ const loadRoutes = loadFiles<RouteRecordRaw>
 export const routesHandler = new RoutesHandler(
   loadRoutes(import.meta.glob('./main/*.ts', { eager: true })),
   {
-    generatorMenu: true
+    generatorMenu: false,
+    addRouteParentName: 'MainLayout'
   }
 )
 
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
+    name: 'MainLayout',
     redirect: {
       name: config.mainName
     },

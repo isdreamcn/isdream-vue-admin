@@ -8,7 +8,7 @@
         <MIcon v-if="item.icon" :name="item.icon"></MIcon>
         <span>{{ item.title }}</span>
       </template>
-      <SubMenu :menu="item.children"></SubMenu>
+      <SubMenu :menu="item.children" @click="clickMenuItem"></SubMenu>
     </el-sub-menu>
     <el-menu-item
       v-else
