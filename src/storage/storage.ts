@@ -72,6 +72,12 @@ export class Storage {
     this.storage.removeItem(this._key(key))
   }
 
+  removeKeys(...keys: string[]) {
+    keys.forEach((key) => {
+      this.remove(key)
+    })
+  }
+
   clear() {
     this.storage.clear()
   }

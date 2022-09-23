@@ -2,10 +2,12 @@ import type { RouteMeta } from 'vue-router'
 import type { StorageConfig } from '@/storage'
 import type { ServiceTokenConfig } from '@/service'
 import { wrapperImportMetaEnv } from '@/utils'
+
+export type DefaultRouteMeta = Required<Pick<RouteMeta, 'keepAlive'>>
 export interface AppConfig {
   storageConfig: StorageConfig
   serviceTokenConfig: ServiceTokenConfig
-  defaultRouteMeta: RouteMeta
+  defaultRouteMeta: DefaultRouteMeta
   loginName: string
   mainName: string
   baseUrlApi: string
@@ -31,7 +33,7 @@ const config: AppConfig = {
   },
   // router
   defaultRouteMeta: {
-    verifyAuth: true
+    keepAlive: true
   },
   loginName: 'Login',
   mainName: 'Main',

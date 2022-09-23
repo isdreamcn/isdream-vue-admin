@@ -1,6 +1,6 @@
 <template>
   <el-container class="main-layout">
-    <el-aside width="200px">
+    <el-aside>
       <Menu></Menu>
     </el-aside>
     <el-container>
@@ -21,9 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import Menu from '../components/menu/menu.vue'
-import Header from '../components/header/header.vue'
-import Footer from '../components/footer/footer.vue'
+import { Menu, Header, Footer } from '../components'
 
 defineOptions({
   name: 'MainLayout'
@@ -36,6 +34,7 @@ defineOptions({
   .el-aside {
     display: flex;
     flex-direction: column;
+    width: auto;
   }
   .el-container {
     height: 100%;

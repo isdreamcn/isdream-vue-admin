@@ -1,19 +1,21 @@
 <template>
   <div class="header-container">
     <div class="header-container__tips">
-      <div class="fold-expand">
-        <!-- <MIcon name="icon-expand"></MIcon> -->
-        <MIcon name="icon-fold"></MIcon>
-      </div>
+      <MenuCollapsed></MenuCollapsed>
     </div>
     <div class="header-container__actions">
-      <ToggleDark></ToggleDark>
+      <div class="actions__item">
+        <UserMenu></UserMenu>
+      </div>
+      <div class="actions__item">
+        <ToggleDark></ToggleDark>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import ToggleDark from '../toggleDark/toggleDark.vue'
+import { ToggleDark, UserMenu, MenuCollapsed } from '../index'
 
 defineOptions({
   name: 'LayoutCpnHeader'
@@ -29,9 +31,21 @@ defineOptions({
   justify-content: space-between;
   border-bottom: solid 1px var(--el-menu-border-color);
 
-  .fold-expand {
-    font-size: 30px;
-    cursor: pointer;
+  &__tips {
+  }
+
+  &__actions {
+    display: flex;
+    height: 100%;
+    .actions__item {
+      padding: 0 15px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      &:hover {
+        background-color: var(--el-menu-hover-bg-color);
+      }
+    }
   }
 }
 </style>

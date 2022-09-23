@@ -20,5 +20,7 @@ defineOptions({
 .toggleDark-container {
   font-size: 30px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 </style>

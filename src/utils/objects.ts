@@ -1,1 +1,51 @@
+import { isArray, isObject, hasOwn } from './index'
+
+interface MergeObjOptions {
+  deep: boolean
+  // 是否覆盖原值
+  overlayable: (
+    val: any,
+    key: string | number | symbol,
+    obj1: object,
+    obj2: object
+  ) => boolean
+}
+
+// 合并对象
+export const createMergeObjFn = (options: MergeObjOptions) => {
+  const mergeObj = <T extends object = object, O extends object = object>(
+    obj1: T,
+    obj2: O
+  ) => {
+    const type = isArray(obj1) ? 'array' : 'object'
+    const _o: any = type === 'array' ? [] : {}
+    for (const [key, value] of Object.entries(obj2)) {
+      const _key = key as keyof O & string
+      if (!options.overlayable(value, key, obj1, obj2)) {
+        if (hasOwn(obj1, _key)) {
+          _o[key] = obj1[_key]
+        }
+        continue
+      }
+      if (
+        options.deep &&
+        hasOwn(obj1, _key) &&
+        isObject(obj1[_key]) &&
+        isObject(obj2[_key])
+      ) {
+        _o[_key] = mergeObj(obj1[_key], obj2[_key])
+      } else {
+        _o[_key] = obj2[_key]
+      }
+    }
+    return _o as T & O
+  }
+  return mergeObj
+}
+
+export const mergeObjDeep = createMergeObjFn({
+  deep: true,
+  overlayable: () => true
+})
+
 export { hasOwn } from '@vue/shared'

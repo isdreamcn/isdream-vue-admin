@@ -17,7 +17,7 @@
       @click="clickMenuItem(item)"
     >
       <MIcon v-if="item.icon" :name="item.icon"></MIcon>
-      {{ item.title }}
+      <template #title>{{ item.title }}</template>
     </el-menu-item>
   </template>
 </template>

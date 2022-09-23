@@ -48,6 +48,15 @@ export const useUserStore = defineStore('user', {
         routesHandler.useRoleMenu(userMenu)
       }
     },
+    // 退出登录
+    layout() {
+      db.removeKeys('token', 'userInfo', 'userMenu')
+      this.$patch({
+        token: '',
+        userInfo: null,
+        userMenu: null
+      })
+    },
     setState(state: Partial<UserState>, dbOptions?: StorageSetOptions) {
       this.$patch(state)
       db.setData(state, dbOptions)

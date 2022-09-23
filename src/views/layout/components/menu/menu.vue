@@ -3,7 +3,7 @@
   <el-menu
     :default-active="routeName"
     class="menu-container"
-    :collapse="isCollapse"
+    :collapse="collapsed"
   >
     <SubMenu :menu="menu" @click="clickMenuItem" />
   </el-menu>
@@ -11,11 +11,11 @@
 
 <script setup lang="ts">
 import type { UserMenu } from '@/store'
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { useUserStore } from '@/store'
+import { useUserStore, useAppStore } from '@/store'
 import SubMenu from './subMenu.vue'
-import Logo from './logo.vue'
+import { Logo } from '../index'
 
 defineOptions({
   name: 'LayoutCpnMenu'
@@ -27,7 +27,8 @@ const routeName = computed<string | undefined>(() => {
   return String(route.name)
 })
 
-const isCollapse = ref(false)
+const appStore = useAppStore()
+const collapsed = computed(() => appStore.appSetting.menu.collapsed)
 
 const userStore = useUserStore()
 const menu = userStore.userMenu || []
@@ -46,8 +47,14 @@ const clickMenuItem = (item: UserMenu) => {
 </script>
 
 <style lang="scss" scoped>
+.el-menu {
+  flex: 1;
+}
 .menu-container:not(.el-menu--collapse) {
   width: 200px;
   flex: 1;
+  &.is-collapse {
+    width: 63px;
+  }
 }
 </style>

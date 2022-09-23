@@ -1,17 +1,6 @@
 import { isArray, isObject } from '@vue/shared'
 import { isNil } from 'lodash-unified'
 
-export {
-  isArray,
-  isFunction,
-  isObject,
-  isString,
-  isDate,
-  isPromise,
-  isSymbol
-} from '@vue/shared'
-export { isVNode } from 'vue'
-
 export const isUndefined = (val: any): val is undefined => val === undefined
 
 export const isEmpty = (val: unknown) =>
@@ -27,3 +16,14 @@ export const isElement = (e: unknown): e is Element => {
 export const isPropAbsent = (prop: unknown): prop is null | undefined => {
   return isNil(prop)
 }
+
+export {
+  isArray,
+  isFunction,
+  isObject,
+  isString,
+  isDate,
+  isPromise,
+  isSymbol
+} from '@vue/shared'
+export { isVNode } from 'vue'

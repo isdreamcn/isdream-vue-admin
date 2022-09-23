@@ -8,7 +8,7 @@ const loadRoutes = loadFiles<RouteRecordRaw>
 export const routesHandler = new RoutesHandler(
   loadRoutes(import.meta.glob('./main/*.ts', { eager: true })),
   {
-    generatorMenu: false,
+    generatorMenu: true,
     addRouteParentName: 'MainLayout'
   }
 )

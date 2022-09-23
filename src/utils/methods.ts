@@ -27,6 +27,7 @@ export const composeFns = <T = any>(
   }
 }
 
+// 处理env
 export const wrapperImportMetaEnv = (env: ImportMetaEnv): ViteEnv => {
   return {
     ...env,
@@ -38,7 +39,7 @@ type verifyObjTip = Record<
   string,
   string | ((val?: any, key?: string) => string | void)
 >
-
+// 校验对象
 export const verifyObj = (
   tip: verifyObjTip,
   obj: Record<string, any>,

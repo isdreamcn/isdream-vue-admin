@@ -11,10 +11,8 @@ export interface RoutesHandlerOptions {
   addRouteParentName: string
 }
 
-type Partial<T> = { [P in keyof T]?: Partial<T[P]> }
-
 // 角色菜单
-export interface RoleMenu extends Partial<UserMenu> {
+export interface RoleMenu extends PartialDeep<UserMenu> {
   name: string
   children?: RoleMenu[]
 }
@@ -92,12 +90,11 @@ export class RoutesHandler {
   useRoleMenu(roleMenu: RoleMenu[]) {
     if (this.options.generatorMenu) {
       console.warn('All routes have been registered')
-      return
+    } else {
+      this.originRoutes = this.roleMenuToOriginRoutes(roleMenu)
+      this.registeredRoutes(this.options.addRouteParentName, this.originRoutes)
+      this.userMenu = this.generatorMenu(this.originRoutes)
     }
-    this.originRoutes = this.roleMenuToOriginRoutes(roleMenu)
-    this.registeredRoutes(this.options.addRouteParentName, this.originRoutes)
-
-    this.userMenu = this.generatorMenu(this.originRoutes)
     this.saveUserMenu()
   }
 
