@@ -3,6 +3,7 @@ import type { UserMenu } from '@/store/index'
 
 import { nextTick } from 'vue'
 import { useUserStore } from '@/store'
+import appConfig from '@/config'
 import router from './index'
 
 export interface RoutesHandlerOptions {
@@ -66,7 +67,11 @@ export class RoutesHandler {
   // routes => 菜单
   generatorMenu(routes: RouteRecordRaw[]): UserMenu[] {
     return routes
-      .filter((route) => route.name)
+      .filter(
+        (route) =>
+          route.name &&
+          !(route.meta?.hiddenMenu ?? appConfig.defaultRouteMeta.hiddenMenu)
+      )
       .map((route) => ({
         name: String(route.name),
         title: route.meta?.title || String(route.name),

@@ -9,8 +9,11 @@
       </el-header>
       <div class="main-layout__container">
         <el-main>
-          <!-- <div style="height: 1500px"></div> -->
-          <RouterView></RouterView>
+          <RouterView #default="{ Component }">
+            <KeepAlive :include="aliveInclude">
+              <component :is="Component"></component>
+            </KeepAlive>
+          </RouterView>
         </el-main>
         <el-footer>
           <Footer />
@@ -21,11 +24,16 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+import { useRouterStore } from '@/store'
 import { Menu, Header, Footer } from '../components'
 
 defineOptions({
   name: 'MainLayout'
 })
+
+const routerStore = useRouterStore()
+const aliveInclude = computed(() => routerStore.getAlive('MainLayout'))
 </script>
 
 <style scoped lang="scss">

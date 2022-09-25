@@ -1,16 +1,12 @@
 import type { Router } from 'vue-router'
-import { composeFns } from '@/utils'
-import { useHasToken } from './utils'
+import { nextTick } from 'vue'
+import { useHasToken } from './useHasToken'
+import { useKeepAlive } from './useKeepAlive'
 
-const pause = (val: any) => val !== true
+const useGuards = [useHasToken, useKeepAlive]
+
 const useGuard = (router: Router) => {
-  router.beforeEach((to) => {
-    return composeFns<any>([useHasToken(to)], pause)(true)
-  })
-
-  router.afterEach((to, from) => {
-    false && console.log(to, from)
-  })
+  nextTick(() => useGuards.forEach((useGuard) => useGuard(router)))
 }
 
 export default useGuard

@@ -22,7 +22,7 @@ export const useAppStore = defineStore('app', {
     theme: 'light',
     appSetting: {
       menu: {
-        collapsed: true
+        collapsed: false
       }
     }
   }),

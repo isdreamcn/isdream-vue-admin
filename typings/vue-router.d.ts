@@ -7,11 +7,13 @@ declare module 'vue-router' {
     title?: string
     // 该页面在菜单、面包屑和标签导航处显示的图标
     icon?: string
+    // 外部链接
+    link?: string
     // 缓存
     keepAlive?: boolean
     // 顺序
     sort?: number
-    // 外部链接
-    link?: string
+    // 菜单隐藏
+    hiddenMenu?: boolean
   }
 }
