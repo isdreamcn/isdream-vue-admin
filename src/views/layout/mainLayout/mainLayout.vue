@@ -7,6 +7,7 @@
       <el-header>
         <Header />
       </el-header>
+      <RouteHistory></RouteHistory>
       <div class="main-layout__container">
         <el-main>
           <RouterView #default="{ Component }">
@@ -26,7 +27,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRouterStore } from '@/store'
-import { Menu, Header, Footer } from '../components'
+import { Menu, Header, RouteHistory, Footer } from '../components'
 
 defineOptions({
   name: 'MainLayout'
@@ -49,6 +50,7 @@ const aliveInclude = computed(() => routerStore.getAlive('MainLayout'))
     display: flex;
     flex-direction: column;
     .el-header {
+      padding: 0;
     }
     .main-layout__container {
       flex: 1;

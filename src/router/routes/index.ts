@@ -17,6 +17,9 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'MainLayout',
+    meta: {
+      hiddenInBread: true
+    },
     redirect: {
       name: config.mainName
     },

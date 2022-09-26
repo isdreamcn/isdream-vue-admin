@@ -9,11 +9,13 @@ declare module 'vue-router' {
     icon?: string
     // 外部链接
     link?: string
-    // 缓存
-    keepAlive?: boolean
     // 顺序
     sort?: number
-    // 菜单隐藏
-    hiddenMenu?: boolean
+    // 缓存
+    keepAlive?: boolean
+    // 不显示在菜单中
+    hiddenInMenu?: boolean
+    // 不显示在面包屑中
+    hiddenInBread?: boolean
   }
 }

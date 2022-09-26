@@ -3,15 +3,17 @@
     <MLottie class="lottie-box" :data="data404"></MLottie>
     <div class="actions">
       <div>{{ tip }}</div>
-      <el-link type="primary" class="goBack" href="/">返回首页</el-link>
+      <el-link type="primary" class="goHome" @click="goHome">返回首页</el-link>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import data404 from '@/assets/lottie/not-found-404.json'
+import { useRouter } from 'vue-router'
+import appConfig from '@/config'
 import { randomNum } from '@/utils'
+import data404 from '@/assets/lottie/not-found-404.json'
 
 defineOptions({
   name: 'Error404'
@@ -25,6 +27,13 @@ const tips = [
 ]
 
 const tip = ref(tips[randomNum(0, tips.length - 1)])
+
+const router = useRouter()
+const goHome = () => {
+  router.push({
+    name: appConfig.mainName
+  })
+}
 </script>
 
 <style scoped lang="scss">
@@ -41,7 +50,7 @@ const tip = ref(tips[randomNum(0, tips.length - 1)])
   .actions {
     font-size: 18px;
     color: #999999;
-    .goBack {
+    .goHome {
       margin-top: 20px;
       font-size: 20px;
     }

@@ -1,7 +1,12 @@
 <template>
   <div class="header-container">
     <div class="header-container__tips">
-      <MenuCollapsed></MenuCollapsed>
+      <div class="tips__item">
+        <MenuCollapsed></MenuCollapsed>
+      </div>
+      <div class="tips__item">
+        <Breadcrumb></Breadcrumb>
+      </div>
     </div>
     <div class="header-container__actions">
       <div class="actions__item">
@@ -15,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import { ToggleDark, UserMenu, MenuCollapsed } from '../index'
+import { ToggleDark, UserMenu, MenuCollapsed, Breadcrumb } from '../index'
 
 defineOptions({
   name: 'LayoutCpnHeader'
@@ -32,13 +37,18 @@ defineOptions({
   border-bottom: solid 1px var(--el-menu-border-color);
 
   &__tips {
+    display: flex;
+    align-items: center;
+    .tips__item {
+      padding: 0 10px;
+    }
   }
 
   &__actions {
     display: flex;
     height: 100%;
     .actions__item {
-      padding: 0 15px;
+      padding: 0 10px;
       display: flex;
       align-items: center;
       cursor: pointer;

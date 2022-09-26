@@ -1,16 +1,25 @@
+import type { RouteMeta } from 'vue-router'
 import { defineStore } from 'pinia'
 
+interface routeHistoryItem {
+  name: string
+  meta: RouteMeta
+}
 interface RouterStore {
   keepAliveMap: Map<string, Set<string>>
-  routeHistory: string[]
+  routeHistoryMap: Map<string, routeHistoryItem>
 }
 
 export const useRouterStore = defineStore('router', {
   state: (): RouterStore => ({
     keepAliveMap: new Map(),
-    routeHistory: []
+    routeHistoryMap: new Map()
   }),
-  getters: {},
+  getters: {
+    routeHistory(state) {
+      return [...state.routeHistoryMap.values()]
+    }
+  },
   actions: {
     setupState() {},
     getAlive(key: string) {
@@ -26,6 +35,21 @@ export const useRouterStore = defineStore('router', {
         set.add(name)
       }
       this.keepAliveMap.set(key, set)
+    },
+    // history
+    addRouteHistory(key: string, routeHistoryItem: routeHistoryItem) {
+      if (this.routeHistoryMap.has(key)) {
+        return
+      }
+      this.routeHistoryMap.set(key, routeHistoryItem)
+    },
+    deleteRouteHistory(key: string) {
+      if (this.routeHistoryMap.has(key)) {
+        this.routeHistoryMap.delete(key)
+      }
+    },
+    clearRouteHistory() {
+      this.routeHistoryMap.clear()
     }
   }
 })

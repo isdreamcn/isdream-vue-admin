@@ -4,7 +4,7 @@ import type { ServiceTokenConfig } from '@/service'
 import { wrapperImportMetaEnv } from '@/utils'
 
 export type DefaultRouteMeta = Required<
-  Pick<RouteMeta, 'keepAlive' | 'hiddenMenu'>
+  Pick<RouteMeta, 'keepAlive' | 'hiddenInMenu' | 'hiddenInBread'>
 >
 export interface AppConfig {
   storageConfig: StorageConfig
@@ -36,7 +36,8 @@ const config: AppConfig = {
   // router
   defaultRouteMeta: {
     keepAlive: true,
-    hiddenMenu: false
+    hiddenInMenu: false,
+    hiddenInBread: false
   },
   loginName: 'Login',
   mainName: 'Main',

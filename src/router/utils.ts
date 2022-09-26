@@ -1,8 +1,8 @@
 import type { RouteRecordRaw } from 'vue-router'
-import type { UserMenu } from '@/store/index'
+import type { UserMenu } from '@/store'
 
 import { nextTick } from 'vue'
-import { useUserStore } from '@/store'
+import { useUserStore, useRouterStore } from '@/store'
 import appConfig from '@/config'
 import router from './index'
 
@@ -36,13 +36,14 @@ export class RoutesHandler {
       this.originRoutes = routes
       this.userMenu = this.generatorMenu(routes)
       this.saveUserMenu()
+      this.saveRouteHistory()
     } else {
       this.setNameToRouteMap(routes)
       this.originRoutes = []
     }
   }
 
-  // 根据route.name快速查找route
+  // map根据route.name快速查找route
   setNameToRouteMap(routes: RouteRecordRaw[]) {
     routes.forEach((route) => {
       if (route.name) {
@@ -64,13 +65,13 @@ export class RoutesHandler {
       )
   }
 
-  // routes => 菜单
+  // routes => menu
   generatorMenu(routes: RouteRecordRaw[]): UserMenu[] {
     return routes
       .filter(
         (route) =>
           route.name &&
-          !(route.meta?.hiddenMenu ?? appConfig.defaultRouteMeta.hiddenMenu)
+          !(route.meta?.hiddenInMenu ?? appConfig.defaultRouteMeta.hiddenInMenu)
       )
       .map((route) => ({
         name: String(route.name),
@@ -91,6 +92,34 @@ export class RoutesHandler {
     })
   }
 
+  saveRouteHistory() {
+    nextTick(() => {
+      const routerStore = useRouterStore()
+      routerStore.clearRouteHistory()
+      let initRouteHistory = false
+      const searchFirstRoute = (routes: UserMenu[]) => {
+        if (initRouteHistory) {
+          return
+        }
+        for (const route of routes) {
+          if (!route.children?.length) {
+            initRouteHistory = true
+            routerStore.addRouteHistory(route.name, {
+              name: route.name,
+              meta: {
+                ...route
+              }
+            })
+            return
+          } else {
+            searchFirstRoute(route.children)
+          }
+        }
+      }
+      searchFirstRoute(this.userMenu)
+    })
+  }
+
   // 使用角色菜单
   useRoleMenu(roleMenu: RoleMenu[]) {
     if (this.options.generatorMenu) {
@@ -101,11 +130,12 @@ export class RoutesHandler {
       this.userMenu = this.generatorMenu(this.originRoutes)
     }
     this.saveUserMenu()
+    this.saveRouteHistory()
   }
 
   roleMenuToOriginRoutes(roleMenu: RoleMenu[]): RouteRecordRaw[] {
     return roleMenu
-      .filter((item) => this.routeMap.get(item.name))
+      .filter((item) => this.routeMap.has(item.name))
       .map((item) => {
         const routeItem = this.routeMap.get(item.name)!
         const meta = routeItem.meta || {}
