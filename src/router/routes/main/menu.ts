@@ -23,7 +23,6 @@ export default {
       redirect: {
         name: 'Menu11'
       },
-      component: () => import('@/views/main/menu/menu1/menu1.vue'),
       children: [
         {
           path: 'menu11',

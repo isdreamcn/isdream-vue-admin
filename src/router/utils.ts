@@ -4,6 +4,7 @@ import type { UserMenu } from '@/store'
 import { nextTick } from 'vue'
 import { useUserStore, useRouterStore } from '@/store'
 import appConfig from '@/config'
+import { createBasicLayout } from '@/views/layout'
 import router from './index'
 
 export interface RoutesHandlerOptions {
@@ -31,6 +32,7 @@ export class RoutesHandler {
    */
   constructor(routes: RouteRecordRaw[], options: RoutesHandlerOptions) {
     this.options = options
+    routes = this.autoSetComponent(routes)
     if (options.generatorMenu) {
       routes = this.sortRoutes(routes)
       this.originRoutes = routes
@@ -63,6 +65,20 @@ export class RoutesHandler {
           children: this.sortRoutes(route.children || [])
         })
       )
+  }
+
+  // 自动设置component => (实现深度缓存)
+  // route有`children`、但没有设置component，则自动设置component = createBasicLayout()
+  autoSetComponent(routes: RouteRecordRaw[]) {
+    return routes.map(
+      (route): RouteRecordRaw =>
+        Object.assign(route, {
+          component:
+            route.component ||
+            createBasicLayout(String(route.name || 'default')),
+          children: this.autoSetComponent(route.children || [])
+        })
+    )
   }
 
   // routes => menu
