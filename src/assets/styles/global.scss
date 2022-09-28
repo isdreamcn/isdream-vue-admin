@@ -1,6 +1,14 @@
 // 清除默认样式
 @use 'normalize.css';
+// TODO: https://animate.style/
+@use 'animate.css';
 @use '~/public/iconfont/iconfont.css';
+
+/* This changes all the animations globally */
+:root {
+  --animate-duration: 800ms;
+  --animate-delay: 0.5s;
+}
 
 html, body, #app {
   height: 100%;

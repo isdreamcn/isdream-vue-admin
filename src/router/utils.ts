@@ -73,9 +73,7 @@ export class RoutesHandler {
     return routes.map(
       (route): RouteRecordRaw =>
         Object.assign(route, {
-          component:
-            route.component ||
-            createBasicLayout(String(route.name || 'default')),
+          component: route.component || createBasicLayout(String(route.name)),
           children: this.autoSetComponent(route.children || [])
         })
     )

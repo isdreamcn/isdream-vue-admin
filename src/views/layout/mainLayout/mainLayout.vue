@@ -10,11 +10,7 @@
       <RouteHistory></RouteHistory>
       <div class="main-layout__container">
         <el-main>
-          <RouterView #default="{ Component }">
-            <KeepAlive :include="aliveInclude">
-              <component :is="Component"></component>
-            </KeepAlive>
-          </RouterView>
+          <component :is="createBasicLayout('MainLayout')"></component>
         </el-main>
         <el-footer>
           <Footer />
@@ -25,16 +21,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useRouterStore } from '@/store'
 import { Menu, Header, RouteHistory, Footer } from '../components'
+import { createBasicLayout } from '../index'
 
 defineOptions({
   name: 'MainLayout'
 })
-
-const routerStore = useRouterStore()
-const aliveInclude = computed(() => routerStore.getAlive('MainLayout'))
 </script>
 
 <style scoped lang="scss">
