@@ -22,19 +22,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed } from 'vue'
 import { Menu, Header, RouteHistory, Footer } from '../components'
 import { createBasicLayout } from '../index'
+import { useRouterStore } from '@/store'
 
 defineOptions({
   name: 'MainLayout'
 })
-
-const loading = ref(true)
-
-setTimeout(() => {
-  loading.value = false
-}, 3000)
+const routerStore = useRouterStore()
+const loading = computed(() => routerStore.loading)
 </script>
 
 <style scoped lang="scss">

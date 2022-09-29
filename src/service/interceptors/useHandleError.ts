@@ -50,7 +50,9 @@ export const useHandleError = (): RequestInterceptors => {
     },
     responseInterceptorCatch(err) {
       handleError(err.response.data?.code, err.response.data?.msg)
-      handleError(err.response.status)
+      if (err.response.data?.code !== err.response.status) {
+        handleError(err.response.status)
+      }
       return err
     }
   }

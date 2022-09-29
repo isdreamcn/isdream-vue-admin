@@ -8,12 +8,18 @@ interface routeHistoryItem {
 interface RouterStore {
   keepAliveMap: Map<string, Set<string>>
   routeHistoryMap: Map<string, routeHistoryItem>
+  // 当跳转一个没有缓存的组件，需要加载动画
+  needLoading: Boolean
+  // 请求api显示动画, 200ms防抖
+  loading: Boolean
 }
 
 export const useRouterStore = defineStore('router', {
   state: (): RouterStore => ({
     keepAliveMap: new Map(),
-    routeHistoryMap: new Map()
+    routeHistoryMap: new Map(),
+    needLoading: true,
+    loading: false
   }),
   getters: {
     routeHistory(state) {
@@ -22,6 +28,9 @@ export const useRouterStore = defineStore('router', {
   },
   actions: {
     setupState() {},
+    setState(state: Partial<RouterStore>) {
+      this.$patch(state)
+    },
     getAlive(key: string) {
       const include = this.keepAliveMap.get(key) || []
       return [...include]

@@ -17,5 +17,7 @@ declare module 'vue-router' {
     hiddenInMenu?: boolean
     // 不显示在面包屑中
     hiddenInBread?: boolean
+    // 需要加载动画
+    needLoading?: boolean
   }
 }
