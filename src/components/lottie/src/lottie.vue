@@ -20,10 +20,10 @@ const emit = defineEmits(lottieEmits)
 const style = computed(() => {
   let _style = ''
   if (props.width) {
-    _style += `width: ${props.width}px`
+    _style += `width: ${props.width}px;`
   }
   if (props.height) {
-    _style += `height: ${props.width}px`
+    _style += `height: ${props.width}px;`
   }
   return _style
 })

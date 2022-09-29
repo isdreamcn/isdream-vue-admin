@@ -1,5 +1,6 @@
 <template>
   <el-container class="main-layout">
+    <MLoadingLottie :loading="loading"></MLoadingLottie>
     <el-aside>
       <Menu></Menu>
     </el-aside>
@@ -21,16 +22,24 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import { Menu, Header, RouteHistory, Footer } from '../components'
 import { createBasicLayout } from '../index'
 
 defineOptions({
   name: 'MainLayout'
 })
+
+const loading = ref(true)
+
+setTimeout(() => {
+  loading.value = false
+}, 3000)
 </script>
 
 <style scoped lang="scss">
 .main-layout {
+  position: relative;
   height: 100%;
   .el-aside {
     display: flex;
@@ -47,6 +56,7 @@ defineOptions({
     .main-layout__container {
       flex: 1;
       overflow-y: auto;
+      overflow-x: hidden;
       display: flex;
       flex-direction: column;
       .el-main {

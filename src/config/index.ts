@@ -19,7 +19,7 @@ export interface AppConfig {
 
 const viteEnv = wrapperImportMetaEnv(import.meta.env)
 
-const config: AppConfig = {
+const config: Readonly<AppConfig> = {
   storageConfig: {
     type: 'localStorage',
     prefix: 'isdream',
