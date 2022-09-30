@@ -13,15 +13,15 @@ interface RouterViewProps {
 type BasicLayoutOptions = Pick<DefaultRouteMeta, 'keepAlive'>
 
 const createKeepAliveVNode = (
-  name: string,
+  pathKey: string,
   Component?: VNode,
   route?: RouteLocationNormalizedLoaded
 ) => {
   const routerStore = useRouterStore()
-  const aliveInclude = computed(() => routerStore.getAlive(name))
+  const aliveInclude = computed(() => routerStore.getAlive(pathKey))
   let isRouterViewChildren = true
   if (route) {
-    isRouterViewChildren = !!route?.matched.find((v) => v.name === name)
+    isRouterViewChildren = !!route?.matched.find((v) => v.path === pathKey)
   }
   return h(
     KeepAlive,
@@ -47,21 +47,21 @@ export const createTransitionVNode = (Component: VNode) => {
 }
 
 export const createBasicLayout = (
-  name?: string,
+  pathKey?: string,
   options?: BasicLayoutOptions
 ) =>
   defineComponent({
-    name,
+    name: pathKey,
     setup() {
       return () =>
         h(RouterView, null, {
           default: ({ Component, route }: RouterViewProps) => {
             if (
-              name &&
+              pathKey &&
               (options?.keepAlive ?? appConfig.defaultRouteMeta.keepAlive)
             ) {
               return createTransitionVNode(
-                createKeepAliveVNode(name, Component, route)
+                createKeepAliveVNode(pathKey, Component, route)
               )
             }
             return createTransitionVNode(Component)

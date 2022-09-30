@@ -2,17 +2,19 @@
   <div class="route-history__container">
     <el-tag
       v-for="(route, index) in routeHistory"
-      :key="route.name"
+      :key="route.pathKey"
       :closable="index !== 0"
-      :effect="routeName === route.name ? 'dark' : 'plain'"
+      :effect="routePathKey === route.pathKey ? 'dark' : 'plain'"
       :type="
-        hoverRouteName === route.name || routeName === route.name ? '' : 'info'
+        hoverRoutePathKey === route.pathKey || routePathKey === route.pathKey
+          ? ''
+          : 'info'
       "
-      @mouseover="mouseover(route.name)"
+      @mouseover="mouseover(route.pathKey)"
       @mouseout="mouseout"
-      @close="handleClose(route.name, routeHistory[index - 1].name)"
-      @click="goPath(route.name)"
-      >{{ route.meta.title || route.name }}</el-tag
+      @close="handleClose(route.pathKey, routeHistory[index - 1].pathKey)"
+      @click="goPath(route.pathKey)"
+      >{{ route.meta.title || route.pathKey }}</el-tag
     >
   </div>
 </template>
@@ -30,33 +32,35 @@ const routerStore = useRouterStore()
 const routeHistory = computed(() => routerStore.routeHistory)
 
 // 鼠标悬浮的routeName
-const hoverRouteName = ref('')
+const hoverRoutePathKey = ref('')
 const mouseout = () => {
-  hoverRouteName.value = ''
+  hoverRoutePathKey.value = ''
 }
 const mouseover = (name: string) => {
-  hoverRouteName.value = name
+  hoverRoutePathKey.value = name
 }
 
-// 当前的路由name
+// 当前的路由path
 const route = useRoute()
-const routeName = computed(() => route.name)
+const routePathKey = computed(
+  () => route.matched[route.matched.length - 1].path
+)
 
 // 移除
-const handleClose = (name: string, preName: string) => {
-  routerStore.deleteRouteHistory(name)
-  if (name === routeName.value) {
-    goPath(preName)
+const handleClose = (pathKey: string, prePathKey: string) => {
+  routerStore.deleteRouteHistory(pathKey)
+  if (pathKey === routePathKey.value) {
+    goPath(prePathKey)
   }
 }
 
 const router = useRouter()
-const goPath = (name: string) => {
-  if (name === routeName.value) {
+const goPath = (pathKey: string) => {
+  if (pathKey === routePathKey.value) {
     return
   }
   router.push({
-    name
+    path: pathKey
   })
 }
 </script>

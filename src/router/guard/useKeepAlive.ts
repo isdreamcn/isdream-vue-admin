@@ -4,15 +4,15 @@ import { useRouterStore } from '@/store'
 
 export const useKeepAlive = (router: Router) => {
   const routerStore = useRouterStore()
-  router.beforeEach((to) => {
+  router.afterEach((to) => {
     if (to.meta.keepAlive ?? appConfig.defaultRouteMeta.keepAlive) {
       const matched = to.matched
       const len = matched.length - 1
       for (let i = 0; i < len; i++) {
-        const key = matched[i].name
-        const name = matched[i + 1].name
+        const key = matched[i].path
+        const name = matched[i + 1].components?.default.name
         if (key && name) {
-          routerStore.addAlive(String(key), String(name))
+          routerStore.addAlive(key, name)
         }
       }
     }

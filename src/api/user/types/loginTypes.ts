@@ -6,8 +6,7 @@ export interface UserLoginParams {
 export interface UserMenu {
   id: number
   title?: string
-  // 路由name
-  name: string
+  pathKey: string
   icon?: string
   link?: string
   children?: UserMenu[]

@@ -2,7 +2,7 @@
   <template v-for="item in props.menu" :key="item.name">
     <el-sub-menu
       v-if="Array.isArray(item.children) && item.children.length"
-      :index="item.name"
+      :index="item.pathKey"
     >
       <template #title>
         <MIcon v-if="item.icon" :name="item.icon"></MIcon>
@@ -10,12 +10,7 @@
       </template>
       <SubMenu :menu="item.children" @click="clickMenuItem"></SubMenu>
     </el-sub-menu>
-    <el-menu-item
-      v-else
-      :index="item.name"
-      :route="item"
-      @click="clickMenuItem(item)"
-    >
+    <el-menu-item v-else :index="item.pathKey" @click="clickMenuItem(item)">
       <MIcon v-if="item.icon" :name="item.icon"></MIcon>
       <template #title>{{ item.title }}</template>
     </el-menu-item>

@@ -1,7 +1,7 @@
 <template>
   <Logo></Logo>
   <el-menu
-    :default-active="routeName"
+    :default-active="routePathKey"
     class="menu-container"
     :collapse="collapsed"
   >
@@ -22,10 +22,10 @@ defineOptions({
 })
 
 const router = useRouter()
-const routeName = computed<string | undefined>(() => {
-  const route = useRoute()
-  return String(route.name)
-})
+const route = useRoute()
+const routePathKey = computed<string | undefined>(
+  () => route.matched[route.matched.length - 1].path
+)
 
 const appStore = useAppStore()
 const collapsed = computed(() => appStore.appSetting.menu.collapsed)
@@ -38,10 +38,8 @@ const clickMenuItem = (item: UserMenu) => {
     window.open(item.link)
     return
   }
-  if (item.name !== routeName.value) {
-    router.push({
-      name: item.name
-    })
+  if (item.pathKey !== routePathKey.value) {
+    router.push(item.pathKey)
   }
 }
 </script>

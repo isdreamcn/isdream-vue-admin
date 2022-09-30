@@ -26,49 +26,46 @@ export const useUserList = (): UserList[] => {
         {
           id: 1,
           title: '首页MockRole',
-          // 路由name
-          name: 'Main',
+          pathKey: '/home',
           icon: 'iconfont-shoucang'
         },
         {
           id: 2,
-          // 路由name
-          name: 'About'
+          pathKey: '/about'
         },
         {
           id: 3,
-          // 路由name
-          name: 'Menu',
+          pathKey: '/menu',
           children: [
             {
               id: 4,
-              name: 'Menu1',
+              pathKey: '/menu/menu1',
               children: [
                 {
                   id: 5,
-                  name: 'Menu11'
+                  pathKey: '/menu/menu1/menu11'
                 }
               ]
             },
             {
               id: 6,
-              name: 'Menu2'
+              pathKey: '/menu/menu2'
             }
           ]
         },
         {
           id: 7,
-          name: 'System',
+          pathKey: '/system',
           children: [
             {
               id: 8,
-              name: 'SystemUser'
+              pathKey: '/system/user'
             }
           ]
         },
         {
           id: 9,
-          name: 'Link'
+          pathKey: '/link'
         }
       ]
     }

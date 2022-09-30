@@ -2,7 +2,7 @@ import type { RouteMeta } from 'vue-router'
 import { defineStore } from 'pinia'
 
 interface routeHistoryItem {
-  name: string
+  pathKey: string
   meta: RouteMeta
 }
 interface RouterStore {

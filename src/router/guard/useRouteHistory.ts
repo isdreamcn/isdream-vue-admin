@@ -4,13 +4,12 @@ export const useRouteHistory = (router: Router) => {
   const routerStore = useRouterStore()
 
   router.beforeEach((to) => {
-    if (!to.name) {
-      return
-    }
-    const _name = String(to.name)
-    routerStore.addRouteHistory(_name, {
-      name: _name,
-      meta: to.meta
+    routerStore.addRouteHistory(to.path, {
+      pathKey: to.path,
+      meta: {
+        title: to.path,
+        ...to.meta
+      }
     })
   })
 }

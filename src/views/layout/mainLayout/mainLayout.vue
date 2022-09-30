@@ -11,7 +11,7 @@
       <RouteHistory></RouteHistory>
       <div class="main-layout__container">
         <el-main>
-          <component :is="createBasicLayout('MainLayout')"></component>
+          <component :is="createBasicLayout('/')"></component>
         </el-main>
         <el-footer>
           <Footer />
