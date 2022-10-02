@@ -15,5 +15,7 @@ const router = createRouter({
 
 useGuard(router)
 
-export { routesHandler } from './routes'
 export default router
+
+export { routesHandler } from './routes'
+export type { RouteMapItem, RoleMenu } from './utils'
