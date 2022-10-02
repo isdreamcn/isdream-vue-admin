@@ -34,22 +34,26 @@ export const useUserList = (): UserList[] => {
           pathKey: '/about'
         },
         {
+          id: 9,
+          pathKey: '/demo/link'
+        },
+        {
           id: 3,
-          pathKey: '/menu',
+          pathKey: '/demo/menu',
           children: [
             {
               id: 4,
-              pathKey: '/menu/menu1',
+              pathKey: '/demo/menu/menu1',
               children: [
                 {
                   id: 5,
-                  pathKey: '/menu/menu1/menu11'
+                  pathKey: '/demo/menu/menu1/menu11'
                 }
               ]
             },
             {
               id: 6,
-              pathKey: '/menu/menu2'
+              pathKey: '/demo/menu/menu2'
             }
           ]
         },
@@ -62,10 +66,6 @@ export const useUserList = (): UserList[] => {
               pathKey: '/system/user'
             }
           ]
-        },
-        {
-          id: 9,
-          pathKey: '/link'
         }
       ]
     }

@@ -10,7 +10,7 @@ export const routesHandler = new RoutesHandler(
   {
     generatorMenu: true,
     addRouteParentName: 'MainLayout',
-    flatRoutes: true
+    flatRoutes: false
   }
 )
 

@@ -109,7 +109,7 @@ export class RoutesHandler {
         } else {
           _routes.push({
             ...route,
-            path
+            path: this.options.generatorMenu ? path : route.path
           })
         }
       })
@@ -144,7 +144,7 @@ export class RoutesHandler {
       .map((route) => {
         const pathKey = `${prePathKey}/${route.path}`
         return {
-          pathKey,
+          pathKey: this.options.generatorMenu ? pathKey : route.path,
           title: route.meta?.title || pathKey,
           icon: route.meta?.icon,
           link: route.meta?.link,
@@ -210,6 +210,7 @@ export class RoutesHandler {
     this.saveRouteHistory()
   }
 
+  // path => pathKey
   private roleMenuToOriginRoutes(roleMenu: RoleMenu[]): RouteRecordRaw[] {
     return roleMenu
       .filter((item) => this.routeMap.has(item.pathKey))
@@ -227,7 +228,7 @@ export class RoutesHandler {
           children: this.roleMenuToOriginRoutes(item.children || [])
         }
         this.routeMap.set(item.pathKey, _route)
-        return _route
+        return { ..._route, path: routeItem.pathKey }
       })
   }
   // 根据角色权限注册路由、生成菜单
