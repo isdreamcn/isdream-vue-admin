@@ -1,5 +1,6 @@
 import Header from './header/header.vue'
 import ToggleDark from './toggleDark/toggleDark.vue'
+import AppSetting from './appSetting/appSetting.vue'
 import UserMenu from './userMenu/userMenu.vue'
 import Breadcrumb from './breadcrumb/breadcrumb.vue'
 
@@ -16,6 +17,7 @@ export {
   Menu,
   Footer,
   ToggleDark,
+  AppSetting,
   UserMenu,
   Logo,
   MenuCollapsed,

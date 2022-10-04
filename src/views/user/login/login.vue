@@ -74,8 +74,8 @@
 import { ref } from 'vue'
 import config from '@/config'
 
-import { useLogin } from './hook/useLogin'
-import { useSignin } from './hook/useSignin'
+import { useLogin } from './hooks/useLogin'
+import { useSignin } from './hooks/useSignin'
 defineOptions({
   name: config.loginName
 })

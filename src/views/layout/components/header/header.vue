@@ -13,14 +13,14 @@
         <UserMenu></UserMenu>
       </div>
       <div class="actions__item">
-        <ToggleDark></ToggleDark>
+        <AppSetting></AppSetting>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ToggleDark, UserMenu, MenuCollapsed, Breadcrumb } from '../index'
+import { AppSetting, UserMenu, MenuCollapsed, Breadcrumb } from '../index'
 
 defineOptions({
   name: 'LayoutCpnHeader'

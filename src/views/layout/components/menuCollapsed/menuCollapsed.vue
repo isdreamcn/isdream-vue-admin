@@ -35,7 +35,7 @@ const setMenuCollapsed = () => {
 
 <style lang="scss" scoped>
 .fold-expand {
-  font-size: 30px;
+  font-size: 25px;
   cursor: pointer;
   display: flex;
   align-items: center;

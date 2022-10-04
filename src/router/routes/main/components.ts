@@ -9,14 +9,15 @@ export default {
   },
   children: [
     {
-      path: 'color-pick',
-      name: 'ColorPick',
+      path: 'color-picker',
+      name: 'ColorPicker',
       meta: {
         title: '颜色选择器',
         sort: 1,
         icon: 'icon-ticket'
       },
-      component: () => import('@/views/main/components/colorPick/colorPick.vue')
+      component: () =>
+        import('@/views/main/components/colorPicker/colorPicker.vue')
     }
   ]
 } as RouteRecordRaw

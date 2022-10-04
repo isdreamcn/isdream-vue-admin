@@ -17,14 +17,13 @@ export const createMergeObjFn = (options: MergeObjOptions) => {
     obj1: T,
     obj2: O
   ) => {
-    const type = isArray(obj1) ? 'array' : 'object'
-    const _o: any = type === 'array' ? [] : {}
+    let _o: any = { ...obj1 }
+    if (isArray(obj1)) {
+      _o = [...obj1]
+    }
     for (const [key, value] of Object.entries(obj2)) {
       const _key = key as keyof O & string
       if (!options.overlayable(value, key, obj1, obj2)) {
-        if (hasOwn(obj1, _key)) {
-          _o[key] = obj1[_key]
-        }
         continue
       }
       if (
