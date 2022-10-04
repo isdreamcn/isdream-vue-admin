@@ -1,7 +1,7 @@
 import type { ExtractPropTypes } from 'vue'
 import type ColorPicker from './colorPicker.vue'
 import { isString } from '@vue/shared'
-import { buildProps, definePropType } from '@/utils/components/props'
+import { buildProps, definePropType } from '@/utils'
 import { UPDATE_MODEL_EVENT, CHANGE_EVENT } from '@/constants/event'
 
 interface OptionsItem {

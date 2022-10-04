@@ -1,4 +1,4 @@
-import { withInstall } from '@/utils/intsall'
+import { withInstall } from '@/utils'
 import Demo from './src/demo.vue'
 
 export const MDemo = withInstall(Demo)

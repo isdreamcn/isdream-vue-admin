@@ -44,7 +44,9 @@ declare module '@vue/runtime-core' {
     MLoading: typeof import('@/components')['MLoading']
     MLoadingLottie: typeof import('@/components')['MLoadingLottie']
     MLottie: typeof import('@/components')['MLottie']
+    MTabel: typeof import('@/components')['MTabel']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Tabel: typeof import('./src/components/tabel/src/tabel.vue')['default']
   }
 }

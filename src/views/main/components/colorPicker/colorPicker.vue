@@ -9,7 +9,7 @@
 import { ref } from 'vue'
 
 defineOptions({
-  name: 'ColorPicker'
+  name: 'DemoCpnsMColorPicker'
 })
 
 const color = ref('#1890FF')

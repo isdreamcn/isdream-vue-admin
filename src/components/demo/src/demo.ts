@@ -1,6 +1,6 @@
 import type { ExtractPropTypes } from 'vue'
 import type Demo from './demo.vue'
-import { buildProps } from '@/utils/components/props'
+import { buildProps } from '@/utils'
 
 export const demoProps = buildProps({
   disabled: Boolean,

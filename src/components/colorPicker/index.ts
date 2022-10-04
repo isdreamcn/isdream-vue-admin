@@ -1,4 +1,4 @@
-import { withInstall } from '@/utils/intsall'
+import { withInstall } from '@/utils'
 import ColorPicker from './src/colorPicker.vue'
 import ColorPickerAppTheme from './src/colorPickerAppTheme.vue'
 

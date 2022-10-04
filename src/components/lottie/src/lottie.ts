@@ -1,4 +1,4 @@
-import { buildProps, definePropType } from '@/utils/components/props'
+import { buildProps, definePropType } from '@/utils'
 
 import type { ExtractPropTypes } from 'vue'
 import { AnimationItem, AnimationConfig } from 'lottie-web'

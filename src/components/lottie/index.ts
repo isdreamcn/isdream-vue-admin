@@ -1,4 +1,4 @@
-import { withInstall } from '@/utils/intsall'
+import { withInstall } from '@/utils'
 import Lottie from './src/lottie.vue'
 
 export const MLottie = withInstall(Lottie)

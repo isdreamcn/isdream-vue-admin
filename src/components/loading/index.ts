@@ -1,4 +1,4 @@
-import { withInstall } from '@/utils/intsall'
+import { withInstall } from '@/utils'
 import Loading from './src/loading.vue'
 import LoadingLottie from './src/loading-lottie.vue'
 

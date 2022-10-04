@@ -10,14 +10,18 @@ export default {
   children: [
     {
       path: 'color-picker',
-      name: 'ColorPicker',
       meta: {
-        title: '颜色选择器',
-        sort: 1,
-        icon: 'icon-ticket'
+        title: '颜色选择器'
       },
       component: () =>
         import('@/views/main/components/colorPicker/colorPicker.vue')
+    },
+    {
+      path: 'tabel',
+      meta: {
+        title: '表格'
+      },
+      component: () => import('@/views/main/components/tabel/tabel.vue')
     }
   ]
 } as RouteRecordRaw

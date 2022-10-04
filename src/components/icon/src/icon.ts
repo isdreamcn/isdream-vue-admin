@@ -1,6 +1,6 @@
 import type { ExtractPropTypes } from 'vue'
 import type Icon from './icon.vue'
-import { buildProps } from '@/utils/components/props'
+import { buildProps } from '@/utils'
 
 export const iconProps = buildProps({
   size: Number,

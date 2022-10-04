@@ -1,6 +1,6 @@
 import type { ExtractPropTypes } from 'vue'
 import type Loading from './loading.vue'
-import { buildProps } from '@/utils/components/props'
+import { buildProps } from '@/utils'
 
 export const loadingProps = buildProps({
   loading: {
