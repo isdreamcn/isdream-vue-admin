@@ -14,7 +14,7 @@ const failAuth = () => {
   })
 }
 interface FailHandler {
-  msg?: string
+  message?: string
   handler?: () => void
 }
 
@@ -25,11 +25,11 @@ const failCodeMap = new Map<HttpStatusCode, FailHandler>([
   [HttpStatusCode.Not_Found, {}]
 ])
 
-const handleError = (code: number, msg?: string) => {
+const handleError = (code: number, message?: string) => {
   const failHandler = failCodeMap.get(code)
   if (failHandler) {
-    if (msg || failHandler.msg) {
-      ElMessage.error(msg || failHandler.msg)
+    if (message || failHandler.message) {
+      ElMessage.error(message || failHandler.message)
     }
     if (failHandler.handler) {
       failHandler.handler()
@@ -43,13 +43,13 @@ export const useHandleError = (): RequestInterceptors => {
   return {
     responseInterceptor(config) {
       const data = config.data
-      if (handleError(data.code, data.msg)) {
+      if (handleError(data.code, data.message)) {
         throw { response: config }
       }
       return config
     },
     responseInterceptorCatch(err) {
-      handleError(err.response.data?.code, err.response.data?.msg)
+      handleError(err.response.data?.code, err.response.data?.message)
       if (err.response.data?.code !== err.response.status) {
         handleError(err.response.status)
       }

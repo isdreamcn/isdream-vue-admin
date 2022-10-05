@@ -1,17 +1,17 @@
 import type { RouteMeta } from 'vue-router'
 import { defineStore } from 'pinia'
 
-interface routeHistoryItem {
+interface RouteHistoryItem {
   pathKey: string
   meta: RouteMeta
 }
 interface RouterStore {
   keepAliveMap: Map<string, Set<string>>
-  routeHistoryMap: Map<string, routeHistoryItem>
+  routeHistoryMap: Map<string, RouteHistoryItem>
   // 当跳转一个没有缓存的组件，需要加载动画
-  needLoading: Boolean
+  needLoading: boolean
   // 请求api显示动画, 200ms防抖
-  loading: Boolean
+  loading: boolean
 }
 
 export const useRouterStore = defineStore('router', {
@@ -46,11 +46,11 @@ export const useRouterStore = defineStore('router', {
       this.keepAliveMap.set(key, set)
     },
     // history
-    addRouteHistory(key: string, routeHistoryItem: routeHistoryItem) {
+    addRouteHistory(key: string, RouteHistoryItem: RouteHistoryItem) {
       if (this.routeHistoryMap.has(key)) {
         return
       }
-      this.routeHistoryMap.set(key, routeHistoryItem)
+      this.routeHistoryMap.set(key, RouteHistoryItem)
     },
     deleteRouteHistory(key: string) {
       if (this.routeHistoryMap.has(key)) {

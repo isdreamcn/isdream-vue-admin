@@ -11,7 +11,7 @@ export default [
       return {
         data: [{ id: 1, name: 'demo1' }],
         code: HttpStatusCode.OK,
-        msg: 'ok'
+        message: 'ok'
       }
     }
   },
@@ -24,7 +24,7 @@ export default [
       return {
         data: [],
         code: HttpStatusCode.Not_Found,
-        msg: 'demo测试错误'
+        message: 'demo测试错误'
       }
     }
   }

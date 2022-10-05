@@ -1,5 +1,5 @@
 import type { IncomingMessage, ServerResponse } from 'http'
-import type { requestParams } from './_types'
+import type { RequestParams } from './_types'
 import type { UserLoginResult } from '@/api/user/types/loginTypes'
 import url from 'url'
 import { HttpStatusCode } from '@/constants'
@@ -72,7 +72,7 @@ export const useUserList = (): UserList[] => {
   ]
 }
 
-type rawResponseHandlerFn<T extends object> = (config: requestParams<T>) => {
+type RawResponseHandlerFn<T extends object> = (config: RequestParams<T>) => {
   data: any
   statusCode?: number
 }
@@ -82,7 +82,7 @@ type rawResponseHandlerFn<T extends object> = (config: requestParams<T>) => {
  */
 // 生产模式rawResponse不支持
 export const rawResponseHandler = <T extends object>(
-  fn: rawResponseHandlerFn<T>
+  fn: RawResponseHandlerFn<T>
 ) => {
   return async (req: IncomingMessage, res: ServerResponse) => {
     let reqbody = ''
@@ -98,12 +98,38 @@ export const rawResponseHandler = <T extends object>(
       body: JSON.parse(reqbody),
       headers: req.headers,
       query: url.parse(req.url || '', true).query
-    } as requestParams<T>
+    } as RequestParams<T>
 
     const { statusCode = HttpStatusCode.OK, data } = fn(config)
 
     res.statusCode = statusCode
     res.setHeader('Content-Type', 'text/plain;charset=utf-8')
     res.end(JSON.stringify(data))
+  }
+}
+
+interface ResultPaginationOptions {
+  page: number
+  pageSize: number
+  count?: number
+}
+
+type DataItemFn = (index: number) => any
+
+export const resultPagination = (
+  dataItemFn: DataItemFn,
+  options?: ResultPaginationOptions
+): Service.ResultPagination => {
+  const { page = 1, pageSize = 10, count = 100 } = options || {}
+  const data: any[] = []
+  const start = (page - 1) * pageSize
+  const end = page * pageSize > count ? count : page * pageSize
+
+  for (let i = start + 1; i <= end; i++) {
+    data.push(dataItemFn(i))
+  }
+  return {
+    data,
+    count
   }
 }

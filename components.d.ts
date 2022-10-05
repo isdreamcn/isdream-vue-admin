@@ -32,6 +32,8 @@ declare module '@vue/runtime-core' {
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
+    ElTable: typeof import('element-plus/es')['ElTable']
+    ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElTag: typeof import('element-plus/es')['ElTag']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     Icon: typeof import('./src/components/icon/src/icon.vue')['default']
@@ -44,9 +46,9 @@ declare module '@vue/runtime-core' {
     MLoading: typeof import('@/components')['MLoading']
     MLoadingLottie: typeof import('@/components')['MLoadingLottie']
     MLottie: typeof import('@/components')['MLottie']
-    MTabel: typeof import('@/components')['MTabel']
+    MTable: typeof import('@/components')['MTable']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    Tabel: typeof import('./src/components/tabel/src/tabel.vue')['default']
+    Table: typeof import('./src/components/table/src/table.vue')['default']
   }
 }

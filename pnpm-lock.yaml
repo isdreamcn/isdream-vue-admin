@@ -4,10 +4,12 @@ specifiers:
   '@commitlint/cli': ^17.1.2
   '@commitlint/config-conventional': ^17.1.0
   '@element-plus/icons-vue': ^2.0.9
+  '@types/mockjs': ^1.0.7
   '@types/sass': ^1.43.1
   '@typescript-eslint/eslint-plugin': ^5.36.0
   '@typescript-eslint/parser': ^5.36.0
   '@vitejs/plugin-vue': ^3.0.3
+  '@vue/runtime-core': ^3.2.40
   '@vue/shared': ^3.2.38
   animate.css: ^4.1.1
   axios: ^0.27.2
@@ -47,6 +49,7 @@ dependencies:
   element-plus: 2.2.15_vue@3.2.38
   lodash-unified: 1.0.2
   lottie-web: 5.9.6
+  mockjs: 1.1.0
   normalize.css: 8.0.1
   pinia: 2.0.21_pj7ch6rmow6odq73xb5hfvge3q
   vue: 3.2.38
@@ -55,10 +58,12 @@ dependencies:
 devDependencies:
   '@commitlint/cli': 17.1.2
   '@commitlint/config-conventional': 17.1.0
+  '@types/mockjs': 1.0.7
   '@types/sass': 1.43.1
   '@typescript-eslint/eslint-plugin': 5.36.1_lbwfnm54o3pmr3ypeqp3btnera
   '@typescript-eslint/parser': 5.36.1_yqf6kl63nyoq5megxukfnom5rm
   '@vitejs/plugin-vue': 3.0.3_vite@3.0.9+vue@3.2.38
+  '@vue/runtime-core': 3.2.40
   commitizen: 4.2.5
   cross-env: 7.0.3
   cz-conventional-changelog: 3.3.0
@@ -67,7 +72,6 @@ devDependencies:
   eslint-plugin-prettier: 4.2.1_tgumt6uwl2md3n6uqnggd6wvce
   eslint-plugin-vue: 9.4.0_eslint@8.23.0
   husky: 8.0.1
-  mockjs: 1.1.0
   prettier: 2.7.1
   sass: 1.54.8
   typescript: 4.8.2
@@ -500,8 +504,8 @@ packages:
     resolution: {integrity: sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==}
     dev: true
 
-  /@types/mockjs/1.0.6:
-    resolution: {integrity: sha512-Yu5YlqbYZyqsd6LjO4e8ONJDN9pTSnciHDcRP4teNOh/au2b8helFhgRx+3w8xsTFEnwr9jtfTVJbAx+eYmlHA==}
+  /@types/mockjs/1.0.7:
+    resolution: {integrity: sha512-OCxXz6hEaJOVpRwuJMiVY5a6LtJcih+br9gwB/Q8ooOBikvk5FpBQ31OlNimXo3EqKha1Z7PFBni+q9m+8NCWg==}
     dev: true
 
   /@types/node/14.18.26:
@@ -782,11 +786,24 @@ packages:
     dependencies:
       '@vue/shared': 3.2.38
 
+  /@vue/reactivity/3.2.40:
+    resolution: {integrity: sha512-N9qgGLlZmtUBMHF9xDT4EkD9RdXde1Xbveb+niWMXuHVWQP5BzgRmE3SFyUBBcyayG4y1lhoz+lphGRRxxK4RA==}
+    dependencies:
+      '@vue/shared': 3.2.40
+    dev: true
+
   /@vue/runtime-core/3.2.38:
     resolution: {integrity: sha512-kk0qiSiXUU/IKxZw31824rxmFzrLr3TL6ZcbrxWTKivadoKupdlzbQM4SlGo4MU6Zzrqv4fzyUasTU1jDoEnzg==}
     dependencies:
       '@vue/reactivity': 3.2.38
       '@vue/shared': 3.2.38
+
+  /@vue/runtime-core/3.2.40:
+    resolution: {integrity: sha512-U1+rWf0H8xK8aBUZhnrN97yoZfHbjgw/bGUzfgKPJl69/mXDuSg8CbdBYBn6VVQdR947vWneQBFzdhasyzMUKg==}
+    dependencies:
+      '@vue/reactivity': 3.2.40
+      '@vue/shared': 3.2.40
+    dev: true
 
   /@vue/runtime-dom/3.2.38:
     resolution: {integrity: sha512-4PKAb/ck2TjxdMSzMsnHViOrrwpudk4/A56uZjhzvusoEU9xqa5dygksbzYepdZeB5NqtRw5fRhWIiQlRVK45A==}
@@ -806,6 +823,10 @@ packages:
 
   /@vue/shared/3.2.38:
     resolution: {integrity: sha512-dTyhTIRmGXBjxJE+skC8tTWCGLCVc4wQgRRLt8+O9p5ewBAjoBwtCAkLPrtToSr1xltoe3st21Pv953aOZ7alg==}
+
+  /@vue/shared/3.2.40:
+    resolution: {integrity: sha512-0PLQ6RUtZM0vO3teRfzGi4ltLUO5aO+kLgwh4Um3THSR03rpQWLTuRCkuO5A41ITzwdWeKdPHtSARuPkoo5pCQ==}
+    dev: true
 
   /@vueuse/core/9.1.1_vue@3.2.38:
     resolution: {integrity: sha512-QfuaNWRDMQcCUwXylCyYhPC3ScS9Tiiz4J0chdwr3vOemBwRToSywq8MP+ZegKYFnbETzRY8G/5zC+ca30wrRQ==}
@@ -1180,7 +1201,6 @@ packages:
   /commander/9.4.0:
     resolution: {integrity: sha512-sRPT+umqkz90UA8M1yqYfnHlZA7fF6nSphDtxeywPZ49ysjxDQybzk13CL+mXekDRG92skbcqCLVovuCusNmFw==}
     engines: {node: ^12.20.0 || >=14}
-    dev: true
 
   /commitizen/4.2.5:
     resolution: {integrity: sha512-9sXju8Qrz1B4Tw7kC5KhnvwYQN88qs2zbiB8oyMsnXZyJ24PPGiNM3nHr73d32dnE3i8VJEXddBFIbOgYSEXtQ==}
@@ -2530,7 +2550,7 @@ packages:
     dev: true
 
   /isexe/2.0.0:
-    resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
+    resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smessagecq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
     dev: true
 
   /jake/10.8.5:
@@ -2819,7 +2839,6 @@ packages:
     hasBin: true
     dependencies:
       commander: 9.4.0
-    dev: true
 
   /ms/2.0.0:
     resolution: {integrity: sha512-Tpp60P6IUJDTuOq/5Z8cdskzJujfwqfOTkrwIwj7IRISpnkJnT6SyJ4PCPnGMoFjC9ddhal5KVIYtAt97ix05A==}
@@ -3825,7 +3844,7 @@ packages:
       vite: '>=2.0.0'
     dependencies:
       '@rollup/plugin-node-resolve': 13.3.0
-      '@types/mockjs': 1.0.6
+      '@types/mockjs': 1.0.7
       chalk: 4.1.2
       chokidar: 3.5.3
       connect: 3.7.0

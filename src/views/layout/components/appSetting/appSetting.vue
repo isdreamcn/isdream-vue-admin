@@ -11,7 +11,6 @@
 </template>
 
 <script setup lang="ts">
-import type { Ref } from 'vue'
 import type { ElDrawer } from 'element-plus'
 import { ref, nextTick } from 'vue'
 import { ToggleDark } from '../index'
@@ -21,7 +20,7 @@ defineOptions({
   name: 'AppSetting'
 })
 
-const drawerRef: Ref<InstanceType<typeof ElDrawer> | null> = ref(null)
+const drawerRef = ref<InstanceType<typeof ElDrawer> | null>(null)
 
 // 取消 el-drawer 懒加载
 nextTick(() => {

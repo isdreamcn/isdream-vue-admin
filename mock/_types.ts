@@ -1,4 +1,4 @@
-export interface requestParams<T extends object = object> {
+export interface RequestParams<T extends object = any> {
   method: string
   body: T
   headers?: { authorization?: string }

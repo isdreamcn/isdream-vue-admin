@@ -35,13 +35,13 @@ export const wrapperImportMetaEnv = (env: ImportMetaEnv): ViteEnv => {
   }
 }
 
-type verifyObjTip = Record<
+type VerifyObjTip = Record<
   string,
   string | ((val?: any, key?: string) => string | void)
 >
 // 校验对象
 export const verifyObj = (
-  tip: verifyObjTip,
+  tip: VerifyObjTip,
   obj: Record<string, any>,
   verifyFn = (val: any) => (val ?? false) !== false
 ): boolean => {

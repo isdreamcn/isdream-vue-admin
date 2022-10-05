@@ -17,11 +17,11 @@ export default {
         import('@/views/main/components/colorPicker/colorPicker.vue')
     },
     {
-      path: 'tabel',
+      path: 'table',
       meta: {
         title: '表格'
       },
-      component: () => import('@/views/main/components/tabel/tabel.vue')
+      component: () => import('@/views/main/components/table/table.vue')
     }
   ]
 } as RouteRecordRaw

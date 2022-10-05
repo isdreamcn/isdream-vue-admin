@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import { getDemoList1, getDemoList2 } from '@/api/demo'
+import { getDemoList1, getDemoList2 } from '@/api/main/demo'
 
 defineOptions({
   name: 'DemoShowLoading'
