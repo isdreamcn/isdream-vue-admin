@@ -18,6 +18,9 @@ export default [
             name: '@cname',
             address: '@city()',
             email: '@email',
+            userinfo: {
+              origin: 'mock'
+            },
             avatar: Random.image(
               '400x400',
               Random.color(),
@@ -28,8 +31,8 @@ export default [
             updateAt: '@datetime'
           }),
           {
-            page: query.page,
-            pageSize: query.pageSize,
+            page: query.page ?? 1,
+            pageSize: query.pageSize ?? 100,
             count: 100
           }
         ),

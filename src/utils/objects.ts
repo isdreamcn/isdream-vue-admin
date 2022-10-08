@@ -48,3 +48,18 @@ export const mergeObjDeep = createMergeObjFn({
 })
 
 export { hasOwn } from '@vue/shared'
+
+export function getVal(form: any, s: string) {
+  if (!isObject(form)) {
+    return
+  }
+  return s
+    .replace(/\[(\w+)\]/g, '.$1')
+    .replace(/^\./, '')
+    .split('.')
+    .reduce((prev: object | undefined, cur) => {
+      if (prev && hasOwn(prev, cur)) {
+        return prev[cur]
+      }
+    }, form)
+}

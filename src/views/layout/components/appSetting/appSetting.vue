@@ -20,7 +20,7 @@ defineOptions({
   name: 'AppSetting'
 })
 
-const drawerRef = ref<InstanceType<typeof ElDrawer> | null>(null)
+const drawerRef = ref<InstanceType<typeof ElDrawer>>()
 
 // 取消 el-drawer 懒加载
 nextTick(() => {

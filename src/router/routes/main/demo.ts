@@ -17,7 +17,8 @@ export default {
       name: 'DemoShowLoading',
       meta: {
         title: '加载动画',
-        icon: 'icon-loading'
+        icon: 'icon-loading',
+        needLoading: true
       },
       component: () => import('@/views/main/demo/showLoading/showLoading.vue')
     },

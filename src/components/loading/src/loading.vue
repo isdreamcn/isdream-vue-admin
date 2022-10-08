@@ -1,6 +1,6 @@
 <template>
   <transition appear leave-active-class="animate__animated animate__zoomOut">
-    <div v-show="props.loading" class="loading-container">
+    <div v-show="props.loading" class="m-loading-container">
       <slot>Loading~</slot>
     </div>
   </transition>
@@ -17,7 +17,7 @@ const props = defineProps(loadingProps)
 </script>
 
 <style lang="scss" scoped>
-.loading-container {
+.m-loading-container {
   position: absolute;
   top: 0;
   bottom: 0;

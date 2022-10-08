@@ -1,5 +1,5 @@
 <template>
-  <div class="lottie-container" :style="style" ref="lottieContainerRef"></div>
+  <div class="m-lottie-container" :style="style" ref="lottieContainerRef"></div>
 </template>
 
 <script setup lang="ts">
@@ -53,7 +53,7 @@ defineExpose({
 </script>
 
 <style scoped lang="scss">
-.lottie-container {
+.m-lottie-container {
   width: 100%;
   height: 100%;
 }
