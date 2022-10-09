@@ -22,7 +22,7 @@ export const useAutoImportComponents = () => {
           if (componentName.startsWith('M'))
             return { name: componentName, from: '@/components' }
         }
-        // @element-plus/icons-vue 已全局注册(为了支出动态组件)
+        // @element-plus/icons-vue 已全局注册(为了支持动态组件)
         // (componentName) => {
         //   if (componentName.startsWith('Icon'))
         //     return {

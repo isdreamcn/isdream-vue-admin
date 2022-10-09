@@ -29,6 +29,9 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
           }
         : {}
     },
+    build: {
+      chunkSizeWarningLimit: 3 * 1024
+    },
     resolve: {
       alias: {
         '@': pathResolve('src'),
@@ -36,10 +39,15 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         '~': pathResolve('./')
       }
     },
+    // 编译所有应用 scss 变量的组件
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: `@use "@/assets/styles/element.scss" as *;`
+          // 修改element变量、全局导入scss变量
+          additionalData: `
+            @use "@/assets/styles/element.scss" as *;
+            @use "@/assets/styles/variables.scss" as *;
+          `
         }
       }
     },
