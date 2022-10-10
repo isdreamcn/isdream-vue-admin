@@ -24,7 +24,6 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { UPDATE_MODEL_EVENT, CHANGE_EVENT } from '@/constants/event'
 import { colorPickerProps, colorPickerEmits } from './colorPicker'
 
 defineOptions({
@@ -36,8 +35,8 @@ const emit = defineEmits(colorPickerEmits)
 
 const updateColor = (color?: string) => {
   if (color) {
-    emit(UPDATE_MODEL_EVENT, color)
-    emit(CHANGE_EVENT, color)
+    emit('update:modelValue', color)
+    emit('change', color)
   }
 }
 

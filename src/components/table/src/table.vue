@@ -36,7 +36,7 @@
         v-bind="column.attrs"
         :key="column.key"
         :prop="column.key"
-        :label="column.label"
+        :label="column.label ?? column.key"
         :width="column.width"
         :fixed="column.fixed"
       >
@@ -89,10 +89,9 @@ const emit = defineEmits(tableEmits)
 const { paginationParams, paginationData, indexStart } = usePagination(props)
 
 // request http
-const requestFinally = () => {
+const httpRes = useHttpData(props, paginationParams, () => {
   emit('update:isReload', false)
-}
-const httpRes = useHttpData(props, paginationParams, requestFinally)
+})
 
 const handleSizeChange = () => {
   paginationParams.currentPage = 1
@@ -102,10 +101,9 @@ const handleSizeChange = () => {
 const data = computed(() => httpRes.data || paginationData.value)
 
 // selectkey
-const changeSelectKeys = (selectKeys: any) => {
+const selection = useSelection(props, data, (selectKeys) => {
   emit('update:selectKeys', selectKeys)
-}
-const selection = useSelection(props, data, changeSelectKeys)
+})
 </script>
 
 <style lang="scss" scoped>

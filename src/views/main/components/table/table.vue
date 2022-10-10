@@ -29,7 +29,7 @@ import { tableColumns } from './config'
 import { getUserList } from '@/api/main/user'
 
 defineOptions({
-  name: 'DemoCpnsMtable'
+  name: 'DemoCpnsMTable'
 })
 
 const isReload = ref(true)

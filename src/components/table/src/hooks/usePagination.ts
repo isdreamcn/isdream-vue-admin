@@ -1,4 +1,4 @@
-import { reactive, computed, readonly } from 'vue'
+import { reactive, computed } from 'vue'
 import type { TableProps } from '../table'
 
 export interface PaginationParams {
@@ -10,12 +10,12 @@ export const usePagination = (props: TableProps) => {
   // 取消分页
   if (!props.paginationConfig) {
     return {
-      paginationData: readonly(computed(() => props.data)),
+      paginationData: computed(() => props.data),
       paginationParams: {
         currentPage: undefined,
         pageSize: undefined
       },
-      indexStart: readonly(computed(() => 0))
+      indexStart: computed(() => 0)
     }
   }
 
@@ -35,8 +35,8 @@ export const usePagination = (props: TableProps) => {
   })
 
   return {
-    paginationData: readonly(paginationData),
+    paginationData,
     paginationParams,
-    indexStart: readonly(indexStart)
+    indexStart
   }
 }

@@ -2,35 +2,35 @@ import type { TableColumns } from '@/components'
 
 export const tableColumns: TableColumns = [
   {
-    label: '姓名',
     key: 'name',
+    label: '姓名',
     width: 200
   },
   {
-    label: '地区',
     key: 'address',
+    label: '地区',
     width: 200
   },
   {
-    label: '邮箱',
-    key: 'email'
+    key: 'email',
+    label: '邮箱'
   },
   {
-    label: '来源',
     key: 'userinfo.origin',
+    label: '来源',
     customRender: (val) => '来源: ' + val
   },
   {
-    label: '创建日期',
-    key: 'createAt'
+    key: 'createAt',
+    label: '创建日期'
   },
   {
-    label: '更新日期',
-    key: 'updateAt'
+    key: 'updateAt',
+    label: '更新日期'
   },
   {
-    label: '操作',
     key: 'actions',
+    label: '操作',
     slot: true,
     fixed: 'right'
   }

@@ -2,7 +2,6 @@ import type { ExtractPropTypes } from 'vue'
 import type ColorPicker from './colorPicker.vue'
 import { isString } from '@vue/shared'
 import { buildProps, definePropType } from '@/utils'
-import { UPDATE_MODEL_EVENT, CHANGE_EVENT } from '@/constants/event'
 
 interface OptionsItem {
   label: string
@@ -22,8 +21,8 @@ export const colorPickerProps = buildProps({
 } as const)
 
 export const colorPickerEmits = {
-  [UPDATE_MODEL_EVENT]: (color?: string) => (color ? isString(color) : true),
-  [CHANGE_EVENT]: (color?: string) => (color ? isString(color) : true)
+  'update:modelValue': (color?: string) => (color ? isString(color) : true),
+  change: (color?: string) => (color ? isString(color) : true)
 }
 
 export type ColorPickerProps = ExtractPropTypes<typeof colorPickerProps>

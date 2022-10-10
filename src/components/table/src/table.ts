@@ -3,13 +3,13 @@ import type { ExtractPropTypes } from 'vue'
 import { buildProps, definePropType, isArray } from '@/utils'
 
 interface TablePropsColumn {
-  label: string
   key: string
+  label?: string
   slot?: boolean
   width?: number
   fixed?: 'left' | 'right'
   attrs?: Record<string, any>
-  customRender?: (value: any, row: any, index: number) => void
+  customRender?: (value: any, row: Record<string, any>, index: number) => void
 }
 
 interface PaginationOptions {
@@ -38,7 +38,10 @@ export const tableProps = buildProps({
   },
   // 行数据的 Key
   rowKey: {
-    type: definePropType<string | ((row: any) => string)>([String, Function]),
+    type: definePropType<string | ((row: Record<string, any>) => string)>([
+      String,
+      Function
+    ]),
     default: 'id'
   },
   paginationConfig: {

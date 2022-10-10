@@ -22,6 +22,13 @@ export default {
         title: '表格'
       },
       component: () => import('@/views/main/components/table/table.vue')
+    },
+    {
+      path: 'form',
+      meta: {
+        title: '表单'
+      },
+      component: () => import('@/views/main/components/form/form.vue')
     }
   ]
 } as RouteRecordRaw

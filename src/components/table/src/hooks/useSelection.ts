@@ -23,7 +23,7 @@ export const useSelection = (
   }
 
   let selectKeys: any[] = []
-  const handleSelectionChange = (rows: any) => {
+  const handleSelectionChange = (rows: any[]) => {
     selectKeys = rows.map((row: any) =>
       isFunction(props.rowKey) ? props.rowKey(row) : row[props.rowKey]
     )
