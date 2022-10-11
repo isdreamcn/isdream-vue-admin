@@ -47,8 +47,6 @@ export const mergeObjDeep = createMergeObjFn({
   overlayable: () => true
 })
 
-export { hasOwn } from '@vue/shared'
-
 export function getVal(form: any, s: string) {
   if (!isObject(form)) {
     return
@@ -63,3 +61,6 @@ export function getVal(form: any, s: string) {
       }
     }, form)
 }
+
+export { hasOwn } from '@vue/shared'
+export { cloneDeep, clone } from 'lodash-unified'

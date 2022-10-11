@@ -5,7 +5,7 @@ import { watch, ref } from 'vue'
 export const useFormData = (
   props: FormProps,
   showFields: Ref<FormProps['fields']>,
-  change: (formData: Record<string, any>) => void = () => {}
+  change: (formData: Ref<Record<string, any>>) => void = () => {}
 ) => {
   const formData = ref<Record<string, any>>({})
 
@@ -31,7 +31,7 @@ export const useFormData = (
   watch(
     () => props.modelValue,
     (val) => {
-      if (!val) {
+      if (!val || props.modelValue === formData.value) {
         return
       }
       for (const key of Object.keys(formData.value)) {
@@ -47,9 +47,7 @@ export const useFormData = (
   // v-model
   watch(
     () => formData.value,
-    () => {
-      change({ ...formData.value })
-    },
+    () => change(formData),
     {
       immediate: true,
       deep: true

@@ -33,7 +33,11 @@
         <el-col v-if="props.inline" v-bind="defaultColAttrs">
           <slot name="buttons">
             <el-button-group>
-              <el-button type="primary" @click="submit">
+              <el-button
+                type="primary"
+                :loading="props.loading"
+                @click="submit"
+              >
                 <MIcon name="icon-search" v-if="!props.submitText" />
                 {{ props.submitText || '搜索' }}
               </el-button>
@@ -49,7 +53,7 @@
     <div v-if="!props.inline" class="m-form__buttons">
       <slot name="buttons">
         <el-space>
-          <el-button type="primary" @click="submit">{{
+          <el-button type="primary" @click="submit" :loading="props.loading">{{
             props.submitText || '提交'
           }}</el-button>
           <el-button @click="cancel">{{
@@ -64,6 +68,7 @@
 <script setup lang="ts">
 import type { FormInstance } from 'element-plus'
 import { ref, onMounted } from 'vue'
+import { cloneDeep } from '@/utils'
 import { formProps, formEmits } from './form'
 import { useFields, useFormData, useFormRules } from './hooks'
 
@@ -77,7 +82,7 @@ const emit = defineEmits(formEmits)
 const { fields, showFields, defaultColAttrs } = useFields(props)
 
 const { formData } = useFormData(props, showFields, (formData) => {
-  emit('update:modelValue', formData)
+  emit('update:modelValue', formData.value)
 })
 
 const { formRules } = useFormRules(props)
@@ -87,7 +92,7 @@ const elFormRef = ref<FormInstance>()
 const submit = () => {
   elFormRef.value?.validate((isValid, invalidFields) => {
     if (isValid) {
-      emit('submit', { ...formData.value })
+      emit('submit', cloneDeep(formData.value))
     } else if (invalidFields) {
       // 滚动到验证错误的字段
       const errorFieldKey = Object.keys(invalidFields)[0]
@@ -98,7 +103,7 @@ const submit = () => {
 
 const cancel = () => {
   elFormRef.value?.resetFields()
-  emit('cancel', { ...formData.value })
+  emit('cancel', cloneDeep(formData.value))
 }
 
 onMounted(() => {

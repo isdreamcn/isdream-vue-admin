@@ -1,6 +1,7 @@
 <template>
   <div>
-    {{ modelValue }}
+    <p>响应：{{ modelValue }}</p>
+    <el-button @click="modelValue.name += 1">name+1</el-button>
     <MForm
       style="max-width: 800px; margin-bottom: 50px"
       :fields="fields"
@@ -13,10 +14,11 @@
     >
     </MForm>
 
+    <p>不响应</p>
     <MForm
       :fields="fields"
       :label-width="0"
-      v-model="modelValue"
+      :modelValue="modelValue"
       @submit="submit"
       @cancel="cancel"
     >

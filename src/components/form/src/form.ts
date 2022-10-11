@@ -1,5 +1,6 @@
 import type Form from './form.vue'
 import type { GlobalComponents } from '@/plugins/components/components'
+import type { FormComponents } from './components'
 import type { ExtractPropTypes, Component } from 'vue'
 import type {
   ColProps,
@@ -8,14 +9,20 @@ import type {
 } from 'element-plus'
 import { buildProps, definePropType, isObject } from '@/utils'
 
+export interface FormFieldAttrsOptions {
+  label: string
+  value: string | number
+  disabled?: boolean
+}
+
 export interface FormPropsField {
-  tag: GlobalComponents | Component
+  tag: GlobalComponents | FormComponents | Component
   key: string
   label?: string
   // show !== false 则显示
   show?: boolean
   slot?: boolean
-  attrs?: Record<string, any>
+  attrs?: Record<string, any> & { options?: FormFieldAttrsOptions[] }
   colAttrs?: number | ColProps
   placeholder?: string
   validateRules?: FormItemRule[]
@@ -40,14 +47,13 @@ export const formProps = buildProps({
     type: Boolean,
     default: true
   },
-  submitText: {
-    type: String
-    // default: inline === true ? '搜索' : '确定'
+  // 提交按钮
+  loading: {
+    type: Boolean,
+    default: false
   },
-  cancelText: {
-    type: String
-    // default: '重置'
-  },
+  submitText: String,
+  cancelText: String,
   style: {
     type: definePropType<any>([String, Array, Object]),
     default: ''
