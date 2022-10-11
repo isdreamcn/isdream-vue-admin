@@ -23,6 +23,7 @@ export interface FormPropsField {
   show?: boolean
   slot?: boolean
   attrs?: Record<string, any> & { options?: FormFieldAttrsOptions[] }
+  on?: Record<string, (...payload: any[]) => void>
   colAttrs?: number | ColProps
   placeholder?: string
   validateRules?: FormItemRule[]
@@ -54,6 +55,8 @@ export const formProps = buildProps({
   },
   submitText: String,
   cancelText: String,
+  submitIcon: String,
+  cancelIcon: String,
   style: {
     type: definePropType<any>([String, Array, Object]),
     default: ''

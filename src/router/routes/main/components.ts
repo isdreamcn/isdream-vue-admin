@@ -29,6 +29,14 @@ export default {
         title: '表单'
       },
       component: () => import('@/views/main/components/form/form.vue')
+    },
+    {
+      path: 'formDialog',
+      meta: {
+        title: '表单对话框'
+      },
+      component: () =>
+        import('@/views/main/components/formDialog/formDialog.vue')
     }
   ]
 } as RouteRecordRaw

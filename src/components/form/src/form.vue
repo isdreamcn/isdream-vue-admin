@@ -17,6 +17,7 @@
             <component
               v-if="field.slot !== true"
               v-bind="field.attrs || {}"
+              v-on="field.on || {}"
               :is="field.tag"
               :placeholder="field.placeholder"
               v-model="formData[field.key]"
@@ -33,17 +34,23 @@
         <el-col v-if="props.inline" v-bind="defaultColAttrs">
           <slot name="buttons">
             <el-button-group>
+              <el-button @click="cancel">
+                <MIcon
+                  :name="props.cancelIcon || 'icon-refreshLeft'"
+                  v-if="props.cancelIcon || !props.cancelText"
+                />
+                {{ props.cancelText || '重置' }}
+              </el-button>
               <el-button
                 type="primary"
                 :loading="props.loading"
                 @click="submit"
               >
-                <MIcon name="icon-search" v-if="!props.submitText" />
+                <MIcon
+                  :name="props.submitIcon || 'icon-search'"
+                  v-if="props.submitIcon || !props.submitText"
+                />
                 {{ props.submitText || '搜索' }}
-              </el-button>
-              <el-button @click="cancel">
-                <MIcon name="icon-refreshLeft" v-if="!props.cancelText" />
-                {{ props.cancelText || '重置' }}
               </el-button>
             </el-button-group>
           </slot>
@@ -52,13 +59,21 @@
     </el-form>
     <div v-if="!props.inline" class="m-form__buttons">
       <slot name="buttons">
-        <el-space>
-          <el-button type="primary" @click="submit" :loading="props.loading">{{
-            props.submitText || '提交'
-          }}</el-button>
-          <el-button @click="cancel">{{
-            props.cancelText || '重置'
-          }}</el-button>
+        <el-space :size="20">
+          <el-button @click="cancel">
+            <MIcon
+              :name="props.cancelIcon || 'icon-refreshLeft'"
+              v-if="props.cancelIcon || !props.cancelText"
+            />
+            {{ props.cancelText || '取消' }}
+          </el-button>
+          <el-button type="primary" @click="submit" :loading="props.loading">
+            <MIcon
+              :name="props.submitIcon || 'icon-check'"
+              v-if="!props.loading && (props.submitIcon || !props.submitText)"
+            />
+            {{ props.submitText || '提交' }}
+          </el-button>
         </el-space>
       </slot>
     </div>
