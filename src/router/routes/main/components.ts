@@ -37,6 +37,14 @@ export default {
       },
       component: () =>
         import('@/views/main/components/formDialog/formDialog.vue')
+    },
+    {
+      path: 'deleteButton',
+      meta: {
+        title: '批量删除按钮'
+      },
+      component: () =>
+        import('@/views/main/components/deleteButton/deleteButton.vue')
     }
   ]
 } as RouteRecordRaw

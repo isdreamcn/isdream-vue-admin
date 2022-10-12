@@ -8,6 +8,7 @@ export const iconProps = buildProps({
   name: {
     type: String,
     required: true,
+    default: '',
     validator: (val: string) => val.startsWith('icon') || val.startsWith('Icon')
   }
 } as const)

@@ -3,7 +3,11 @@ import { useRouterStore } from '@/store'
 export const useRouteHistory = (router: Router) => {
   const routerStore = useRouterStore()
 
-  router.beforeEach((to) => {
+  router.afterEach((to) => {
+    // 前往的页面为404
+    if (to.name === 'Error') {
+      return
+    }
     routerStore.addRouteHistory(to.path, {
       pathKey: to.path,
       meta: {
