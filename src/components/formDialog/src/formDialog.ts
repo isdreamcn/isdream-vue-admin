@@ -59,7 +59,8 @@ export const formDialogProps = buildProps({
 
 export const formDialogEmits = {
   'update:modelValue': (visible: boolean) =>
-    visible === false || visible === true
+    visible === false || visible === true,
+  reload: () => true
 }
 
 export type FormDialogProps = ExtractPropTypes<typeof formDialogProps>

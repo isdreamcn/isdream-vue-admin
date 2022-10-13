@@ -59,7 +59,7 @@ const cancel = () => {
 const submit = () => {
   loading.value = true
   if (!props.http) {
-    emit('submit')
+    emit('click')
     cancel()
     return
   }
@@ -79,7 +79,7 @@ const submit = () => {
         type: 'success'
       })
       cancel()
-      emit('submit')
+      emit('reload')
     })
     .finally(() => {
       loading.value = false

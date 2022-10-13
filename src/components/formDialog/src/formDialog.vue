@@ -53,6 +53,9 @@ const init = () => {
 }
 
 const cancel = () => {
+  if (!visible.value) {
+    return
+  }
   elFormRef?.resetFields()
   visible.value = false
   emit('update:modelValue', false)
@@ -61,17 +64,18 @@ const cancel = () => {
 const submit = (formData: Record<string, any>) => {
   formData = props.handler(formData)
   loading.value = true
+  let request = null
   if (props.id) {
-    props
-      .httpEdit(props.id, formData)
-      .then(cancel)
-      .finally(() => (loading.value = false))
+    request = props.httpEdit(props.id, formData)
   } else {
-    props
-      .httpAdd(formData)
-      .then(cancel)
-      .finally(() => (loading.value = false))
+    request = props.httpAdd(formData)
   }
+  request
+    .then(() => {
+      cancel()
+      emit('reload')
+    })
+    .finally(() => (loading.value = false))
 }
 
 watch(

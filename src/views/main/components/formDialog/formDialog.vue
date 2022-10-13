@@ -9,6 +9,7 @@
       :httpAdd="httpAdd"
       :httpEdit="httpEdit"
       :httpGet="httpGet"
+      @reload="reload"
     ></MFormDialog>
   </div>
 </template>
@@ -54,6 +55,10 @@ const httpEdit = () =>
       resovle({})
     }, 1000)
   })
+
+const reload = () => {
+  console.log('reload')
+}
 </script>
 
 <style lang="scss" scoped></style>

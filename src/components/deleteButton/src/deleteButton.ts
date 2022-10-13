@@ -67,7 +67,8 @@ export const deleteButtonProps = buildProps({
 } as const)
 
 export const deleteButtonEmits = {
-  submit: () => true
+  click: () => true,
+  reload: () => true
 }
 
 export type DeleteButtonProps = ExtractPropTypes<typeof deleteButtonProps>

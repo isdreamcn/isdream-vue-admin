@@ -7,6 +7,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    A: typeof import('./src/components/a/src/a.vue')['default']
     ColorPicker: typeof import('./src/components/colorPicker/src/colorPicker.vue')['default']
     ColorPickerAppTheme: typeof import('./src/components/colorPicker/src/colorPickerAppTheme.vue')['default']
     DeleteButton: typeof import('./src/components/deleteButton/src/deleteButton.vue')['default']
@@ -41,6 +42,7 @@ declare module '@vue/runtime-core' {
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
     ElOption: typeof import('element-plus/es')['ElOption']
     ElPagination: typeof import('element-plus/es')['ElPagination']
+    ElPopconfirm: typeof import('element-plus/es')['ElPopconfirm']
     ElRadio: typeof import('element-plus/es')['ElRadio']
     ElRadioGroup: typeof import('element-plus/es')['ElRadioGroup']
     ElRow: typeof import('element-plus/es')['ElRow']
@@ -57,6 +59,7 @@ declare module '@vue/runtime-core' {
     Loading: typeof import('./src/components/loading/src/loading.vue')['default']
     LoadingLottie: typeof import('./src/components/loading/src/loading-lottie.vue')['default']
     Lottie: typeof import('./src/components/lottie/src/lottie.vue')['default']
+    MA: typeof import('@/components')['MA']
     MCheckboxGroup: typeof import('./src/components/form/src/components/MCheckboxGroup.vue')['default']
     MColorPicker: typeof import('@/components')['MColorPicker']
     MColorPickerAppTheme: typeof import('@/components')['MColorPickerAppTheme']

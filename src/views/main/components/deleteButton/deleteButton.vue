@@ -5,7 +5,8 @@
       :http="deleteHttp"
       :http-key="false"
       :selectKeys="selectKeys"
-      @submit="submit"
+      @click="reload"
+      @reload="reload"
     ></MDeleteButton>
   </div>
 </template>
@@ -26,8 +27,8 @@ const deleteHttp = (id: number | string) => {
   })
 }
 
-const submit = () => {
-  console.log('submit')
+const reload = () => {
+  console.log('reload')
 }
 </script>
 

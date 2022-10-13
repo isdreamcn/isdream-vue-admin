@@ -45,6 +45,13 @@ export default {
       },
       component: () =>
         import('@/views/main/components/deleteButton/deleteButton.vue')
+    },
+    {
+      path: 'a',
+      meta: {
+        title: 'a按钮'
+      },
+      component: () => import('@/views/main/components/a/a.vue')
     }
   ]
 } as RouteRecordRaw
