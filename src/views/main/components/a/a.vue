@@ -1,6 +1,6 @@
 <template>
   <div>
-    <MA type="info1">新增</MA>
+    <MA type="primary">新增</MA>
     <MA>编辑</MA>
     <MA type="danger">删除</MA>
   </div>

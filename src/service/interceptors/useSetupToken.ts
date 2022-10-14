@@ -10,14 +10,13 @@ export interface ServiceTokenConfig {
   expires?: number
 }
 
-const userStore = useUserStore()
 export const useSetupToken = (
   appConfig: ServiceTokenConfig
 ): RequestInterceptors => {
   const { position, key, value } = appConfig
-
   return {
     requestInterceptor(config) {
+      const userStore = useUserStore()
       if (!userStore.token) {
         return config
       }

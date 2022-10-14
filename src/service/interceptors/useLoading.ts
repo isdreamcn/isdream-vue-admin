@@ -43,17 +43,19 @@ const useLoadingShowHidden = () => {
 }
 
 export const useLoading = (): RequestInterceptors => {
-  const { showLoading, hiddenLoading } = useLoadingShowHidden()
   return {
     requestInterceptor(config) {
+      const { showLoading } = useLoadingShowHidden()
       showLoading()
       return config
     },
     responseInterceptor(res) {
+      const { hiddenLoading } = useLoadingShowHidden()
       hiddenLoading()
       return res
     },
     responseInterceptorCatch(error) {
+      const { hiddenLoading } = useLoadingShowHidden()
       hiddenLoading()
       return error
     }

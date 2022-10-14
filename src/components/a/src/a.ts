@@ -4,7 +4,9 @@ import { buildProps, definePropType } from '@/utils'
 
 export const aProps = buildProps({
   type: {
-    type: String,
+    type: definePropType<'primary' | 'success' | 'warning' | 'danger' | 'info'>(
+      String
+    ),
     default: 'primary'
   },
   pop: {

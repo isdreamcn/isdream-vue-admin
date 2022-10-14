@@ -29,6 +29,7 @@
     "mockjs": "^1.1.0",
     "normalize.css": "^8.0.1",
     "pinia": "^2.0.21",
+    "tinymce": "^5.10.3",
     "vue": "^3.2.37",
     "vue-router": "4"
   },

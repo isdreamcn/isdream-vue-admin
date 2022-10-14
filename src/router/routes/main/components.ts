@@ -52,6 +52,13 @@ export default {
         title: 'a按钮'
       },
       component: () => import('@/views/main/components/a/a.vue')
+    },
+    {
+      path: 'editor',
+      meta: {
+        title: 'tinymce富文本'
+      },
+      component: () => import('@/views/main/components/editor/editor.vue')
     }
   ]
 } as RouteRecordRaw

@@ -18,7 +18,9 @@ export const deleteButtonProps = buildProps({
     default: 'icon-delete'
   },
   type: {
-    type: String,
+    type: definePropType<'primary' | 'success' | 'warning' | 'danger' | 'info'>(
+      String
+    ),
     default: 'danger'
   },
   submitText: {
