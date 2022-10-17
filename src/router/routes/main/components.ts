@@ -59,6 +59,13 @@ export default {
         title: 'tinymce富文本'
       },
       component: () => import('@/views/main/components/editor/editor.vue')
+    },
+    {
+      path: 'markdown',
+      meta: {
+        title: 'markdown'
+      },
+      component: () => import('@/views/main/components/markdown/markdown.vue')
     }
   ]
 } as RouteRecordRaw

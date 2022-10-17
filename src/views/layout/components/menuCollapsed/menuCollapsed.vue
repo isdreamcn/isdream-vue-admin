@@ -25,7 +25,7 @@ const appStore = useAppStore()
 const collapsed = computed(() => appStore.appSetting.menu.collapsed)
 
 const setMenuCollapsed = () => {
-  appStore.mergeAppSetting({
+  appStore.setAppSetting({
     menu: {
       collapsed: !collapsed.value
     }

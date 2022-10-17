@@ -1,6 +1,6 @@
 <template>
   <div class="m-editor" :style="{ width: containerWidth }">
-    <textarea ref="elRef" :id="tinymceId"></textarea>
+    <textarea ref="elRef" :id="tinymceId" :key="tinymceId"></textarea>
   </div>
 </template>
 
@@ -11,6 +11,7 @@ import tinymce from 'tinymce/tinymce'
 import {
   ref,
   watch,
+  nextTick,
   useAttrs,
   onMounted,
   onActivated,
@@ -45,10 +46,30 @@ const { tinymceOptions, tinymceId, containerWidth } = useTinymceOptions(
   }
 )
 
+// disabled
+watch(
+  () => props.disabled,
+  () => {
+    nextTick(() => {
+      if (!editorRef.value) {
+        return
+      }
+      editorRef.value.setMode(props.disabled ? 'readonly' : 'design')
+    })
+  },
+  {
+    immediate: true
+  }
+)
+
+let inited = false
 const initEditor = () => {
-  const el = elRef.value
-  if (el) {
-    el.style.visibility = ''
+  if (inited) {
+    return
+  }
+  inited = true
+  if (elRef.value) {
+    elRef.value.style.visibility = ''
   }
   tinymce
     .init(tinymceOptions.value)
@@ -61,9 +82,11 @@ const initEditor = () => {
 }
 
 const destory = () => {
-  if (tinymce !== null) {
-    tinymce?.remove?.(tinymceOptions.value.selector!)
+  if (!inited) {
+    return
   }
+  inited = false
+  tinymce.remove(tinymceOptions.value.selector!)
 }
 
 onMounted(() => {
@@ -78,6 +101,8 @@ onBeforeUnmount(() => {
   destory()
 })
 
+// tinymce init 之后会创建一个动态iframe 而keep-alive回来之后iframe是空的
+// TODO: https://github.com/PanJiaChen/vue-element-admin/issues/141
 onDeactivated(() => {
   destory()
 })

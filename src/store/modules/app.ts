@@ -1,4 +1,5 @@
 import type { StorageSetOptions } from '@/storage'
+import { computed } from 'vue'
 import { defineStore } from 'pinia'
 import db from '@/storage'
 import { mergeObjDeep } from '@/utils'
@@ -44,7 +45,7 @@ export const useAppStore = defineStore('app', {
       this.$patch(state)
       db.setData(state, dbOptions)
     },
-    mergeAppSetting(appSetting: AppSettingPartial) {
+    setAppSetting(appSetting: AppSettingPartial) {
       this.$patch({
         appSetting: mergeObjDeep(this.appSetting, appSetting)
       })
@@ -53,3 +54,15 @@ export const useAppStore = defineStore('app', {
     }
   }
 })
+
+export const useAppSetting = () => {
+  const appStore = useAppStore()
+
+  const appTheme = computed(() => appStore.theme)
+  const appIsDark = computed(() => appStore.theme === 'dark')
+
+  return {
+    appTheme,
+    appIsDark
+  }
+}

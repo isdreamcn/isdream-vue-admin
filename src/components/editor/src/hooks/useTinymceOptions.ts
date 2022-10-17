@@ -2,14 +2,14 @@ import type { EditorProps } from '../editor'
 import type { Editor, RawEditorSettings } from 'tinymce'
 import { computed, ref } from 'vue'
 import { isNumber, uniqueId } from 'lodash-unified'
-import { useAppStore } from '@/store'
+import { useAppSetting } from '@/store'
 
 export const useTinymceOptions = (
   props: EditorProps,
   options: Record<string, any> = {},
   setup: (editor: Editor) => void = () => {}
 ) => {
-  const appStore = useAppStore()
+  const { appTheme } = useAppSetting()
 
   const containerWidth = computed(() => {
     const width = props.width
@@ -20,7 +20,7 @@ export const useTinymceOptions = (
   })
 
   const skinName = computed(() =>
-    appStore.theme === 'light' ? 'oxide' : 'oxide-dark'
+    appTheme.value === 'light' ? 'oxide' : 'oxide-dark'
   )
   const tinymceId = ref<string>(uniqueId('tinymce-'))
 

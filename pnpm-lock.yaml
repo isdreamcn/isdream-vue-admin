@@ -35,6 +35,7 @@ specifiers:
   unplugin-element-plus: ^0.4.1
   unplugin-vue-components: ^0.22.4
   unplugin-vue-define-options: ^0.11.1
+  vditor: ^3.8.17
   vite: ^3.0.7
   vite-plugin-html: ^3.2.0
   vite-plugin-mock: ^2.9.6
@@ -54,6 +55,7 @@ dependencies:
   normalize.css: 8.0.1
   pinia: 2.0.23_bfjwoga25wxjazzogo7o372nwq
   tinymce: 5.10.5
+  vditor: 3.8.17
   vue: 3.2.40
   vue-router: 4.1.5_vue@3.2.40
 
@@ -1452,6 +1454,10 @@ packages:
     resolution: {integrity: sha512-reYkTUJAZb9gUuZ2RvVCNhVHdg62RHnJ7WJl8ftMi4diZ6NWlciOzQN88pUhSELEwflJht4oQDv0F0BMlwaYtA==}
     engines: {node: '>=8'}
     dev: true
+
+  /diff-match-patch/1.0.5:
+    resolution: {integrity: sha512-IayShXAgj/QMXgB0IWmKx+rOPuGMhqm5w6jvFxmVenXKIzRqTAAsbBPT3kWQeGANj3jGgvcvv4yK6SxqYmikgw==}
+    dev: false
 
   /diff/4.0.2:
     resolution: {integrity: sha512-58lmxKSA4BNyLz+HHMUzlOEpg09FV+ev6ZMe3vJihgdxzgcwZ8VoEEPmALCZG9LmqfVoNMMKpttIYTVG6uDY7A==}
@@ -3790,6 +3796,12 @@ packages:
       spdx-correct: 3.1.1
       spdx-expression-parse: 3.0.1
     dev: true
+
+  /vditor/3.8.17:
+    resolution: {integrity: sha512-itaVyNwC/+xjOsTaDZKGy4BGhEcmZWkCDKaMyIH7rcbojw2H29Vg/FV1MNPcNyjZ6mvmcNlS6oZT1drDnAVFMQ==}
+    dependencies:
+      diff-match-patch: 1.0.5
+    dev: false
 
   /vite-plugin-html/3.2.0_vite@3.1.6:
     resolution: {integrity: sha512-2VLCeDiHmV/BqqNn5h2V+4280KRgQzCFN47cst3WiNK848klESPQnzuC3okH5XHtgwHH/6s1Ho/YV6yIO0pgoQ==}

@@ -60,6 +60,7 @@ const loading = computed(() => routerStore.loading)
         overflow: visible;
       }
       .el-footer {
+        transition: none;
       }
     }
   }

@@ -34,7 +34,7 @@ const color = computed({
       if (cssVariable) {
         cssVariable.value = val
       }
-      appStore.mergeAppSetting(props.handler(val))
+      appStore.setAppSetting(props.handler(val))
     }
   }
 })

@@ -21,7 +21,7 @@ export const useTinymceImgUpload = (props: EditorProps) => {
     props
       .upload(formData)
       .then((res) => {
-        success(res?.data?.url)
+        success(res.data.url)
       })
       .catch(() => {
         failure('上传失败')

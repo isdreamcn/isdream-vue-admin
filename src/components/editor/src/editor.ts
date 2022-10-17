@@ -4,7 +4,11 @@ import type { RawEditorSettings } from 'tinymce'
 import { buildProps, definePropType } from '@/utils'
 import { toolbar, plugins } from './tinymce/tinymce'
 
-export type EditorUpload = (formData: FormData) => Promise<any>
+export type EditorUpload = (formData: FormData) => Promise<{
+  data: {
+    url: string
+  }
+}>
 
 export const editorProps = buildProps({
   options: {
@@ -14,6 +18,10 @@ export const editorProps = buildProps({
   modelValue: {
     type: String,
     default: ''
+  },
+  disabled: {
+    type: Boolean,
+    default: false
   },
   toolbar: {
     type: definePropType<string[]>(Array),
