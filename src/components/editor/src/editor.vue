@@ -138,7 +138,4 @@ function bindModelHandlers(editor: Editor) {
 }
 </script>
 
-<style lang="scss" scoped>
-.m-editor {
-}
-</style>
+<style lang="scss" scoped></style>

@@ -7,6 +7,8 @@
       :data="userList"
       :http="getUserList"
       :params="params"
+      a="456"
+      b="789"
       v-model:isReload="isReload"
       v-model:selectKeys="selectKeys"
     >

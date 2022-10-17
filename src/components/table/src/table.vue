@@ -1,12 +1,12 @@
 <template>
-  <div class="m-table-container">
-    <div class="m-table-container__title">
+  <div class="m-table">
+    <div class="m-table__title">
       <el-space wrap>
         <slot name="extra"></slot>
       </el-space>
     </div>
     <el-table
-      class="m-table-container__main"
+      class="m-table__main"
       :ref="selection.elTableRef"
       v-bind="$attrs"
       v-loading="props.loading || httpRes.loading"
@@ -60,7 +60,7 @@
       </el-table-column>
     </el-table>
     <!-- 分页器 -->
-    <div v-if="props.paginationConfig" class="m-table-container__pagination">
+    <div v-if="props.paginationConfig" class="m-table__pagination">
       <el-pagination
         v-model:currentPage="paginationParams.currentPage"
         v-model:page-size="paginationParams.pageSize"
@@ -80,7 +80,8 @@ import { tableProps, tableEmits } from './table'
 import { usePagination, useHttpData, useSelection } from './hooks'
 
 defineOptions({
-  name: 'MTable'
+  name: 'MTable',
+  inheritAttrs: false
 })
 
 const props = defineProps(tableProps)
@@ -107,15 +108,15 @@ const selection = useSelection(props, data, (selectKeys) => {
 </script>
 
 <style lang="scss" scoped>
-.m-table-container {
-  .m-table-container__title {
+.m-table {
+  .m-table__title {
     display: flex;
     justify-content: flex-end;
   }
-  .m-table-container__main {
+  .m-table__main {
     margin: 20px 0;
   }
-  .m-table-container__pagination {
+  .m-table__pagination {
     display: flex;
     justify-content: center;
   }

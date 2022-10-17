@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="m-delete-button">
     <el-dialog
       v-model="visible"
       :title="props.title"
@@ -88,7 +88,9 @@ const submit = () => {
 </script>
 
 <style lang="scss" scoped>
-.m-icon {
-  margin-right: 5px;
+.m-delete-button {
+  .m-icon {
+    margin-right: 5px;
+  }
 }
 </style>

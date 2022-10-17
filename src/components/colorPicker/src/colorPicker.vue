@@ -1,5 +1,5 @@
 <template>
-  <div class="m-color-picker__container">
+  <div class="m-color-picker">
     <el-tooltip
       v-for="colorItem in colorOptions"
       :key="colorItem.value"
@@ -56,7 +56,7 @@ const colorOptions = computed(() =>
 </script>
 
 <style lang="scss" scoped>
-.m-color-picker__container {
+.m-color-picker {
   display: flex;
   flex: 1;
   flex-wrap: wrap;

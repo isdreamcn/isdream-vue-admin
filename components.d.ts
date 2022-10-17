@@ -54,6 +54,7 @@ declare module '@vue/runtime-core' {
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElTag: typeof import('element-plus/es')['ElTag']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
+    ElUpload: typeof import('element-plus/es')['ElUpload']
     Form: typeof import('./src/components/form/src/form.vue')['default']
     FormDialog: typeof import('./src/components/formDialog/src/formDialog.vue')['default']
     Icon: typeof import('./src/components/icon/src/icon.vue')['default']
@@ -79,9 +80,11 @@ declare module '@vue/runtime-core' {
     MRadioGroup: typeof import('./src/components/form/src/components/MRadioGroup.vue')['default']
     MSelect: typeof import('./src/components/form/src/components/MSelect.vue')['default']
     MTable: typeof import('@/components')['MTable']
+    MUpload: typeof import('@/components')['MUpload']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Table: typeof import('./src/components/table/src/table.vue')['default']
+    Upload: typeof import('./src/components/upload/src/upload.vue')['default']
   }
   export interface ComponentCustomProperties {
     vLoading: typeof import('element-plus/es')['ElLoadingDirective']

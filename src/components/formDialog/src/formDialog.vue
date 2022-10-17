@@ -1,19 +1,22 @@
 <template>
-  <div>
-    <el-dialog v-model="visible" :title="title" @close="cancel">
-      <MForm
-        :fields="props.fields"
-        :model-value="formData"
-        :inline="false"
-        :col-attrs="24"
-        :loading="loading"
-        v-bind="$attrs"
-        @getForm="getForm"
-        @submit="submit"
-        @cancel="cancel"
-      ></MForm>
-    </el-dialog>
-  </div>
+  <el-dialog
+    class="m-form-dialog"
+    v-model="visible"
+    :title="title"
+    @close="cancel"
+  >
+    <MForm
+      :fields="props.fields"
+      :model-value="formData"
+      :inline="false"
+      :col-attrs="24"
+      :loading="loading"
+      v-bind="$attrs"
+      @getForm="getForm"
+      @submit="submit"
+      @cancel="cancel"
+    ></MForm>
+  </el-dialog>
 </template>
 
 <script setup lang="ts">
@@ -23,7 +26,8 @@ import { cloneDeep } from '@/utils'
 import { formDialogProps, formDialogEmits } from './formDialog'
 
 defineOptions({
-  name: 'MFormDialog'
+  name: 'MFormDialog',
+  inheritAttrs: false
 })
 
 const props = defineProps(formDialogProps)

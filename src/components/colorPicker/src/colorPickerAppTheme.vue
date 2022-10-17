@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="m-color-picker-appTheme">
     <MColorPicker v-model="color" :options="colorOptions"></MColorPicker>
   </div>
 </template>

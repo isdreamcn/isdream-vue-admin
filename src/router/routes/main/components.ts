@@ -66,6 +66,13 @@ export default {
         title: 'markdown'
       },
       component: () => import('@/views/main/components/markdown/markdown.vue')
+    },
+    {
+      path: 'upload',
+      meta: {
+        title: 'upload'
+      },
+      component: () => import('@/views/main/components/upload/upload.vue')
     }
   ]
 } as RouteRecordRaw

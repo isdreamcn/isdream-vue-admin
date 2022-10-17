@@ -2,9 +2,9 @@ import type { RequestInterceptors } from '../types'
 import { watch } from 'vue'
 import { useRouterStore } from '@/store'
 
+let requestApis = 0
 const useLoadingShowHidden = () => {
   const routerStore = useRouterStore()
-  let requestApis = 0
   const showLoading = () => {
     if (!routerStore.needLoading) {
       return

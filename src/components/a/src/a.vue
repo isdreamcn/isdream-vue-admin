@@ -25,7 +25,8 @@ import { computed } from 'vue'
 import { aProps, aEmits } from './a'
 
 defineOptions({
-  name: 'MA'
+  name: 'MA',
+  inheritAttrs: false
 })
 
 const hasPop = computed(

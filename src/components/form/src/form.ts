@@ -56,11 +56,7 @@ export const formProps = buildProps({
   submitText: String,
   cancelText: String,
   submitIcon: String,
-  cancelIcon: String,
-  style: {
-    type: definePropType<any>([String, Array, Object]),
-    default: ''
-  }
+  cancelIcon: String
 } as const)
 
 export const formEmits = {

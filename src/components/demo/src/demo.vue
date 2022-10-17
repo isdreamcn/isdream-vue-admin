@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="m-demo">
     <el-button @click="handleClick">use el-button demo</el-button>
   </div>
 </template>

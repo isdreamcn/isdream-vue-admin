@@ -1,5 +1,5 @@
 <template>
-  <div class="m-form" :style="props.style">
+  <div class="m-form">
     <el-form
       ref="elFormRef"
       :label-width="props.labelWidth"
@@ -88,7 +88,8 @@ import { formProps, formEmits } from './form'
 import { useFields, useFormData, useFormRules } from './hooks'
 
 defineOptions({
-  name: 'MForm'
+  name: 'MForm',
+  inheritAttrs: false
 })
 
 const props = defineProps(formProps)
