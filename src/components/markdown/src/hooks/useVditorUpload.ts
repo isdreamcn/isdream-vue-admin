@@ -18,14 +18,15 @@ export const useVditorUpload = (
           return props
             .upload(formData)
             .then((res) => {
-              change(res.data.url, file.name)
+              change(res.data.url, res.data.name)
               return '上传成功'
             })
             .catch(() => {
               return '上传失败'
             })
         },
-        multiple: false
+        multiple: false,
+        accept: 'image/*'
       }
     }
   }

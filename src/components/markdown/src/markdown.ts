@@ -7,6 +7,7 @@ import { toolbar } from './vditor/vditor'
 export type MarkdownUpload = (formData: FormData) => Promise<{
   data: {
     url: string
+    name: string
   }
 }>
 

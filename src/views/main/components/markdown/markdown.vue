@@ -25,7 +25,8 @@ const upload: MarkdownUpload = (formData: FormData) => {
       if (typeof bold !== 'string') {
         resolve({
           data: {
-            url: URL.createObjectURL(bold)
+            url: URL.createObjectURL(bold),
+            name: bold.name
           }
         })
       }
