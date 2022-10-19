@@ -29,7 +29,7 @@ const fileList = ref<UploadUserFile[]>([
 ])
 
 const upload: UploadHttp = (formData: FormData) => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve /* , reject */) => {
     setTimeout(() => {
       const bold = formData.get('file')!
       if (typeof bold !== 'string') {

@@ -22,6 +22,9 @@
         >
         <m-icon v-else name="icon-plus"></m-icon>
       </slot>
+      <template #tip>
+        <slot name="tip"></slot>
+      </template>
     </el-upload>
   </div>
 </template>
@@ -37,6 +40,7 @@ import type { UploadUserFile, UploadRule } from './upload'
 import { uploadProps, uploadEmits } from './upload'
 import { ref, watch, computed, reactive } from 'vue'
 import { ElMessage } from 'element-plus'
+import { api as viewerApi } from 'v-viewer'
 import { useProgressFake } from './hooks'
 
 defineOptions({
@@ -67,7 +71,31 @@ watch(
   }
 )
 
-const onPreview: UploadProps['onPreview'] = () => {}
+const onPreview: UploadProps['onPreview'] = (uploadFile: UploadFile) => {
+  if (!props.preview) {
+    return
+  }
+
+  // onPreview
+  if (props.preview !== true) {
+    props.preview(uploadFile)
+    return
+  }
+
+  const initialViewIndex = fileList.value.findIndex(
+    (file) => file.uid === uploadFile.uid
+  )
+  viewerApi({
+    // TODO: https://github.com/fengyuanchen/viewerjs
+    options: {
+      toolbar: true,
+      url: 'url',
+      initialViewIndex
+    },
+    images: fileList.value
+  })
+}
+
 const onRemove: UploadProps['onRemove'] = (
   uploadFile: UploadFile,
   uploadFiles: UploadFile[]

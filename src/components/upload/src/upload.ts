@@ -1,6 +1,9 @@
 import type Upload from './upload.vue'
 import type { ExtractPropTypes } from 'vue'
-import type { UploadUserFile as ElUploadUserFile } from 'element-plus'
+import type {
+  UploadUserFile as ElUploadUserFile,
+  UploadFile
+} from 'element-plus'
 import { buildProps, definePropType, isArray } from '@/utils'
 
 export type UploadUserFile = ElUploadUserFile
@@ -11,6 +14,8 @@ export type UploadHttp = (formData: FormData) => Promise<{
     name: string
   }
 }>
+
+export type UploadOnPreview = (file: UploadFile) => void
 
 export interface UploadRule {
   validator: (file: File) => boolean
@@ -23,14 +28,6 @@ export const uploadProps = buildProps({
     default: () => []
   },
   multiple: {
-    type: Boolean,
-    default: true
-  },
-  removeFail: {
-    type: Boolean,
-    default: true
-  },
-  showMessage: {
     type: Boolean,
     default: true
   },
@@ -61,6 +58,11 @@ export const uploadProps = buildProps({
     type: definePropType<UploadRule[]>(Array),
     default: () => []
   },
+  // 预览功能
+  preview: {
+    type: definePropType<UploadOnPreview | boolean>([Function, Boolean]),
+    default: true
+  },
   http: {
     type: definePropType<UploadHttp>(Function),
     required: true
@@ -68,8 +70,19 @@ export const uploadProps = buildProps({
   httpFileKey: {
     type: String,
     default: 'file'
+  },
+  // 移除上传失败的文件
+  removeFail: {
+    type: Boolean,
+    default: true
+  },
+  // 显示本次上传结果(上传成功/上传失败)
+  showMessage: {
+    type: Boolean,
+    default: true
   }
 } as const)
+
 export const uploadEmits = {
   'update:modelValue': (fileList: UploadUserFile[]) => isArray(fileList),
   change: (fileList: UploadUserFile[]) => isArray(fileList)
