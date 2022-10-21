@@ -13,6 +13,9 @@
     "prepare": "husky install",
     "commit": "cz"
   },
+  "engines": {
+    "node": ">= 16"
+  },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"

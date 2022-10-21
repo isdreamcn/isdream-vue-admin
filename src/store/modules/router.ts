@@ -2,7 +2,7 @@ import type { RouteMeta } from 'vue-router'
 import { defineStore } from 'pinia'
 
 interface RouteHistoryItem {
-  pathKey: string
+  path: string
   meta: RouteMeta
 }
 interface RouterStore {
@@ -31,30 +31,31 @@ export const useRouterStore = defineStore('router', {
     setState(state: Partial<RouterStore>) {
       this.$patch(state)
     },
+    // keepAlive
     getAlive(key: string) {
       const include = this.keepAliveMap.get(key) || []
       return [...include]
     },
-    addAlive(key: string, name: string) {
-      let set = this.keepAliveMap.get(key)
+    addAlive(path: string, name: string) {
+      let set = this.keepAliveMap.get(path)
       if (!set) {
         set = new Set<string>()
       }
       if (!set.has(name)) {
         set.add(name)
       }
-      this.keepAliveMap.set(key, set)
+      this.keepAliveMap.set(path, set)
     },
     // history
-    addRouteHistory(key: string, RouteHistoryItem: RouteHistoryItem) {
-      if (this.routeHistoryMap.has(key)) {
+    addRouteHistory(routeHistoryItem: RouteHistoryItem) {
+      if (this.routeHistoryMap.has(routeHistoryItem.path)) {
         return
       }
-      this.routeHistoryMap.set(key, RouteHistoryItem)
+      this.routeHistoryMap.set(routeHistoryItem.path, routeHistoryItem)
     },
-    deleteRouteHistory(key: string) {
-      if (this.routeHistoryMap.has(key)) {
-        this.routeHistoryMap.delete(key)
+    deleteRouteHistory(path: string) {
+      if (this.routeHistoryMap.has(path)) {
+        this.routeHistoryMap.delete(path)
       }
     },
     clearRouteHistory() {

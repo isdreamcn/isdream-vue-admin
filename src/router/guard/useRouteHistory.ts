@@ -8,10 +8,11 @@ export const useRouteHistory = (router: Router) => {
     if (to.name === 'Error') {
       return
     }
-    routerStore.addRouteHistory(to.path, {
-      pathKey: to.path,
+
+    routerStore.addRouteHistory({
+      path: to.fullPath,
       meta: {
-        title: to.path,
+        title: to.fullPath,
         ...to.meta
       }
     })

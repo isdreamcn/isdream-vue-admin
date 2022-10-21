@@ -7,6 +7,7 @@ import appConfig from '@/config'
 import { createBasicLayout } from '@/views/layout'
 import router from './index'
 
+// pathKey => /开头的完整路径
 export interface RoutesHandlerOptions {
   // 生成全部菜单，不使用权限菜单
   generatorMenu: boolean
@@ -41,6 +42,7 @@ export class RoutesHandler {
       routes = this.autoSetComponent(routes)
     }
     this.setPathKeyToRouteMap(routes)
+
     if (options.generatorMenu) {
       routes = this.sortRoutes(routes)
       this.userMenu = this.generatorMenu(routes)
@@ -52,6 +54,7 @@ export class RoutesHandler {
       this.originRoutes = routes
     } else {
       this.originRoutes = []
+      // 页面刷新，重新注册路由
       nextTick(() => {
         const userStore = useUserStore()
         if (userStore.userMenu) {
@@ -109,6 +112,7 @@ export class RoutesHandler {
         } else {
           _routes.push({
             ...route,
+            // userMenu里的route.path已经拼接完成
             path: this.options.generatorMenu ? path : route.path
           })
         }
@@ -165,6 +169,7 @@ export class RoutesHandler {
     })
   }
 
+  // 保存userMenu第一个叶子节点
   private saveRouteHistory() {
     nextTick(() => {
       const routerStore = useRouterStore()
@@ -177,8 +182,8 @@ export class RoutesHandler {
         for (const route of routes) {
           if (!route.children?.length) {
             initRouteHistory = true
-            routerStore.addRouteHistory(route.pathKey, {
-              pathKey: route.pathKey,
+            routerStore.addRouteHistory({
+              path: route.pathKey,
               meta: {
                 ...route
               }
