@@ -1,4 +1,5 @@
 import type { StorageSetOptions } from '@/storage'
+import type { LayoutKeys } from '@/views/layout/config'
 import { computed } from 'vue'
 import { defineStore } from 'pinia'
 import db from '@/storage'
@@ -8,6 +9,7 @@ type Theme = 'light' | 'dark'
 
 export interface AppSetting {
   colorPrimary: string
+  layout: LayoutKeys
   menu: {
     // 折叠
     collapsed: boolean
@@ -26,6 +28,7 @@ export const useAppStore = defineStore('app', {
     theme: 'light',
     appSetting: {
       colorPrimary: '#409EFF',
+      layout: 'mainLayout',
       menu: {
         collapsed: false
       }

@@ -27,7 +27,7 @@ import { Menu, Header, RouteHistory, Footer } from '../components'
 import { useRouterStore } from '@/store'
 
 defineOptions({
-  name: 'MainLayout'
+  name: 'TopMenuLayout'
 })
 const routerStore = useRouterStore()
 const loading = computed(() => routerStore.loading)

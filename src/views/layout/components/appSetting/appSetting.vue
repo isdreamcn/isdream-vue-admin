@@ -9,14 +9,31 @@
         css-key="--el-color-primary"
         app-setting-key="colorPrimary"
       ></MColorPickerAppTheme>
+      <el-divider>布局</el-divider>
+      <div class="item--center">
+        <MSelect :options="layoutOptions" v-model="layout"></MSelect>
+      </div>
+      <el-divider>功能</el-divider>
+      <div
+        v-for="item in functions"
+        :key="item.appSettingKey"
+        class="item--between"
+      >
+        <div>
+          {{ item.label }}
+        </div>
+        <el-switch />
+      </div>
     </el-drawer>
   </div>
 </template>
 
 <script setup lang="ts">
 import type { ElDrawer } from 'element-plus'
-import { ref, nextTick } from 'vue'
+import { ref, nextTick, computed } from 'vue'
 import { ToggleDark } from '../index'
+import { layoutOptions, getLayout } from '../../config'
+import { useAppStore } from '@/store'
 
 defineOptions({
   name: 'AppSetting'
@@ -31,10 +48,24 @@ nextTick(() => {
   }
 })
 
+// 显示隐藏
 const drawer = ref(false)
 const updateDrawer = (val: boolean) => {
   drawer.value = val
 }
+
+const appStore = useAppStore()
+// layout
+const layout = computed({
+  get: () => appStore.appSetting.layout,
+  set: (val) => {
+    appStore.setAppSetting({
+      layout: val
+    })
+  }
+})
+
+const functions = computed(() => getLayout(layout.value).functions)
 </script>
 
 <style lang="scss" scoped>
@@ -52,6 +83,12 @@ const updateDrawer = (val: boolean) => {
   .item--center {
     display: flex;
     justify-content: center;
+  }
+  .item--between {
+    font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 }
 </style>

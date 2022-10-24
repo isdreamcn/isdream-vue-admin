@@ -17,14 +17,14 @@ export const routesHandler = new RoutesHandler(
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    name: 'MainLayout',
+    name: 'Layout',
     meta: {
       hiddenInBread: true
     },
     redirect: {
       name: config.mainName
     },
-    component: () => import('@/views/layout/mainLayout/mainLayout.vue'),
+    component: () => import('@/views/layout/layout.vue'),
     children: routesHandler.originRoutes
   },
   {
