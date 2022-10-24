@@ -30,7 +30,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         : {}
     },
     build: {
-      chunkSizeWarningLimit: 3 * 1024
+      chunkSizeWarningLimit: 10 * 1024
     },
     resolve: {
       alias: {

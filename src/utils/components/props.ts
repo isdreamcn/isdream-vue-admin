@@ -2,8 +2,8 @@ import type { PropType } from 'vue'
 import type { NativePropType, PropInput, Prop } from './types'
 import { warn } from 'vue'
 import { fromPairs } from 'lodash-unified'
-import { hasOwn } from '../objects'
-import { isObject } from '../types'
+import { hasOwn } from '../index'
+import { isObject } from '../index'
 
 export const definePropType = <T>(val: any): PropType<T> => val
 

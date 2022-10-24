@@ -5,7 +5,10 @@
       <el-divider>主题</el-divider>
       <div class="item--center"><ToggleDark></ToggleDark></div>
       <el-divider>系统主题</el-divider>
-      <MColorPickerAppTheme v-bind="colorPrimaryConfig"></MColorPickerAppTheme>
+      <MColorPickerAppTheme
+        css-key="--el-color-primary"
+        app-setting-key="colorPrimary"
+      ></MColorPickerAppTheme>
     </el-drawer>
   </div>
 </template>
@@ -14,7 +17,6 @@
 import type { ElDrawer } from 'element-plus'
 import { ref, nextTick } from 'vue'
 import { ToggleDark } from '../index'
-import { useColorPrimary } from './hooks/useColorPrimary'
 
 defineOptions({
   name: 'AppSetting'
@@ -33,8 +35,6 @@ const drawer = ref(false)
 const updateDrawer = (val: boolean) => {
   drawer.value = val
 }
-
-const colorPrimaryConfig = useColorPrimary()
 </script>
 
 <style lang="scss" scoped>

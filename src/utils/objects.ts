@@ -47,7 +47,7 @@ export const mergeObjDeep = createMergeObjFn({
   overlayable: () => true
 })
 
-export function getVal(form: any, s: string) {
+export function getVal(form: any, s: string): any {
   if (!isObject(form)) {
     return
   }
@@ -62,5 +62,35 @@ export function getVal(form: any, s: string) {
     }, form)
 }
 
-export { hasOwn } from '@vue/shared'
-export { cloneDeep, clone } from 'lodash-unified'
+// (a.b.c, 5) => { a: { b: { c: 5 } } }
+// ([0].a, 5) => [{ a: 5 }]
+export const generateObj = (key: string, val: any) => {
+  // 数组标识
+  const sign = '##'
+  const signLen = sign.length
+
+  let _key = key.replace(/\[(\w+)\]/g, `${sign}.$1`).replace(/^\./, '')
+  let o: Record<string | number, any> = {}
+  if (_key.startsWith(sign + '.')) {
+    o = []
+    _key = _key.slice(signLen + 1)
+  }
+
+  const keys = _key.split('.')
+  let _o = o
+  keys.forEach((k, index) => {
+    if (index === keys.length - 1) {
+      _o[k] = val
+      return
+    }
+    if (k.endsWith(sign)) {
+      k = k.slice(0, 0 - signLen)
+      _o[k] = []
+    } else {
+      _o[k] = {}
+    }
+    _o = _o[k]
+  })
+
+  return o
+}
