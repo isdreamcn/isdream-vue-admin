@@ -1,55 +1,79 @@
 <template>
-  <el-container class="main-layout">
-    <MLoadingLottie :loading="loading"></MLoadingLottie>
-    <el-aside>
+  <el-container class="m-layout top-menu-layout">
+    <el-header>
+      <Logo></Logo>
       <Menu></Menu>
-    </el-aside>
-    <el-container>
-      <el-header>
-        <Header />
-      </el-header>
-      <RouteHistory></RouteHistory>
-      <div class="main-layout__container">
-        <el-main>
-          <slot></slot>
-        </el-main>
-        <el-footer>
-          <Footer />
-        </el-footer>
+      <div class="m-layout__header">
+        <div class="m-layout__header-actions">
+          <div class="m-layout__header-actions-item">
+            <UserMenu></UserMenu>
+          </div>
+          <div class="m-layout__header-actions-item">
+            <AppSetting></AppSetting>
+          </div>
+        </div>
       </div>
-    </el-container>
+    </el-header>
+    <RouteHistory></RouteHistory>
+    <div class="top-menu-layout__container">
+      <el-main>
+        <slot></slot>
+      </el-main>
+      <el-footer>
+        <Footer />
+      </el-footer>
+    </div>
   </el-container>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { Menu, Header, RouteHistory, Footer } from '../components'
-import { useRouterStore } from '@/store'
+import {
+  Menu,
+  Logo,
+  UserMenu,
+  AppSetting,
+  RouteHistory,
+  Footer
+} from '../components'
 
 defineOptions({
   name: 'TopMenuLayout'
 })
-const routerStore = useRouterStore()
-const loading = computed(() => routerStore.loading)
 </script>
 
 <style scoped lang="scss">
-.main-layout {
+.top-menu-layout {
   position: relative;
   height: 100%;
-  .el-aside {
-    display: flex;
-    flex-direction: column;
-    width: auto;
-  }
-  .el-container {
+  &.el-container {
     height: 100%;
     display: flex;
     flex-direction: column;
     .el-header {
       padding: 0;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: solid 1px var(--el-menu-border-color);
+      padding: 0 20px;
+
+      .top-menu-layout_actions {
+        display: flex;
+        align-items: center;
+      }
+
+      .el-menu {
+        display: flex;
+        justify-content: center;
+        border: none;
+      }
+
+      .logo-container {
+        width: 200px;
+        height: 100%;
+        border-right: none;
+      }
     }
-    .main-layout__container {
+    .top-menu-layout__container {
       flex: 1;
       overflow-y: auto;
       overflow-x: hidden;

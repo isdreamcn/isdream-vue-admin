@@ -11,7 +11,11 @@
       ></MColorPickerAppTheme>
       <el-divider>布局</el-divider>
       <div class="item--center">
-        <MSelect :options="layoutOptions" v-model="layout"></MSelect>
+        <MSelect
+          :options="layoutOptions"
+          :model-value="layout"
+          @change="layoutChange"
+        ></MSelect>
       </div>
       <el-divider>功能</el-divider>
       <div
@@ -22,7 +26,10 @@
         <div>
           {{ item.label }}
         </div>
-        <el-switch />
+        <el-switch
+          :model-value="getAppSetting(item.appSettingKey)"
+          @change="(v: any) => setAppSetting(item.appSettingKey, v)"
+        />
       </div>
     </el-drawer>
   </div>
@@ -30,10 +37,12 @@
 
 <script setup lang="ts">
 import type { ElDrawer } from 'element-plus'
+import type { LayoutKeys } from '../../config'
 import { ref, nextTick, computed } from 'vue'
 import { ToggleDark } from '../index'
 import { layoutOptions, getLayout } from '../../config'
 import { useAppStore } from '@/store'
+import { getVal, generateObj } from '@/utils'
 
 defineOptions({
   name: 'AppSetting'
@@ -65,7 +74,18 @@ const layout = computed({
   }
 })
 
+const layoutChange = (key: LayoutKeys) => {
+  layout.value = key
+  appStore.setAppSetting(getLayout(key).appSetting)
+}
+
 const functions = computed(() => getLayout(layout.value).functions)
+const getAppSetting = (key: string) => {
+  return getVal(appStore.appSetting, key)
+}
+const setAppSetting = (key: string, val: any) => {
+  appStore.setAppSetting(generateObj(key, val))
+}
 </script>
 
 <style lang="scss" scoped>
@@ -85,7 +105,7 @@ const functions = computed(() => getLayout(layout.value).functions)
     justify-content: center;
   }
   .item--between {
-    font-size: 20px;
+    font-size: 16px;
     display: flex;
     justify-content: space-between;
     align-items: center;

@@ -1,4 +1,3 @@
-import Header from './header/header.vue'
 import ToggleDark from './toggleDark/toggleDark.vue'
 import AppSetting from './appSetting/appSetting.vue'
 import UserMenu from './userMenu/userMenu.vue'
@@ -13,7 +12,6 @@ import MenuCollapsed from './menuCollapsed/menuCollapsed.vue'
 import Footer from './footer/footer.vue'
 
 export {
-  Header,
   Menu,
   Footer,
   ToggleDark,

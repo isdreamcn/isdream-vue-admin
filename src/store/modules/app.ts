@@ -13,6 +13,7 @@ export interface AppSetting {
   menu: {
     // 折叠
     collapsed: boolean
+    mode: 'horizontal' | 'vertical'
   }
 }
 
@@ -30,7 +31,8 @@ export const useAppStore = defineStore('app', {
       colorPrimary: '#409EFF',
       layout: 'mainLayout',
       menu: {
-        collapsed: false
+        collapsed: false,
+        mode: 'vertical'
       }
     }
   }),

@@ -1,9 +1,9 @@
 <template>
-  <Logo></Logo>
   <el-menu
     :default-active="routePathKey"
     class="menu-container"
     :collapse="collapsed"
+    :mode="mode"
   >
     <SubMenu :menu="menu" @click="clickMenuItem" />
   </el-menu>
@@ -15,7 +15,6 @@ import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useUserStore, useAppStore } from '@/store'
 import SubMenu from './subMenu.vue'
-import { Logo } from '../index'
 
 defineOptions({
   name: 'LayoutCpnMenu'
@@ -29,6 +28,7 @@ const routePathKey = computed<string | undefined>(
 
 const appStore = useAppStore()
 const collapsed = computed(() => appStore.appSetting.menu.collapsed)
+const mode = computed(() => appStore.appSetting.menu.mode)
 
 const userStore = useUserStore()
 const menu = userStore.userMenu || []

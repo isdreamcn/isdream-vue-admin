@@ -1,4 +1,5 @@
 import type { Component } from 'vue'
+import type { AppSettingPartial } from '@/store/index'
 import mainLayout from '../mainLayout/mainLayout.vue'
 import topMenuLayout from '../topMenuLayout/topMenuLayout.vue'
 
@@ -11,6 +12,7 @@ export interface LayoutFunctionItem {
 export interface LayoutMapItem {
   componnet: Component
   label: string
+  appSetting: AppSettingPartial
   functions: LayoutFunctionItem[]
 }
 
@@ -27,10 +29,15 @@ export const layoutMap = new Map<LayoutKeys, LayoutMapItem>([
     {
       componnet: mainLayout,
       label: '左侧菜单',
+      appSetting: {
+        menu: {
+          mode: 'vertical'
+        }
+      },
       functions: [
         {
-          label: 'test',
-          appSettingKey: 'test'
+          label: '折叠菜单',
+          appSettingKey: 'menu.collapsed'
         }
       ]
     }
@@ -40,6 +47,12 @@ export const layoutMap = new Map<LayoutKeys, LayoutMapItem>([
     {
       componnet: topMenuLayout,
       label: '顶部菜单',
+      appSetting: {
+        menu: {
+          mode: 'horizontal',
+          collapsed: false
+        }
+      },
       functions: [
         {
           label: 'test',

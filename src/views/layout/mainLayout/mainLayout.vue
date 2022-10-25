@@ -1,12 +1,29 @@
 <template>
-  <el-container class="main-layout">
-    <MLoadingLottie :loading="loading"></MLoadingLottie>
+  <el-container class="m-layout main-layout">
     <el-aside>
+      <Logo></Logo>
       <Menu></Menu>
     </el-aside>
     <el-container>
       <el-header>
-        <Header />
+        <div class="m-layout__header">
+          <div class="m-layout__header-tips">
+            <div class="m-layout__header-tips-item">
+              <MenuCollapsed></MenuCollapsed>
+            </div>
+            <div class="m-layout__header-tips-item">
+              <Breadcrumb></Breadcrumb>
+            </div>
+          </div>
+          <div class="m-layout__header-actions">
+            <div class="m-layout__header-actions-item">
+              <UserMenu></UserMenu>
+            </div>
+            <div class="m-layout__header-actions-item">
+              <AppSetting></AppSetting>
+            </div>
+          </div>
+        </div>
       </el-header>
       <RouteHistory></RouteHistory>
       <div class="main-layout__container">
@@ -22,15 +39,20 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { Menu, Header, RouteHistory, Footer } from '../components'
-import { useRouterStore } from '@/store'
+import {
+  Menu,
+  Logo,
+  MenuCollapsed,
+  Breadcrumb,
+  UserMenu,
+  AppSetting,
+  RouteHistory,
+  Footer
+} from '../components'
 
 defineOptions({
   name: 'MainLayout'
 })
-const routerStore = useRouterStore()
-const loading = computed(() => routerStore.loading)
 </script>
 
 <style scoped lang="scss">
