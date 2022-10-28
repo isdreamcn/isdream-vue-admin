@@ -7,7 +7,6 @@ import appConfig from '@/config'
 import { createBasicLayout } from '@/views/layout'
 import router from './index'
 
-// pathKey => /开头的完整路径
 export interface RoutesHandlerOptions {
   // 生成全部菜单，不使用权限菜单
   generatorMenu: boolean
@@ -18,13 +17,12 @@ export interface RoutesHandlerOptions {
 
 // 角色菜单
 export interface RoleMenu extends PartialDeep<UserMenu> {
-  pathKey: string
+  path: string
   children?: RoleMenu[]
 }
 
-// pathKey => route
+// path => route
 export type RouteMapItem = RouteRecordRaw & {
-  pathKey: string
   parent?: RouteMapItem
 }
 
@@ -33,15 +31,19 @@ export class RoutesHandler {
   originRoutes: RouteRecordRaw[] = []
   // 菜单
   private userMenu: UserMenu[] = []
-  // pathKey => route
+  // path => route
   private routeMap: Map<string, RouteMapItem> = new Map()
 
   constructor(routes: RouteRecordRaw[], options: RoutesHandlerOptions) {
     this.options = options
+    // path => /path
+    routes = this.joinRoutePath(routes)
+    // 只注册叶子节点
     if (!options.flatRoutes) {
       routes = this.autoSetComponent(routes)
     }
-    this.setPathKeyToRouteMap(routes)
+    // /path => route
+    this.setPathToRouteMap(routes)
 
     if (options.generatorMenu) {
       routes = this.sortRoutes(routes)
@@ -68,22 +70,32 @@ export class RoutesHandler {
     }
   }
 
-  // map根据pathKey快速查找route
-  private setPathKeyToRouteMap(
-    routes: RouteRecordRaw[],
-    prePathKey = '',
-    parent?: RouteMapItem
-  ) {
-    routes.forEach((route) => {
-      const pathKey = `${prePathKey}/${route.path}`
-      const _route = { ...route, parent, pathKey }
-      this.routeMap.set(pathKey, _route)
-      this.setPathKeyToRouteMap(route.children || [], pathKey, _route)
+  // path => /path
+  private joinRoutePath(routes: RouteRecordRaw[], prePath = '') {
+    return routes.map((route): RouteRecordRaw => {
+      const path = route.path.startsWith('/')
+        ? route.path
+        : `${prePath}/${route.path}`
+      return Object.assign(route, {
+        path,
+        children: route.children
+          ? this.joinRoutePath(route.children, path)
+          : undefined
+      })
     })
   }
 
-  getRouteByPathKey(pathKey: string) {
-    return this.routeMap.get(pathKey)
+  // map根据path快速查找route
+  private setPathToRouteMap(routes: RouteRecordRaw[], parent?: RouteMapItem) {
+    routes.forEach((route) => {
+      const _route = { ...route, parent }
+      this.routeMap.set(route.path, _route)
+      this.setPathToRouteMap(route.children || [], _route)
+    })
+  }
+
+  getRouteByPath(path: string) {
+    return this.routeMap.get(path)
   }
 
   // 排序
@@ -103,18 +115,12 @@ export class RoutesHandler {
   // 路由扁平化
   private flatRoutes(originRoutes: RouteRecordRaw[]) {
     const _routes: RouteRecordRaw[] = []
-    const _flatRoutesC = (routes: RouteRecordRaw[], prePath = '') => {
+    const _flatRoutesC = (routes: RouteRecordRaw[]) => {
       routes.forEach((route) => {
-        // 保证开头没有/
-        const path = `${prePath}${route.path}`
         if (route.children?.length) {
-          _flatRoutesC(route.children, path + '/')
+          _flatRoutesC(route.children)
         } else {
-          _routes.push({
-            ...route,
-            // userMenu里的route.path已经拼接完成
-            path: this.options.generatorMenu ? path : route.path
-          })
+          _routes.push(route)
         }
       })
     }
@@ -124,36 +130,34 @@ export class RoutesHandler {
 
   // 自动设置component => (实现深度缓存)
   // route有`children`、但没有设置component，则自动设置component = createBasicLayout()
-  private autoSetComponent(routes: RouteRecordRaw[], prePathKey = '') {
+  private autoSetComponent(routes: RouteRecordRaw[]) {
     return routes.map((route): RouteRecordRaw => {
-      const pathKey = `${prePathKey}/${route.path}`
       return Object.assign(route, {
         component:
           route.component ??
-          (route.children?.length ? createBasicLayout(pathKey) : undefined),
+          (route.children?.length ? createBasicLayout(route.path) : undefined),
         children: route.children?.length
-          ? this.autoSetComponent(route.children, pathKey)
+          ? this.autoSetComponent(route.children)
           : undefined
       })
     })
   }
 
   // routes => menu
-  private generatorMenu(routes: RouteRecordRaw[], prePathKey = ''): UserMenu[] {
+  private generatorMenu(routes: RouteRecordRaw[]): UserMenu[] {
     return routes
       .filter(
         (route) =>
           !(route.meta?.hiddenInMenu ?? appConfig.defaultRouteMeta.hiddenInMenu)
       )
       .map((route) => {
-        const pathKey = `${prePathKey}/${route.path}`
         return {
-          pathKey: this.options.generatorMenu ? pathKey : route.path,
-          title: route.meta?.title || pathKey,
+          path: route.path,
+          title: route.meta?.title || route.path,
           icon: route.meta?.icon,
           link: route.meta?.link,
           children: route.children?.length
-            ? this.generatorMenu(route.children, pathKey)
+            ? this.generatorMenu(route.children)
             : undefined
         }
       })
@@ -183,7 +187,7 @@ export class RoutesHandler {
           if (!route.children?.length) {
             initRouteHistory = true
             routerStore.addRouteHistory({
-              path: route.pathKey,
+              path: route.path,
               meta: {
                 ...route
               }
@@ -215,25 +219,31 @@ export class RoutesHandler {
     this.saveRouteHistory()
   }
 
-  // path => pathKey
-  private roleMenuToOriginRoutes(roleMenu: RoleMenu[]): RouteRecordRaw[] {
+  private roleMenuToOriginRoutes(
+    roleMenu: RoleMenu[],
+    parent?: RouteMapItem
+  ): RouteRecordRaw[] {
     return roleMenu
-      .filter((item) => this.routeMap.has(item.pathKey))
+      .filter((item) => this.routeMap.has(item.path))
       .map((item) => {
-        const routeItem = this.routeMap.get(item.pathKey)!
+        const routeItem = this.routeMap.get(item.path)!
         const meta = routeItem.meta || {}
-        const _route = {
+        const _route: RouteMapItem = {
           ...routeItem,
+          parent,
           meta: {
             ...meta,
             icon: item.icon ?? meta.icon,
             title: item.title ?? meta.title,
             link: item.link ?? meta.link
-          },
-          children: this.roleMenuToOriginRoutes(item.children || [])
+          }
         }
-        this.routeMap.set(item.pathKey, _route)
-        return { ..._route, path: routeItem.pathKey }
+        _route.children = this.roleMenuToOriginRoutes(
+          item.children || [],
+          _route
+        )
+        this.routeMap.set(item.path, _route)
+        return _route
       })
   }
   // 根据角色权限注册路由、生成菜单

@@ -9,8 +9,8 @@ export const routesHandler = new RoutesHandler(
   loadRoutes(import.meta.glob('./main/*.ts', { eager: true })),
   {
     generatorMenu: true,
-    addRouteParentName: 'MainLayout',
-    flatRoutes: false
+    addRouteParentName: 'Layout',
+    flatRoutes: true
   }
 )
 

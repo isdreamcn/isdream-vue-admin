@@ -1,6 +1,6 @@
 <template>
   <el-menu
-    :default-active="routePathKey"
+    :default-active="routePath"
     class="menu-container"
     :collapse="collapsed"
     :mode="mode"
@@ -22,7 +22,7 @@ defineOptions({
 
 const router = useRouter()
 const route = useRoute()
-const routePathKey = computed<string | undefined>(
+const routePath = computed<string | undefined>(
   () => route.matched[route.matched.length - 1].path
 )
 
@@ -38,8 +38,8 @@ const clickMenuItem = (item: UserMenu) => {
     window.open(item.link)
     return
   }
-  if (item.pathKey !== routePathKey.value) {
-    router.push(item.pathKey)
+  if (item.path !== routePath.value) {
+    router.push(item.path)
   }
 }
 </script>

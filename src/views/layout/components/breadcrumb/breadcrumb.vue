@@ -1,11 +1,11 @@
 <template>
   <el-breadcrumb separator="/">
-    <el-breadcrumb-item v-for="item in matched" :key="item.pathKey">
-      <a v-if="item.children" @click="goPath(item.pathKey)">{{
-        item.meta?.title || item.pathKey
+    <el-breadcrumb-item v-for="item in matched" :key="item.path">
+      <a v-if="item.children" @click="goPath(item.path)">{{
+        item.meta?.title || item.path
       }}</a>
       <div v-else>
-        {{ item.meta?.title || item.pathKey }}
+        {{ item.meta?.title || item.path }}
       </div>
     </el-breadcrumb-item>
   </el-breadcrumb>
@@ -24,8 +24,8 @@ defineOptions({
 
 const route = useRoute()
 const matched = computed(() => {
-  const pathKey = route.matched[route.matched.length - 1].path
-  let _route = routesHandler.getRouteByPathKey(pathKey)
+  const path = route.matched[route.matched.length - 1].path
+  let _route = routesHandler.getRouteByPath(path)
   const _matched: RouteMapItem[] = []
   while (_route) {
     _matched.unshift(_route)

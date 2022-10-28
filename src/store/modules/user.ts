@@ -5,7 +5,7 @@ import db from '@/storage'
 export interface UserMenu {
   title: string
   // 唯一key，多级路由地址拼接，/开头
-  pathKey: string
+  path: string
   icon?: string
   link?: string
   children?: UserMenu[]
