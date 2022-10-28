@@ -21,9 +21,6 @@ const routes: RouteRecordRaw[] = [
     meta: {
       hiddenInBread: true
     },
-    redirect: {
-      name: config.mainName
-    },
     component: () => import('@/views/layout/layout.vue'),
     children: routesHandler.originRoutes
   },

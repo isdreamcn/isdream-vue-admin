@@ -3,11 +3,12 @@ import { useRouter } from 'vue-router'
 import { routesHandler } from '@/router'
 import { verifyObj } from '@/utils'
 import { userLogin } from '@/api/user/login'
-import { useUserStore } from '@/store'
+import { useUserStore, useRouteMainPath } from '@/store'
 import appConfig from '@/config'
 
 export const useLogin = () => {
   const useStore = useUserStore()
+  const routeMainPath = useRouteMainPath()
   const router = useRouter()
 
   const loginForm = reactive({
@@ -37,9 +38,7 @@ export const useLogin = () => {
             expires: appConfig.serviceTokenConfig.expires
           }
         )
-        router.push({
-          name: appConfig.mainName
-        })
+        router.push(routeMainPath.value)
       })
     }
   }

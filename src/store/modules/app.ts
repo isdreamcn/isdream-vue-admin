@@ -10,10 +10,15 @@ type Theme = 'light' | 'dark'
 export interface AppSetting {
   colorPrimary: string
   layout: LayoutKeys
+  showLogo: boolean
   menu: {
     // 折叠
     collapsed: boolean
     mode: 'horizontal' | 'vertical'
+  }
+  breadcrumb: {
+    show: boolean
+    icon: boolean
   }
 }
 
@@ -30,9 +35,14 @@ export const useAppStore = defineStore('app', {
     appSetting: {
       colorPrimary: '#409EFF',
       layout: 'mainLayout',
+      showLogo: true,
       menu: {
         collapsed: false,
         mode: 'vertical'
+      },
+      breadcrumb: {
+        show: true,
+        icon: true
       }
     }
   }),
@@ -62,11 +72,13 @@ export const useAppStore = defineStore('app', {
 
 export const useAppSetting = () => {
   const appStore = useAppStore()
+  const appSetting = computed(() => appStore.appSetting)
 
   const appTheme = computed(() => appStore.theme)
   const appIsDark = computed(() => appStore.theme === 'dark')
 
   return {
+    appSetting,
     appTheme,
     appIsDark
   }

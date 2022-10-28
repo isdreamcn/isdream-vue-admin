@@ -30,14 +30,20 @@ export const layoutMap = new Map<LayoutKeys, LayoutMapItem>([
       componnet: mainLayout,
       label: '左侧菜单',
       appSetting: {
+        showLogo: true,
         menu: {
-          mode: 'vertical'
+          mode: 'vertical',
+          collapsed: false
         }
       },
       functions: [
         {
           label: '折叠菜单',
           appSettingKey: 'menu.collapsed'
+        },
+        {
+          label: 'logo',
+          appSettingKey: 'showLogo'
         }
       ]
     }
@@ -48,6 +54,7 @@ export const layoutMap = new Map<LayoutKeys, LayoutMapItem>([
       componnet: topMenuLayout,
       label: '顶部菜单',
       appSetting: {
+        showLogo: true,
         menu: {
           mode: 'horizontal',
           collapsed: false
@@ -55,12 +62,8 @@ export const layoutMap = new Map<LayoutKeys, LayoutMapItem>([
       },
       functions: [
         {
-          label: 'test',
-          appSettingKey: 'test'
-        },
-        {
-          label: 'test1',
-          appSettingKey: 'test1'
+          label: 'logo',
+          appSettingKey: 'showLogo'
         }
       ]
     }

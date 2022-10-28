@@ -1,11 +1,15 @@
 <template>
-  <div class="logo-container">LOGO</div>
+  <div v-if="appSetting.showLogo" class="logo-container">LOGO</div>
 </template>
 
 <script setup lang="ts">
+import { useAppSetting } from '@/store'
+
 defineOptions({
   name: 'LayoutCpnMenuLogo'
 })
+
+const { appSetting } = useAppSetting()
 </script>
 
 <style lang="scss" scoped>

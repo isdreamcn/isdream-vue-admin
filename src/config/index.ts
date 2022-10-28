@@ -14,7 +14,6 @@ export interface AppConfig {
   serviceTokenConfig: ServiceTokenConfig
   defaultRouteMeta: DefaultRouteMeta
   loginName: string
-  mainName: string
   baseUrlApi: string
   baseUrlFile: string
   useMock: boolean
@@ -44,7 +43,6 @@ const config: Readonly<AppConfig> = {
     needLoading: false
   },
   loginName: 'Login',
-  mainName: 'Main',
 
   baseUrlApi: viteEnv.VITE_BASE_URL_API,
   baseUrlFile: viteEnv.VITE_BASE_URL_FILE,

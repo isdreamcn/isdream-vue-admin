@@ -1,5 +1,6 @@
 import type { RouteMeta } from 'vue-router'
 import { defineStore } from 'pinia'
+import { computed } from 'vue'
 
 interface RouteHistoryItem {
   path: string
@@ -63,3 +64,9 @@ export const useRouterStore = defineStore('router', {
     }
   }
 })
+
+// 第一个路由的path(返回首页)
+export const useRouteMainPath = () => {
+  const routerStore = useRouterStore()
+  return computed(() => routerStore.routeHistory[0]?.path)
+}

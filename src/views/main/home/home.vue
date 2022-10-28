@@ -7,10 +7,9 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import config from '@/config'
 
 defineOptions({
-  name: config.mainName
+  name: 'Home'
 })
 
 const input = ref('')

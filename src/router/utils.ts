@@ -173,32 +173,42 @@ export class RoutesHandler {
     })
   }
 
+  getNotChildRoute<T extends { children?: any[] } = RouteRecordRaw>(
+    routes: T[]
+  ): T | undefined {
+    let route: any = undefined
+    const _getNotChildRoute = (routes: T[]) => {
+      if (route) {
+        return
+      }
+      for (const item of routes) {
+        if (!item.children?.length) {
+          route = item
+          return
+        } else {
+          _getNotChildRoute(item.children)
+        }
+      }
+    }
+    _getNotChildRoute(routes)
+
+    return route
+  }
+
   // 保存userMenu第一个叶子节点
   private saveRouteHistory() {
     nextTick(() => {
       const routerStore = useRouterStore()
       routerStore.clearRouteHistory()
-      let initRouteHistory = false
-      const _searchFirstRoute = (routes: UserMenu[]) => {
-        if (initRouteHistory) {
-          return
-        }
-        for (const route of routes) {
-          if (!route.children?.length) {
-            initRouteHistory = true
-            routerStore.addRouteHistory({
-              path: route.path,
-              meta: {
-                ...route
-              }
-            })
-            return
-          } else {
-            _searchFirstRoute(route.children)
+      const route = this.getNotChildRoute<UserMenu>(this.userMenu)
+      if (route) {
+        routerStore.addRouteHistory({
+          path: route.path,
+          meta: {
+            ...route
           }
-        }
+        })
       }
-      _searchFirstRoute(this.userMenu)
     })
   }
 

@@ -1,7 +1,7 @@
 <template>
   <el-breadcrumb separator="/">
     <el-breadcrumb-item v-for="item in matched" :key="item.path">
-      <a v-if="item.children" @click="goPath(item.path)">{{
+      <a v-if="item.children" @click="goPath(item)">{{
         item.meta?.title || item.path
       }}</a>
       <div v-else>
@@ -38,8 +38,11 @@ const matched = computed(() => {
 })
 
 const router = useRouter()
-const goPath = (path: string) => {
-  router.push(path)
+const goPath = (route: RouteMapItem) => {
+  let path = routesHandler.getNotChildRoute(route.children!)?.path
+  if (path) {
+    router.push(path)
+  }
 }
 </script>
 
