@@ -1,12 +1,17 @@
 <template>
-  <el-breadcrumb separator="/">
+  <el-breadcrumb
+    class="m-breadcrumb"
+    v-if="appSetting.breadcrumb.show"
+    separator="/"
+  >
     <el-breadcrumb-item v-for="item in matched" :key="item.path">
-      <a v-if="item.children" @click="goPath(item)">{{
-        item.meta?.title || item.path
-      }}</a>
-      <div v-else>
+      <a @click="item.children ? goPath(item) : NOOP">
+        <MIcon
+          v-if="appSetting.breadcrumb.icon && item.meta?.icon"
+          :name="item.meta.icon"
+        ></MIcon>
         {{ item.meta?.title || item.path }}
-      </div>
+      </a>
     </el-breadcrumb-item>
   </el-breadcrumb>
 </template>
@@ -17,10 +22,14 @@ import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import appConfig from '@/config'
 import { routesHandler } from '@/router'
+import { NOOP } from '@/utils'
+import { useAppSetting } from '@/store'
 
 defineOptions({
   name: 'LayoutCpnBreadcrumb'
 })
+
+const { appSetting } = useAppSetting()
 
 const route = useRoute()
 const matched = computed(() => {
@@ -46,4 +55,15 @@ const goPath = (route: RouteMapItem) => {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.m-breadcrumb {
+  a {
+    display: flex;
+    align-items: center;
+    @include m-menu-theme();
+    .m-icon {
+      margin-right: 5px;
+    }
+  }
+}
+</style>

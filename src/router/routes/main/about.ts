@@ -5,7 +5,7 @@ export default {
   name: 'About',
   meta: {
     title: '关于',
-    icon: 'iconfont-gengduo',
+    icon: 'icon-cpu',
     sort: 2
   },
   component: () => import('@/views/main/about/about.vue')

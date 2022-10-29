@@ -1,13 +1,35 @@
 <template>
   <div class="app-setting-container">
     <el-icon @click="updateDrawer(true)"><icon-setting /></el-icon>
-    <el-drawer ref="drawerRef" v-model="drawer" size="25%" title="项目配置">
+    <el-drawer
+      ref="drawerRef"
+      v-model="drawer"
+      size="25%"
+      title="项目配置"
+      append-to-body
+      custom-class="app-setting-container__drawer"
+    >
       <el-divider>主题</el-divider>
       <div class="item--center"><ToggleDark></ToggleDark></div>
       <el-divider>系统主题</el-divider>
       <MColorPickerAppTheme
         css-key="--el-color-primary"
         app-setting-key="colorPrimary"
+      ></MColorPickerAppTheme>
+      <el-divider>菜单的背景颜色</el-divider>
+      <MColorPickerAppTheme
+        css-key="--bg-color"
+        app-setting-key="menu.backgroundColor"
+      ></MColorPickerAppTheme>
+      <el-divider>菜单的文字颜色</el-divider>
+      <MColorPickerAppTheme
+        css-key="--text-color"
+        app-setting-key="menu.textColor"
+      ></MColorPickerAppTheme>
+      <el-divider>活动菜单项的背景颜色</el-divider>
+      <MColorPickerAppTheme
+        css-key="--hover-bg-color"
+        app-setting-key="menu.hoverBackgroundColor"
       ></MColorPickerAppTheme>
       <el-divider>布局</el-divider>
       <div class="item--center">
@@ -68,6 +90,7 @@ const appStore = useAppStore()
 const layout = computed({
   get: () => appStore.appSetting.layout,
   set: (val) => {
+    appStore.resetAppSetting()
     appStore.setAppSetting({
       layout: val
     })
@@ -94,10 +117,10 @@ const setAppSetting = (key: string, val: any) => {
   cursor: pointer;
   display: flex;
   align-items: center;
-
-  :deep(.el-drawer__body) {
+}
+.app-setting-container__drawer {
+  .el-drawer__body {
     padding-top: 0;
-    padding-bottom: 0;
   }
 
   .item--center {

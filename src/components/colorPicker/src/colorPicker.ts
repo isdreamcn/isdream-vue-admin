@@ -3,15 +3,15 @@ import type ColorPicker from './colorPicker.vue'
 import { isString } from '@vue/shared'
 import { buildProps, definePropType } from '@/utils'
 
-interface OptionsItem {
-  label: string
+export interface colorPickerOptionsItem {
+  label?: string
   value: string
 }
 
 export const colorPickerProps = buildProps({
   modelValue: String,
   options: {
-    type: definePropType<OptionsItem[]>(Array),
+    type: definePropType<colorPickerOptionsItem[]>(Array),
     default: () => []
   },
   custom: {

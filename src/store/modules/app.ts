@@ -15,12 +15,46 @@ export interface AppSetting {
     // 折叠
     collapsed: boolean
     mode: 'horizontal' | 'vertical'
+    backgroundColor: string
+    textColor: string
+    hoverBackgroundColor: string
   }
   breadcrumb: {
     show: boolean
     icon: boolean
   }
+  routeHistory: {
+    show: boolean
+    actions: boolean
+  }
+  footer: {
+    show: boolean
+  }
 }
+
+const useAppSettingDefault = (): AppSetting => ({
+  colorPrimary: '#409EFF',
+  layout: 'mainLayout',
+  showLogo: true,
+  menu: {
+    collapsed: false,
+    mode: 'vertical',
+    backgroundColor: '#ffffff',
+    textColor: '#303133',
+    hoverBackgroundColor: '#ecf5ff'
+  },
+  breadcrumb: {
+    show: true,
+    icon: true
+  },
+  routeHistory: {
+    show: true,
+    actions: true
+  },
+  footer: {
+    show: true
+  }
+})
 
 export type AppSettingPartial = PartialDeep<AppSetting>
 
@@ -32,19 +66,7 @@ interface AppState {
 export const useAppStore = defineStore('app', {
   state: (): AppState => ({
     theme: 'light',
-    appSetting: {
-      colorPrimary: '#409EFF',
-      layout: 'mainLayout',
-      showLogo: true,
-      menu: {
-        collapsed: false,
-        mode: 'vertical'
-      },
-      breadcrumb: {
-        show: true,
-        icon: true
-      }
-    }
+    appSetting: useAppSettingDefault()
   }),
   getters: {},
   actions: {
@@ -65,6 +87,10 @@ export const useAppStore = defineStore('app', {
         appSetting: mergeObjDeep(this.appSetting, appSetting)
       })
 
+      db.set('appSetting', this.appSetting)
+    },
+    resetAppSetting() {
+      this.appSetting = useAppSettingDefault()
       db.set('appSetting', this.appSetting)
     }
   }

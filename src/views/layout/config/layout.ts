@@ -30,10 +30,8 @@ export const layoutMap = new Map<LayoutKeys, LayoutMapItem>([
       componnet: mainLayout,
       label: '左侧菜单',
       appSetting: {
-        showLogo: true,
         menu: {
-          mode: 'vertical',
-          collapsed: false
+          mode: 'vertical'
         }
       },
       functions: [
@@ -44,6 +42,26 @@ export const layoutMap = new Map<LayoutKeys, LayoutMapItem>([
         {
           label: 'logo',
           appSettingKey: 'showLogo'
+        },
+        {
+          label: '面包屑',
+          appSettingKey: 'breadcrumb.show'
+        },
+        {
+          label: '面包屑图标',
+          appSettingKey: 'breadcrumb.icon'
+        },
+        {
+          label: '标签页',
+          appSettingKey: 'routeHistory.show'
+        },
+        {
+          label: '标签页按钮',
+          appSettingKey: 'routeHistory.actions'
+        },
+        {
+          label: '页脚',
+          appSettingKey: 'footer.show'
         }
       ]
     }
@@ -54,7 +72,6 @@ export const layoutMap = new Map<LayoutKeys, LayoutMapItem>([
       componnet: topMenuLayout,
       label: '顶部菜单',
       appSetting: {
-        showLogo: true,
         menu: {
           mode: 'horizontal',
           collapsed: false
@@ -64,6 +81,26 @@ export const layoutMap = new Map<LayoutKeys, LayoutMapItem>([
         {
           label: 'logo',
           appSettingKey: 'showLogo'
+        },
+        {
+          label: '面包屑',
+          appSettingKey: 'breadcrumb.show'
+        },
+        {
+          label: '面包屑图标',
+          appSettingKey: 'breadcrumb.icon'
+        },
+        {
+          label: '标签页',
+          appSettingKey: 'routeHistory.show'
+        },
+        {
+          label: '标签页按钮',
+          appSettingKey: 'routeHistory.actions'
+        },
+        {
+          label: '页脚',
+          appSettingKey: 'footer.show'
         }
       ]
     }

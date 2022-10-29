@@ -6,6 +6,7 @@
       effect="dark"
       :content="colorItem.label"
       placement="top"
+      :disabled="!colorItem.label"
     >
       <div
         :class="[

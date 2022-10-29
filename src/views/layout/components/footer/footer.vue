@@ -1,18 +1,24 @@
 <template>
-  <div class="footer-container">
-    <div>
-      Copyright ©
-      <el-link type="info" href="https://isdream.cn" target="_blank"
-        >isdream.cn</el-link
-      >
+  <el-footer v-if="appSetting.footer.show">
+    <div class="footer-container">
+      <div>
+        Copyright ©
+        <el-link type="info" href="https://isdream.cn" target="_blank"
+          >isdream.cn</el-link
+        >
+      </div>
     </div>
-  </div>
+  </el-footer>
 </template>
 
 <script setup lang="ts">
+import { useAppSetting } from '@/store'
+
 defineOptions({
   name: 'LayoutCpnFooter'
 })
+
+const { appSetting } = useAppSetting()
 </script>
 
 <style lang="scss" scoped>

@@ -19,9 +19,7 @@
       <el-main>
         <slot></slot>
       </el-main>
-      <el-footer>
-        <Footer />
-      </el-footer>
+      <Footer />
     </div>
   </el-container>
 </template>
@@ -54,7 +52,9 @@ defineOptions({
       display: flex;
       justify-content: space-between;
       border-bottom: solid 1px var(--el-menu-border-color);
-      padding: 0 20px;
+      .m-layout__header-actions {
+        margin-right: 20px;
+      }
 
       .top-menu-layout_actions {
         display: flex;

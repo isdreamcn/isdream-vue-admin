@@ -32,7 +32,8 @@ const layoutComponents = computed(
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: solid 1px var(--el-menu-border-color);
+    border-bottom: solid 1px;
+    @include m-menu-theme(true);
 
     .m-layout__header-tips {
       display: flex;
@@ -46,13 +47,11 @@ const layoutComponents = computed(
       display: flex;
       height: 100%;
       .m-layout__header-actions-item {
+        @include m-menu-theme-hover();
         padding: 0 10px;
         display: flex;
         align-items: center;
         cursor: pointer;
-        &:hover {
-          background-color: var(--el-menu-hover-bg-color);
-        }
       }
     }
   }

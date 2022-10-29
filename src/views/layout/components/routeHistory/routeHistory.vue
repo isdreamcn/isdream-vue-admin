@@ -1,5 +1,5 @@
 <template>
-  <div class="route-history__container">
+  <div v-if="appSetting.routeHistory.show" class="route-history__container">
     <div class="route-history__tags">
       <el-tag
         v-for="(route, index) in routeHistory"
@@ -18,7 +18,7 @@
         >{{ route.meta.title || route.path }}</el-tag
       >
     </div>
-    <div class="route-history__actions">
+    <div v-if="appSetting.routeHistory.actions" class="route-history__actions">
       <el-dropdown>
         <m-icon name="icon-arrowDown"></m-icon>
         <template #dropdown>
@@ -45,12 +45,13 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { useRouterStore } from '@/store'
+import { useRouterStore, useAppSetting } from '@/store'
 
 defineOptions({
   name: 'LayoutCpnRouteHistory'
 })
 
+const { appSetting } = useAppSetting()
 const routerStore = useRouterStore()
 const routeHistory = computed(() => routerStore.routeHistory)
 

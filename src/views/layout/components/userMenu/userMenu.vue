@@ -40,6 +40,7 @@ const errorHandler = () => {}
 
 <style lang="scss" scoped>
 .el-avatar-box {
+  @include m-menu-theme();
   display: flex;
   align-items: center;
   .el-avatar {

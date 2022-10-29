@@ -30,9 +30,7 @@
         <el-main>
           <slot></slot>
         </el-main>
-        <el-footer>
-          <Footer />
-        </el-footer>
+        <Footer />
       </div>
     </el-container>
   </el-container>
@@ -70,6 +68,9 @@ defineOptions({
     flex-direction: column;
     .el-header {
       padding: 0;
+      .m-layout__header-actions {
+        margin-right: 20px;
+      }
     }
     .main-layout__container {
       flex: 1;

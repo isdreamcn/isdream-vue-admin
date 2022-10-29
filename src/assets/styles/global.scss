@@ -10,6 +10,18 @@
 :root {
   --animate-duration: 800ms;
   --animate-delay: 0.5s;
+
+  --bg-color: var(--el-fill-color-blank);
+  --text-color: var(--el-text-color-primary);
+  --hover-bg-color: var(--el-color-primary-light-9);
+}
+
+.light {
+  // element-plus
+  // menu
+  --el-menu-bg-color: var(--bg-color) !important;
+  --el-menu-text-color: var(--text-color) !important;
+  --el-menu-hover-bg-color: var(--hover-bg-color) !important;
 }
 
 html, body, #app {

@@ -15,6 +15,7 @@ export {
   isString,
   isDate,
   isPromise,
-  isSymbol
+  isSymbol,
+  NOOP
 } from '@vue/shared'
 export { isVNode } from 'vue'

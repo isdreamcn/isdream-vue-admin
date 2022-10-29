@@ -9,9 +9,11 @@ export const useDark = () => {
 
   const toggleDark = () => {
     if (isDark.value) {
+      htmlEl?.classList.add('light')
       htmlEl?.classList.remove('dark')
     } else {
       htmlEl?.classList.add('dark')
+      htmlEl?.classList.remove('light')
     }
 
     isDark.value = !isDark.value
@@ -23,6 +25,8 @@ export const useDark = () => {
   // 恢复缓存样式
   if (isDark.value) {
     htmlEl?.classList.add('dark')
+  } else {
+    htmlEl?.classList.add('light')
   }
 
   return {

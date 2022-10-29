@@ -1,5 +1,8 @@
 <template>
-  <div v-if="appSetting.showLogo" class="logo-container">LOGO</div>
+  <div v-if="appSetting.showLogo" class="logo-container">
+    <img src="@/../public/favicon.ico" />
+    <span v-if="!appSetting.menu.collapsed">LOGO</span>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -14,10 +17,23 @@ const { appSetting } = useAppSetting()
 
 <style lang="scss" scoped>
 .logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 60px;
   line-height: 60px;
   text-align: center;
-  border-bottom: solid 1px var(--el-menu-border-color);
-  border-right: solid 1px var(--el-menu-border-color);
+  border-bottom: solid 1px;
+  border-right: solid 1px;
+  @include m-menu-theme(true);
+
+  img {
+    width: 45px;
+    height: 45px;
+  }
+
+  span {
+    margin-left: 10px;
+  }
 }
 </style>
