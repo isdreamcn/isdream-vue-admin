@@ -5,6 +5,7 @@ export const useDark = () => {
   const appStore = useAppStore()
 
   const isDark = ref(appStore.theme === 'dark')
+
   const htmlEl = document.querySelector('html')
 
   const toggleDark = () => {

@@ -12,25 +12,29 @@
       <el-divider>主题</el-divider>
       <div class="item--center"><ToggleDark></ToggleDark></div>
       <el-divider>系统主题</el-divider>
-      <MColorPickerAppTheme
-        css-key="--el-color-primary"
-        app-setting-key="colorPrimary"
-      ></MColorPickerAppTheme>
+      <div class="item--center">
+        <MColorPickerAppTheme
+          app-setting-key="colorPrimary"
+        ></MColorPickerAppTheme>
+      </div>
       <el-divider>菜单的背景颜色</el-divider>
-      <MColorPickerAppTheme
-        css-key="--bg-color"
-        app-setting-key="menu.backgroundColor"
-      ></MColorPickerAppTheme>
+      <div class="item--center">
+        <MColorPickerAppTheme
+          app-setting-key="menu.backgroundColor"
+        ></MColorPickerAppTheme>
+      </div>
       <el-divider>菜单的文字颜色</el-divider>
-      <MColorPickerAppTheme
-        css-key="--text-color"
-        app-setting-key="menu.textColor"
-      ></MColorPickerAppTheme>
+      <div class="item--center">
+        <MColorPickerAppTheme
+          app-setting-key="menu.textColor"
+        ></MColorPickerAppTheme>
+      </div>
       <el-divider>活动菜单项的背景颜色</el-divider>
-      <MColorPickerAppTheme
-        css-key="--hover-bg-color"
-        app-setting-key="menu.hoverBackgroundColor"
-      ></MColorPickerAppTheme>
+      <div class="item--center">
+        <MColorPickerAppTheme
+          app-setting-key="menu.hoverBackgroundColor"
+        ></MColorPickerAppTheme>
+      </div>
       <el-divider>布局</el-divider>
       <div class="item--center">
         <MSelect
@@ -60,24 +64,24 @@
 <script setup lang="ts">
 import type { ElDrawer } from 'element-plus'
 import type { LayoutKeys } from '../../config'
-import { ref, nextTick, computed } from 'vue'
-import { ToggleDark } from '../index'
-import { layoutOptions, getLayout } from '../../config'
+import { ref, computed } from 'vue'
 import { useAppStore } from '@/store'
 import { getVal, generateObj } from '@/utils'
+import { ToggleDark } from '../index'
+import { layoutOptions, getLayout } from '../../config'
 
 defineOptions({
   name: 'AppSetting'
 })
 
-const drawerRef = ref<InstanceType<typeof ElDrawer>>()
+// const drawerRef = ref<InstanceType<typeof ElDrawer>>()
 
 // 取消 el-drawer 懒加载
-nextTick(() => {
-  if (drawerRef.value) {
-    drawerRef.value.rendered = true
-  }
-})
+// nextTick(() => {
+//   if (drawerRef.value) {
+//     drawerRef.value.rendered = true
+//   }
+// })
 
 // 显示隐藏
 const drawer = ref(false)
@@ -90,7 +94,6 @@ const appStore = useAppStore()
 const layout = computed({
   get: () => appStore.appSetting.layout,
   set: (val) => {
-    appStore.resetAppSetting()
     appStore.setAppSetting({
       layout: val
     })
