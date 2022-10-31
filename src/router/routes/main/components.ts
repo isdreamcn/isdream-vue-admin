@@ -73,6 +73,13 @@ export default {
         title: 'upload'
       },
       component: () => import('@/views/main/components/upload/upload.vue')
+    },
+    {
+      path: 'chart',
+      meta: {
+        title: '图表'
+      },
+      component: () => import('@/views/main/components/chart/chart.vue')
     }
   ]
 } as RouteRecordRaw

@@ -20,7 +20,7 @@ defineOptions({
 const props = defineProps(markdownProps)
 const emit = defineEmits(markdownEmits)
 
-const vditorId = uniqueId('vditor_')
+const vditorId = uniqueId('vditor-')
 const vditor = ref<Vditor>()
 const { vditorTheme } = useVditorTheme(vditor)
 
@@ -53,9 +53,6 @@ watch(
 )
 
 const init = () => {
-  if (vditor.value) {
-    return
-  }
   vditor.value = new Vditor(vditorId, {
     // 设置外观主题
     theme: vditorTheme.theme.value,
@@ -90,10 +87,7 @@ const init = () => {
 }
 
 const destroy = () => {
-  if (!vditor.value) {
-    return
-  }
-  vditor.value.destroy()
+  vditor.value!.destroy()
   vditor.value = undefined
 }
 

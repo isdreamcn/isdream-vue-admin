@@ -4,6 +4,7 @@ import { useVueRouter } from './vueRouter'
 import { useDirectives } from './directives'
 import { useComponents } from './components'
 import { useViewer } from './viewer'
+import { useECharts } from './echarts'
 
 export const setupAppPlugins: AppUsePlugin = (app) => {
   usePinia(app)
@@ -14,4 +15,9 @@ export const setupAppPlugins: AppUsePlugin = (app) => {
   useDirectives(app)
   // 全局组件
   useComponents(app)
+  // ECharts
+  useECharts()
 }
+
+// types
+export * from './types'

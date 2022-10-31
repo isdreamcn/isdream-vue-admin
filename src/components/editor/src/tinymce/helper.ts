@@ -1,3 +1,5 @@
+import type { Editor } from 'tinymce'
+
 const validEvents = [
   'onActivate',
   'onAddUndo',
@@ -67,8 +69,8 @@ const isValidKey = (key: string) => validEvents.indexOf(key) !== -1
 
 export const bindHandlers = (
   initEvent: Record<string, any>,
-  listeners: any,
-  editor: any
+  listeners: Record<string, any>,
+  editor: Editor
 ): void => {
   Object.keys(listeners)
     .filter(isValidKey)

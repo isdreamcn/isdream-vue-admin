@@ -8,6 +8,7 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     A: typeof import('./src/components/a/src/a.vue')['default']
+    Chart: typeof import('./src/components/chart/src/chart.vue')['default']
     ColorPicker: typeof import('./src/components/colorPicker/src/colorPicker.vue')['default']
     ColorPickerAppTheme: typeof import('./src/components/colorPicker/src/colorPickerAppTheme.vue')['default']
     DeleteButton: typeof import('./src/components/deleteButton/src/deleteButton.vue')['default']
@@ -65,6 +66,7 @@ declare module '@vue/runtime-core' {
     MA: typeof import('@/components')['MA']
     Markdown: typeof import('./src/components/markdown/src/markdown.vue')['default']
     MarkdownView: typeof import('./src/components/markdown/src/markdownView.vue')['default']
+    MChart: typeof import('@/components')['MChart']
     MCheckboxGroup: typeof import('./src/components/form/src/components/MCheckboxGroup.vue')['default']
     MColorPicker: typeof import('@/components')['MColorPicker']
     MColorPickerAppTheme: typeof import('@/components')['MColorPickerAppTheme']
