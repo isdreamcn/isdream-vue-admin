@@ -57,6 +57,19 @@
           @change="(v: any) => setAppSetting(item.appSettingKey, v)"
         />
       </div>
+      <el-divider>操作</el-divider>
+      <div class="action-buttons">
+        <el-button type="primary" @click="copy">
+          <MIcon name="icon-copyDocument"></MIcon>拷贝</el-button
+        >
+        <el-button type="warning" @click="reset"
+          ><MIcon name="icon-refresh"></MIcon>重置</el-button
+        >
+        <el-button type="danger" @click="clearCache"
+          ><MIcon name="icon-refreshLeft"></MIcon
+          >清空缓存并返回登录页</el-button
+        >
+      </div>
     </el-drawer>
   </div>
 </template>
@@ -65,8 +78,12 @@
 import type { ElDrawer } from 'element-plus'
 import type { LayoutKeys } from '../../config'
 import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
+import { ElMessageBox } from 'element-plus'
 import { useAppStore } from '@/store'
 import { getVal, generateObj } from '@/utils'
+import db from '@/storage'
+import appConfig from '@/config'
 import { ToggleDark } from '../index'
 import { layoutOptions, getLayout } from '../../config'
 
@@ -112,6 +129,42 @@ const getAppSetting = (key: string) => {
 const setAppSetting = (key: string, val: any) => {
   appStore.setAppSetting(generateObj(key, val))
 }
+
+// actions
+const copy = () => {
+  navigator.clipboard
+    .writeText(JSON.stringify(appStore.appSetting, null, 2))
+    .then(() => {
+      ElMessageBox.alert(
+        '复制成功,请到 src/store/modules/app.ts 中修改配置！',
+        '提示',
+        {
+          confirmButtonText: '确定',
+          type: 'success',
+          showClose: false
+        }
+      )
+    })
+    .catch(() => {
+      ElMessageBox.alert('剪贴板拒绝写入', '提示', {
+        confirmButtonText: '确定',
+        type: 'error',
+        showClose: false
+      })
+    })
+}
+
+const reset = () => {
+  appStore.resetAppSetting()
+}
+
+const router = useRouter()
+const clearCache = () => {
+  db.clear()
+  router.push({
+    name: appConfig.loginName
+  })
+}
 </script>
 
 <style lang="scss" scoped>
@@ -135,6 +188,21 @@ const setAppSetting = (key: string, val: any) => {
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+
+  .action-buttons {
+    display: flex;
+    flex-direction: column;
+    .el-button {
+      margin-bottom: 15px;
+      margin-left: 0;
+      &:last-child {
+        margin-bottom: 0;
+      }
+      .m-icon {
+        margin-right: 5px;
+      }
+    }
   }
 }
 </style>
