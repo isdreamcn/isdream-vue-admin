@@ -12,6 +12,9 @@
       v-model:isReload="isReload"
       v-model:selectKeys="selectKeys"
     >
+      <template #createAt="{ value }">
+        <span v-dateFormat:YYYY-MM-DD="value"></span>
+      </template>
       <template #extra>
         <el-button @click="isReload = true">重置</el-button>
         <el-button @click="params.q = 456">params.q = 456</el-button>

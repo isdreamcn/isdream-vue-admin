@@ -22,7 +22,8 @@ export const tableColumns: TableColumns = [
   },
   {
     key: 'createAt',
-    label: '创建日期'
+    label: '创建日期',
+    slot: true
   },
   {
     key: 'updateAt',

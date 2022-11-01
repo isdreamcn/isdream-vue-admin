@@ -26,6 +26,7 @@
     "@vue/shared": "^3.2.38",
     "animate.css": "^4.1.1",
     "axios": "^0.27.2",
+    "dayjs": "^1.11.6",
     "echarts": "^5.4.0",
     "element-plus": "^2.2.15",
     "lodash-unified": "^1.0.2",
