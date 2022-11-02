@@ -21,6 +21,7 @@ export const useUserList = (): UserList[] => {
         username: 'admin',
         email: '123456@mock.com'
       },
+      permissions: ['tableSearch'],
       // 路由
       menu: [
         {
@@ -36,6 +37,10 @@ export const useUserList = (): UserList[] => {
         {
           id: 9,
           path: '/demo/link'
+        },
+        {
+          id: 10,
+          path: '/demo/show-loading'
         },
         {
           id: 3,

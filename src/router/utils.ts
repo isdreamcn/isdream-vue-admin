@@ -56,17 +56,19 @@ export class RoutesHandler {
       this.originRoutes = routes
     } else {
       this.originRoutes = []
-      // 页面刷新，重新注册路由
-      nextTick(() => {
-        const userStore = useUserStore()
-        if (userStore.userMenu) {
-          this.useRoleMenu(userStore.userMenu)
-          // 重载当前页
-          router.push(
-            location.hash ? location.hash.slice(1) : location.pathname
-          )
-        }
-      })
+      // 页面刷新，从storage获取userMenu 重新注册路由
+      if (appConfig.storeConfig.userStorage) {
+        nextTick(() => {
+          const userStore = useUserStore()
+          if (userStore.userMenu) {
+            this.useRoleMenu(userStore.userMenu)
+            // 重载当前页
+            router.push(
+              location.hash ? location.hash.slice(1) : location.pathname
+            )
+          }
+        })
+      }
     }
   }
 

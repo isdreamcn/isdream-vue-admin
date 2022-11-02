@@ -22,7 +22,7 @@ export default [
       )
       if (userInfo) {
         return {
-          code: 200,
+          code: HttpStatusCode.OK,
           data: userInfo
         }
       }
@@ -55,5 +55,55 @@ export default [
     //     statusCode: HttpStatusCode.Not_Found
     //   }
     // })
+  },
+  {
+    url: '/api/user/menu',
+    method: 'get',
+    timeout: 1000,
+    response: ({ headers }: RequestParams) => {
+      const token = headers?.authorization?.replaceAll('Bearer ', '')
+      if (!token) {
+        return {
+          code: HttpStatusCode.Unauthorized,
+          message: 'headers中不存在token'
+        }
+      }
+      const userInfo = useUserList().find((item) => item.token === token)
+      if (!userInfo) {
+        return {
+          code: HttpStatusCode.Not_Found,
+          data: []
+        }
+      }
+      return {
+        code: HttpStatusCode.OK,
+        data: userInfo.menu
+      }
+    }
+  },
+  {
+    url: '/api/user/permissions',
+    method: 'get',
+    timeout: 1000,
+    response: ({ headers }: RequestParams) => {
+      const token = headers?.authorization?.replaceAll('Bearer ', '')
+      if (!token) {
+        return {
+          code: HttpStatusCode.Unauthorized,
+          message: 'headers中不存在token'
+        }
+      }
+      const userInfo = useUserList().find((item) => item.token === token)
+      if (!userInfo) {
+        return {
+          code: HttpStatusCode.Not_Found,
+          data: []
+        }
+      }
+      return {
+        code: HttpStatusCode.OK,
+        data: userInfo.permissions
+      }
+    }
   }
 ] as MockMethod[]

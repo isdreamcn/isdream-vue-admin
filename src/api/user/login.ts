@@ -1,4 +1,5 @@
 import type {
+  UserMenu,
   UserLoginParams,
   UserLoginResult,
   UserSigninParams
@@ -7,7 +8,9 @@ import service from '@/service'
 
 enum Api {
   Login = '/api/user/login',
-  Signin = '/api/user/signin'
+  Signin = '/api/user/signin',
+  Menu = '/api/user/menu',
+  Permissions = '/api/user/permissions'
 }
 
 export const userLogin = (data: UserLoginParams) => {
@@ -23,5 +26,21 @@ export const userSignin = (data: UserSigninParams) => {
     url: Api.Signin,
     method: 'POST',
     data
+  })
+}
+
+// 用户菜单
+export const getUserMenu = () => {
+  return service.request<Service.Result<UserMenu[]>>({
+    url: Api.Menu,
+    method: 'GET'
+  })
+}
+
+// 用户按钮权限
+export const getUserPermissions = () => {
+  return service.request<Service.Result<string[]>>({
+    url: Api.Permissions,
+    method: 'GET'
   })
 }

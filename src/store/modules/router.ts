@@ -19,7 +19,7 @@ export const useRouterStore = defineStore('router', {
   state: (): RouterStore => ({
     keepAliveMap: new Map(),
     routeHistoryMap: new Map(),
-    needLoading: true,
+    needLoading: false,
     loading: false
   }),
   getters: {

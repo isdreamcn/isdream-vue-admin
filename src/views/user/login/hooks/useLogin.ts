@@ -1,15 +1,9 @@
 import { reactive } from 'vue'
-import { useRouter } from 'vue-router'
-import { routesHandler } from '@/router'
 import { verifyObj } from '@/utils'
-import { userLogin } from '@/api/user/login'
-import { useUserStore, useRouteMainPath } from '@/store'
-import appConfig from '@/config'
+import { useUserStore } from '@/store'
 
 export const useLogin = () => {
   const useStore = useUserStore()
-  const routeMainPath = useRouteMainPath()
-  const router = useRouter()
 
   const loginForm = reactive({
     username: 'admin',
@@ -27,19 +21,7 @@ export const useLogin = () => {
         (val) => val || val === 0
       )
     ) {
-      userLogin(loginForm).then(({ data }) => {
-        routesHandler.useRoleMenu(data.menu)
-        useStore.setState(
-          {
-            token: data.token,
-            userInfo: data.user
-          },
-          {
-            expires: appConfig.serviceTokenConfig.expires
-          }
-        )
-        router.push(routeMainPath.value)
-      })
+      useStore.login(loginForm)
     }
   }
 

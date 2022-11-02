@@ -9,7 +9,14 @@ export type DefaultRouteMeta = Required<
     'keepAlive' | 'hiddenInMenu' | 'hiddenInBread' | 'needLoading'
   >
 >
+
+interface StoreConfig {
+  // store/user, storage是否存储userMenu、userPermissions
+  userStorage: boolean
+}
+
 export interface AppConfig {
+  storeConfig: StoreConfig
   storageConfig: StorageConfig
   serviceTokenConfig: ServiceTokenConfig
   defaultRouteMeta: DefaultRouteMeta
@@ -22,6 +29,11 @@ export interface AppConfig {
 const viteEnv = wrapperImportMetaEnv(import.meta.env)
 
 const config: Readonly<AppConfig> = {
+  // store
+  storeConfig: {
+    userStorage: true
+  },
+  // storage
   storageConfig: {
     type: 'localStorage',
     prefix: 'isdream',
@@ -42,8 +54,8 @@ const config: Readonly<AppConfig> = {
     hiddenInBread: false,
     needLoading: false
   },
-  loginName: 'Login',
 
+  loginName: 'Login',
   baseUrlApi: viteEnv.VITE_BASE_URL_API,
   baseUrlFile: viteEnv.VITE_BASE_URL_FILE,
   useMock: viteEnv.VITE_USE_MOCK

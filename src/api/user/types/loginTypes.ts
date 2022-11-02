@@ -24,6 +24,7 @@ export interface UserLoginResult {
   id: number
   token: string
   menu: UserMenu[]
+  permissions: string[]
   user: UserInfo
 }
 
