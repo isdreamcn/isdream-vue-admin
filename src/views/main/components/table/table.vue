@@ -16,8 +16,12 @@
         <span v-dateFormat:YYYY-MM-DD="value"></span>
       </template>
       <template #extra>
-        <el-button @click="isReload = true">重置</el-button>
-        <el-button @click="params.q = 456">params.q = 456</el-button>
+        <el-button v-auth="searchBtnPermission" @click="isReload = true"
+          >重置</el-button
+        >
+        <el-button v-auth:tableSearch @click="params.q = 456"
+          >params.q = 456</el-button
+        >
       </template>
       <template #actions="{ row, index, value }">
         <el-button size="small" @click="clg({ row, index, value })"
@@ -38,6 +42,7 @@ defineOptions({
 })
 
 const isReload = ref(true)
+const searchBtnPermission = ref('tableReset')
 
 const userList = ref<any[]>()
 

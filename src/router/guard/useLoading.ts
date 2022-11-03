@@ -12,9 +12,6 @@ export const useLoading = (router: Router) => {
   }, 200)
 
   router.afterEach((to) => {
-    if (to.name === 'Error') {
-      return
-    }
     routerStore.setState({
       needLoading:
         to.meta.needLoading ?? appConfig.defaultRouteMeta.needLoading,

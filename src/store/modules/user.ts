@@ -29,6 +29,7 @@ interface UserState {
   userInfo: Nullable<UserInfo>
   userMenu: Nullable<UserMenu[]>
   userPermissions: Nullable<string[]>
+  userPermissionMap: Map<string, boolean>
 }
 
 export const useUserStore = defineStore('user', {
@@ -36,7 +37,9 @@ export const useUserStore = defineStore('user', {
     token: '',
     userInfo: null,
     userMenu: null,
-    userPermissions: []
+    userPermissions: [],
+    // 用于O(1)判断权限
+    userPermissionMap: new Map()
   }),
   getters: {},
   actions: {
@@ -47,13 +50,14 @@ export const useUserStore = defineStore('user', {
       if (appConfig.storeConfig.userStorage) {
         this.userMenu = db.get<UserMenu[]>('userMenu')
         this.userPermissions = db.get<string[]>('userPermissions')
+        this.generaterPermissionMap()
       } else if (this.token) {
         // 重新获取用户菜单及权限
         setTimeout(() => {
           const routerStore = useRouterStore()
           routerStore.setState({
             loading: true,
-            needLoading: false
+            closeLoading: false
           })
           // 菜单
           getUserMenu().then((res) => {
@@ -63,13 +67,15 @@ export const useUserStore = defineStore('user', {
               .push(location.hash ? location.hash.slice(1) : location.pathname)
               .then(() => {
                 routerStore.setState({
-                  loading: false
+                  loading: false,
+                  closeLoading: true
                 })
               })
           })
           // 权限
           getUserPermissions().then((res) => {
             this.userPermissions = res.data
+            this.generaterPermissionMap()
           })
         })
       }
@@ -87,6 +93,7 @@ export const useUserStore = defineStore('user', {
             expires: appConfig.serviceTokenConfig.expires
           }
         )
+        this.generaterPermissionMap()
 
         // 注册路由
         routesHandler.useRoleMenu(data.menu)
@@ -116,6 +123,20 @@ export const useUserStore = defineStore('user', {
     setUserInfo(userInfo: UserInfo, dbOptions?: StorageSetOptions) {
       this.userInfo = userInfo
       db.set('userInfo', this.userInfo, dbOptions)
+    },
+    // 生成PermissionMap
+    generaterPermissionMap() {
+      const map = new Map<string, boolean>()
+      if (this.userPermissions) {
+        for (const permission of this.userPermissions) {
+          map.set(permission, true)
+        }
+      }
+      this.userPermissionMap = map
+    },
+    // 校验权限
+    permissionAuth(permission: string) {
+      return !!this.userPermissionMap.get(permission)
     }
   }
 })

@@ -11,6 +11,8 @@ interface RouterStore {
   routeHistoryMap: Map<string, RouteHistoryItem>
   // 当跳转一个没有缓存的组件，需要加载动画
   needLoading: boolean
+  // 是否可以关闭动画(刷新页面，请求接口获取roleMenu、注册路由时、loading禁止关闭)
+  closeLoading: boolean
   // 请求api显示动画, 200ms防抖
   loading: boolean
 }
@@ -20,6 +22,7 @@ export const useRouterStore = defineStore('router', {
     keepAliveMap: new Map(),
     routeHistoryMap: new Map(),
     needLoading: false,
+    closeLoading: true,
     loading: false
   }),
   getters: {
@@ -30,6 +33,9 @@ export const useRouterStore = defineStore('router', {
   actions: {
     setupState() {},
     setState(state: Partial<RouterStore>) {
+      if (this.loading && !(state.closeLoading || this.closeLoading)) {
+        state.loading = true
+      }
       this.$patch(state)
     },
     // keepAlive

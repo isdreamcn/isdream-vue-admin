@@ -59,7 +59,7 @@ export default [
   {
     url: '/api/user/menu',
     method: 'get',
-    timeout: 1000,
+    timeout: 3000,
     response: ({ headers }: RequestParams) => {
       const token = headers?.authorization?.replaceAll('Bearer ', '')
       if (!token) {
