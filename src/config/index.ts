@@ -6,7 +6,12 @@ import { wrapperImportMetaEnv } from '@/utils'
 export type DefaultRouteMeta = Required<
   Pick<
     RouteMeta,
-    'keepAlive' | 'hiddenInMenu' | 'hiddenInBread' | 'needLoading'
+    | 'keepAlive'
+    | 'hiddenInMenu'
+    | 'hiddenInBread'
+    | 'needLoading'
+    | 'needToken'
+    | 'needRouteHistory'
   >
 >
 
@@ -20,7 +25,8 @@ export interface AppConfig {
   storageConfig: StorageConfig
   serviceTokenConfig: ServiceTokenConfig
   defaultRouteMeta: DefaultRouteMeta
-  loginName: string
+  routeMainName: symbol
+  routeLoginName: symbol
   baseUrlApi: string
   baseUrlFile: string
   useMock: boolean
@@ -52,10 +58,15 @@ const config: Readonly<AppConfig> = {
     keepAlive: true,
     hiddenInMenu: false,
     hiddenInBread: false,
-    needLoading: false
+    needLoading: false,
+    needToken: true,
+    needRouteHistory: true
   },
 
-  loginName: 'Login',
+  // route name
+  routeMainName: Symbol('main'),
+  routeLoginName: Symbol('login'),
+
   baseUrlApi: viteEnv.VITE_BASE_URL_API,
   baseUrlFile: viteEnv.VITE_BASE_URL_FILE,
   useMock: viteEnv.VITE_USE_MOCK

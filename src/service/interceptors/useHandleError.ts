@@ -10,7 +10,7 @@ import router from '@/router'
 const failAuth = () => {
   db.clear()
   router.push({
-    name: appConfig.loginName
+    name: appConfig.routeLoginName
   })
 }
 interface FailHandler {

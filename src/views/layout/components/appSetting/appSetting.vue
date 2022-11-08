@@ -162,7 +162,7 @@ const router = useRouter()
 const clearCache = () => {
   db.clear()
   router.push({
-    name: appConfig.loginName
+    name: appConfig.routeLoginName
   })
 }
 </script>

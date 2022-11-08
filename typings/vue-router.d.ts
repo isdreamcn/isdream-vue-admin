@@ -19,5 +19,9 @@ declare module 'vue-router' {
     hiddenInBread?: boolean
     // 需要加载动画
     needLoading?: boolean
+    // 需要token
+    needToken?: boolean
+    // 需要保留路由访问记录
+    needRouteHistory?: boolean
   }
 }

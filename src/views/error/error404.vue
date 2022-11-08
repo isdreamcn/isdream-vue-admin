@@ -19,7 +19,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { randomNum } from '@/utils'
-import { useRouteMainPath } from '@/store'
+import appConfig from '@/config'
 import data404 from '@/assets/lottie/not-found-404.json'
 
 defineOptions({
@@ -36,9 +36,10 @@ const tips = [
 const tip = ref(tips[randomNum(0, tips.length - 1)])
 
 const router = useRouter()
-const routeMainPath = useRouteMainPath()
 const goHome = () => {
-  router.push(routeMainPath.value)
+  router.push({
+    name: appConfig.routeMainName
+  })
 }
 
 const goBack = () => {

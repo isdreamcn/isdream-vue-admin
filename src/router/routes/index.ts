@@ -1,5 +1,5 @@
 import type { RouteRecordRaw } from 'vue-router'
-import config from '@/config'
+import appConfig from '@/config'
 import { loadFiles } from '@/utils'
 import { RoutesHandler } from '../utils'
 
@@ -9,7 +9,7 @@ export const routesHandler = new RoutesHandler(
   loadRoutes(import.meta.glob('./main/*.ts', { eager: true })),
   {
     generatorMenu: true,
-    addRouteParentName: 'Layout',
+    addRouteParentName: appConfig.routeMainName,
     flatRoutes: true
   }
 )
@@ -17,24 +17,23 @@ export const routesHandler = new RoutesHandler(
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    name: 'Layout',
-    meta: {
-      hiddenInBread: true
-    },
+    name: appConfig.routeMainName,
     component: () => import('@/views/layout/layout.vue'),
     children: routesHandler.originRoutes
   },
   {
     path: '/user',
     redirect: {
-      name: config.loginName
+      name: appConfig.routeLoginName
     },
     component: () => import('@/views/layout/userLayout/userLayout.vue'),
     children: loadRoutes(import.meta.glob('./user/*.ts', { eager: true }))
   },
   {
     path: '/:pathMatch(.*)*',
-    name: 'Error',
+    meta: {
+      needRouteHistory: false
+    },
     component: () => import('@/views/error/error404.vue')
   }
 ]

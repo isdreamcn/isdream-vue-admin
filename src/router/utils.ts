@@ -1,4 +1,4 @@
-import type { RouteRecordRaw } from 'vue-router'
+import type { RouteRecordRaw, RouteRecordName } from 'vue-router'
 import type { UserMenu } from '@/store'
 
 import { nextTick } from 'vue'
@@ -10,7 +10,7 @@ import router from './index'
 export interface RoutesHandlerOptions {
   // 生成全部菜单，不使用权限菜单
   generatorMenu: boolean
-  addRouteParentName: string
+  addRouteParentName: RouteRecordName
   // 路由扁平化，只渲染最后一层（性能比较高，但父级component不会渲染, 缓存路由较多时推荐使用）
   flatRoutes: boolean
 }
@@ -260,7 +260,7 @@ export class RoutesHandler {
   }
   // 根据角色权限注册路由、生成菜单
   private registeredRoutes(
-    parentName: string | symbol,
+    parentName: RouteRecordName,
     routes: RouteRecordRaw[]
   ) {
     routes.forEach((route) => {

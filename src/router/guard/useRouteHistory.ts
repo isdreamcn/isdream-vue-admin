@@ -1,14 +1,16 @@
 import type { Router } from 'vue-router'
 import { useRouterStore } from '@/store'
+import appConfig from '@/config'
+
 export const useRouteHistory = (router: Router) => {
   const routerStore = useRouterStore()
 
   router.afterEach((to) => {
-    // 前往的页面为404
-    if (to.name === 'Error') {
+    if (
+      !(to.meta.needRouteHistory ?? appConfig.defaultRouteMeta.needRouteHistory)
+    ) {
       return
     }
-
     routerStore.addRouteHistory({
       path: to.fullPath,
       meta: {

@@ -31,7 +31,7 @@ const router = useRouter()
 const layout = () => {
   userStore.layout()
   router.push({
-    name: config.loginName
+    name: config.routeLoginName
   })
 }
 

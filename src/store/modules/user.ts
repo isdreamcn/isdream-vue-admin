@@ -5,7 +5,7 @@ import db from '@/storage'
 import appConfig from '@/config'
 import router, { routesHandler } from '@/router'
 import { userLogin, getUserMenu, getUserPermissions } from '@/api/user/login'
-import { useRouteMainPath, useRouterStore } from './router'
+import { useRouterStore } from './router'
 
 export interface UserMenu {
   title: string
@@ -97,7 +97,9 @@ export const useUserStore = defineStore('user', {
 
         // 注册路由
         routesHandler.useRoleMenu(data.menu)
-        router.push(useRouteMainPath().value)
+        router.push({
+          name: appConfig.routeMainName
+        })
       })
     },
     // 退出登录
