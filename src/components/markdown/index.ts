@@ -1,10 +1,14 @@
 import { withInstall } from '@/utils'
-import Markdown from './src/markdown.vue'
-import MarkdownView from './src/markdownView.vue'
+import { defineAsyncComponent } from 'vue'
 
-export const MMarkdownView = withInstall(MarkdownView)
+export const MMarkdownView = withInstall(
+  defineAsyncComponent(() => import('./src/markdownView.vue'))
+)
 
-export const MMarkdown = withInstall(Markdown, { MarkdownView })
+export const MMarkdown = withInstall(
+  defineAsyncComponent(() => import('./src/markdown.vue')),
+  { MMarkdownView }
+)
 export default MMarkdown
 
 export * from './src/markdown'

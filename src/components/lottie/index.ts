@@ -1,7 +1,9 @@
 import { withInstall } from '@/utils'
-import Lottie from './src/lottie.vue'
+import { defineAsyncComponent } from 'vue'
 
-export const MLottie = withInstall(Lottie)
+export const MLottie = withInstall(
+  defineAsyncComponent(() => import('./src/lottie.vue'))
+)
 export default MLottie
 
 export * from './src/lottie'

@@ -1,11 +1,13 @@
 import { withInstall } from '@/utils'
+import { defineAsyncComponent } from 'vue'
 import Loading from './src/loading.vue'
-import LoadingLottie from './src/loading-lottie.vue'
 
 export const MLoading = withInstall(Loading)
 export default MLoading
 
-export const MLoadingLottie = withInstall(LoadingLottie)
+export const MLoadingLottie = withInstall(
+  defineAsyncComponent(() => import('./src/loading-lottie.vue'))
+)
 
 export * from './src/loading'
 export * from './src/loading-lottie'

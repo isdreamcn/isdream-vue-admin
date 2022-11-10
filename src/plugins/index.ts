@@ -4,15 +4,12 @@ import { useVueRouter } from './vueRouter'
 import { useDirectives } from './directives'
 import { useComponents } from './components'
 import { useViewer } from './viewer'
-import { useECharts } from './echarts'
 import { useDayjs } from './dayjs'
 
 export const setupAppPlugins: AppUsePlugin = (app) => {
   usePinia(app)
   // v-viewer
   useViewer(app)
-  // ECharts
-  useECharts()
   // dayjs
   useDayjs()
   // vue-router

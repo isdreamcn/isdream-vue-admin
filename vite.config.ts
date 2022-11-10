@@ -2,7 +2,7 @@ import type { ConfigEnv, UserConfig } from 'vite'
 import { loadEnv } from 'vite'
 import path from 'path'
 
-import { wrapperLoadEnv } from './build/utils'
+import { wrapperLoadEnv, dependenciesChunks } from './build/utils'
 import { createVitePlugins } from './build/vite/plugins'
 const pathResolve = (dir: string) => {
   return path.resolve(__dirname, dir)
@@ -30,7 +30,26 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         : {}
     },
     build: {
-      chunkSizeWarningLimit: 10 * 1024
+      chunkSizeWarningLimit: 5 * 1024,
+      rollupOptions: {
+        output: {
+          chunkFileNames: 'assets/js/[name]-[hash].js',
+          entryFileNames: 'assets/js/[name]-[hash].js',
+          assetFileNames: 'assets/[ext]/[name]-[hash].[ext]',
+          manualChunks: {
+            // 最小 ...dependenciesChunks(['vue'])
+            ...dependenciesChunks([
+              'vue',
+              'vue-router',
+              'pinia',
+              'animate.css',
+              'normalize.css',
+              'lodash-unified',
+              '@vue/shared'
+            ])
+          }
+        }
+      }
     },
     resolve: {
       alias: {

@@ -1,7 +1,9 @@
 import { withInstall } from '@/utils'
-import Chart from './src/chart.vue'
+import { defineAsyncComponent } from 'vue'
 
-export const MChart = withInstall(Chart)
+export const MChart = withInstall(
+  defineAsyncComponent(() => import('./src/chart.vue'))
+)
 export default MChart
 
 export * from './src/chart'

@@ -38,7 +38,13 @@ export type ECOption = echarts.ComposeOption<
   | DatasetComponentOption
 >
 
+let usedECharts = false
+
 export const useECharts = () => {
+  if (usedECharts) {
+    return
+  }
+  usedECharts = true
   // 注册必须的组件
   echarts.use([
     TitleComponent,

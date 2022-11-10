@@ -5,6 +5,7 @@
 <script setup lang="ts">
 import type { ECharts } from 'echarts/core'
 import * as echarts from 'echarts/core'
+import { useECharts } from '@/plugins/echarts'
 import { ref, computed, useAttrs, watch, onMounted, onBeforeUnmount } from 'vue'
 import { chartProps, chartEmits } from './chart'
 import { useHandlers } from './hooks'
@@ -12,6 +13,8 @@ import { useHandlers } from './hooks'
 defineOptions({
   name: 'MChart'
 })
+
+useECharts()
 
 const props = defineProps(chartProps)
 const emit = defineEmits(chartEmits)

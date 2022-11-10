@@ -1,6 +1,6 @@
 import type Markdown from './markdown.vue'
 import type { ExtractPropTypes } from 'vue'
-import Vditor from 'vditor'
+import type Vditor from 'vditor'
 import { buildProps, definePropType } from '@/utils'
 import { toolbar } from './vditor/vditor'
 
@@ -40,7 +40,8 @@ export const markdownProps = buildProps({
 export const markdownEmits = {
   change: (content: string) => typeof content === 'string',
   'update:modelValue': (content: string) => typeof content === 'string',
-  getVditor: (vditor: Vditor) => vditor instanceof Vditor
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  getVditor: (vditor: Vditor) => true
 }
 
 export type MarkdownProps = ExtractPropTypes<typeof markdownProps>

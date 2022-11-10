@@ -1,7 +1,10 @@
 import { withInstall } from '@/utils'
-import Editor from './src/editor.vue'
+import { defineAsyncComponent } from 'vue'
 
-export const MEditor = withInstall(Editor)
+// 使用异步组件，用于打包时分包
+export const MEditor = withInstall(
+  defineAsyncComponent(() => import('./src/editor.vue'))
+)
 export default MEditor
 
 export * from './src/editor'
