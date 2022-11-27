@@ -30,7 +30,11 @@ const createKeepAliveVNode = (
     {
       include: aliveInclude.value
     },
-    Component && isRouterViewChildren ? h(Component) : undefined
+    Component && isRouterViewChildren
+      ? h(Component, {
+          key: route?.fullPath
+        })
+      : undefined
   )
 }
 

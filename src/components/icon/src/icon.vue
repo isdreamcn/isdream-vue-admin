@@ -1,15 +1,14 @@
 <template>
-  <div class="m-icon">
-    <el-icon
-      :size="props.size"
-      :color="props.color"
-      :class="{ iconfont: isIconfont, [iconfontClass]: isIconfont }"
-    >
-      <slot>
-        <component v-if="!isIconfont" :is="props.name"></component>
-      </slot>
-    </el-icon>
-  </div>
+  <el-icon
+    class="m-icon"
+    :size="props.size"
+    :color="props.color"
+    :class="{ iconfont: isIconfont, [iconfontClass]: isIconfont }"
+  >
+    <slot>
+      <component v-if="!isIconfont" :is="props.name"></component>
+    </slot>
+  </el-icon>
 </template>
 
 <script setup lang="ts">
@@ -33,8 +32,5 @@ const iconfontClass = computed(() => {
 
 <style lang="scss" scoped>
 .m-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 </style>

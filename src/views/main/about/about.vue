@@ -20,7 +20,7 @@
         target="_blank"
         >TypeScript</el-link
       >
-      的中后台解决方案
+      的中后台模板
     </el-card>
     <el-card header="项目信息">
       <el-descriptions :column="2" border>
