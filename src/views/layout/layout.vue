@@ -16,7 +16,7 @@ defineOptions({
 
 const appStore = useAppStore()
 const layoutComponents = computed(
-  () => getLayout(appStore.appSetting.layout).componnet
+  () => getLayout(appStore.appSetting.layout).component
 )
 </script>
 
