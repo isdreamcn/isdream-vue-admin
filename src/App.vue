@@ -1,8 +1,10 @@
 <script setup lang="ts">
-// 国际化
-import zhCn from 'element-plus/lib/locale/lang/zh-cn'
 import { computed } from 'vue'
 import { useRouterStore } from '@/store'
+import { ElConfigProvider } from 'element-plus'
+import { MLoadingLottie } from '@/components'
+// 国际化
+import zhCn from 'element-plus/lib/locale/lang/zh-cn'
 
 // loading
 const routerStore = useRouterStore()

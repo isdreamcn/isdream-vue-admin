@@ -2,7 +2,7 @@ import type { AppUsePlugin } from './types'
 import { usePinia } from './pinia'
 import { useVueRouter } from './vueRouter'
 import { useDirectives } from './directives'
-import { useComponents } from './components'
+import { useComponents, useComponentsAll } from './components'
 import { useViewer } from './viewer'
 import { useDayjs } from './dayjs'
 
@@ -17,7 +17,11 @@ export const setupAppPlugins: AppUsePlugin = (app) => {
   // 全局指令
   useDirectives(app)
   // 全局组件
-  useComponents(app)
+  if (import.meta.env.DEV) {
+    useComponentsAll(app)
+  } else {
+    useComponents(app)
+  }
 }
 
 // types

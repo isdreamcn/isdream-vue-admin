@@ -11,7 +11,7 @@ import { rollupVisualizer } from './rollupVisualizer'
 export const createVitePlugins = (viteEnv: DefineEnv, isBuild: boolean) => {
   const plugins: PluginOption[] = [vue(), DefineOptions()]
 
-  plugins.push(useAutoImportComponents())
+  plugins.push(useAutoImportComponents(isBuild))
   plugins.push(useMock(viteEnv, isBuild))
   plugins.push(useHtmlDev())
   plugins.push(useGzip())

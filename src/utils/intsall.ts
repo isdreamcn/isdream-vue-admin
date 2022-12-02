@@ -9,11 +9,12 @@ export type SFCInstallWithContext<T> = SFCWithInstall<T> & {
 
 export const withInstall = <T, E extends Record<string, any>>(
   main: T,
-  extra?: E
+  extra?: E,
+  mainName?: string
 ) => {
   ;(main as SFCWithInstall<T>).install = (app): void => {
     for (const comp of [main, ...Object.values(extra ?? {})]) {
-      app.component(comp.name, comp)
+      app.component(mainName || comp.name, comp)
     }
   }
 
