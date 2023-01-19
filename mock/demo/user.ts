@@ -1,24 +1,25 @@
-import type { RequestParams } from '../_types'
 import type { MockMethod } from 'vite-plugin-mock'
+import type { MockRequestParams } from '../_types'
 import { HttpStatusCode } from '@/constants'
 import { Random } from 'mockjs'
-import { resultPagination } from '../_utils'
+import { generateResultPagination } from '../_utils'
+import { GetDemoUserListParams, DemoUser } from '@/api/demo/user'
 
 export default [
   {
-    url: '/api/user/list',
+    url: '/api/demo/user/list',
     method: 'get',
     timeout: 1000,
     statusCode: HttpStatusCode.OK,
-    response: ({ query }: RequestParams) => {
+    response: ({ query }: MockRequestParams<GetDemoUserListParams>) => {
       return {
-        ...resultPagination(
+        ...generateResultPagination(
           (id) => ({
             id,
             name: '@cname',
             address: '@city()',
             email: '@email',
-            userinfo: {
+            UserInfo: {
               origin: 'mock'
             },
             avatar: Random.image(
@@ -38,7 +39,7 @@ export default [
         ),
         code: HttpStatusCode.OK,
         message: 'ok'
-      }
+      } as Service.ResultPagination<DemoUser[]>
     }
   }
 ] as MockMethod[]

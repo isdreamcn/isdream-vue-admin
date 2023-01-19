@@ -5,7 +5,7 @@
     <MTable
       :columns="tableColumns"
       :data="userList"
-      :http="getUserList"
+      :http="getDemoUserList"
       :params="params"
       a="456"
       b="789"
@@ -24,7 +24,7 @@
         >
       </template>
       <template #actions="{ row, index, value }">
-        <el-button size="small" @click="clg({ row, index, value })"
+        <el-button size="small" @click="viewDetails({ row, index, value })"
           >详情</el-button
         >
       </template>
@@ -35,7 +35,7 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
 import { tableColumns } from './config'
-import { getUserList } from '@/api/main/user'
+import { getDemoUserList } from '@/api/demo/user'
 
 defineOptions({
   name: 'DemoCpnsMTable'
@@ -46,17 +46,10 @@ const searchBtnPermission = ref('tableReset')
 
 const userList = ref<any[]>()
 
-// getUserList({
-//   page: 1,
-//   pageSize: 20
-// }).then((res) => {
-//   userList.value = res.data
-// })
-
 // selectKeys
 const selectKeys = ref<any[]>([1, 3, 5])
 
-const clg = (scope: any) => {
+const viewDetails = (scope: any) => {
   console.log(scope)
 }
 

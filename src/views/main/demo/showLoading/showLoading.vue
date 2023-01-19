@@ -6,22 +6,23 @@
 </template>
 
 <script setup lang="ts">
-import { getDemoList1, getDemoList2 } from '@/api/main/demo'
+import { getDemoUserList } from '@/api/demo/user'
+import { demoErrorNotFount } from '@/api/demo/error'
 
 defineOptions({
   name: 'DemoShowLoading'
 })
 
-getDemoList1().then((res) => {
-  console.log(res, 'getDemoList1')
+getDemoUserList().then((res) => {
+  console.log(res, 'getDemoUserList')
 })
 
-getDemoList2()
+demoErrorNotFount()
   .then((res) => {
-    console.log(res, 'getDemoList2')
+    console.log(res, 'demoErrorNotFount')
   })
   .catch((err) => {
-    console.log(err, 'getDemoList2 err')
+    console.log(err, 'demoErrorNotFount err')
   })
 </script>
 

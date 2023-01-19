@@ -1,11 +1,15 @@
 import type { StorageSetOptions } from '@/storage'
-import type { UserLoginParams } from '@/api/user/types/loginTypes'
 import { defineStore } from 'pinia'
 import db from '@/storage'
 import appConfig from '@/config'
 import router, { routesHandler } from '@/router'
-import { userLogin, getUserMenu, getUserPermissions } from '@/api/user/login'
 import { useRouterStore } from './router'
+import {
+  UserLoginParams,
+  userLogin,
+  getUserMenu,
+  getUserPermissions
+} from '@/api/user/login'
 
 export interface UserMenu {
   title: string
@@ -17,10 +21,8 @@ export interface UserMenu {
 }
 
 export interface UserInfo {
-  id: number
+  id?: number
   username: string
-  realname?: string
-  email: string
   avatar?: string
 }
 
@@ -87,7 +89,7 @@ export const useUserStore = defineStore('user', {
         this.setUserInfo(data.user)
         this.setState(
           {
-            userPermissions: data.permissions
+            userPermissions: []
           },
           {
             expires: appConfig.serviceTokenConfig.expires
@@ -96,7 +98,7 @@ export const useUserStore = defineStore('user', {
         this.generaterPermissionMap()
 
         // 注册路由
-        routesHandler.useRoleMenu(data.menu)
+        routesHandler.useRoleMenu([])
         router.push({
           name: appConfig.routeMainName
         })

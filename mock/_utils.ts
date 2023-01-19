@@ -1,29 +1,28 @@
-import type { IncomingMessage, ServerResponse } from 'http'
-import type { RequestParams } from './_types'
-import type { UserLoginResult } from '@/api/user/types/loginTypes'
-import url from 'url'
-import { HttpStatusCode } from '@/constants'
+import type {
+  UserLoginResult,
+  UserLoginMenu
+} from '@/api/user/types/login.type'
 
-interface UserList extends UserLoginResult {
+interface MockUserLoginList extends UserLoginResult {
   username: string
   password: string
+  menus: UserLoginMenu[]
+  permissions: string[]
 }
 
-export const useUserList = (): UserList[] => {
+export const useUserList = (): MockUserLoginList[] => {
   return [
     {
-      id: 1,
       username: 'admin',
       password: '123456',
       token: '123456789',
       user: {
         id: 1,
-        username: 'admin',
-        email: '123456@mock.com'
+        username: 'admin'
       },
       permissions: ['tableSearch'],
       // 路由
-      menu: [
+      menus: [
         {
           id: 1,
           title: '首页MockRole',
@@ -77,61 +76,24 @@ export const useUserList = (): UserList[] => {
   ]
 }
 
-type RawResponseHandlerFn<T extends object> = (config: RequestParams<T>) => {
-  data: any
-  statusCode?: number
-}
-
-/**
- * @description: rawResponse => response
- */
-// 生产模式rawResponse不支持
-export const rawResponseHandler = <T extends object>(
-  fn: RawResponseHandlerFn<T>
-) => {
-  return async (req: IncomingMessage, res: ServerResponse) => {
-    let reqbody = ''
-    await new Promise((resolve) => {
-      req.on('data', (chunk: any) => {
-        reqbody += chunk
-      })
-      req.on('end', () => resolve(undefined))
-    })
-
-    const config = {
-      method: req.method,
-      body: JSON.parse(reqbody),
-      headers: req.headers,
-      query: url.parse(req.url || '', true).query
-    } as RequestParams<T>
-
-    const { statusCode = HttpStatusCode.OK, data } = fn(config)
-
-    res.statusCode = statusCode
-    res.setHeader('Content-Type', 'text/plain;charset=utf-8')
-    res.end(JSON.stringify(data))
-  }
-}
-
 interface ResultPaginationOptions {
   page: number
   pageSize: number
   count?: number
 }
 
-type DataItemFn = (index: number) => any
-
-export const resultPagination = (
-  dataItemFn: DataItemFn,
+// 生成分页数据
+export const generateResultPagination = <T = any>(
+  generater: (index: number) => T,
   options?: ResultPaginationOptions
-): Service.ResultPagination => {
+): Service.ResultPagination<T[]> => {
   const { page = 1, pageSize = 10, count = 100 } = options || {}
   const data: any[] = []
   const start = (page - 1) * pageSize
   const end = page * pageSize > count ? count : page * pageSize
 
   for (let i = start + 1; i <= end; i++) {
-    data.push(dataItemFn(i))
+    data.push(generater(i))
   }
   return {
     data,

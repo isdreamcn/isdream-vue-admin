@@ -1,4 +1,3 @@
-import type { RequestParams } from '../_types'
 import type { MockMethod } from 'vite-plugin-mock'
 import { HttpStatusCode } from '@/constants'
 
@@ -8,8 +7,7 @@ export default [
     method: 'post',
     timeout: 1000,
     statusCode: HttpStatusCode.OK,
-    response: ({ body }: RequestParams) => {
-      console.log(body)
+    response: () => {
       return {
         data: {
           url: 'favicon.ico'
