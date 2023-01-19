@@ -1,6 +1,6 @@
 <template>
   <div v-if="appSetting.showLogo" class="logo-container">
-    <img src="@/../public/favicon.ico" />
+    <img src="/favicon.ico" />
     <span v-if="!appSetting.menu.collapsed">LOGO</span>
   </div>
 </template>

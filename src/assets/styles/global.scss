@@ -31,8 +31,8 @@ html, body, #app {
 // 思源黑体（3500常用字）
 @font-face {
   font-family: 'SourceHanSansCN-VF';
-  src: url('~/public/SourceHanSansCN-VF.woff2') format('woff2'),
-  url('~/public/SourceHanSansCN-VF.ttf') format('truetype');
+  src: url('/SourceHanSansCN-VF.woff2') format('woff2'),
+  url('/SourceHanSansCN-VF.ttf') format('truetype');
 }
 
 #app {
