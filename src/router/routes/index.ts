@@ -7,11 +7,7 @@ const loadRoutes = loadFiles<RouteRecordRaw>
 
 export const routesHandler = new RoutesHandler(
   loadRoutes(import.meta.glob('./main/*.ts', { eager: true })),
-  {
-    generatorMenu: true,
-    addRouteParentName: appConfig.routeMainName,
-    flatRoutes: true
-  }
+  appConfig.routesHandlerOptions
 )
 
 const routes: RouteRecordRaw[] = [

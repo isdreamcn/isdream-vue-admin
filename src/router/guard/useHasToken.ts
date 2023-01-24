@@ -9,9 +9,14 @@ export const useHasToken = (router: Router) => {
       return
     }
     const token = userStore.token
-    if (!token && to.name !== appConfig.routeLoginName) {
-      return {
-        name: appConfig.routeLoginName
+    const userPermissions = userStore.userPermissions
+    if (to.name !== appConfig.routeLoginName) {
+      if (!token) {
+        return {
+          name: appConfig.routeLoginName
+        }
+      } else if (!userPermissions) {
+        return false
       }
     }
   })

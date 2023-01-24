@@ -1,6 +1,7 @@
 import type { RouteMeta } from 'vue-router'
 import type { StorageConfig } from '@/storage'
 import type { ServiceTokenConfig } from '@/service'
+import type { RoutesHandlerOptions } from '@/router/utils'
 import { wrapperImportMetaEnv } from '@/utils'
 
 export type DefaultRouteMeta = Required<
@@ -16,8 +17,11 @@ export type DefaultRouteMeta = Required<
 >
 
 interface StoreConfig {
-  // store/user, storage是否存储userMenu、userPermissions
-  userStorage: boolean
+  // store/user
+  // storage是否存储userMenu
+  userMenuStorage: boolean
+  // storage是否存储、userPermissions
+  userPermissionsStorage: boolean
 }
 
 export interface AppConfig {
@@ -25,6 +29,7 @@ export interface AppConfig {
   storageConfig: StorageConfig
   serviceTokenConfig: ServiceTokenConfig
   defaultRouteMeta: DefaultRouteMeta
+  routesHandlerOptions: RoutesHandlerOptions
   routeMainName: symbol
   routeLoginName: symbol
   baseUrlApi: string
@@ -37,7 +42,8 @@ const viteEnv = wrapperImportMetaEnv(import.meta.env)
 const config: Readonly<AppConfig> = {
   // store
   storeConfig: {
-    userStorage: true
+    userMenuStorage: false,
+    userPermissionsStorage: false
   },
   // storage
   storageConfig: {
@@ -63,6 +69,13 @@ const config: Readonly<AppConfig> = {
     needRouteHistory: true
   },
 
+  // router/routes/index
+  routesHandlerOptions: {
+    generatorMenu: true,
+    addRouteParentName: 'temp',
+    flatRoutes: true
+  },
+
   // route name
   routeMainName: Symbol('main'),
   routeLoginName: Symbol('login'),
@@ -71,5 +84,7 @@ const config: Readonly<AppConfig> = {
   baseUrlFile: viteEnv.VITE_BASE_URL_FILE,
   useMock: viteEnv.VITE_USE_MOCK
 }
+
+config.routesHandlerOptions.addRouteParentName = config.routeMainName
 
 export default config

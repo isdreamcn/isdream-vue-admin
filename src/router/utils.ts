@@ -38,7 +38,7 @@ export class RoutesHandler {
     this.options = options
     // path => /path
     routes = this.joinRoutePath(routes)
-    // 只注册叶子节点
+    // 自动设置component => (实现深度缓存)
     if (!options.flatRoutes) {
       routes = this.autoSetComponent(routes)
     }
@@ -54,21 +54,6 @@ export class RoutesHandler {
         routes = this.flatRoutes(routes)
       }
       this.originRoutes = routes
-    } else {
-      this.originRoutes = []
-      // 页面刷新，从storage获取userMenu 重新注册路由
-      if (appConfig.storeConfig.userStorage) {
-        nextTick(() => {
-          const userStore = useUserStore()
-          if (userStore.userMenu) {
-            this.useRoleMenu(userStore.userMenu)
-            // 重载当前页
-            router.push(
-              location.hash ? location.hash.slice(1) : location.pathname
-            )
-          }
-        })
-      }
     }
   }
 
