@@ -20,7 +20,9 @@
               autocomplete="current-password"
               placeholder="密码"
             />
-            <input type="button" value="登 录" @click="login" />
+            <el-button type="primary" :loading="loginLoading" @click="login"
+              >登 录</el-button
+            >
             <p class="signup">
               没有账户?
               <a href="#" @click="toggleForm">注册</a>
@@ -55,7 +57,9 @@
               autocomplete="new-password"
               placeholder="确认密码"
             />
-            <input type="button" value="注 册" @click="signin" />
+            <el-button type="danger" :loading="signinLoading" @click="signin"
+              >注 册</el-button
+            >
             <p class="signup">
               已经有账户了?
               <a href="#" @click="toggleForm">登录</a>
@@ -85,8 +89,8 @@ const toggleForm = () => {
   active.value = !active.value
 }
 
-const { loginForm, login } = useLogin()
-const { signinForm, signin } = useSignin(toggleForm)
+const { loginLoading, loginForm, login } = useLogin()
+const { signinLoading, signinForm, signin } = useSignin(toggleForm)
 </script>
 
 <style scoped lang="scss">

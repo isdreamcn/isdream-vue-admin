@@ -6,6 +6,10 @@ section {
   justify-content: center;
   align-items: center;
   transition: var(--animate-duration);
+  .el-button {
+    width: 100%;
+    margin-top: 10px;
+  }
   &.active {
     background: #F6F494;
   }
@@ -15,6 +19,7 @@ section {
     height: 500px;
     background: #fff;
     box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
     overflow: hidden;
     .user {
       position: absolute;
@@ -74,15 +79,7 @@ section {
           letter-spacing: 1px;
           font-weight: 300;
           box-sizing: border-box;
-        }
-        input[type='button'] {
-          background: #677eff;
-          color: #fff;
-          cursor: pointer;
-          font-size: 14px;
-          font-weight: 500;
-          letter-spacing: 1px;
-          transition: var(--animate-duration);
+          border-radius: 5px;
         }
         .signup {
           position: relative;

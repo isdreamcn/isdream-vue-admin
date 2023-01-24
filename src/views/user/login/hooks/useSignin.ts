@@ -1,8 +1,9 @@
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import { verifyObj } from '@/utils'
 import { userSignin } from '@/api/user/login'
 
 export const useSignin = (toggleForm?: () => void) => {
+  const signinLoading = ref(false)
   const signinForm = reactive({
     username: '',
     email: '',
@@ -27,18 +28,19 @@ export const useSignin = (toggleForm?: () => void) => {
         (val) => val || val === 0
       )
     ) {
+      signinLoading.value = true
       userSignin(signinForm)
-        .then((res) => {
-          console.log(res)
+        .then(() => {
           toggleForm && toggleForm()
         })
-        .catch((err) => {
-          console.log(err)
+        .finally(() => {
+          signinLoading.value = false
         })
     }
   }
 
   return {
+    signinLoading,
     signinForm,
     signin
   }

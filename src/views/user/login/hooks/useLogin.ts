@@ -1,10 +1,11 @@
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import { verifyObj } from '@/utils'
 import { useUserStore } from '@/store'
 
 export const useLogin = () => {
   const useStore = useUserStore()
 
+  const loginLoading = ref(false)
   const loginForm = reactive({
     username: 'admin',
     password: '123456'
@@ -21,11 +22,15 @@ export const useLogin = () => {
         (val) => val || val === 0
       )
     ) {
-      useStore.login(loginForm)
+      loginLoading.value = true
+      useStore.login(loginForm).finally(() => {
+        loginLoading.value = false
+      })
     }
   }
 
   return {
+    loginLoading,
     loginForm,
     login
   }
