@@ -119,10 +119,13 @@ const layout = computed({
 
 const layoutChange = (key: LayoutKeys) => {
   layout.value = key
-  appStore.setAppSetting(getLayout(key).appSetting)
+  const appSetting = getLayout(key)?.appSetting
+  if (appSetting) {
+    appStore.setAppSetting(appSetting)
+  }
 }
 
-const functions = computed(() => getLayout(layout.value).functions)
+const functions = computed(() => getLayout(layout.value)?.functions || [])
 const getAppSetting = (key: string) => {
   return getVal(appStore.appSetting, key)
 }
