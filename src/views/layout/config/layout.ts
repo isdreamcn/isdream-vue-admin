@@ -116,5 +116,5 @@ layoutMap.forEach((item, key) => {
 })
 
 export const getLayout = (key: LayoutKeys) => {
-  return layoutMap.get(key)!
+  return layoutMap.get(key)
 }
