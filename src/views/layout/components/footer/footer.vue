@@ -25,9 +25,17 @@ const { appSetting } = useAppSetting()
 .footer-container {
   height: 100%;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   color: var(--el-color-info-light-3);
   font-size: var(--el-link-font-size);
+  div {
+    display: flex;
+    align-items: center;
+    .el-link {
+      margin-left: 10px;
+    }
+  }
 }
 </style>
