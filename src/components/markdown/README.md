@@ -1,10 +1,10 @@
-# markdown
+# Markdown
 
 > 基于[vditor](https://github.com/Vanessa219/vditor)
 
-## API
+## Markdown API
 
-### 属性
+### Markdown 属性
 
 | 属性名           | 说明              | 类型       | 预设值                     |
 | ---------------- | ----------------- | ---------- | -------------------------- |
@@ -14,18 +14,18 @@
 | uploadFileKey    | formData.key      | `string`   | file                       |
 | uploadFileAccept | 可选文件类型      | [string](https://www.w3schools.com/tags/att_input_accept.asp) | image/\* |
 
-### 事件
+### Markdown 事件
 
 | 事件名    | 说明               | 类型       |
 | --------- | ------------------ | ---------- |
 | change    | 当绑定值变化时触发 | `Function` |
 | getVditor | 获取 vditor 实例   | `Function` |
 
-## markdownView
+## MarkdownView API
 
 > 预览 markdown
 
-### markdownView 属性
+### MarkdownView 属性
 
 | 属性名  | 说明                      | 类型     | 预设值 |
 | ------- | ------------------------- | -------- | ------ |
