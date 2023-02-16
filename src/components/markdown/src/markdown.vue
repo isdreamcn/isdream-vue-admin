@@ -6,11 +6,13 @@
 
 <script setup lang="ts">
 //TODO https://b3log.org/vditor/
+import 'vditor/dist/index.css'
+import Vditor from 'vditor'
+import { toolbar } from './vditor/vditor'
+
 import { markdownProps, markdownEmits } from './markdown'
 import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
-import Vditor from 'vditor'
-import { uniqueId } from 'lodash-unified'
-import 'vditor/dist/index.css'
+import { uniqueId, setBaseUrlFile } from '@/utils'
 import { useVditorTheme, useVditorUpload } from './hooks'
 
 defineOptions({
@@ -22,35 +24,40 @@ const emit = defineEmits(markdownEmits)
 
 const vditorId = uniqueId('vditor-')
 const vditor = ref<Vditor>()
-const { vditorTheme } = useVditorTheme(vditor)
 
 // value
-const vditorValue = ref(props.modelValue)
-// 上传图片
-const { vditorUploadOptions } = useVditorUpload(props, (imgUrl, filename) => {
-  vditorValue.value += `![${filename}](${imgUrl})`
-})
-
+const vditorValue = ref(setBaseUrlFile(props.modelValue))
+// v-model
 watch(
   () => vditorValue.value,
   (val) => {
-    if (vditor.value) {
-      vditor.value.setValue(val)
-    }
     emit('update:modelValue', val)
     emit('change', val)
   }
 )
-
 watch(
   () => props.modelValue,
-  (val, prev) => {
-    if (val === prev) {
+  (val) => {
+    if (val === vditorValue.value) {
       return
     }
-    vditorValue.value = val
+
+    if (vditor.value) {
+      vditor.value.setValue(setBaseUrlFile(val))
+    }
   }
 )
+
+// 主题
+const { vditorTheme } = useVditorTheme(vditor)
+// 上传图片
+const { vditorUploadOptions } = useVditorUpload(props, (val) => {
+  if (vditor.value) {
+    vditor.value.insertValue(val)
+  } else {
+    vditorValue.value += val
+  }
+})
 
 const init = () => {
   vditor.value = new Vditor(vditorId, {
@@ -58,7 +65,7 @@ const init = () => {
     theme: vditorTheme.theme.value,
     lang: 'zh_CN',
     mode: 'ir',
-    toolbar: props.toolbar,
+    toolbar,
     preview: {
       theme: {
         // 设置内容主题
@@ -66,15 +73,16 @@ const init = () => {
       },
       hljs: {
         // 设置代码块主题
-        style: vditorTheme.code.value
+        style: vditorTheme.code.value,
+        lineNumber: true
       },
       actions: []
     },
     cache: {
       enable: false
     },
-    ...vditorUploadOptions,
     ...props.options,
+    ...vditorUploadOptions,
     input: (v) => {
       vditorValue.value = v
     },

@@ -3,3 +3,9 @@ export interface CommonListParams {
   pageSize?: number
   q?: string | null
 }
+
+export interface UploadFile {
+  url: string
+  filename: string
+  mimeType: string
+}

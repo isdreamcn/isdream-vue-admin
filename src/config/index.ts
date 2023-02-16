@@ -87,4 +87,5 @@ const config: Readonly<AppConfig> = {
 
 config.routesHandlerOptions.addRouteParentName = config.routeMainName
 
+export const appConfig = config
 export default config

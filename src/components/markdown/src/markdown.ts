@@ -2,41 +2,34 @@ import type Markdown from './markdown.vue'
 import type { ExtractPropTypes } from 'vue'
 import type Vditor from 'vditor'
 import { buildProps, definePropType } from '@/utils'
-import { toolbar } from './vditor/vditor'
+import { uploadCommon } from '@/api/common'
 
-export type MarkdownUpload = (formData: FormData) => Promise<{
-  data: {
-    url: string
-    name: string
-  }
-}>
+export type MarkdownUpload = typeof uploadCommon
 
 export const markdownProps = buildProps({
   options: {
-    type: definePropType<Record<string, any>>(Object),
+    type: definePropType<Partial<IOptions>>(Object),
     default: () => {}
   },
   modelValue: {
     type: String,
     default: ''
   },
-  height: {
-    type: Number,
-    default: 360
-  },
-  toolbar: {
-    type: definePropType<string[]>(Array),
-    default: toolbar
-  },
   upload: {
     type: definePropType<MarkdownUpload | false>([Function, Boolean]),
-    default: false
+    default: () => uploadCommon
   },
   uploadFileKey: {
     type: String,
     default: 'file'
+  },
+  // TODO https://www.w3schools.com/tags/att_input_accept.asp
+  uploadFileAccept: {
+    type: String,
+    default: 'image/*'
   }
 } as const)
+
 export const markdownEmits = {
   change: (content: string) => typeof content === 'string',
   'update:modelValue': (content: string) => typeof content === 'string',
