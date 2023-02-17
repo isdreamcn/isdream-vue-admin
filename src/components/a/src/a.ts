@@ -1,4 +1,5 @@
 import type A from './a.vue'
+import type { PopconfirmProps } from 'element-plus'
 import type { ExtractPropTypes } from 'vue'
 import { buildProps, definePropType } from '@/utils'
 
@@ -24,6 +25,9 @@ export const aProps = buildProps({
   cancelText: {
     type: String,
     default: '否'
+  },
+  popAttrs: {
+    type: definePropType<Partial<PopconfirmProps>>(Object)
   }
 } as const)
 

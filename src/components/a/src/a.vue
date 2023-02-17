@@ -6,15 +6,16 @@
       :confirm-button-text="props.submitText"
       :cancel-button-text="props.cancelText"
       :confirm-button-type="props.type"
+      v-bind="props.popAttrs"
       @confirm="confirm"
     >
       <template #reference>
-        <el-button v-bind="$attrs" link :type="props.type">
+        <el-button link v-bind="$attrs" :type="props.type">
           <slot>删除</slot>
         </el-button>
       </template>
     </el-popconfirm>
-    <el-button v-else v-bind="$attrs" link :type="props.type" @click="confirm">
+    <el-button v-else link v-bind="$attrs" :type="props.type" @click="confirm">
       <slot>删除</slot>
     </el-button>
   </span>
