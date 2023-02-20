@@ -9,7 +9,7 @@
 
 | 属性名 | 说明             | 类型                                  | 预设值  |
 | ------ | ---------------- | ------------------------------------- | ------- |
-| type   | 按钮类型 | `primary/success/warning/danger/info` | primary |
+| type   | 按钮类型 | `primary\|success\|warning\|danger\|info` | primary |
 | pop | 是否显示气泡确认框, type 等于`danger`时默认显示 | `boolean` | -- |
 | popTitle | 气泡确认框标题 | `string` | 确认删除吗？ |
 | submitText | 气泡确认框确认文字 | `string` | 是 |
@@ -27,4 +27,4 @@
 
 | 事件名 | 说明                            | 类型       |
 | ------ | ------------------------------- | ---------- |
-| click  | 点击气泡确认框确认按钮/点击按钮 | `Function` |
+| click  | 点击气泡确认框确认按钮/点击按钮 | `(evt: Event) => void` |

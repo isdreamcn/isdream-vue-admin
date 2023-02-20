@@ -2,10 +2,13 @@
   <div>
     <MChart height="500px" :options="options" @click="onClick"></MChart>
     <MChart height="500px" :options="lineOptions" @click="onClick"></MChart>
+
+    <MMarkdownView :value="readme"></MMarkdownView>
   </div>
 </template>
 
 <script setup lang="ts">
+import readme from '@/components/chart/README.md?raw'
 import type { ChartOptions } from '@/components'
 import { ref } from 'vue'
 
