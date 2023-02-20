@@ -10,10 +10,12 @@ export const chartProps = buildProps({
     required: true
   },
   width: {
-    type: Number
+    type: String,
+    default: '100%'
   },
   height: {
-    type: Number
+    type: String,
+    default: '100%'
   },
   lazy: {
     type: Boolean,

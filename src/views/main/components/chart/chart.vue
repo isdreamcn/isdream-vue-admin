@@ -1,7 +1,7 @@
 <template>
   <div>
-    <MChart :height="500" :options="options" @click="onClick"></MChart>
-    <MChart :height="500" :options="lineOptions" @click="onClick"></MChart>
+    <MChart height="500px" :options="options" @click="onClick"></MChart>
+    <MChart height="500px" :options="lineOptions" @click="onClick"></MChart>
   </div>
 </template>
 

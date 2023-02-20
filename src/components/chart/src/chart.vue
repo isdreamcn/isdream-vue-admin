@@ -20,14 +20,20 @@ const props = defineProps(chartProps)
 const emit = defineEmits(chartEmits)
 
 const style = computed(() => {
-  const width = props.width ? `${props.width}px` : '100%'
-  const height = props.height ? `${props.height}px` : '100%'
-  return `width:${width};height:${height};`
+  return {
+    width: props.width,
+    height: props.height
+  }
 })
 
 const chartRef = ref<HTMLElement>()
+// ref定义chartInstance - 点击图例报错后图例点击交互无法正常使用
 // TODO: https://github.com/apache/echarts/issues/14339
 let chart: ECharts | undefined = undefined
+
+const resize = () => {
+  chart?.resize()
+}
 
 const init = () => {
   // 基于准备好的dom，初始化echarts实例
@@ -36,21 +42,13 @@ const init = () => {
   if (!props.lazy) {
     chart.setOption(props.options)
   }
-  if (!props.width || !props.height) {
-    window.addEventListener('resize', () => {
-      chart!.resize()
-    })
-  }
+  window.addEventListener('resize', resize)
   emit('init', chart)
 }
 
 watch(
   () => props.options,
-  () => {
-    if (chart) {
-      chart.setOption(props.options)
-    }
-  },
+  () => chart?.setOption(props.options),
   {
     deep: true
   }
@@ -58,6 +56,7 @@ watch(
 
 const destroy = () => {
   echarts.dispose(chart!)
+  window.removeEventListener('resize', resize)
 }
 
 const attrs = useAttrs()
