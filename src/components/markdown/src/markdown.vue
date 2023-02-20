@@ -59,13 +59,18 @@ const { vditorUploadOptions } = useVditorUpload(props, (val) => {
   }
 })
 
+let _toolbar = toolbar
+if (!props.upload) {
+  _toolbar = toolbar.filter((item) => item !== 'upload')
+}
+
 const init = () => {
   vditor.value = new Vditor(vditorId, {
     // 设置外观主题
     theme: vditorTheme.theme.value,
     lang: 'zh_CN',
     mode: 'ir',
-    toolbar,
+    toolbar: _toolbar,
     preview: {
       theme: {
         // 设置内容主题

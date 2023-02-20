@@ -10,7 +10,7 @@ export const useVditorUpload = (
       upload: {
         handler: (files: File[]): Promise<any> => {
           if (!props.upload) {
-            return Promise.resolve('请配置http')
+            return Promise.resolve('请配置upload')
           }
           const file = files[0]
           const formData = new FormData()
