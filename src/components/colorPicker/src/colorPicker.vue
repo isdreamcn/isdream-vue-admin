@@ -19,11 +19,12 @@
         @click="updateColor(colorItem.value)"
       ></div>
     </el-tooltip>
-    <el-color-picker v-model="colorValue" />
+    <el-color-picker v-if="props.custom" v-model="colorValue" />
   </div>
 </template>
 
 <script setup lang="ts">
+import type { ColorPickerOptionsItem } from './colorPicker'
 import { computed } from 'vue'
 import { colorPickerProps, colorPickerEmits } from './colorPicker'
 
@@ -48,12 +49,16 @@ const colorValue = computed({
   }
 })
 
-const colorOptions = computed(() =>
-  [...new Set(props.options)].map((item) => ({
-    ...item,
-    value: item.value.toUpperCase()
-  }))
-)
+// 去除value重复项
+const colorOptions = computed(() => {
+  const map = new Map<string, ColorPickerOptionsItem>()
+  props.options.forEach((item) => {
+    if (!map.get(item.value)) {
+      map.set(item.value, item)
+    }
+  })
+  return [...map.values()]
+})
 </script>
 
 <style lang="scss" scoped>

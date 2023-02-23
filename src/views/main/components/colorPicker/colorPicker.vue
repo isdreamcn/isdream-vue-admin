@@ -2,11 +2,14 @@
   <div>
     {{ color }}
     <MColorPicker v-model="color" :options="colorOptions"></MColorPicker>
+
+    <MMarkdownView :value="readme"></MMarkdownView>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import readme from '@/components/colorPicker/README.md?raw'
 
 defineOptions({
   name: 'DemoCpnsMColorPicker'
@@ -14,6 +17,10 @@ defineOptions({
 
 const color = ref('#1890FF')
 const colorOptions = [
+  {
+    label: '山雾',
+    value: '#ededed'
+  },
   {
     label: '山雾',
     value: '#ededed'

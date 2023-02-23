@@ -1,6 +1,10 @@
 <template>
   <div class="m-color-picker-appTheme">
-    <MColorPicker v-model="color" :options="props.options"></MColorPicker>
+    <MColorPicker
+      v-model="color"
+      :options="props.options"
+      v-bind="$attrs"
+    ></MColorPicker>
   </div>
 </template>
 

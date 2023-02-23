@@ -1,5 +1,5 @@
 import type { ExtractPropTypes } from 'vue'
-import type { colorPickerOptionsItem } from './colorPicker'
+import type { ColorPickerOptionsItem } from './colorPicker'
 import type ColorPickerAppTheme from './colorPicker.vue'
 import { buildProps, definePropType } from '@/utils'
 
@@ -12,7 +12,7 @@ export const colorPickerAppThemeProps = buildProps({
     default: ''
   },
   options: {
-    type: definePropType<colorPickerOptionsItem[]>(Array),
+    type: definePropType<ColorPickerOptionsItem[]>(Array),
     default: () => [
       {
         label: '拂晓蓝',
