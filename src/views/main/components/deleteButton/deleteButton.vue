@@ -3,15 +3,22 @@
     <p>批量删除按钮</p>
     <MDeleteButton
       :http="deleteHttp"
-      :http-key="false"
       :selectKeys="selectKeys"
       @click="reload"
       @reload="reload"
     ></MDeleteButton>
+
+    <MDeleteButton style="margin-left: 20px">
+      <MA>没有选中</MA>
+    </MDeleteButton>
+
+    <MMarkdownView :value="readme"></MMarkdownView>
   </div>
 </template>
 
 <script setup lang="ts">
+import readme from '@/components/deleteButton/README.md?raw'
+
 defineOptions({
   name: 'DemoCpnsDeleteButton'
 })

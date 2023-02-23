@@ -4,24 +4,12 @@ import { buildProps, definePropType } from '@/utils'
 
 export type DeleteButtonHttp = (...payload: any[]) => Promise<any>
 
-export type DeleteButtonHandler = (
-  data: Record<string, any>
-) => Record<string, any>
+export type DeleteButtonHandler = (data: any) => any
 
 export const deleteButtonProps = buildProps({
   disabled: {
     type: Boolean,
     default: false
-  },
-  icon: {
-    type: String,
-    default: 'icon-delete'
-  },
-  type: {
-    type: definePropType<'primary' | 'success' | 'warning' | 'danger' | 'info'>(
-      String
-    ),
-    default: 'danger'
   },
   submitText: {
     type: String,
@@ -44,11 +32,6 @@ export const deleteButtonProps = buildProps({
     type: String,
     default: '删除成功'
   },
-  // 提交时使用loading
-  loading: {
-    type: Boolean,
-    default: true
-  },
   selectKeys: {
     type: Array,
     default: () => []
@@ -56,10 +39,10 @@ export const deleteButtonProps = buildProps({
   http: {
     type: definePropType<DeleteButtonHttp>(Function)
   },
-  // httpKey === false ? 循环执行DeleteButtonHttp
-  httpKey: {
-    type: definePropType<string | false>([String, Boolean]),
-    default: 'ids'
+  // 循环执行DeleteButtonHttp
+  httpLoop: {
+    type: Boolean,
+    default: true
   },
   // 处理提交参数
   handler: {

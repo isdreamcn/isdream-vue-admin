@@ -5,6 +5,7 @@
       :title="props.title"
       :show-close="false"
       :width="550"
+      v-bind="$attrs"
     >
       <span>
         {{ props.content }}
@@ -16,14 +17,15 @@
         </el-button>
       </template>
     </el-dialog>
-    <el-button
-      :disabled="props.disabled"
-      :type="props.type"
-      @click="showDeleteDialog"
-    >
-      <MIcon v-if="props.icon" :name="props.icon"></MIcon>
-      <slot>批量删除</slot>
-    </el-button>
+    <!-- 按钮 -->
+    <div class="m-delete-button__btn" role="button" @click="showDeleteDialog">
+      <slot :disabled="props.disabled" :loading="loading">
+        <el-button :disabled="props.disabled" :loading="loading" type="danger">
+          <MIcon name="icon-delete"></MIcon>
+          批量删除
+        </el-button>
+      </slot>
+    </div>
   </div>
 </template>
 
@@ -42,6 +44,10 @@ const emit = defineEmits(deleteButtonEmits)
 const visible = ref(false)
 const loading = ref(false)
 const showDeleteDialog = () => {
+  if (loading.value) {
+    return
+  }
+
   if (!props.selectKeys.length) {
     ElMessage({
       message: '请选择需要删除的数据',
@@ -54,6 +60,7 @@ const showDeleteDialog = () => {
 
 const cancel = () => {
   visible.value = false
+  loading.value = false
 }
 
 const submit = () => {
@@ -65,14 +72,15 @@ const submit = () => {
   }
 
   let request = null
-  if (props.httpKey) {
-    request = props.http(props.handler({ [props.httpKey]: props.selectKeys }))
+  if (!props.httpLoop) {
+    request = props.http(props.handler(props.selectKeys))
   } else {
-    const data = props.handler({})
-    request = Promise.all(props.selectKeys.map((id) => props.http!(id, data)))
+    request = Promise.all(
+      props.selectKeys.map((id) => props.http?.(props.handler(id)))
+    )
   }
 
-  request!
+  request
     .then(() => {
       ElMessage({
         message: props.message,
@@ -89,8 +97,11 @@ const submit = () => {
 
 <style lang="scss" scoped>
 .m-delete-button {
-  .m-icon {
-    margin-right: 5px;
+  display: inline-block;
+  &__btn {
+    .m-icon {
+      margin-right: 5px;
+    }
   }
 }
 </style>
