@@ -1,5 +1,5 @@
 <template>
-  <div class="m-editor" :style="{ width: containerWidth }">
+  <div class="m-editor">
     <textarea ref="elRef" :id="tinymceId" :key="tinymceId"></textarea>
   </div>
 </template>
@@ -11,14 +11,13 @@ import tinymce from 'tinymce/tinymce'
 import {
   ref,
   watch,
-  nextTick,
   useAttrs,
   onMounted,
   onActivated,
   onDeactivated,
   onBeforeUnmount
 } from 'vue'
-import { bindHandlers, setValue } from './tinymce/helper'
+import { bindHandlers } from './tinymce/helper'
 import { useTinymceOptions, useTinymceImgUpload } from './hooks'
 import './tinymce/resource'
 
@@ -35,7 +34,7 @@ const editorRef = ref<Editor>()
 const elRef = ref<HTMLElement>()
 
 const { options: imgUploadOptions } = useTinymceImgUpload(props)
-const { tinymceOptions, tinymceId, containerWidth } = useTinymceOptions(
+const { tinymceOptions, tinymceId } = useTinymceOptions(
   props,
   {
     ...imgUploadOptions
@@ -46,22 +45,6 @@ const { tinymceOptions, tinymceId, containerWidth } = useTinymceOptions(
   }
 )
 
-// disabled
-watch(
-  () => props.disabled,
-  () => {
-    nextTick(() => {
-      if (!editorRef.value) {
-        return
-      }
-      editorRef.value.setMode(props.disabled ? 'readonly' : 'design')
-    })
-  },
-  {
-    immediate: true
-  }
-)
-
 let inited = false
 const initEditor = () => {
   if (inited) {
@@ -69,7 +52,7 @@ const initEditor = () => {
   }
   inited = true
   if (elRef.value) {
-    elRef.value.style.visibility = ''
+    elRef.value.style.visibility = 'hidden'
   }
   tinymce
     .init(tinymceOptions.value)
@@ -113,20 +96,35 @@ function initSetup(e: Record<string, any>) {
     return
   }
 
-  editor.setContent(props.modelValue)
-  // 光标放在最后
-  editor.selection.select(editor.getBody(), true)
-  editor.selection.collapse(false)
+  // disabled
+  watch(
+    () => props.disabled,
+    () => {
+      editor.setMode(props.disabled ? 'readonly' : 'design')
+    },
+    {
+      immediate: true
+    }
+  )
 
-  bindModelHandlers(editor)
+  bindModelValueHandler(editor)
   bindHandlers(e, attrs, editor)
 }
 
-function bindModelHandlers(editor: Editor) {
+function bindModelValueHandler(editor: Editor) {
+  const editorBody = editor.getBody()
   watch(
     () => props.modelValue,
-    (val: string, prevVal: string) => {
-      setValue(editor, val, prevVal)
+    (val) => {
+      if (val !== editor.getContent()) {
+        editor.setContent(val)
+        // 光标移到最后
+        editor.selection.select(editorBody, true)
+        editor.selection.collapse(false)
+      }
+    },
+    {
+      immediate: true
     }
   )
 
@@ -138,4 +136,8 @@ function bindModelHandlers(editor: Editor) {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.m-editor {
+  width: 100%;
+}
+</style>

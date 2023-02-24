@@ -3,17 +3,14 @@ import type { ExtractPropTypes } from 'vue'
 import type { RawEditorSettings } from 'tinymce'
 import { buildProps, definePropType } from '@/utils'
 import { toolbar, plugins } from './tinymce/tinymce'
+import { uploadCommon } from '@/api/common'
 
-export type EditorUpload = (formData: FormData) => Promise<{
-  data: {
-    url: string
-  }
-}>
+export type EditorUpload = typeof uploadCommon
 
 export const editorProps = buildProps({
   options: {
     type: definePropType<Partial<RawEditorSettings>>(Object),
-    default: {}
+    default: () => {}
   },
   modelValue: {
     type: String,
@@ -36,20 +33,16 @@ export const editorProps = buildProps({
     required: false,
     default: 400
   },
-  width: {
-    type: definePropType<string | number>([Number, String]),
-    required: false,
-    default: 'auto'
-  },
   upload: {
     type: definePropType<EditorUpload | false>([Function, Boolean]),
-    default: false
+    default: () => uploadCommon
   },
   uploadFileKey: {
     type: String,
     default: 'file'
   }
 } as const)
+
 export const editorEmits = {
   change: (content: string) => typeof content === 'string',
   'update:modelValue': (content: string) => typeof content === 'string',

@@ -85,18 +85,3 @@ export const bindHandlers = (
       }
     })
 }
-
-export const setValue = (
-  editor: Record<string, any>,
-  val: string,
-  prevVal?: string
-) => {
-  if (
-    editor &&
-    typeof val === 'string' &&
-    val !== prevVal &&
-    val !== editor.getContent()
-  ) {
-    editor.setContent(val)
-  }
-}
