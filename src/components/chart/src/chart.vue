@@ -29,7 +29,7 @@ const style = computed(() => {
 const chartRef = ref<HTMLElement>()
 // ref定义chartInstance - 点击图例报错后图例点击交互无法正常使用
 // TODO: https://github.com/apache/echarts/issues/14339
-let chart: ECharts | undefined = undefined
+let chart: ECharts | null = null
 
 const resize = () => {
   chart?.resize()
@@ -42,27 +42,29 @@ const init = () => {
   if (!props.lazy) {
     chart.setOption(props.options)
   }
-  window.addEventListener('resize', resize)
+  watch(
+    () => props.options,
+    () => chart?.setOption(props.options),
+    {
+      deep: true
+    }
+  )
+
+  const attrs = useAttrs()
+  useHandlers(chart, attrs)
+
   emit('init', chart)
+
+  window.addEventListener('resize', resize)
 }
 
-watch(
-  () => props.options,
-  () => chart?.setOption(props.options),
-  {
-    deep: true
-  }
-)
-
 const destroy = () => {
-  echarts.dispose(chart!)
+  chart && echarts.dispose(chart)
   window.removeEventListener('resize', resize)
 }
 
-const attrs = useAttrs()
 onMounted(() => {
   init()
-  useHandlers(chart!, attrs)
 })
 
 onBeforeUnmount(() => {
