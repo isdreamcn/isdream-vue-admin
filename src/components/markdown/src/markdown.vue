@@ -26,27 +26,33 @@ const vditorId = uniqueId('vditor-')
 const vditor = ref<Vditor>()
 
 // value
-const vditorValue = ref(setBaseUrlFile(props.modelValue))
+const vditorValue = ref('')
 // v-model
-watch(
-  () => vditorValue.value,
-  (val) => {
-    emit('update:modelValue', val)
-    emit('change', val)
-  }
-)
-watch(
-  () => props.modelValue,
-  (val) => {
-    if (val === vditorValue.value) {
-      return
+const modelValueHandler = () => {
+  watch(
+    () => vditorValue.value,
+    (val) => {
+      emit('update:modelValue', val)
+      emit('change', val)
     }
+  )
 
-    if (vditor.value) {
-      vditor.value.setValue(setBaseUrlFile(val))
+  watch(
+    () => props.modelValue,
+    (val) => {
+      if (val === vditorValue.value) {
+        return
+      }
+
+      if (vditor.value) {
+        vditor.value.setValue(setBaseUrlFile(val))
+      }
+    },
+    {
+      immediate: true
     }
-  }
-)
+  )
+}
 
 // 主题
 const { vditorTheme } = useVditorTheme(vditor)
@@ -93,14 +99,14 @@ const init = () => {
     },
     after: () => {
       // vditor.value is a instance of Vditor now and thus can be safely used here
-      vditor.value!.setValue(vditorValue.value)
+      modelValueHandler()
       emit('getVditor', vditor.value!)
     }
   })
 }
 
 const destroy = () => {
-  vditor.value!.destroy()
+  vditor.value && vditor.value.destroy()
   vditor.value = undefined
 }
 
