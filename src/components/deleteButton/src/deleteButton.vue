@@ -44,7 +44,7 @@ const emit = defineEmits(deleteButtonEmits)
 const visible = ref(false)
 const loading = ref(false)
 const showDeleteDialog = () => {
-  if (loading.value) {
+  if (loading.value || props.disabled) {
     return
   }
 
