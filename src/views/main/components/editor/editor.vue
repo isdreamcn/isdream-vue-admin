@@ -5,10 +5,13 @@
       <ElButton @click="setContent" type="primary">修改content</ElButton>
     </div>
     <MEditor v-model="content" @mouseDown="mouseDown"></MEditor>
+
+    <MMarkdownView :value="readme"></MMarkdownView>
   </div>
 </template>
 
 <script setup lang="ts">
+import readme from '@/components/editor/README.md?raw'
 import { ref } from 'vue'
 
 defineOptions({

@@ -42,6 +42,7 @@ const { tinymceOptions, tinymceId } = useTinymceOptions(
   (editor) => {
     editorRef.value = editor
     editor.on('init', (e) => initSetup(e))
+    emit('inited', editor)
   }
 )
 
@@ -54,14 +55,9 @@ const initEditor = () => {
   if (elRef.value) {
     elRef.value.style.visibility = 'hidden'
   }
-  tinymce
-    .init(tinymceOptions.value)
-    .then((editor) => {
-      emit('inited', editor)
-    })
-    .catch((err) => {
-      emit('init-error', err)
-    })
+  tinymce.init(tinymceOptions.value).catch((err) => {
+    emit('init-error', err)
+  })
 }
 
 const destory = () => {

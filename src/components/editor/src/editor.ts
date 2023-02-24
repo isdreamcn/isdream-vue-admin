@@ -1,6 +1,6 @@
 import type Editor from './editor.vue'
 import type { ExtractPropTypes } from 'vue'
-import type { RawEditorSettings } from 'tinymce'
+import type { Editor as TinymceEditor, RawEditorSettings } from 'tinymce'
 import { buildProps, definePropType } from '@/utils'
 import { toolbar, plugins } from './tinymce/tinymce'
 import { uploadCommon } from '@/api/common'
@@ -47,7 +47,7 @@ export const editorEmits = {
   change: (content: string) => typeof content === 'string',
   'update:modelValue': (content: string) => typeof content === 'string',
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  inited: (val: any) => true,
+  inited: (editor: TinymceEditor) => true,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   'init-error': (err: any) => true
 }
