@@ -1,6 +1,13 @@
-export interface GetDemoUserListParams {
-  page?: number
-  pageSize?: number
+import { CommonListParams } from '../../commonTypes'
+
+export type GetDemoUserListParams = Omit<CommonListParams, 'q'>
+
+export interface DemoUserData {
+  name: string
+  address: string
+  email: string
+  userInfo: UserInfo
+  avatar: string
 }
 
 export interface DemoUser {
@@ -8,7 +15,7 @@ export interface DemoUser {
   name: string
   address: string
   email: string
-  UserInfo: UserInfo
+  userInfo: UserInfo
   avatar: string
   createAt: string
   updateAt: string

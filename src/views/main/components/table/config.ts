@@ -16,7 +16,7 @@ export const tableColumns: TableColumns = [
     label: '邮箱'
   },
   {
-    key: 'userinfo.origin',
+    key: 'userInfo.origin',
     label: '来源',
     customRender: (val) => '来源: ' + val
   },
