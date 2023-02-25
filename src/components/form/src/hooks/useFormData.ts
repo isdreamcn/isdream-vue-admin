@@ -1,6 +1,7 @@
 import type { FormProps } from '../form'
 import type { Ref } from 'vue'
-import { watch, ref } from 'vue'
+import { watch, ref, toRaw } from 'vue'
+import { cloneDeep } from '@/utils'
 
 export const useFormData = (
   props: FormProps,
@@ -14,10 +15,7 @@ export const useFormData = (
     (fields) => {
       const _formData: Record<string, any> = {}
       fields.forEach(
-        (field) =>
-          (_formData[field.key] =
-            formData.value[field.key] ??
-            (props.modelValue && props.modelValue[field.key]))
+        (field) => (_formData[field.key] = formData.value[field.key])
       )
       formData.value = _formData
     },
@@ -34,8 +32,10 @@ export const useFormData = (
       if (!val || props.modelValue === formData.value) {
         return
       }
+
+      const _val = cloneDeep(toRaw(val))
       for (const key of Object.keys(formData.value)) {
-        formData.value[key] = val[key]
+        formData.value[key] = _val[key]
       }
     },
     {

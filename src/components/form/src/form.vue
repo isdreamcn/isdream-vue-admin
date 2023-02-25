@@ -37,7 +37,7 @@
               <el-button @click="cancel">
                 <MIcon
                   :name="props.cancelIcon || 'icon-refreshLeft'"
-                  v-if="props.cancelIcon || !props.cancelText"
+                  v-if="props.cancelIcon !== false"
                 />
                 {{ props.cancelText || '重置' }}
               </el-button>
@@ -48,7 +48,7 @@
               >
                 <MIcon
                   :name="props.submitIcon || 'icon-search'"
-                  v-if="props.submitIcon || !props.submitText"
+                  v-if="!props.loading && props.submitIcon !== false"
                 />
                 {{ props.submitText || '搜索' }}
               </el-button>
@@ -63,14 +63,14 @@
           <el-button @click="cancel">
             <MIcon
               :name="props.cancelIcon || 'icon-refreshLeft'"
-              v-if="props.cancelIcon || !props.cancelText"
+              v-if="props.cancelIcon !== false"
             />
             {{ props.cancelText || '取消' }}
           </el-button>
           <el-button type="primary" @click="submit" :loading="props.loading">
             <MIcon
               :name="props.submitIcon || 'icon-check'"
-              v-if="!props.loading && (props.submitIcon || !props.submitText)"
+              v-if="!props.loading && props.submitIcon !== false"
             />
             {{ props.submitText || '提交' }}
           </el-button>
@@ -88,8 +88,7 @@ import { formProps, formEmits } from './form'
 import { useFields, useFormData, useFormRules } from './hooks'
 
 defineOptions({
-  name: 'MForm',
-  inheritAttrs: false
+  name: 'MForm'
 })
 
 const props = defineProps(formProps)
