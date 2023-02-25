@@ -3,7 +3,7 @@ import type { GlobalComponents } from '@/plugins/components/components'
 import type { FormComponents } from './components'
 import type { ExtractPropTypes, Component } from 'vue'
 import type {
-  ColProps,
+  ColSize,
   FormItemRule,
   FormInstance as ElFormInstance
 } from 'element-plus'
@@ -24,8 +24,9 @@ export interface FormPropsField {
   slot?: boolean
   attrs?: Record<string, any> & { options?: FormFieldAttrsOptions[] }
   on?: Record<string, (...payload: any[]) => void>
-  colAttrs?: number | ColProps
+  colAttrs?: ColSize
   placeholder?: string
+  required?: boolean
   validateRules?: FormItemRule[]
 }
 
@@ -34,13 +35,16 @@ export const formProps = buildProps({
     type: definePropType<FormPropsField[]>(Array),
     required: true
   },
-  modelValue: Object,
+  modelValue: {
+    type: Object,
+    default: () => {}
+  },
   labelWidth: {
-    type: Number,
-    default: 100
+    type: definePropType<number | string>([Number, String]),
+    default: 'auto'
   },
   colAttrs: {
-    type: definePropType<number | ColProps>([Number, Object]),
+    type: definePropType<ColSize>([Number, Object]),
     default: 6
   },
   // 按钮放入col

@@ -29,7 +29,7 @@ export const useFormData = (
   watch(
     () => props.modelValue,
     (val) => {
-      if (!val || props.modelValue === formData.value) {
+      if (props.modelValue === formData.value) {
         return
       }
 

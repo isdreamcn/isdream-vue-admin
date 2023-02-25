@@ -100,7 +100,7 @@ const { formData } = useFormData(props, showFields, (formData) => {
   emit('update:modelValue', formData.value)
 })
 
-const { formRules } = useFormRules(props)
+const { formRules } = useFormRules(fields)
 
 // actions
 const elFormRef = ref<FormInstance>()
