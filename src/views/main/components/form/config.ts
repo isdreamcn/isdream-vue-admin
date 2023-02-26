@@ -1,7 +1,7 @@
-import { FormFields } from '@/components'
+import type { FormField } from '@/components'
 import { reactive } from 'vue'
 
-export const fields = reactive<FormFields>([
+export const fields = reactive<FormField[]>([
   {
     tag: 'ElInput',
     key: 'name',

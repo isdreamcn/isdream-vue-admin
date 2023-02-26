@@ -9,13 +9,13 @@ import type {
 } from 'element-plus'
 import { buildProps, definePropType, isObject } from '@/utils'
 
-export interface FormFieldAttrsOptions {
+interface FormFieldAttrsOptions {
   label: string
   value: string | number
   disabled?: boolean
 }
 
-export interface FormPropsField {
+interface FormPropsField {
   tag: GlobalComponents | FormComponents | Component
   key: string
   label?: string
@@ -79,6 +79,7 @@ export const formEmits = {
 export type FormProps = ExtractPropTypes<typeof formProps>
 export type FormEmits = typeof formEmits
 
-export type FormFields = FormProps['fields']
+export type FormField = FormPropsField
+export type FormFieldOptions = FormFieldAttrsOptions
 
 export type FormInstance = InstanceType<typeof Form>

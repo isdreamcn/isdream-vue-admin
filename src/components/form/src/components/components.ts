@@ -1,4 +1,4 @@
-import type { FormFieldAttrsOptions } from '../form'
+import type { FormFieldOptions } from '../form'
 import { buildProps, definePropType } from '@/utils'
 
 export const formComponentsProps = buildProps({
@@ -6,7 +6,7 @@ export const formComponentsProps = buildProps({
     type: definePropType<any>([String, Number, Array])
   },
   options: {
-    type: definePropType<FormFieldAttrsOptions[]>(Array),
+    type: definePropType<FormFieldOptions[]>(Array),
     default: () => []
   }
 } as const)
