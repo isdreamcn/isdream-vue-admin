@@ -1,6 +1,7 @@
 <template>
   <el-dialog
     class="m-form-dialog"
+    v-bind="$attrs"
     v-model="visible"
     :title="title"
     @close="cancel"
@@ -11,7 +12,6 @@
       :inline="false"
       :col-attrs="24"
       :loading="loading"
-      v-bind="$attrs"
       @getForm="getForm"
       @submit="submit"
       @cancel="cancel"
@@ -37,19 +37,36 @@ const title = computed(() => (props.id ? props.editTitle : props.addTitle))
 const loading = ref(false)
 const visible = ref(props.modelValue)
 
-// elFormRef
-let elFormRef: FormInstance | undefined = undefined
+let elFormRef: FormInstance | null = null
 const getForm = (form: FormInstance) => {
   elFormRef = form
 }
 
 const formData = ref({})
+watch(
+  () => props.value,
+  (val) => {
+    formData.value = props.getHandler(
+      cloneDeep({
+        ...formData.value,
+        ...val
+      })
+    )
+  },
+  {
+    deep: true
+  }
+)
+
 const init = () => {
   visible.value = true
   const value = cloneDeep(props.value)
   if (props.id) {
     props.httpGet(props.id).then((res) => {
-      formData.value = props.getHandler({ ...value, ...res })
+      formData.value = props.getHandler({
+        ...value,
+        ...res.data
+      })
     })
   } else {
     formData.value = props.getHandler(value)

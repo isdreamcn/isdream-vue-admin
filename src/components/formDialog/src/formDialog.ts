@@ -1,18 +1,20 @@
 import type FormDialog from './formDialog.vue'
 import type { ExtractPropTypes } from 'vue'
-import { formProps } from '@/components/form'
+import type { FormField } from '@/components/form'
 import { buildProps, definePropType } from '@/utils'
 
-type FormDialogHttpGet = (id: number) => Promise<Record<string, any>>
-type FormDialogHttpAdd = (data: Record<string, any>) => Promise<any>
-type FormDialogHttpEdit = (
-  id: number,
-  data: Record<string, any>
-) => Promise<any>
+type FormDialogHttpGet = (
+  id: number
+) => Promise<Service.Result<Record<string, any>>>
+type FormDialogHttpAdd = (data: any) => Promise<any>
+type FormDialogHttpEdit = (id: number, data: any) => Promise<any>
 type FormDialogHandler = (data: Record<string, any>) => Record<string, any>
 
 export const formDialogProps = buildProps({
-  fields: formProps['fields'],
+  fields: {
+    type: definePropType<FormField[]>(Array),
+    default: () => []
+  },
   modelValue: {
     type: Boolean,
     default: false
@@ -35,7 +37,10 @@ export const formDialogProps = buildProps({
   },
   httpGet: {
     type: definePropType<FormDialogHttpGet>(Function),
-    default: () => Promise.resolve({})
+    default: () =>
+      Promise.resolve({
+        data: {}
+      })
   },
   httpAdd: {
     type: definePropType<FormDialogHttpAdd>(Function),

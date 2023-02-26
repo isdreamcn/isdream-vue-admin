@@ -1,6 +1,6 @@
 import type { FormProps } from '../form'
 import type { Ref } from 'vue'
-import { watch, ref, toRaw } from 'vue'
+import { watch, ref } from 'vue'
 import { cloneDeep } from '@/utils'
 
 export const useFormData = (
@@ -33,7 +33,7 @@ export const useFormData = (
         return
       }
 
-      const _val = cloneDeep(toRaw(val))
+      const _val = cloneDeep(val)
       for (const key of Object.keys(formData.value)) {
         formData.value[key] = _val[key]
       }
