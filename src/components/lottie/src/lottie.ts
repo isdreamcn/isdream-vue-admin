@@ -9,8 +9,14 @@ export const lottieProps = buildProps({
     type: definePropType<AnimationConfig>(Object),
     default: () => {}
   },
-  width: Number,
-  height: Number,
+  width: {
+    type: String,
+    default: '100%'
+  },
+  height: {
+    type: String,
+    default: '100%'
+  },
   data: {
     type: Object,
     required: true

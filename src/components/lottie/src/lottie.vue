@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import lottie from 'lottie-web'
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, onBeforeUnmount, computed } from 'vue'
 import { lottieProps, lottieEmits } from './lottie'
 
 import { AnimationItem } from 'lottie-web'
@@ -18,14 +18,10 @@ const emit = defineEmits(lottieEmits)
 
 // 样式
 const style = computed(() => {
-  let _style = ''
-  if (props.width) {
-    _style += `width: ${props.width}px;`
+  return {
+    width: props.width,
+    height: props.height
   }
-  if (props.height) {
-    _style += `height: ${props.width}px;`
-  }
-  return _style
 })
 
 const lottieContainerRef = ref<Element>()
@@ -42,9 +38,13 @@ onMounted(() => {
   emit('created', anim)
 })
 
-const destroy = (anim: AnimationItem) => {
+const destroy = () => {
   anim && anim.destroy()
 }
+
+onBeforeUnmount(() => {
+  destroy()
+})
 
 defineExpose({
   anim,
@@ -54,7 +54,5 @@ defineExpose({
 
 <style scoped lang="scss">
 .m-lottie {
-  width: 100%;
-  height: 100%;
 }
 </style>
