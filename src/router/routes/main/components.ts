@@ -94,6 +94,13 @@ export default {
         title: 'lottie动画'
       },
       component: () => import('@/views/main/components/lottie/lottie.vue')
+    },
+    {
+      path: 'loading',
+      meta: {
+        title: 'loading'
+      },
+      component: () => import('@/views/main/components/loading/loading.vue')
     }
   ]
 } as RouteRecordRaw

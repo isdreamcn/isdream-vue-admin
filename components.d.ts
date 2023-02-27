@@ -78,6 +78,7 @@ declare module '@vue/runtime-core' {
     MFormDialog: typeof import('@/components')['MFormDialog']
     MIcon: typeof import('@/components')['MIcon']
     MLoading: typeof import('@/components')['MLoading']
+    MLoadingLottie: typeof import('@/components')['MLoadingLottie']
     MLottie: typeof import('@/components')['MLottie']
     MMarkdown: typeof import('@/components')['MMarkdown']
     MMarkdownView: typeof import('@/components')['MMarkdownView']
