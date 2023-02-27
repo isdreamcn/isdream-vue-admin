@@ -1,6 +1,6 @@
 <template>
   <MLoading :loading="props.loading">
-    <MLottie :data="loadingData" style="width: 25%"></MLottie>
+    <MLottie :data="loadingData" style="width: 25%" v-bind="$attrs"></MLottie>
   </MLoading>
 </template>
 
@@ -9,7 +9,8 @@ import { loadingLottieProps } from './loading-lottie'
 import loadingData from '@/assets/lottie/loading.json'
 
 defineOptions({
-  name: 'MLoadingLottie'
+  name: 'MLoadingLottie',
+  inheritAttrs: false
 })
 
 const props = defineProps(loadingLottieProps)
