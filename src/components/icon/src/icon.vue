@@ -6,13 +6,14 @@
     :class="{ iconfont: isIconfont, [iconfontClass]: isIconfont }"
   >
     <slot>
+      <!-- element plus icons -->
       <component v-if="!isIconfont" :is="props.name"></component>
     </slot>
   </el-icon>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, useSlots } from 'vue'
 import { iconProps } from './icon'
 
 defineOptions({
@@ -20,9 +21,12 @@ defineOptions({
 })
 
 const props = defineProps(iconProps)
+const slots = useSlots()
 
-// 使用的iconfont
-const isIconfont = computed(() => /^(i|I)confont/.test(props.name))
+// 使用iconfont
+const isIconfont = computed(
+  () => !slots.default && /^(i|I)confont/.test(props.name)
+)
 
 const iconfontClass = computed(() => {
   let classname = props.name.toLowerCase()

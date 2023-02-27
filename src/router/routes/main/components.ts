@@ -9,6 +9,13 @@ export default {
   },
   children: [
     {
+      path: 'icon',
+      meta: {
+        title: 'icon图标'
+      },
+      component: () => import('@/views/main/components/icon/icon.vue')
+    },
+    {
       path: 'color-picker',
       meta: {
         title: '颜色选择器'
@@ -77,7 +84,7 @@ export default {
     {
       path: 'chart',
       meta: {
-        title: '图表'
+        title: 'echarts图表'
       },
       component: () => import('@/views/main/components/chart/chart.vue')
     }
