@@ -42,6 +42,13 @@
 | value    | 实际值   | `string\|number` | --     |
 | disabled | 是否禁用 | `boolean`        | false  |
 
+### Form 插槽
+
+| 插槽名              | 说明                                           |
+| ------------------- | ---------------------------------------------- |
+| `[Form-fields key]` | Form-fields slot 为 true 时， 自定义标签后内容 |
+| buttons             | 自定义 提交/取消 按钮                          |
+
 ### Form 事件
 
 | 事件名  | 说明                  | 类型                                      |
