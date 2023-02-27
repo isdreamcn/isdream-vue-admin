@@ -24,7 +24,8 @@ export const lottieProps = buildProps({
 } as const)
 
 export const lottieEmits = {
-  created: (anim: AnimationItem) => anim
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  created: (anim: AnimationItem) => true
 }
 
 export type LottieProps = ExtractPropTypes<typeof lottieProps>

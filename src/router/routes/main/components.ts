@@ -87,6 +87,13 @@ export default {
         title: 'echarts图表'
       },
       component: () => import('@/views/main/components/chart/chart.vue')
+    },
+    {
+      path: 'lottie',
+      meta: {
+        title: 'lottie动画'
+      },
+      component: () => import('@/views/main/components/lottie/lottie.vue')
     }
   ]
 } as RouteRecordRaw

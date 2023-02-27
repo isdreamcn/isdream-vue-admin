@@ -29,11 +29,12 @@ const lottieContainerRef = ref<Element>()
 let anim: AnimationItem | null = null
 onMounted(() => {
   anim = lottie.loadAnimation({
-    container: lottieContainerRef.value!,
     renderer: 'svg',
     loop: true,
     autoplay: true,
-    animationData: props.data
+    ...props.config,
+    animationData: props.data,
+    container: lottieContainerRef.value!
   })
   emit('created', anim)
 })
