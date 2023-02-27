@@ -20,6 +20,12 @@
 | handler | 处理http参数 | `function` | (data: any) => data |
 | $attrs | 绑定在el-dialog上 | -- | -- |
 
+### DeleteButton 插槽
+
+| 插槽名  | 说明                |
+| ------- | ------------------- |
+| default | 自定义按钮          |
+
 ### DeleteButton 事件
 
 | 事件名  | 说明       | 类型          |
