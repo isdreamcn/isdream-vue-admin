@@ -14,6 +14,8 @@
       :httpGet="demoUserDetails"
       @reload="reload"
     ></MFormDialog>
+
+    <MMarkdownView :value="readme"></MMarkdownView>
   </div>
 </template>
 
@@ -21,6 +23,7 @@
 import { reactive } from 'vue'
 import { fields } from './config'
 import { demoUserAdd, demoUserEdit, demoUserDetails } from '@/api/demo/user'
+import readme from '@/components/formDialog/README.md?raw'
 
 defineOptions({
   name: 'DemoCpnsMFormDialog'
