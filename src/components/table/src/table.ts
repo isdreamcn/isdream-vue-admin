@@ -10,7 +10,7 @@ interface TablePropsColumn<T extends string = string> {
   width?: number
   fixed?: 'left' | 'right'
   attrs?: Partial<ExtractPropTypes<typeof ElTableColumn>> & Record<string, any>
-  customRender?: (value: any, row: Record<string, any>, index: number) => void
+  customRender?: (value: any, row: Record<string, any>, index: number) => string
 }
 
 interface PaginationOptions {
@@ -34,19 +34,18 @@ export const tableProps = buildProps({
     required: true
   },
   selectKeys: {
-    type: Array,
-    default: () => []
+    type: Array
   },
   // 行数据的 Key
   rowKey: {
-    type: definePropType<string | ((row: Record<string, any>) => string)>([
+    type: definePropType<string | ((row: Record<string, any>) => any)>([
       String,
       Function
     ]),
     default: 'id'
   },
   paginationConfig: {
-    type: definePropType<PaginationOptions | false>([Object, Boolean]),
+    type: definePropType<false | PaginationOptions>([Boolean, Object]),
     default: (): PaginationOptions => ({
       currentPage: 1,
       pageSize: 10,
@@ -62,7 +61,7 @@ export const tableProps = buildProps({
   },
   // http 不会立即执行、params发生变化、isReload = true 调用http
   httpLazy: Boolean,
-  // 重新发起请求http
+  // 重新请求http
   isReload: Boolean,
   http: {
     type: definePropType<TablePropsHttp>(Function)
