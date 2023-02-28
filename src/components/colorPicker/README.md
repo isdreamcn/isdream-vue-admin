@@ -6,12 +6,13 @@
 
 ### ColorPicker 属性
 
-| 属性名     | 说明               | 类型      | 预设值 |
-| ---------- | ------------------ | --------- | ------ |
-| modelValue | v-model            | `string`  | --     |
-| custom     | 显示 ElColorPicker | `boolean` | true   |
+| 属性名      | 说明               | 类型                   | 预设值 |
+| ----------- | ------------------ | ---------------------- | ------ |
+| modelValue  | `v-model`          | `string`               | --     |
+| **options** | 颜色选项           | **ColorPicker-Option[]** | --     |
+| custom      | 显示 ElColorPicker | `boolean`              | true   |
 
-### ColorPicker-options 属性
+### ColorPicker-Option 属性
 
 > **会根据`options.value`去重**
 
@@ -34,9 +35,9 @@
 
 ### ColorPickerAppTheme 属性
 
-| 属性名        | 说明                           | 类型                        | 预设值 |
-| ------------- | ------------------------------ | --------------------------- | ------ |
-| cssKey        | 执行 style.setProperty         | `string`                    | --     |
-| appSettingKey | 设置 appSetting[appSettingKey] | `string`                    | --     |
-| options       | 预设颜色                       | `array`同ColorPicker-options | [...]  |
-| $attrs        | --                             | 同 ColorPicker 属性         | --     |
+| 属性名        | 说明                             | 类型                   | 预设值 |
+| ------------- | -------------------------------- | ---------------------- | ------ |
+| cssKey        | 执行 `style.setProperty`         | `string`               | --     |
+| appSettingKey | 设置 `appSetting[appSettingKey]` | `string`               | --     |
+| **options**   | 预设颜色                         | **ColorPicker-Option[]** | [...]  |
+| $attrs        | --                               | 同 `ColorPicker` 属性  | --     |
