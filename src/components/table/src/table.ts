@@ -1,14 +1,15 @@
 import type Table from './table.vue'
 import type { ExtractPropTypes } from 'vue'
+import type { ElTableColumn } from 'element-plus'
 import { buildProps, definePropType, isArray } from '@/utils'
 
-interface TablePropsColumn {
-  key: string
+interface TablePropsColumn<T extends string = string> {
+  key: T
   label?: string
   slot?: boolean
   width?: number
   fixed?: 'left' | 'right'
-  attrs?: Record<string, any>
+  attrs?: Partial<ExtractPropTypes<typeof ElTableColumn>> & Record<string, any>
   customRender?: (value: any, row: Record<string, any>, index: number) => void
 }
 
@@ -20,21 +21,21 @@ interface PaginationOptions {
 
 export type TablePropsHttp = (
   params: any
-) => Promise<{ data: any[]; count?: number }>
+) => Promise<Service.ResultPagination<any[]>>
 
 export const tableProps = buildProps({
-  // 使用 hooks/usePagination 进行内部分页
-  // http和data同时设置，使用http
-  data: {
-    type: Array,
-    default: () => []
+  // 显示序号列
+  series: {
+    type: Boolean,
+    default: true
   },
   columns: {
     type: definePropType<TablePropsColumn[]>(Array),
     required: true
   },
   selectKeys: {
-    type: Array
+    type: Array,
+    default: () => []
   },
   // 行数据的 Key
   rowKey: {
@@ -52,7 +53,14 @@ export const tableProps = buildProps({
       pageSizes: [10, 20, 30]
     })
   },
-  // http
+  loading: Boolean,
+  // 使用 hooks/usePagination 进行内部分页
+  // http和data同时设置，使用http
+  data: {
+    type: Array,
+    default: () => []
+  },
+  // http 不会立即执行、params发生变化、isReload = true 调用http
   httpLazy: Boolean,
   // 重新发起请求http
   isReload: Boolean,
@@ -62,13 +70,7 @@ export const tableProps = buildProps({
   params: {
     type: Object,
     default: () => {}
-  },
-  // 显示序号列
-  series: {
-    type: Boolean,
-    default: true
-  },
-  loading: Boolean
+  }
 } as const)
 
 export const tableEmits = {
@@ -79,7 +81,7 @@ export const tableEmits = {
 export type TableProps = ExtractPropTypes<typeof tableProps>
 export type TableEmits = typeof tableEmits
 
-export type TableColumns = TableProps['columns']
-export type TablePaginationConfig = TableProps['paginationConfig']
+export type TableColumn<T extends string = string> = TablePropsColumn<T>
+export type TablePaginationConfig = PaginationOptions
 
 export type TableInstance = InstanceType<typeof Table>

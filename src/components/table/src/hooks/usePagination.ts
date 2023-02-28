@@ -30,7 +30,7 @@ export const usePagination = (props: TableProps) => {
 
   const paginationData = computed(() => {
     const start = indexStart.value
-    const end = paginationParams.currentPage * paginationParams.pageSize
+    const end = start + paginationParams.pageSize
     return props.data.slice(start, end)
   })
 

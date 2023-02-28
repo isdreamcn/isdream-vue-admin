@@ -7,14 +7,9 @@
       :data="userList"
       :http="getDemoUserList"
       :params="params"
-      a="456"
-      b="789"
       v-model:isReload="isReload"
       v-model:selectKeys="selectKeys"
     >
-      <template #createAt="{ value }">
-        <span v-dateFormat:YYYY-MM-DD="value"></span>
-      </template>
       <template #extra>
         <el-button v-auth="searchBtnPermission" @click="isReload = true"
           >重置</el-button
@@ -22,6 +17,11 @@
         <el-button v-auth:tableSearch @click="params.q = 456"
           >params.q = 456</el-button
         >
+        <el-button @click="setSelectKeys">选中id 1~10</el-button>
+      </template>
+
+      <template #createAt="{ value }">
+        <span v-dateFormat:YYYY-MM-DD="value"></span>
       </template>
       <template #actions="{ row, index, value }">
         <el-button size="small" @click="viewDetails({ row, index, value })"
@@ -44,19 +44,27 @@ defineOptions({
 const isReload = ref(true)
 const searchBtnPermission = ref('tableReset')
 
-const userList = ref<any[]>()
+const userList = ref<any[]>(
+  new Array(55).fill(0).map((val, index) => ({
+    id: index + 1,
+    name: index + 1
+  }))
+)
 
 // selectKeys
 const selectKeys = ref<any[]>([1, 3, 5])
-
-const viewDetails = (scope: any) => {
-  console.log(scope)
+const setSelectKeys = () => {
+  selectKeys.value = new Array(10).fill(0).map((val, index) => index + 1)
 }
 
 // params
 const params = reactive({
   q: 123
 })
+
+const viewDetails = (scope: any) => {
+  console.log(scope)
+}
 </script>
 
 <style lang="scss" scoped></style>

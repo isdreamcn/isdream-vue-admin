@@ -1,9 +1,8 @@
 import type { ElTable } from 'element-plus'
 import type { Ref } from 'vue'
-import { nextTick } from 'vue'
 import type { TableProps } from '../table'
 
-import { ref, watch } from 'vue'
+import { ref, watch, nextTick } from 'vue'
 import { isFunction } from '@/utils'
 
 export const useSelection = (
@@ -13,7 +12,7 @@ export const useSelection = (
 ) => {
   const elTableRef = ref<InstanceType<typeof ElTable>>()
 
-  // 不需要序号列
+  // 不需要多选框
   if (!props.selectKeys) {
     return {
       elTableRef,
@@ -49,14 +48,14 @@ export const useSelection = (
 
   // 选择selectKeys对应的data items
   const selectionSelectKeysRows = () => {
-    selectionRows(
-      data.value.filter((row: any) => {
-        const key = isFunction(props.rowKey)
-          ? props.rowKey(row)
-          : row[props.rowKey]
-        return props.selectKeys?.includes(key)
-      })
-    )
+    const rows = data.value.filter((row: any) => {
+      const key = isFunction(props.rowKey)
+        ? props.rowKey(row)
+        : row[props.rowKey]
+      return props.selectKeys?.includes(key)
+    })
+    selectionRows(rows)
+    handleSelectionChange(rows)
   }
 
   watch(
@@ -71,7 +70,7 @@ export const useSelection = (
     }
   )
 
-  // 支持异步data, data更新，重新匹配
+  // data更新/http重新执行，重新匹配选中项
   watch(() => data.value, selectionSelectKeysRows)
 
   return {

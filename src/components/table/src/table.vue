@@ -7,13 +7,12 @@
     </div>
     <el-table
       class="m-table__main"
-      :ref="selection.elTableRef"
-      v-bind="$attrs"
-      v-loading="props.loading || httpRes.loading"
-      :data="data"
       border
       stripe
-      :style="{ width: '100%' }"
+      v-bind="$attrs"
+      :ref="selection.elTableRef"
+      v-loading="props.loading || httpRes.loading"
+      :data="data"
       :row-key="props.rowKey"
       @selection-change="selection.handleSelectionChange"
     >
@@ -87,6 +86,7 @@ defineOptions({
 const props = defineProps(tableProps)
 const emit = defineEmits(tableEmits)
 
+// data 内部分页
 const { paginationParams, paginationData, indexStart } = usePagination(props)
 
 // request http
@@ -115,6 +115,7 @@ const selection = useSelection(props, data, (selectKeys) => {
   }
   .m-table__main {
     margin: 20px 0;
+    width: 100%;
   }
   .m-table__pagination {
     display: flex;

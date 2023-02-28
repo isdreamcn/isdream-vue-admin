@@ -11,7 +11,7 @@ interface HttpRes {
 export const useHttpData = (
   props: TableProps,
   paginationParams: Partial<PaginationParams>,
-  requestFinally: Function = () => {}
+  requestFinally = () => {}
 ) => {
   const httpRes = reactive<HttpRes>({
     data: null,
@@ -52,7 +52,6 @@ export const useHttpData = (
       if (httpLazy) {
         httpLazy = false
         httpRes.loading = true
-        requestFinally()
         return
       }
       requestHttp()

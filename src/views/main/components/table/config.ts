@@ -1,6 +1,6 @@
-import type { TableColumns } from '@/components'
+import type { TableColumn } from '@/components'
 
-export const tableColumns: TableColumns = [
+export const tableColumns: TableColumn[] = [
   {
     key: 'name',
     label: '姓名',
@@ -18,7 +18,7 @@ export const tableColumns: TableColumns = [
   {
     key: 'userInfo.origin',
     label: '来源',
-    customRender: (val) => '来源: ' + val
+    customRender: (val) => val && '来源: ' + val
   },
   {
     key: 'createAt',
