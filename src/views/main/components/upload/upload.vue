@@ -2,10 +2,14 @@
   <div>
     <MUpload list-type="picture-card" v-model="fileList"></MUpload>
     <pre>{{ fileList }}</pre>
+
+    <MMarkdownView :value="readme"></MMarkdownView>
   </div>
 </template>
 
 <script setup lang="ts">
+import readme from '@/components/upload/README.md?raw'
+
 import type { UploadFile } from '@/components'
 import { ref } from 'vue'
 
