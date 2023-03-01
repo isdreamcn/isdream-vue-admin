@@ -12,7 +12,7 @@
 | **columns**          | 表格列                                                        | **Table-Column[]**                                    | --     |
 | selectKeys           | 多选框列，`v-model:selectKeys`                                | `array`                                               | --     |
 | rowKey               | 行数据的 Key                                                  | `string\|((row: Record<string, any>) => any`          | id     |
-| **paginationConfig** | 分页器                                                        | `false` \| **Table-PaginationOptions**                | --     |
+| **paginationConfig** | 分页器                                                        | `false` \| **Table-TablePaginationOptions**                | --     |
 | loading              | table 显示加载动画                                            | `boolean`                                             | --     |
 | data                 | table 数据，会默认分页，http 和 data 同时设置，使用 http      | `array`                                               | --     |
 | httpLazy             | http 不会立即执行、params 发生变化、isReload = true 调用 http | `boolean`                                             | false  |

@@ -3,7 +3,7 @@ import type { ExtractPropTypes } from 'vue'
 import type { ElTableColumn } from 'element-plus'
 import { buildProps, definePropType, isArray } from '@/utils'
 
-interface TablePropsColumn<T extends string = string> {
+export interface TableColumn<T extends string = string> {
   key: T
   label?: string
   slot?: boolean
@@ -13,15 +13,13 @@ interface TablePropsColumn<T extends string = string> {
   customRender?: (value: any, row: Record<string, any>, index: number) => string
 }
 
-interface PaginationOptions {
+export interface TablePaginationOptions {
   currentPage: number
   pageSize: number
   pageSizes: number[]
 }
 
-export type TablePropsHttp = (
-  params: any
-) => Promise<Service.ResultPagination<any[]>>
+type TablePropsHttp = (params: any) => Promise<Service.ResultPagination<any[]>>
 
 export const tableProps = buildProps({
   // 显示序号列
@@ -30,7 +28,7 @@ export const tableProps = buildProps({
     default: true
   },
   columns: {
-    type: definePropType<TablePropsColumn[]>(Array),
+    type: definePropType<TableColumn[]>(Array),
     required: true
   },
   selectKeys: {
@@ -45,8 +43,8 @@ export const tableProps = buildProps({
     default: 'id'
   },
   paginationConfig: {
-    type: definePropType<false | PaginationOptions>([Boolean, Object]),
-    default: (): PaginationOptions => ({
+    type: definePropType<false | TablePaginationOptions>([Boolean, Object]),
+    default: (): TablePaginationOptions => ({
       currentPage: 1,
       pageSize: 10,
       pageSizes: [10, 20, 30]
@@ -79,8 +77,5 @@ export const tableEmits = {
 
 export type TableProps = ExtractPropTypes<typeof tableProps>
 export type TableEmits = typeof tableEmits
-
-export type TableColumn<T extends string = string> = TablePropsColumn<T>
-export type TablePaginationConfig = PaginationOptions
 
 export type TableInstance = InstanceType<typeof Table>

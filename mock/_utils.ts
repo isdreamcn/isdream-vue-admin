@@ -76,7 +76,7 @@ export const useUserList = (): MockUserLoginList[] => {
   ]
 }
 
-interface ResultPaginationOptions {
+interface ResultTablePaginationOptions {
   page: number
   pageSize: number
   count?: number
@@ -85,7 +85,7 @@ interface ResultPaginationOptions {
 // 生成分页数据
 export const generateResultPagination = <T = any>(
   generater: (index: number) => T,
-  options?: ResultPaginationOptions
+  options?: ResultTablePaginationOptions
 ): Service.ResultPagination<T[]> => {
   const { page = 1, pageSize = 10, count = 100 } = options || {}
   const data: any[] = []

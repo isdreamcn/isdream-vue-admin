@@ -2,9 +2,8 @@ import type { ExtractPropTypes } from 'vue'
 import type DeleteButton from './deleteButton.vue'
 import { buildProps, definePropType } from '@/utils'
 
-export type DeleteButtonHttp = (...payload: any[]) => Promise<any>
-
-export type DeleteButtonHandler = (data: any) => any
+type DeleteButtonHttp = (...payload: any[]) => Promise<any>
+type DeleteButtonHandler = (data: any) => any
 
 export const deleteButtonProps = buildProps({
   disabled: {

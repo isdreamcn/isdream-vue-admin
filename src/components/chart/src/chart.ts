@@ -4,9 +4,11 @@ import type { ECOption } from '@/plugins'
 import type Chart from './chart.vue'
 import { buildProps, definePropType } from '@/utils'
 
+export type ChartOptions = ECOption
+
 export const chartProps = buildProps({
   options: {
-    type: definePropType<ECOption>(Object),
+    type: definePropType<ChartOptions>(Object),
     required: true
   },
   width: {
@@ -30,7 +32,5 @@ export const chartEmits = {
 
 export type ChartsProps = ExtractPropTypes<typeof chartProps>
 export type ChartsEmits = typeof chartEmits
-
-export type ChartOptions = ChartsProps['options']
 
 export type ChartsInstance = InstanceType<typeof Chart>

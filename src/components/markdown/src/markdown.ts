@@ -4,7 +4,7 @@ import type Vditor from 'vditor'
 import { buildProps, definePropType } from '@/utils'
 import { uploadCommon } from '@/api/common'
 
-export type MarkdownUpload = typeof uploadCommon
+type MarkdownUpload = typeof uploadCommon
 
 export const markdownProps = buildProps({
   options: {

@@ -6,14 +6,14 @@
 </template>
 
 <script setup lang="ts">
-import type { UploadUserFile } from '@/components'
+import type { UploadFile } from '@/components'
 import { ref } from 'vue'
 
 defineOptions({
   name: 'DemoCpnsMUpload'
 })
 
-const fileList = ref<UploadUserFile[]>([
+const fileList = ref<UploadFile[]>([
   {
     name: 'food.jpeg',
     url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'

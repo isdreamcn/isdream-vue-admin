@@ -1,13 +1,10 @@
 import type Upload from './upload.vue'
 import type { ExtractPropTypes } from 'vue'
-import type {
-  UploadUserFile as ElUploadUserFile,
-  UploadFile
-} from 'element-plus'
+import type { UploadUserFile as ElUploadUserFile } from 'element-plus'
 import { buildProps, definePropType, isArray } from '@/utils'
 import { uploadCommon, CommonUploadFile } from '@/api/common'
 
-export type UploadUserFile = ElUploadUserFile & {
+export type UploadFile = ElUploadUserFile & {
   url: string
   response?: CommonUploadFile
 }
@@ -21,7 +18,7 @@ export interface UploadRule {
 
 export const uploadProps = buildProps({
   modelValue: {
-    type: definePropType<UploadUserFile[]>(Array),
+    type: definePropType<UploadFile[]>(Array),
     default: () => []
   },
   multiple: {
@@ -81,8 +78,8 @@ export const uploadProps = buildProps({
 } as const)
 
 export const uploadEmits = {
-  'update:modelValue': (fileList: UploadUserFile[]) => isArray(fileList),
-  change: (fileList: UploadUserFile[]) => isArray(fileList)
+  'update:modelValue': (fileList: UploadFile[]) => isArray(fileList),
+  change: (fileList: UploadFile[]) => isArray(fileList)
 }
 
 export type UploadProps = ExtractPropTypes<typeof uploadProps>

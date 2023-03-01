@@ -4,9 +4,11 @@ import type { ExtractPropTypes } from 'vue'
 import { AnimationItem, AnimationConfig } from 'lottie-web'
 import type Lottie from './lottie.vue'
 
+export type LottieConfig = AnimationConfig
+
 export const lottieProps = buildProps({
   config: {
-    type: definePropType<AnimationConfig>(Object),
+    type: definePropType<LottieConfig>(Object),
     default: () => {}
   },
   width: {

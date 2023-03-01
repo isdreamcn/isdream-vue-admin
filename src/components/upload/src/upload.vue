@@ -30,8 +30,8 @@
 </template>
 
 <script setup lang="ts">
-import type { UploadProps } from 'element-plus'
-import type { UploadUserFile, UploadRule } from './upload'
+import type { UploadProps as ElUploadProps } from 'element-plus'
+import type { UploadFile, UploadRule } from './upload'
 import { uploadProps, uploadEmits } from './upload'
 import { ref, watch, computed, reactive } from 'vue'
 import { ElMessage } from 'element-plus'
@@ -47,7 +47,7 @@ defineOptions({
 const props = defineProps(uploadProps)
 const emit = defineEmits(uploadEmits)
 
-const fileList = ref<UploadUserFile[]>([])
+const fileList = ref<UploadFile[]>([])
 
 watch(
   () => props.modelValue,
@@ -83,14 +83,14 @@ watch(
   }
 )
 
-const onPreview: UploadProps['onPreview'] = (uploadFile) => {
+const onPreview: ElUploadProps['onPreview'] = (uploadFile) => {
   if (!props.preview) {
     return
   }
 
   // onPreview
   if (props.preview !== true) {
-    props.preview(uploadFile)
+    props.preview(uploadFile as UploadFile)
     return
   }
 
@@ -108,14 +108,14 @@ const onPreview: UploadProps['onPreview'] = (uploadFile) => {
   })
 }
 
-const onRemove: UploadProps['onRemove'] = (uploadFile, uploadFiles) => {
-  fileList.value = uploadFiles as UploadUserFile[]
+const onRemove: ElUploadProps['onRemove'] = (uploadFile, uploadFiles) => {
+  fileList.value = uploadFiles as UploadFile[]
 }
 
 const isMax = computed(() => fileList.value.length >= props.max)
 const disabled = computed(() => props.disabled)
 
-const beforeUpload: UploadProps['beforeUpload'] = (rawFile) => {
+const beforeUpload: ElUploadProps['beforeUpload'] = (rawFile) => {
   const rules: UploadRule[] = [
     {
       validator: () => isMax.value,
@@ -153,10 +153,10 @@ const onChange = () => {
   }
 }
 
-const httpRequest: UploadProps['httpRequest'] = (options) => {
+const httpRequest: ElUploadProps['httpRequest'] = (options) => {
   const { file } = options
   // 当前文件信息
-  const fileListItem = reactive<UploadUserFile>({
+  const fileListItem = reactive<UploadFile>({
     name: file.name,
     url: URL.createObjectURL(file),
     status: 'uploading',

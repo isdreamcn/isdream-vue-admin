@@ -5,7 +5,7 @@ import { buildProps, definePropType } from '@/utils'
 import { toolbar, plugins } from './tinymce/tinymce'
 import { uploadCommon } from '@/api/common'
 
-export type EditorUpload = typeof uploadCommon
+type EditorUpload = typeof uploadCommon
 
 export const editorProps = buildProps({
   options: {

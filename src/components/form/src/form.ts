@@ -9,20 +9,20 @@ import type {
 } from 'element-plus'
 import { buildProps, definePropType, isObject } from '@/utils'
 
-interface FormFieldAttrsOptions {
+export interface FormFieldOptions {
   label: string
   value: string | number
   disabled?: boolean
 }
 
-interface FormPropsField {
+export interface FormField {
   tag: GlobalComponents | FormComponents | Component
   key: string
   label?: string
   // show !== false 则显示
   show?: boolean
   slot?: boolean
-  attrs?: Record<string, any> & { options?: FormFieldAttrsOptions[] }
+  attrs?: Record<string, any> & { options?: FormFieldOptions[] }
   on?: Record<string, (...payload: any[]) => void>
   colAttrs?: ColSize
   placeholder?: string
@@ -32,7 +32,7 @@ interface FormPropsField {
 
 export const formProps = buildProps({
   fields: {
-    type: definePropType<FormPropsField[]>(Array),
+    type: definePropType<FormField[]>(Array),
     required: true
   },
   modelValue: {
@@ -78,8 +78,5 @@ export const formEmits = {
 
 export type FormProps = ExtractPropTypes<typeof formProps>
 export type FormEmits = typeof formEmits
-
-export type FormField = FormPropsField
-export type FormFieldOptions = FormFieldAttrsOptions
 
 export type FormInstance = InstanceType<typeof Form>
