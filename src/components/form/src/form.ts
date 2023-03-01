@@ -1,5 +1,5 @@
 import type Form from './form.vue'
-import type { GlobalComponents } from '@/plugins/components/components'
+import type { GlobalComponents } from '@/plugins/components'
 import type { FormComponents } from './components'
 import type { ExtractPropTypes, Component } from 'vue'
 import type {

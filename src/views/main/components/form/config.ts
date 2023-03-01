@@ -72,5 +72,10 @@ export const fields = reactive<FormField[]>([
         }
       ]
     }
+  },
+  {
+    tag: 'MUpload',
+    key: 'files',
+    label: '附件'
   }
 ])
