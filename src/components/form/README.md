@@ -8,7 +8,7 @@
 
 | 属性名     | 说明               | 类型             | 预设值 |
 | ---------- | ------------------ | ---------------- | ------ |
-| **fields**     | 表单字段配置       | **Form-Field[]** | --     |
+| **fields**     | 表单字段配置       | **FormField[]** | --     |
 | modelValue | `v-model`          | `object`         | --     |
 | labelWidth | 标签所占宽度       | `number\|string` | auto   |
 | colAttrs   | el-col 属性        | `number\|object` | 6      |
@@ -19,7 +19,7 @@
 | submitIcon | 提交按钮图标       | `string\|false`  | --     |
 | cancelIcon | 取消按钮图标       | `string\|false`  | --     |
 
-#### Form-Field 属性
+#### Form-fields (FormField)
 
 | 属性名        | 说明                              | 类型                                            | 预设值 |
 | ------------- | --------------------------------- | ----------------------------------------------- | ------ |
@@ -28,14 +28,14 @@
 | label         | 标签                              | `string`                                        | --     |
 | show          | 是否显示                          | `boolean`                                       | true   |
 | slot          | 是否使用具名插槽，name 为`key`    | `boolean`                                       | false  |
-| **attrs**         | 绑定在 tag 上的属性               | `object` & **{ options: Form-Field-Option[] }** | --     |
+| **attrs**         | 绑定在 tag 上的属性               | `object` & **{ options: FormFieldOption[] }** | --     |
 | on            | 绑定在 tag 上的事件               | `object`                                        | --     |
 | colAttrs      | el-col 属性                       | `number\|object`                                | --     |
 | placeholder   | 占位符                            | `string`                                        | --     |
 | required      | 是否必填                          | `boolean`                                       | false  |
 | validateRules | 校验规则 FormItem rules           | el `FormItemRule[]`                             | --     |
 
-#### Form-Field-Option 属性
+#### Form-fields-attrs-oprions (FormFieldOption)
 
 | 属性名   | 说明     | 类型             | 预设值 |
 | -------- | -------- | ---------------- | ------ |

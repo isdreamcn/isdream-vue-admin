@@ -8,8 +8,8 @@
 
 | 属性名     | 说明                                     | 类型                                                   | 预设值 |
 | ---------- | ---------------------------------------- | ------------------------------------------------------ | ------ |
-| **fields** | 表单字段配置                             | **Form-Field[]**                                       | --     |
-| modelValue | `v-model` dialog 显示隐藏                  | `boolean`                                              | false  |
+| **fields** | 表单字段配置                             | **FormField[]**                                        | --     |
+| modelValue | `v-model` dialog 显示隐藏                | `boolean`                                              | false  |
 | id         | 0 为新增，其他为编辑                     | `number`                                               | 0      |
 | value      | form 默认值                              | `object`                                               | --     |
 | addTitle   | 新增时，dialog 标题                      | `string`                                               | 新增   |

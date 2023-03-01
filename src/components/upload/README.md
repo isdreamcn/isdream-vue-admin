@@ -1,5 +1,7 @@
 # Upload
 
+> 基于[ElUpload](https://element-plus.org/zh-CN/component/upload.html)
+
 ## API
 
 ### Upload 属性
@@ -45,7 +47,7 @@
 
 ### Upload 插槽
 
-| 插槽名  | 说明               |
-| ------- | ------------------ |
-| default | 开启文件选择的按钮 |
-| tip     | 提示               |
+| 插槽名  | 说明                     |
+| ------- | ------------------------ |
+| default | 开启文件选择对话框的按钮 |
+| tip     | 提示                     |
