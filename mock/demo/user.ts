@@ -7,7 +7,7 @@ import { GetDemoUserListParams, DemoUser } from '@/api/demo/user'
 
 export default [
   {
-    url: '/api/demo/user',
+    url: '/api/demo/user/list',
     method: 'get',
     timeout: 1000,
     statusCode: HttpStatusCode.OK,
@@ -44,7 +44,7 @@ export default [
   },
   {
     url: '/api/demo/user',
-    method: 'POST',
+    method: 'post',
     timeout: 1000,
     statusCode: HttpStatusCode.OK,
     response: () => {
@@ -55,8 +55,8 @@ export default [
     }
   },
   {
-    url: '/api/demo/user/:id',
-    method: 'DELETE',
+    url: '/api/demo/user/1',
+    method: 'delete',
     timeout: 1500,
     statusCode: HttpStatusCode.OK,
     response: () => {
@@ -67,8 +67,8 @@ export default [
     }
   },
   {
-    url: '/api/demo/user/:id',
-    method: 'PUT',
+    url: '/api/demo/user/1',
+    method: 'put',
     timeout: 2000,
     statusCode: HttpStatusCode.OK,
     response: () => {
@@ -79,8 +79,8 @@ export default [
     }
   },
   {
-    url: '/api/demo/user/:id',
-    method: 'GET',
+    url: '/api/demo/user/1',
+    method: 'get',
     timeout: 500,
     statusCode: HttpStatusCode.OK,
     response: () => {

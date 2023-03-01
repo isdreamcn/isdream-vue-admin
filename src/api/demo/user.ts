@@ -6,7 +6,7 @@ import type {
 import service from '@/service'
 
 enum Api {
-  List = '/api/demo/user',
+  List = '/api/demo/user/list',
   Add = '/api/demo/user',
   Del = '/api/demo/user',
   Edit = '/api/demo/user',
