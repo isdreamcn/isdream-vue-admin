@@ -1,11 +1,11 @@
 <template>
   <div class="m-upload">
     <el-upload
+      v-bind="$attrs"
       :multiple="props.multiple"
       :accept="props.accept"
       :list-type="props.listType"
       :disabled="disabled"
-      v-bind="$attrs"
       :file-list="fileList"
       :on-preview="onPreview"
       :on-remove="onRemove"
@@ -30,18 +30,14 @@
 </template>
 
 <script setup lang="ts">
-import type {
-  UploadProps,
-  UploadRequestOptions,
-  UploadRawFile,
-  UploadFile
-} from 'element-plus'
+import type { UploadProps } from 'element-plus'
 import type { UploadUserFile, UploadRule } from './upload'
 import { uploadProps, uploadEmits } from './upload'
 import { ref, watch, computed, reactive } from 'vue'
 import { ElMessage } from 'element-plus'
 import { api as viewerApi } from 'v-viewer'
 import { useProgressFake } from './hooks'
+import { cloneDeep, joinBaseUrlFile } from '@/utils'
 
 defineOptions({
   name: 'MUpload',
@@ -51,15 +47,28 @@ defineOptions({
 const props = defineProps(uploadProps)
 const emit = defineEmits(uploadEmits)
 
-const fileList = ref<UploadUserFile[]>([...props.modelValue])
+const fileList = ref<UploadUserFile[]>([])
 
 watch(
   () => props.modelValue,
-  (val, prev) => {
-    if (val === prev) {
+  (val) => {
+    if (fileList.value === val) {
       return
     }
-    fileList.value = props.modelValue
+    const modelValue = cloneDeep(val)
+    fileList.value = modelValue.map((item) => ({
+      ...item,
+      url: joinBaseUrlFile(item.url),
+      response: {
+        filename: item.name,
+        url: item.url,
+        ...item.response
+      }
+    }))
+  },
+  {
+    immediate: true,
+    deep: true
   }
 )
 
@@ -68,10 +77,13 @@ watch(
   (val) => {
     emit('update:modelValue', val)
     emit('change', val)
+  },
+  {
+    immediate: true
   }
 )
 
-const onPreview: UploadProps['onPreview'] = (uploadFile: UploadFile) => {
+const onPreview: UploadProps['onPreview'] = (uploadFile) => {
   if (!props.preview) {
     return
   }
@@ -96,18 +108,19 @@ const onPreview: UploadProps['onPreview'] = (uploadFile: UploadFile) => {
   })
 }
 
-const onRemove: UploadProps['onRemove'] = (
-  uploadFile: UploadFile,
-  uploadFiles: UploadFile[]
-) => {
-  fileList.value = [...uploadFiles]
+const onRemove: UploadProps['onRemove'] = (uploadFile, uploadFiles) => {
+  fileList.value = uploadFiles as UploadUserFile[]
 }
 
 const isMax = computed(() => fileList.value.length >= props.max)
-const disabled = computed(() => isMax.value || props.disabled)
+const disabled = computed(() => props.disabled)
 
-const beforeUpload = (rawFile: UploadRawFile) => {
+const beforeUpload: UploadProps['beforeUpload'] = (rawFile) => {
   const rules: UploadRule[] = [
+    {
+      validator: () => isMax.value,
+      message: `最多上传${props.max}个文件`
+    },
     {
       validator: (file) => {
         if (props.accept === 'all') {
@@ -117,10 +130,6 @@ const beforeUpload = (rawFile: UploadRawFile) => {
         return !props.accept.includes(fileType)
       },
       message: '文件格式不符合要求'
-    },
-    {
-      validator: () => isMax.value,
-      message: `最多上传${props.max}个文件`
     },
     {
       validator: (file) => file.size > props.maxSize,
@@ -144,17 +153,14 @@ const onChange = () => {
   }
 }
 
-const httpRequest: UploadProps['httpRequest'] = (
-  options: UploadRequestOptions
-) => {
+const httpRequest: UploadProps['httpRequest'] = (options) => {
   const { file } = options
   // 当前文件信息
   const fileListItem = reactive<UploadUserFile>({
     name: file.name,
     url: URL.createObjectURL(file),
     status: 'uploading',
-    percentage: 0,
-    response: {}
+    percentage: 0
   })
 
   fileList.value.push(fileListItem)
@@ -177,19 +183,17 @@ const httpRequest: UploadProps['httpRequest'] = (
 
   return props
     .http(formdata)
-    .then((res) => {
-      fileListItem.name = res.data.name
-      fileListItem.url = res.data.url
+    .then(({ data }) => {
+      fileListItem.name = data.filename
+      fileListItem.url = joinBaseUrlFile(data.url)
       fileListItem.status = 'success'
-      fileListItem.response = res
-      onChange()
+      fileListItem.response = data
       if (props.showMessage) {
         ElMessage.success('上传成功')
       }
     })
     .catch(() => {
       fileListItem.status = 'fail'
-      onChange()
       if (props.showMessage) {
         ElMessage.error('上传失败')
       }
@@ -198,4 +202,8 @@ const httpRequest: UploadProps['httpRequest'] = (
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.m-upload {
+  width: 100%;
+}
+</style>

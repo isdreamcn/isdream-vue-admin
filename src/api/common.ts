@@ -1,7 +1,7 @@
-import type { UploadFile } from './commonTypes'
+import type { CommonUploadFile } from './commonTypes'
 
 export const uploadCommon = (formData: FormData) => {
-  return new Promise<Service.Result<UploadFile>>((resolve) => {
+  return new Promise<Service.Result<CommonUploadFile>>((resolve) => {
     setTimeout(() => {
       const bold = formData.get('file')
       if (bold && typeof bold !== 'string') {

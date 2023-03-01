@@ -18,6 +18,7 @@ export const useVditorUpload = (
           return props
             .upload(formData)
             .then(({ data }) => {
+              data.mimeType = data.mimeType ?? 'image/*'
               if (!/^blob:/.test(data.url)) {
                 data.url = joinBaseUrlFile(data.url)
               }

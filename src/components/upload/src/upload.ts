@@ -5,17 +5,14 @@ import type {
   UploadFile
 } from 'element-plus'
 import { buildProps, definePropType, isArray } from '@/utils'
+import { uploadCommon, CommonUploadFile } from '@/api/common'
 
-export type UploadUserFile = ElUploadUserFile
-
-export type UploadHttp = (formData: FormData) => Promise<{
-  data: {
-    url: string
-    name: string
-  }
-}>
-
-export type UploadOnPreview = (file: UploadFile) => void
+export type UploadUserFile = ElUploadUserFile & {
+  url: string
+  response?: CommonUploadFile
+}
+type UploadHttp = typeof uploadCommon
+type UploadOnPreview = (file: UploadFile) => void
 
 export interface UploadRule {
   validator: (file: File) => boolean
@@ -33,7 +30,7 @@ export const uploadProps = buildProps({
   },
   // 接收上传的文件类型
   accept: {
-    type: definePropType<'all' | string>(String),
+    type: String,
     default: 'all'
   },
   // 文件数量限制
@@ -65,7 +62,7 @@ export const uploadProps = buildProps({
   },
   http: {
     type: definePropType<UploadHttp>(Function),
-    required: true
+    default: uploadCommon
   },
   httpFileKey: {
     type: String,

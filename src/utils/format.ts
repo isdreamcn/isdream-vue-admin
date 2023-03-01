@@ -12,5 +12,7 @@ export const removeBaseUrlFile = (str: string) => {
 }
 
 export const joinBaseUrlFile = (url: string) => {
+  if (/^blob:/.test(url)) return url
+
   return /^https?:\/\//.test(url) ? url : appConfig.baseUrlFile + url
 }

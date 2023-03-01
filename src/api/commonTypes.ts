@@ -4,8 +4,9 @@ export interface CommonListParams {
   q?: string | null
 }
 
-export interface UploadFile {
+export interface CommonUploadFile {
   url: string
   filename: string
-  mimeType: string
+  mimeType?: string
+  [x: string]: any
 }
