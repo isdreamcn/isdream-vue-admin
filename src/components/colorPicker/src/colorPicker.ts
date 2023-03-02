@@ -1,7 +1,6 @@
 import type { ExtractPropTypes } from 'vue'
 import type ColorPicker from './colorPicker.vue'
-import { isString } from '@vue/shared'
-import { buildProps, definePropType } from '@/utils'
+import { isString, buildProps, definePropType } from '@/utils'
 
 export interface ColorPickerOptionsItem {
   label?: string

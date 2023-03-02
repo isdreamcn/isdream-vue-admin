@@ -1,4 +1,4 @@
-import { isArray } from './index'
+import { isArray } from '@/utils'
 
 export const loadFiles = <T>(
   modules: Record<

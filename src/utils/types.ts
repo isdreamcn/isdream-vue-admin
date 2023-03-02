@@ -1,5 +1,4 @@
-import { isArray, isObject } from '@vue/shared'
-import { isNil } from 'lodash-unified'
+import { isNil, isArray, isObject } from '@/utils'
 
 export const isUndefined = (val: any): val is undefined => val === undefined
 
