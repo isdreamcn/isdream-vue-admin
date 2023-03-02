@@ -5,6 +5,7 @@ specifiers:
   '@commitlint/config-conventional': ^17.1.0
   '@element-plus/icons-vue': ^2.0.9
   '@types/mockjs': ^1.0.7
+  '@types/node': 18.7.14
   '@types/sass': ^1.43.1
   '@typescript-eslint/eslint-plugin': ^5.36.0
   '@typescript-eslint/parser': ^5.36.0
@@ -71,6 +72,7 @@ devDependencies:
   '@commitlint/cli': 17.1.2
   '@commitlint/config-conventional': 17.1.0
   '@types/mockjs': 1.0.7
+  '@types/node': 18.7.14
   '@types/sass': 1.43.1
   '@typescript-eslint/eslint-plugin': 5.39.0_cfd7h3iktziq6hcwahu2qxhjhy
   '@typescript-eslint/parser': 5.39.0_z4bbprzjrhnsfa24uvmcbu7f5q
@@ -536,6 +538,10 @@ packages:
 
   /@types/node/14.18.31:
     resolution: {integrity: sha512-vQAnaReSQkEDa8uwAyQby8bYGKu84R/deEc6mg5T8fX6gzCn8QW6rziSgsti1fNvsrswKUKPnVTi7uoB+u62Mw==}
+    dev: true
+
+  /@types/node/18.7.14:
+    resolution: {integrity: sha512-6bbDaETVi8oyIARulOE9qF1/Qdi/23z6emrUh0fNJRUmjznqrixD4MpGDdgOFk5Xb0m2H6Xu42JGdvAxaJR/wA==}
     dev: true
 
   /@types/node/18.8.3:

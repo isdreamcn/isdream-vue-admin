@@ -1,26 +1,7 @@
 <template>
   <div class="about">
     <el-card header="关于">
-      isdream-vue-admin 是一个基于
-      <el-link href="https://cn.vuejs.org/" type="primary" target="_blank"
-        >Vue3</el-link
-      >、
-      <el-link href="https://cn.vitejs.dev/" type="primary" target="_blank"
-        >Vite</el-link
-      >、
-      <el-link
-        href="https://element-plus.gitee.io/zh-CN/"
-        type="primary"
-        target="_blank"
-        >Element-Plus</el-link
-      >、
-      <el-link
-        href="https://www.typescriptlang.org/"
-        type="primary"
-        target="_blank"
-        >TypeScript</el-link
-      >
-      的中后台模板
+      <m-markdown-view :value="readme"></m-markdown-view>
     </el-card>
     <el-card header="项目信息">
       <el-descriptions :column="2" border>
@@ -71,6 +52,8 @@
 </template>
 
 <script setup lang="ts">
+import readme from '~/README.md?raw'
+
 import packageData from '~/package.json'
 
 defineOptions({

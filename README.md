@@ -1,16 +1,48 @@
-# Vue 3 + TypeScript + Vite
+# isdream-vue-admin
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+> isdream-vue-admin 是一个免费开源的中后台模版, 使用了最新的`Vue3`、`Vite3`、`Pinia2`、`Element-Plus`、`TypeScript`等主流技术开发
 
-## Recommended IDE Setup
+## 特性
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+- **技术栈** 使用 Vue3/Vite3/TypeScript 等技术开发
+- **Mock** 使用 Mock 进行模拟数据
+- **权限** 使用动态路由、pinia 保存权限信息
+- **组件** 二次封装了多个常用组件
+- **主题** 可配置的主题
 
-## Type Support For `.vue` Imports in TS
+## 预览
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's Take Over mode by following these steps:
+- [isdream-vue-admin](https://vue3.isdream.cn/)
 
-1. Run `Extensions: Show Built-in Extensions` from VS Code's command palette, look for `TypeScript and JavaScript Language Features`, then right click and select `Disable (Workspace)`. By default, Take Over mode will enable itself if the default TypeScript extension is disabled.
-2. Reload the VS Code window by running `Developer: Reload Window` from the command palette.
+## 安装使用
 
-You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).
+- 获取项目代码
+
+```bash
+https://github.com/isdreamcn/isdream-vue-admin.git
+https://gitee.com/isdreamcn/isdream-vue-admin.git
+```
+
+- 安装依赖
+
+```bash
+cd isdream-vue-admin
+pnpm install
+```
+
+- 运行
+
+```bash
+pnpm run dev
+```
+
+- 打包
+
+```bash
+pnpm run build
+```
+
+## License
+
+[MIT](https://opensource.org/license/mit/)
+Copyright (c) 2022-present isdream.cn
