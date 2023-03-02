@@ -1,11 +1,11 @@
 <template>
   <div class="m-delete-button">
     <el-dialog
+      v-bind="$attrs"
       v-model="visible"
       :title="props.title"
       :show-close="false"
       :width="550"
-      v-bind="$attrs"
     >
       <span>
         {{ props.content }}
@@ -35,7 +35,8 @@ import { ElMessage } from 'element-plus'
 import { deleteButtonProps, deleteButtonEmits } from './deleteButton'
 
 defineOptions({
-  name: 'MDeleteButton'
+  name: 'MDeleteButton',
+  inheritAttrs: false
 })
 
 const props = defineProps(deleteButtonProps)
