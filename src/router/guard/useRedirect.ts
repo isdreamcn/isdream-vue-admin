@@ -1,7 +1,7 @@
 import type { Router } from 'vue-router'
 import { routesHandler } from '@/router'
 import { useRouteMainPath } from '@/store'
-import appConfig from '@/config'
+import { appConfig } from '@/config'
 
 export const useRedirect = (router: Router) => {
   router.beforeEach((to) => {

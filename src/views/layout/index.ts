@@ -3,7 +3,7 @@ import type { RouteLocationNormalizedLoaded } from 'vue-router'
 import type { DefaultRouteMeta } from '@/config'
 import { h, defineComponent, computed, KeepAlive, Transition } from 'vue'
 import { RouterView } from 'vue-router'
-import appConfig from '@/config'
+import { appConfig } from '@/config'
 import { useRouterStore } from '@/store'
 
 export const createEmptyVNode = (tag = 'div') => h(tag)

@@ -83,7 +83,7 @@ import { ElMessageBox } from 'element-plus'
 import { useAppStore } from '@/store'
 import { getVal, generateObj } from '@/utils'
 import db from '@/storage'
-import appConfig from '@/config'
+import { appConfig } from '@/config'
 import { ToggleDark } from '../index'
 import { layoutOptions, getLayout } from '../../config'
 

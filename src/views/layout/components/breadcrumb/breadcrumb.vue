@@ -20,7 +20,7 @@
 import type { RouteMapItem } from '@/router'
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import appConfig from '@/config'
+import { appConfig } from '@/config'
 import { routesHandler } from '@/router'
 import { NOOP } from '@/utils'
 import { useAppSetting } from '@/store'

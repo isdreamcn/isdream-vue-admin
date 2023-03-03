@@ -1,7 +1,7 @@
 import type { StorageSetOptions } from '@/storage'
 import { defineStore } from 'pinia'
 import db from '@/storage'
-import appConfig from '@/config'
+import { appConfig } from '@/config'
 import router, { routesHandler } from '@/router'
 import { useRouterStore } from './router'
 import {

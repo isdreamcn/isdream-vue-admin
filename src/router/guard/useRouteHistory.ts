@@ -1,6 +1,6 @@
 import type { Router } from 'vue-router'
 import { useRouterStore } from '@/store'
-import appConfig from '@/config'
+import { appConfig } from '@/config'
 
 export const useRouteHistory = (router: Router) => {
   const routerStore = useRouterStore()

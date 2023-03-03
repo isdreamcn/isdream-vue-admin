@@ -3,7 +3,7 @@ import { ElMessage } from 'element-plus'
 import { HttpStatusCode } from '@/constants'
 
 import db from '@/storage'
-import appConfig from '@/config'
+import { appConfig } from '@/config'
 import router from '@/router'
 
 // 身份验证失败

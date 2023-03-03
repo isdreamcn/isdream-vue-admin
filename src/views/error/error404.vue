@@ -19,7 +19,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { randomNum } from '@/utils'
-import appConfig from '@/config'
+import { appConfig } from '@/config'
 import data404 from '@/assets/lottie/not-found-404.json'
 
 defineOptions({

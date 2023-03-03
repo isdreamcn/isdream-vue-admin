@@ -3,7 +3,7 @@ import type { UserMenu } from '@/store'
 
 import { nextTick } from 'vue'
 import { useUserStore, useRouterStore } from '@/store'
-import appConfig from '@/config'
+import { appConfig } from '@/config'
 import { createBasicLayout } from '@/views/layout'
 import router from './index'
 

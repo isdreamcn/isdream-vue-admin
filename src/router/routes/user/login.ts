@@ -1,5 +1,5 @@
 import type { RouteRecordRaw } from 'vue-router'
-import appConfig from '@/config'
+import { appConfig } from '@/config'
 
 export default {
   path: 'login',

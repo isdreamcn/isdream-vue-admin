@@ -1,5 +1,5 @@
 import type { Router } from 'vue-router'
-import appConfig from '@/config'
+import { appConfig } from '@/config'
 import { useRouterStore } from '@/store'
 
 export const useKeepAlive = (router: Router) => {
