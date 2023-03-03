@@ -11,7 +11,7 @@ export const useKeepAlive = (router: Router) => {
       for (let i = 0; i < len; i++) {
         const key = matched[i].path
         const name = matched[i + 1].components?.default.name
-        if (key && name) {
+        if (name) {
           routerStore.addAlive(key, name)
         }
       }

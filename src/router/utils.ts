@@ -1,7 +1,6 @@
 import type { RouteRecordRaw, RouteRecordName } from 'vue-router'
 import type { UserMenu } from '@/store'
 
-import { nextTick } from 'vue'
 import { useUserStore, useRouterStore } from '@/store'
 import { appConfig } from '@/config'
 import { createBasicLayout } from '@/views/layout'
@@ -152,7 +151,7 @@ export class RoutesHandler {
 
   private saveUserMenu() {
     // app.use(pinia)还没有执行
-    nextTick(() => {
+    queueMicrotask(() => {
       const userStore = useUserStore()
       userStore.setState({
         userMenu: this.userMenu
@@ -184,7 +183,7 @@ export class RoutesHandler {
 
   // 保存userMenu第一个叶子节点
   private saveRouteHistory() {
-    nextTick(() => {
+    queueMicrotask(() => {
       const routerStore = useRouterStore()
       routerStore.clearRouteHistory()
       const route = this.getNotChildRoute<UserMenu>(this.userMenu)
