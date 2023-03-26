@@ -2,6 +2,7 @@ import type { RouteMeta } from 'vue-router'
 import type { StorageConfig } from '@/storage'
 import type { ServiceTokenConfig } from '@/service'
 import type { RoutesHandlerOptions } from '@/router/utils'
+import { readonly } from 'vue'
 import { wrapperImportMetaEnv } from '@/utils'
 
 export type DefaultRouteMeta = Required<
@@ -87,5 +88,5 @@ const config: Readonly<AppConfig> = {
 
 config.routesHandlerOptions.addRouteParentName = config.routeMainName
 
-export const appConfig = config
-export default config
+export const appConfig = readonly(config)
+export default appConfig
