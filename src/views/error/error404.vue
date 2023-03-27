@@ -1,6 +1,8 @@
 <template>
   <div class="error-404">
-    <MLottie class="lottie-box" :data="data404"></MLottie>
+    <div class="lottie-box">
+      <MLottie :data="data404"></MLottie>
+    </div>
     <div class="actions">
       <div>{{ tip }}</div>
       <el-space>
