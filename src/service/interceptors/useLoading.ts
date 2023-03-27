@@ -2,11 +2,11 @@ import type { RequestInterceptors } from '../types'
 import { watch } from 'vue'
 import { useRouterStore } from '@/store'
 
-let requestApis = 0
+const requestApiMap = new Map<string, number>()
 const useLoadingShowHidden = () => {
   const routerStore = useRouterStore()
-  const showLoading = () => {
-    if (!routerStore.needLoading) {
+  const showLoading = (url?: string) => {
+    if (!url || !routerStore.needLoading) {
       return
     }
     if (!routerStore.loading) {
@@ -14,13 +14,19 @@ const useLoadingShowHidden = () => {
         loading: true
       })
     }
-    requestApis++
+    requestApiMap.set(url, (requestApiMap.get(url) || 0) + 1)
   }
-  const hiddenLoading = () => {
-    if (!routerStore.loading) {
+  const hiddenLoading = (url?: string) => {
+    if (!url || !routerStore.loading) {
       return
     }
-    if (--requestApis === 0) {
+    const requestApiNum = (requestApiMap.get(url) || 1) - 1
+    if (!requestApiNum) {
+      requestApiMap.delete(url)
+    } else {
+      requestApiMap.set(url, requestApiNum)
+    }
+    if (!requestApiMap.size) {
       routerStore.setState({
         loading: false
       })
@@ -31,8 +37,8 @@ const useLoadingShowHidden = () => {
   watch(
     () => routerStore.loading,
     (loading) => {
-      if (!loading) {
-        requestApis = 0
+      if (!loading && requestApiMap.size) {
+        requestApiMap.clear()
       }
     }
   )
@@ -46,17 +52,17 @@ export const useLoading = (): RequestInterceptors => {
   return {
     requestInterceptor(config) {
       const { showLoading } = useLoadingShowHidden()
-      showLoading()
+      showLoading(config.url)
       return config
     },
     responseInterceptor(res) {
       const { hiddenLoading } = useLoadingShowHidden()
-      hiddenLoading()
+      hiddenLoading(res.config.url)
       return res
     },
     responseInterceptorCatch(error) {
       const { hiddenLoading } = useLoadingShowHidden()
-      hiddenLoading()
+      hiddenLoading(error.config.url)
       return error
     }
   }
