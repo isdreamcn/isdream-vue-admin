@@ -16,7 +16,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
   const isBuild = command === 'build'
 
   return {
-    base: '/',
+    base: viteEnv.BASE_URL,
     server: {
       host: '0.0.0.0',
       proxy: !viteEnv.VITE_USE_MOCK
