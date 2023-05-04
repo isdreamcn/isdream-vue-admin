@@ -8,9 +8,7 @@
       @reload="reload"
     ></MDeleteButton>
 
-    <MDeleteButton style="margin-left: 20px">
-      <MA>没有选中</MA>
-    </MDeleteButton>
+    <MDeleteButton> <MA>没有选中数据</MA> </MDeleteButton>
 
     <MMarkdownView :value="readme"></MMarkdownView>
   </div>
@@ -24,7 +22,7 @@ defineOptions({
   name: 'DemoCpnsDeleteButton'
 })
 
-const selectKeys = [1, 2, 3, 4, 5]
+const selectKeys = [1]
 
 const reload = () => {
   console.log('reload')
