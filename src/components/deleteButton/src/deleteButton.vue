@@ -99,6 +99,7 @@ const submit = () => {
 <style lang="scss" scoped>
 .m-delete-button {
   display: inline-block;
+  margin-right: 20px;
   &__btn {
     .m-icon {
       margin-right: 5px;
