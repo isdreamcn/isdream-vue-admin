@@ -5,6 +5,9 @@
 </template>
 
 <script setup lang="ts">
+import MLoading from './loading.vue'
+import MLottie from '@/components/lottie'
+
 import { loadingLottieProps } from './loading-lottie'
 import loadingData from '@/assets/lottie/loading.json'
 

@@ -7,7 +7,7 @@
       size="25%"
       title="项目配置"
       append-to-body
-      custom-class="app-setting-container__drawer"
+      class="app-setting-container__drawer"
     >
       <el-divider>主题</el-divider>
       <div class="item--center"><ToggleDark></ToggleDark></div>

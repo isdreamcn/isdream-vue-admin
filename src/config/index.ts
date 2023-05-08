@@ -31,8 +31,8 @@ export interface AppConfig {
   serviceTokenConfig: ServiceTokenConfig
   defaultRouteMeta: DefaultRouteMeta
   routesHandlerOptions: RoutesHandlerOptions
-  routeMainName: symbol
-  routeLoginName: symbol
+  routeMainName: string
+  routeLoginName: string
   baseUrlApi: string
   baseUrlFile: string
   useMock: boolean
@@ -78,8 +78,8 @@ const config: Readonly<AppConfig> = {
   },
 
   // route name
-  routeMainName: Symbol('main'),
-  routeLoginName: Symbol('login'),
+  routeMainName: '__ROUTE_MAIN_NAME',
+  routeLoginName: '__ROUTE_LOGIN_NAME',
 
   baseUrlApi: viteEnv.VITE_BASE_URL_API,
   baseUrlFile: viteEnv.VITE_BASE_URL_FILE,
