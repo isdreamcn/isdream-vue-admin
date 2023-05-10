@@ -15,7 +15,7 @@ export const createVitePlugins = (viteEnv: DefineEnv, isBuild: boolean) => {
   plugins.push(useMock(viteEnv, isBuild))
   plugins.push(useHtmlDev())
   plugins.push(useGzip())
-  plugins.push(rollupVisualizer())
+  plugins.push(rollupVisualizer() as PluginOption)
 
   return plugins
 }
