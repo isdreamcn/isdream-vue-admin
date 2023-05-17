@@ -12,7 +12,7 @@
 
 ## 预览
 
-- [isdream-vue-admin](https://vue3.isdream.cn/)
+- [isdream-vue-admin](https://v3t.isdream.cn/)
 
 ## 安装使用
 
