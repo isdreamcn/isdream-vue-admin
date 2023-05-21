@@ -1,8 +1,8 @@
 <template>
   <el-dropdown>
-    <span class="el-avatar-box">
+    <span class="avatar__container">
       <el-avatar :src="userInfo?.avatar" @error="errorHandler">
-        {{ userInfo?.username }}
+        <m-icon name="iconUserFilled"></m-icon>
       </el-avatar>
       {{ userInfo?.username }}
     </span>
@@ -39,12 +39,16 @@ const errorHandler = () => {}
 </script>
 
 <style lang="scss" scoped>
-.el-avatar-box {
+.avatar__container {
   @include m-menu-theme();
   display: flex;
   align-items: center;
+  &:focus-visible {
+    outline: unset;
+  }
   .el-avatar {
     margin-right: 8px;
+    font-size: 18px;
   }
 }
 </style>
