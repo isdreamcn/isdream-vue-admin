@@ -11,7 +11,8 @@
     "prettier": "prettier --write .",
     "lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx --fix",
     "prepare": "husky install",
-    "commit": "cz"
+    "commit": "cz",
+    "preinstall": "node ./scripts/preinstall.js"
   },
   "engines": {
     "node": ">= 16"
