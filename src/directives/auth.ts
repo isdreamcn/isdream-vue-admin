@@ -1,6 +1,11 @@
 import type { Directive } from 'vue'
 import { useUserStore } from '@/store'
 
+/*
+  const permission = 'test'
+  v-auth:test
+  v-auth="permission"
+*/
 export const auth: Directive<HTMLElement, any> = {
   mounted(el, binding) {
     const { value, arg } = binding

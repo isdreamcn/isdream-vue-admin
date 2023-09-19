@@ -20,7 +20,7 @@ export const useUserList = (): MockUserLoginList[] => {
         id: 1,
         username: 'admin'
       },
-      permissions: ['tableSearch'],
+      permissions: ['tableSearch', 'test'],
       // 路由
       menus: [
         {
