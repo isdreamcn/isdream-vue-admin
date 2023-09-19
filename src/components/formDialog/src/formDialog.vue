@@ -85,13 +85,13 @@ const cancel = () => {
 const submit = (formData: Record<string, any>) => {
   formData = props.handler(formData)
   loading.value = true
-  let request = null
+  let requestRes: Promise<any>
   if (props.id) {
-    request = props.httpEdit(props.id, formData)
+    requestRes = props.httpEdit(props.id, formData)
   } else {
-    request = props.httpAdd(formData)
+    requestRes = props.httpAdd(formData)
   }
-  request
+  requestRes
     .then(() => {
       cancel()
       emit('reload')

@@ -72,16 +72,16 @@ const submit = () => {
     return
   }
 
-  let request = null
+  let requestRes: Promise<any>
   if (!props.httpLoop) {
-    request = props.http(props.handler(props.selectKeys))
+    requestRes = props.http(props.handler(props.selectKeys))
   } else {
-    request = Promise.all(
+    requestRes = Promise.all(
       props.selectKeys.map((id) => props.http?.(props.handler(id)))
     )
   }
 
-  request
+  requestRes
     .then(() => {
       ElMessage({
         message: props.message,
