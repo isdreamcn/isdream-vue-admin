@@ -1,5 +1,5 @@
 import type { Directive } from 'vue'
-import { useUserStore } from '@/store'
+import { checkAuth } from '@/utils'
 
 /*
   const permission = 'test'
@@ -14,8 +14,7 @@ export const auth: Directive<HTMLElement, any> = {
       return
     }
 
-    const userStore = useUserStore()
-    if (!userStore.permissionAuth(permission)) {
+    if (!checkAuth(permission)) {
       el.parentElement?.removeChild(el)
     }
   }

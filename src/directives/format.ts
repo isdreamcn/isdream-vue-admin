@@ -1,5 +1,5 @@
 import type { Directive } from 'vue'
-import dayjs from 'dayjs'
+import { dateFormat as dateFormatFn } from '@/utils'
 
 /*
   const value = '2023-9-18 22:00:00'
@@ -12,9 +12,10 @@ export const dateFormat: Directive<HTMLElement, any> = (el, binding) => {
     return
   }
 
-  let template = arg ?? 'YYYY-MM-DD HH:mm:ss'
-  if (modifiers.space) {
+  let template = arg
+  if (template && modifiers.space) {
     template = template.replaceAll('__', ' ')
   }
-  el.innerText = dayjs(value).format(template)
+
+  el.innerText = dateFormatFn(value, template)
 }
