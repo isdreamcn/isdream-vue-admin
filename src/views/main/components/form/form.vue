@@ -15,13 +15,7 @@
     </MForm>
 
     <p>搜索表单、有默认值，无双向绑定</p>
-    <MForm
-      :fields="fields"
-      :label-width="0"
-      :modelValue="modelValue"
-      @submit="submit"
-      @cancel="cancel"
-    >
+    <MForm :fields="fields" :label-width="0" @submit="submit" @cancel="cancel">
     </MForm>
 
     <MMarkdownView :value="readme"></MMarkdownView>

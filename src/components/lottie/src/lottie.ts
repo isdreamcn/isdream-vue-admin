@@ -9,7 +9,7 @@ export type LottieConfig = AnimationConfig
 export const lottieProps = buildProps({
   config: {
     type: definePropType<LottieConfig>(Object),
-    default: () => {}
+    default: () => ({})
   },
   width: {
     type: String,

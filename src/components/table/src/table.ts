@@ -66,7 +66,7 @@ export const tableProps = buildProps({
   },
   params: {
     type: Object,
-    default: () => {}
+    default: () => ({})
   }
 } as const)
 

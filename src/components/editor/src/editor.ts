@@ -10,7 +10,7 @@ type EditorUpload = typeof uploadCommon
 export const editorProps = buildProps({
   options: {
     type: definePropType<Partial<RawEditorSettings>>(Object),
-    default: () => {}
+    default: () => ({})
   },
   modelValue: {
     type: String,

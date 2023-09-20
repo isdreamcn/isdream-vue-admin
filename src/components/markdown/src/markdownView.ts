@@ -9,7 +9,7 @@ export const markdownViewProps = buildProps({
   },
   options: {
     type: definePropType<Partial<IPreviewOptions>>(Object),
-    default: () => {}
+    default: () => ({})
   }
 } as const)
 

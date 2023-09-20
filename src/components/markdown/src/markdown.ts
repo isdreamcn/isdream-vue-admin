@@ -9,7 +9,7 @@ type MarkdownUpload = typeof uploadCommon
 export const markdownProps = buildProps({
   options: {
     type: definePropType<Partial<IOptions>>(Object),
-    default: () => {}
+    default: () => ({})
   },
   modelValue: {
     type: String,

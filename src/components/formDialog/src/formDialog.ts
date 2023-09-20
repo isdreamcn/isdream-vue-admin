@@ -25,7 +25,7 @@ export const formDialogProps = buildProps({
   },
   value: {
     type: Object,
-    default: () => {}
+    default: () => ({})
   },
   addTitle: {
     type: String,

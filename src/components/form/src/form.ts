@@ -37,7 +37,7 @@ export const formProps = buildProps({
   },
   modelValue: {
     type: Object,
-    default: () => {}
+    default: () => ({})
   },
   labelWidth: {
     type: definePropType<number | string>([Number, String]),
