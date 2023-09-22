@@ -28,7 +28,7 @@ const colorVal = computed(() => {
   return isString(color) ? color : ''
 })
 
-let cssVariable: Ref<string> | null = null
+let cssVariable: Nullable<Ref<string>> = null
 if (props.cssKey) {
   cssVariable = useCssVariable(props.cssKey, colorVal.value)
 }

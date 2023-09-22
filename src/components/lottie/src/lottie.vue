@@ -26,7 +26,7 @@ const style = computed(() => {
 
 const lottieContainerRef = ref<Element>()
 
-let anim: AnimationItem | null = null
+let anim: Nullable<AnimationItem> = null
 onMounted(() => {
   anim = lottie.loadAnimation({
     renderer: 'svg',

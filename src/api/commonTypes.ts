@@ -1,7 +1,7 @@
 export interface CommonListParams {
   page?: number
   pageSize?: number
-  q?: string | null
+  q?: Nullable<string>
 }
 
 export interface CommonUploadFile {

@@ -37,7 +37,7 @@ const title = computed(() => (props.id ? props.editTitle : props.addTitle))
 const loading = ref(false)
 const visible = ref(props.modelValue)
 
-let elFormRef: FormInstance | null = null
+let elFormRef: Nullable<FormInstance> = null
 const getForm = (form: FormInstance) => {
   elFormRef = form
 }

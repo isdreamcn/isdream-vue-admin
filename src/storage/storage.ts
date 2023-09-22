@@ -46,7 +46,7 @@ export class Storage {
     return !!this.storage.getItem(this._key(key))
   }
 
-  get<T = any>(key: string): T | null {
+  get<T = any>(key: string): Nullable<T> {
     if (!this.has(key)) {
       return null
     }

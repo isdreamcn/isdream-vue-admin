@@ -4,7 +4,7 @@ import { NOOP } from '@/utils'
 export type SFCWithInstall<T> = T & Plugin
 
 export type SFCInstallWithContext<T> = SFCWithInstall<T> & {
-  _context: AppContext | null
+  _context: Nullable<AppContext>
 }
 
 export const withInstall = <T, E extends Record<string, any>>(

@@ -29,7 +29,7 @@ const style = computed(() => {
 const chartRef = ref<HTMLElement>()
 // ref定义chartInstance - 点击图例报错后图例点击交互无法正常使用
 // TODO: https://github.com/apache/echarts/issues/14339
-let chart: ECharts | null = null
+let chart: Nullable<ECharts> = null
 
 const resize = () => {
   chart?.resize()

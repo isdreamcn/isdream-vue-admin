@@ -3,7 +3,7 @@ import type { PaginationParams } from './usePagination'
 import { reactive, watch, readonly, computed } from 'vue'
 
 interface HttpRes {
-  data: any[] | null
+  data: Nullable<any[]>
   total: number
   loading: boolean
 }
