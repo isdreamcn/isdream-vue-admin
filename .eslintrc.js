@@ -12,8 +12,15 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended'
   ],
-
-  overrides: [],
+  // TODO: https://github.com/vuejs/eslint-plugin-vue/issues/1625
+  overrides: [
+    {
+      files: ['*.vue'],
+      rules: {
+        'no-undef': 'off' // ts(2304)
+      }
+    }
+  ],
   parser: 'vue-eslint-parser',
   parserOptions: {
     ecmaVersion: 'latest',
