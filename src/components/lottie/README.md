@@ -11,7 +11,6 @@
 | config | lottie.loadAnimation 参数            | `object` | --     |
 | width  | lottie 容器宽度                      | `string` | 100%   |
 | height | lottie 容器高度                      | `string` | 100%   |
-| height | lottie 容器高度                      | `string` | 100%   |
 | data   | lottie.loadAnimation `animationData` | `object` | --     |
 
 ### Lottie 事件
