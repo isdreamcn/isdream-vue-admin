@@ -1,6 +1,7 @@
 <template>
   <div class="main-box">
     <p>Main</p>
+    <p>$checkAuth('test') => {{ $checkAuth('test') }}</p>
     <el-input v-model="input" placeholder="缓存" />
   </div>
 </template>
