@@ -36,6 +36,8 @@ export const createTransitionVNode = (Component: VNode) => {
     {
       // 初次显示动画
       appear: true,
+      // 先执行离开动画，然后在其完成之后再执行元素的进入动画
+      mode: 'out-in',
       'enter-active-class': 'animate__animated animate__lightSpeedInRight'
     },
     {
