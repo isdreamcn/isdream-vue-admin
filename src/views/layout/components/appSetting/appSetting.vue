@@ -1,6 +1,6 @@
 <template>
   <div class="app-setting-container">
-    <el-icon @click="updateDrawer(true)"><icon-setting /></el-icon>
+    <m-icon name="icon-setting" @click="updateDrawer(true)"></m-icon>
     <el-drawer
       ref="drawerRef"
       v-model="drawer"

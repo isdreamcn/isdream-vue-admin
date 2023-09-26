@@ -1,9 +1,7 @@
 <template>
   <div class="toggleDark-container" @click="toggleDark">
-    <el-icon>
-      <icon-sunny v-show="!isDark" />
-      <icon-moon v-show="isDark" />
-    </el-icon>
+    <m-icon name="icon-sunny" v-show="!isDark"></m-icon>
+    <m-icon name="icon-moon" v-show="isDark"></m-icon>
   </div>
 </template>
 
