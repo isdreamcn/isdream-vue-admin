@@ -1,6 +1,6 @@
 import type { PropType } from 'vue'
 import type { NativePropType, PropInput, Prop } from './types'
-import { fromPairs, warn, hasOwn, isObject } from '@/utils'
+import { fromPairs, warn, hasOwn, isObject } from '../plugins'
 
 export const definePropType = <T>(val: any): PropType<T> => val
 

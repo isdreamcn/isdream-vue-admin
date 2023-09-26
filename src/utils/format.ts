@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 import { appConfig } from '@/config'
-import { isFunction } from '@/utils'
+import { isFunction } from './plugins'
 
 export const setBaseUrlFile = (str: string) => {
   return str.replaceAll(

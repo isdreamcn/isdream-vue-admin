@@ -1,4 +1,4 @@
-import { isNil, isArray, isObject } from '@/utils'
+import { isNil, isArray, isObject } from './plugins'
 
 export const isUndefined = (val: any): val is undefined => val === undefined
 
