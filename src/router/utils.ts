@@ -62,7 +62,7 @@ export class RoutesHandler {
       const path = route.path.startsWith('/')
         ? route.path
         : `${prePath}/${route.path}`
-      return Object.assign(route, {
+      return Object.assign({}, route, {
         path,
         children: route.children
           ? this.joinRoutePath(route.children, path)
@@ -90,7 +90,7 @@ export class RoutesHandler {
       .sort((a, b) => (a.meta?.sort || 0) - (b.meta?.sort || 0))
       .map(
         (route): RouteRecordRaw =>
-          Object.assign(route, {
+          Object.assign({}, route, {
             children: route.children?.length
               ? this.sortRoutes(route.children)
               : undefined
@@ -118,7 +118,7 @@ export class RoutesHandler {
   // route有`children`、但没有设置component，则自动设置component = createBasicLayout()
   private autoSetComponent(routes: RouteRecordRaw[]) {
     return routes.map((route): RouteRecordRaw => {
-      return Object.assign(route, {
+      return Object.assign({}, route, {
         component:
           route.component ??
           (route.children?.length ? createBasicLayout(route.path) : undefined),
