@@ -16,7 +16,7 @@ export const useFields = (props: FormProps) => {
     }
     const fieldColAttrs =
       typeof colAttrs === 'number' ? { span: colAttrs } : colAttrs
-    return Object.assign(defaultColAttrs.value, fieldColAttrs)
+    return Object.assign({}, defaultColAttrs.value, fieldColAttrs)
   }
 
   // 需要显示的fields

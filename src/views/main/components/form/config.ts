@@ -6,12 +6,14 @@ export const fields = reactive<FormField[]>([
     tag: 'ElInput',
     key: 'name',
     label: '姓名',
-    required: true
+    required: true,
+    colAttrs: 12
   },
   {
     tag: 'ElDatePicker',
     key: 'date',
     label: '日期',
+    colAttrs: 12,
     attrs: {
       // disabled: true
     }
