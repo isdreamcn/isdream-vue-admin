@@ -38,11 +38,13 @@
             <input
               v-model="signinForm.username"
               type="text"
+              autocomplete="username"
               placeholder="用户名"
             />
             <input
               v-model="signinForm.email"
               type="text"
+              autocomplete="email"
               placeholder="邮箱地址"
             />
             <input
