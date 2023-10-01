@@ -3,13 +3,15 @@
     <el-form
       v-bind="$attrs"
       ref="elFormRef"
-      :label-width="props.labelWidth"
+      :label-width="props.inline ? '' : props.labelWidth"
+      :inline="props.inline"
       :model="formData"
       :rules="formRules"
     >
       <el-row :gutter="20">
-        <el-col
+        <component
           v-for="field in fields"
+          :is="props.inline ? 'div' : ElCol"
           :key="field.key"
           v-bind="field.colAttrs"
         >
@@ -29,9 +31,9 @@
               :value="formData[field.key]"
             ></slot>
           </el-form-item>
-        </el-col>
+        </component>
         <!-- buttons -->
-        <el-col v-if="props.inline" v-bind="defaultColAttrs">
+        <div v-if="props.inline" v-bind="defaultColAttrs">
           <slot name="buttons">
             <el-button-group>
               <el-button @click="cancel">
@@ -54,7 +56,7 @@
               </el-button>
             </el-button-group>
           </slot>
-        </el-col>
+        </div>
       </el-row>
     </el-form>
     <div v-if="!props.inline" class="m-form__buttons">
@@ -83,6 +85,7 @@
 <script setup lang="ts">
 import type { FormInstance } from 'element-plus'
 import { ref, onMounted } from 'vue'
+import { ElCol } from 'element-plus'
 import { cloneDeep } from '@/utils'
 import { formProps, formEmits } from './form'
 import { useFields, useFormData, useFormRules } from './hooks'
