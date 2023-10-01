@@ -10,8 +10,8 @@
 | ---------- | ------------------ | ---------------- | ------ |
 | **fields**     | 表单字段配置       | **FormField[]** | --     |
 | modelValue | `v-model`          | `object`         | --     |
-| labelWidth | 标签所占宽度       | `number\|string` | auto   |
-| colAttrs   | el-col 属性        | `number\|object` | 6      |
+| labelWidth | 标签所占宽度, `inline: true` 时忽略       | `number\|string` | auto   |
+| colAttrs   | el-col 属性, `inline: true` 时忽略        | `number\|object` | 6      |
 | inline     | 按钮放入 col       | `boolean`        | true   |
 | loading    | 提交按钮是否加载中 | `boolean`        | true   |
 | submitText | 提交按钮文字       | `string`         | --     |
