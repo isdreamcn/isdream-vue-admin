@@ -52,15 +52,16 @@ export const useUserStore = defineStore('user', {
 
       if (!this.token) return
 
-      const promises: Promise<any>[] = [this.setUserPermissions()]
-      if (!$generatorMenu) {
-        promises.push(this.setUserMenu())
-      }
-
-      this.reloadCurrentPage(promises)
+      this.reloadCurrentPage(
+        Promise.all([this.setUserPermissions(), this.setUserMenu()])
+      )
     },
     // 设置用户菜单
     setUserMenu() {
+      if ($generatorMenu) {
+        return Promise.resolve()
+      }
+
       let http = getUserMenu
       const userMenu = db.get<UserMenu[]>('userMenu')
       if (appConfig.storeConfig.userMenuStorage && userMenu) {
@@ -102,10 +103,7 @@ export const useUserStore = defineStore('user', {
         })
         this.setUserInfo(data.user)
 
-        await this.setUserPermissions()
-        if (!$generatorMenu) {
-          await this.setUserMenu()
-        }
+        await Promise.resolve([this.setUserPermissions(), this.setUserMenu()])
 
         router.push({
           name: appConfig.routeMainName
@@ -159,14 +157,14 @@ export const useUserStore = defineStore('user', {
       return !!this.userPermissionMap.get(permission)
     },
     // 重载当前页
-    reloadCurrentPage(promises: Promise<any>[]) {
+    reloadCurrentPage(promise: Promise<any>) {
       setTimeout(() => {
         const routerStore = useRouterStore()
         routerStore.setState({
           loading: true,
           closeLoading: false
         })
-        Promise.all(promises).then(() => {
+        promise.then(() => {
           router
             .replace(location.hash ? location.hash.slice(1) : location.pathname)
             .then(() => {
