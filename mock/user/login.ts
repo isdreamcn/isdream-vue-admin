@@ -12,7 +12,7 @@ export default [
   {
     url: '/api/user/login',
     method: 'post',
-    timeout: 200,
+    timeout: 100,
     response: ({ body }: MockRequestParams<UserLoginParams>) => {
       const userInfo = useUserList().find(
         ({ username, password }) =>
@@ -33,7 +33,7 @@ export default [
   {
     url: '/api/user/signin',
     method: 'post',
-    timeout: 200,
+    timeout: 100,
     statusCode: HttpStatusCode.Not_Found,
     response: () => {
       return {
@@ -45,7 +45,7 @@ export default [
   {
     url: '/api/user/logout',
     method: 'post',
-    timeout: 200,
+    timeout: 100,
     statusCode: HttpStatusCode.OK,
     response: () => {
       return {
@@ -57,7 +57,7 @@ export default [
   {
     url: '/api/user/menu',
     method: 'get',
-    timeout: 3000,
+    timeout: 100,
     response: ({ headers }: MockRequestParams) => {
       const token = headers?.authorization?.replaceAll('Bearer ', '')
       if (!token) {
@@ -70,7 +70,7 @@ export default [
       if (!userInfo) {
         return {
           code: HttpStatusCode.Unauthorized,
-          message: 'headers中不存在token'
+          message: `token: ${token} 校验失败`
         }
       }
       return {
@@ -82,7 +82,7 @@ export default [
   {
     url: '/api/user/permissions',
     method: 'get',
-    timeout: 1000,
+    timeout: 100,
     response: ({ headers }: MockRequestParams) => {
       const token = headers?.authorization?.replaceAll('Bearer ', '')
       if (!token) {
@@ -95,7 +95,7 @@ export default [
       if (!userInfo) {
         return {
           code: HttpStatusCode.Unauthorized,
-          data: []
+          message: `token: ${token} 校验失败`
         }
       }
       return {
