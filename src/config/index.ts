@@ -18,10 +18,7 @@ export type DefaultRouteMeta = Required<
 >
 
 interface StoreConfig {
-  // store/user
-  // storage是否存储userMenu
   userMenuStorage: boolean
-  // storage是否存储、userPermissions
   userPermissionsStorage: boolean
 }
 
@@ -41,9 +38,11 @@ export interface AppConfig {
 const viteEnv = wrapperImportMetaEnv(import.meta.env)
 
 const config: Readonly<AppConfig> = {
-  // store
+  // store/user
   storeConfig: {
+    // storage是否存储userMenu
     userMenuStorage: false,
+    // storage是否存储、userPermissions
     userPermissionsStorage: false
   },
   // storage
@@ -62,18 +61,24 @@ const config: Readonly<AppConfig> = {
   },
   // router
   defaultRouteMeta: {
+    // 使用KeepAlive进行缓存
     keepAlive: true,
     hiddenInMenu: false,
     hiddenInBread: false,
+    // router/guard
     needLoading: false,
     needToken: true,
     needRouteHistory: true
   },
 
-  // router/routes/index
+  // router/routes/index `routesHandler`
   routesHandlerOptions: {
+    // 生成全部菜单，不使用权限菜单(store/user `setUserMenu`)
     generatorMenu: true,
-    addRouteParentName: 'temp',
+    // router.addRoute(`addRouteParentName`, [])
+    addRouteParentName: '__ROUTE_TEMP_NAME',
+    // 路由扁平化，只注册最后一层route，性能比较高。（但父级route不会注册, 缓存路由较深时推荐使用）
+    // 父级route不会注册，父级的`redirect`不生效
     flatRoutes: true
   },
 
@@ -81,6 +86,7 @@ const config: Readonly<AppConfig> = {
   routeMainName: '__ROUTE_MAIN_NAME',
   routeLoginName: '__ROUTE_LOGIN_NAME',
 
+  // .env
   baseUrlApi: viteEnv.VITE_BASE_URL_API,
   baseUrlFile: viteEnv.VITE_BASE_URL_FILE,
   useMock: viteEnv.VITE_USE_MOCK
