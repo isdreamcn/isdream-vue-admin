@@ -42,7 +42,7 @@ const config: Readonly<AppConfig> = {
   storeConfig: {
     // storage是否存储userMenu
     userMenuStorage: false,
-    // storage是否存储、userPermissions
+    // storage是否存储userPermissions
     userPermissionsStorage: false
   },
   // storage

@@ -94,39 +94,33 @@ export const useUserStore = defineStore('user', {
         return res
       })
     },
+    async loginHandler(data: { token: string; user: UserInfo }) {
+      this.setToken(data.token, {
+        expires: appConfig.serviceTokenConfig.expires
+      })
+      this.setUserInfo(data.user)
+
+      await Promise.all([this.setUserPermissions(), this.setUserMenu()])
+
+      return router.push({
+        name: appConfig.routeMainName
+      })
+    },
     // 登录
     login(params: UserLoginParams) {
-      return userLogin(params).then(async (res) => {
-        const { data } = res
-        this.setToken(data.token, {
-          expires: appConfig.serviceTokenConfig.expires
-        })
-        this.setUserInfo(data.user)
-
-        await Promise.resolve([this.setUserPermissions(), this.setUserMenu()])
-
-        router.push({
-          name: appConfig.routeMainName
-        })
-
-        return res
+      return userLogin(params).then((res) => {
+        return this.loginHandler(res.data).then(() => res)
       })
     },
     // 退出登录
     layout() {
-      db.removeKeys('token', 'userInfo', 'userPermissions')
+      db.removeKeys('token', 'userInfo', 'userPermissions', 'userMenu')
       this.$patch({
         token: '',
         userInfo: null,
-        userPermissions: null
+        userPermissions: null,
+        userMenu: null
       })
-
-      if (!$generatorMenu) {
-        db.removeKeys('userMenu')
-        this.$patch({
-          userMenu: null
-        })
-      }
     },
     setState(state: Partial<UserState>, dbOptions?: StorageSetOptions) {
       this.$patch(state)
