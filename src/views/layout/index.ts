@@ -12,7 +12,9 @@ interface RouterViewProps {
   Component: VNode
   route: RouteLocationNormalizedLoaded
 }
-type BasicLayoutOptions = Pick<DefaultRouteMeta, 'keepAlive'>
+type BasicLayoutOptions = Pick<DefaultRouteMeta, 'keepAlive'> & {
+  transition?: boolean
+}
 
 const createKeepAliveVNode = (
   path: string,
@@ -68,18 +70,22 @@ export const createBasicLayout = (
   defineComponent({
     name: path,
     setup() {
+      const {
+        keepAlive = appConfig.defaultRouteMeta.keepAlive,
+        // 使用过渡
+        transition = false
+      } = options || {}
+
       return () =>
         h(RouterView, null, {
           default: ({ Component }: RouterViewProps) => {
-            if (
-              path &&
-              (options?.keepAlive ?? appConfig.defaultRouteMeta.keepAlive)
-            ) {
-              return createTransitionVNode(
-                createKeepAliveVNode(path, Component)
-              )
+            if (path && keepAlive) {
+              Component = createKeepAliveVNode(path, Component)
             }
-            return createTransitionVNode(Component)
+            if (transition) {
+              Component = createTransitionVNode(Component)
+            }
+            return Component
           }
         })
     }
