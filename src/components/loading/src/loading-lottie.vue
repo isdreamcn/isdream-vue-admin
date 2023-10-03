@@ -1,6 +1,10 @@
 <template>
   <MLoading :loading="props.loading">
-    <MLottie :data="loadingData" style="width: 25%" v-bind="$attrs"></MLottie>
+    <MLottie
+      :data="loadingData"
+      style="width: 25%; min-width: 350px"
+      v-bind="$attrs"
+    ></MLottie>
   </MLoading>
 </template>
 
