@@ -10,7 +10,7 @@ import useGuard from './guard'
 const router = createRouter({
   routes,
   history: createWebHashHistory()
-  // history: createWebHistory(import.meta.env.BASE_URL)
+  // history: createWebHistory(import.meta.env.VITE_BASE_URL)
 })
 
 useGuard(router)
