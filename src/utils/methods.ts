@@ -28,14 +28,6 @@ export const composeFns = <T = any>(
   }
 }
 
-// 处理env
-export const wrapperImportMetaEnv = (env: ImportMetaEnv): ViteEnv => {
-  return {
-    ...env,
-    VITE_USE_MOCK: env.VITE_USE_MOCK === 'true' ? true : false
-  }
-}
-
 type VerifyObjTip = Record<
   string,
   string | ((val?: any, key?: string) => string | void)

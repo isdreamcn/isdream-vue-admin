@@ -7,6 +7,9 @@ type DefineEnv = Readonly<{
   VITE_USE_MOCK: boolean
   VITE_BASE_URL_API: string
   VITE_BASE_URL_FILE: string
+
+  VITE_BUILD_GZIP: boolean
+  VITE_BUILD_ROLLUP_VISUALIZER: boolean
 }>
 
 // loadEnv(mode, process.cwd()) || import.meta.env

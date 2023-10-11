@@ -12,10 +12,17 @@ export const createVitePlugins = (viteEnv: DefineEnv, isBuild: boolean) => {
   const plugins: PluginOption[] = [vue(), DefineOptions()]
 
   plugins.push(useAutoImportComponents(isBuild))
-  plugins.push(useMock(viteEnv, isBuild))
   plugins.push(useHtmlDev())
-  plugins.push(useGzip())
-  plugins.push(rollupVisualizer() as PluginOption)
+
+  if (viteEnv.VITE_USE_MOCK) {
+    plugins.push(useMock(isBuild))
+  }
+  if (viteEnv.VITE_BUILD_GZIP) {
+    plugins.push(useGzip())
+  }
+  if (viteEnv.VITE_BUILD_ROLLUP_VISUALIZER) {
+    plugins.push(rollupVisualizer() as PluginOption)
+  }
 
   return plugins
 }

@@ -2,7 +2,7 @@ import type { ConfigEnv, UserConfig } from 'vite'
 import { loadEnv } from 'vite'
 import path from 'path'
 
-import { wrapperLoadEnv, dependenciesChunks } from './build/utils'
+import { wrapperLoadViteEnv, dependenciesChunks } from './build/utils'
 import { createVitePlugins } from './build/vite/plugins'
 const pathResolve = (dir: string) => {
   return path.resolve(__dirname, dir)
@@ -12,7 +12,7 @@ const pathResolve = (dir: string) => {
 export default ({ command, mode }: ConfigEnv): UserConfig => {
   const root = process.cwd()
   const env = loadEnv(mode, root) as LoadViteEnv
-  const viteEnv = wrapperLoadEnv(env)
+  const viteEnv = wrapperLoadViteEnv(env)
   const isBuild = command === 'build'
 
   return {
