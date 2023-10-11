@@ -44,13 +44,16 @@ export class RoutesHandler {
     if (options.generatorMenu) {
       routes = this.sortRoutes(routes)
       this.userMenu = this.generatorMenu(routes)
-      this.saveUserMenu()
-      this.saveRouteHistory()
       if (options.flatRoutes) {
         routes = this.flatRoutes(routes)
       }
       this.originRoutes = routes
     }
+  }
+
+  setupGeneratorMenu() {
+    this.saveUserMenu()
+    this.saveRouteHistory()
   }
 
   // path => /path

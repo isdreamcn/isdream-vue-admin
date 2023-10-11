@@ -59,6 +59,7 @@ export const useUserStore = defineStore('user', {
     // 设置用户菜单
     setUserMenu() {
       if ($generatorMenu) {
+        routesHandler.setupGeneratorMenu()
         return Promise.resolve()
       }
 
@@ -113,13 +114,21 @@ export const useUserStore = defineStore('user', {
       })
     },
     // 退出登录
-    layout() {
+    logout() {
       db.removeKeys('token', 'userInfo', 'userPermissions', 'userMenu')
-      this.$patch({
+      this.setState({
         token: '',
         userInfo: null,
         userPermissions: null,
+        userPermissionMap: new Map(),
         userMenu: null
+      })
+
+      // 处理 routerStore
+      const routerStore = useRouterStore()
+      routerStore.setState({
+        keepAliveMap: new Map(),
+        routeHistoryMap: new Map()
       })
     },
     setState(state: Partial<UserState>, dbOptions?: StorageSetOptions) {

@@ -29,7 +29,7 @@ const userInfo = userStore.userInfo
 
 const router = useRouter()
 const layout = () => {
-  userStore.layout()
+  userStore.logout()
   router.push({
     name: config.routeLoginName
   })
