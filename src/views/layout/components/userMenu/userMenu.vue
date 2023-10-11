@@ -9,7 +9,7 @@
     <template #dropdown>
       <el-dropdown-menu>
         <el-dropdown-item disabled>修改密码</el-dropdown-item>
-        <el-dropdown-item @click="layout">退出登录</el-dropdown-item>
+        <el-dropdown-item @click="logout">退出登录</el-dropdown-item>
       </el-dropdown-menu>
     </template>
   </el-dropdown>
@@ -28,7 +28,7 @@ const userStore = useUserStore()
 const userInfo = userStore.userInfo
 
 const router = useRouter()
-const layout = () => {
+const logout = () => {
   userStore.logout()
   router.push({
     name: config.routeLoginName
