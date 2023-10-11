@@ -37,7 +37,7 @@ import { ref, watch, computed, reactive } from 'vue'
 import { ElMessage } from 'element-plus'
 import { api as viewerApi } from 'v-viewer'
 import { useProgressFake } from './hooks'
-import { cloneDeep, joinBaseUrlFile } from '@/utils'
+import { cloneDeep, joinBaseUrlFile, isImageByExtname } from '@/utils'
 
 defineOptions({
   name: 'MUpload',
@@ -94,9 +94,23 @@ const onPreview: ElUploadProps['onPreview'] = (uploadFile) => {
     return
   }
 
-  const initialViewIndex = fileList.value.findIndex(
+  const { url, name } = uploadFile
+  if (!url) {
+    return
+  }
+
+  if (!(isImageByExtname(name) || isImageByExtname(url))) {
+    return window.open(url)
+  }
+
+  const imageFileList = fileList.value.filter(
+    ({ url, name }) => isImageByExtname(name) || isImageByExtname(url)
+  )
+
+  const initialViewIndex = imageFileList.findIndex(
     (file) => file.uid === uploadFile.uid
   )
+
   viewerApi({
     // TODO: https://github.com/fengyuanchen/viewerjs
     options: {
@@ -104,7 +118,7 @@ const onPreview: ElUploadProps['onPreview'] = (uploadFile) => {
       url: 'url',
       initialViewIndex
     },
-    images: fileList.value
+    images: imageFileList
   })
 }
 
