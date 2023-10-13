@@ -3,19 +3,19 @@ import type {
   DemoUser,
   DemoUserData
 } from './types/user.type'
-import service from '@/service'
+import { mockService } from '@/service'
 
 enum Api {
-  List = '/api/demo/user/list',
-  Add = '/api/demo/user',
-  Del = '/api/demo/user',
-  Edit = '/api/demo/user',
-  Details = '/api/demo/user'
+  List = 'demo/user/list',
+  Add = 'demo/user',
+  Del = 'demo/user',
+  Edit = 'demo/user',
+  Details = 'demo/user'
 }
 
 // 用户列表
 export const getDemoUserList = (params?: GetDemoUserListParams) => {
-  return service.request<Service.ResultPagination<DemoUser[]>>({
+  return mockService.request<Service.ResultPagination<DemoUser[]>>({
     url: Api.List,
     method: 'GET',
     params
@@ -24,7 +24,7 @@ export const getDemoUserList = (params?: GetDemoUserListParams) => {
 
 // 新增
 export const demoUserAdd = (data: DemoUserData) => {
-  return service.request<Service.Result>({
+  return mockService.request<Service.Result>({
     url: Api.Add,
     method: 'POST',
     data
@@ -33,7 +33,7 @@ export const demoUserAdd = (data: DemoUserData) => {
 
 // 删除
 export const demoUserDel = (id: number) => {
-  return service.request<Service.Result>({
+  return mockService.request<Service.Result>({
     url: `${Api.Del}/${id}`,
     method: 'DELETE'
   })
@@ -41,7 +41,7 @@ export const demoUserDel = (id: number) => {
 
 // 编辑
 export const demoUserEdit = (id: number, data: DemoUserData) => {
-  return service.request<Service.Result>({
+  return mockService.request<Service.Result>({
     url: `${Api.Edit}/${id}`,
     method: 'PUT',
     data
@@ -50,7 +50,7 @@ export const demoUserEdit = (id: number, data: DemoUserData) => {
 
 // 详情
 export const demoUserDetails = (id: number) => {
-  return service.request<Service.Result<DemoUser>>({
+  return mockService.request<Service.Result<DemoUser>>({
     url: `${Api.Details}/${id}`,
     method: 'GET'
   })

@@ -23,6 +23,7 @@ const failCodeMap = new Map<HttpStatusCode, FailHandler>([
   [HttpStatusCode.Unauthorized, { handler: failAuth }],
   [HttpStatusCode.Forbidden, { handler: failAuth }],
   [HttpStatusCode.Not_Found, {}],
+  [HttpStatusCode.Not_Found, { message: '404 (Not Found)' }],
   [
     HttpStatusCode.Internal_Server_Error,
     { message: '500 (Internal Server Error)' }

@@ -19,16 +19,15 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     base: viteEnv.VITE_BASE_URL,
     server: {
       host: '0.0.0.0',
-      proxy:
-        !viteEnv.VITE_USE_MOCK && viteEnv.VITE_BASE_URL_API
-          ? {
-              '^/api/.*': {
-                target: viteEnv.VITE_BASE_URL_API,
-                changeOrigin: true,
-                rewrite: (path) => path.replace(/^\/api/, '')
-              }
+      proxy: viteEnv.VITE_BASE_URL_API
+        ? {
+            '^/proxyApi/.*': {
+              target: viteEnv.VITE_BASE_URL_API,
+              changeOrigin: true,
+              rewrite: (path) => path.replace(/^\/proxyApi/, '')
             }
-          : {}
+          }
+        : {}
     },
     build: {
       chunkSizeWarningLimit: 5 * 1024,

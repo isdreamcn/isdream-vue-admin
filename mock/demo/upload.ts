@@ -1,9 +1,10 @@
 import type { MockMethod } from 'vite-plugin-mock'
 import { HttpStatusCode } from '@/constants'
+import { formatUrl, formatMsg } from '../_utils'
 
 export default [
   {
-    url: '/api/demo/upload',
+    url: formatUrl('demo/upload'),
     method: 'post',
     timeout: 1000,
     statusCode: HttpStatusCode.OK,
@@ -13,7 +14,7 @@ export default [
           url: 'favicon.ico'
         },
         code: HttpStatusCode.OK,
-        message: 'ok'
+        message: formatMsg('OK')
       }
     }
   }

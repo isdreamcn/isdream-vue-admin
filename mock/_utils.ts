@@ -3,6 +3,34 @@ import type {
   UserLoginMenu
 } from '@/api/user/types/login.type'
 
+export const formatUrl = (url: string) => `/mockApi/${url}`
+export const formatMsg = (msg: string) => `${msg} (mockApi)`
+
+interface ResultTablePaginationOptions {
+  page: number
+  pageSize: number
+  count?: number
+}
+
+// 生成分页数据
+export const generateResultPagination = <T = any>(
+  generater: (index: number) => T,
+  options?: ResultTablePaginationOptions
+): Service.ResultPagination<T[]> => {
+  const { page = 1, pageSize = 10, count = 100 } = options || {}
+  const data: any[] = []
+  const start = (page - 1) * pageSize
+  const end = page * pageSize > count ? count : page * pageSize
+
+  for (let i = start + 1; i <= end; i++) {
+    data.push(generater(i))
+  }
+  return {
+    data,
+    count
+  }
+}
+
 interface MockUserLoginList extends UserLoginResult {
   username: string
   password: string
@@ -74,29 +102,4 @@ export const useUserList = (): MockUserLoginList[] => {
       ]
     }
   ]
-}
-
-interface ResultTablePaginationOptions {
-  page: number
-  pageSize: number
-  count?: number
-}
-
-// 生成分页数据
-export const generateResultPagination = <T = any>(
-  generater: (index: number) => T,
-  options?: ResultTablePaginationOptions
-): Service.ResultPagination<T[]> => {
-  const { page = 1, pageSize = 10, count = 100 } = options || {}
-  const data: any[] = []
-  const start = (page - 1) * pageSize
-  const end = page * pageSize > count ? count : page * pageSize
-
-  for (let i = start + 1; i <= end; i++) {
-    data.push(generater(i))
-  }
-  return {
-    data,
-    count
-  }
 }

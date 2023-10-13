@@ -1,12 +1,12 @@
 import { DemoUploadReset } from './types/upload.type'
-import service from '@/service'
+import { mockService } from '@/service'
 
 enum Api {
-  Upload = '/api/demo/upload'
+  Upload = 'demo/upload'
 }
 
 export const demoUpload = (formData: FormData) => {
-  return service.request<Service.Result<DemoUploadReset>>({
+  return mockService.request<Service.Result<DemoUploadReset>>({
     url: Api.Upload,
     method: 'POST',
     headers: { 'Content-Type': 'multipart/form-data' },

@@ -2,12 +2,12 @@ import type { MockMethod } from 'vite-plugin-mock'
 import type { MockRequestParams } from '../_types'
 import { HttpStatusCode } from '@/constants'
 import { Random } from 'mockjs'
-import { generateResultPagination } from '../_utils'
+import { generateResultPagination, formatUrl, formatMsg } from '../_utils'
 import { GetDemoUserListParams, DemoUser } from '@/api/demo/user'
 
 export default [
   {
-    url: '/api/demo/user/list',
+    url: formatUrl('demo/user/list'),
     method: 'get',
     timeout: 1000,
     statusCode: HttpStatusCode.OK,
@@ -20,7 +20,7 @@ export default [
             address: '@city()',
             email: '@email',
             userInfo: {
-              origin: 'mock'
+              origin: 'mockApi'
             },
             avatar: Random.image(
               '400x400',
@@ -38,48 +38,48 @@ export default [
           }
         ),
         code: HttpStatusCode.OK,
-        message: 'OK'
+        message: formatMsg('OK')
       } as Service.ResultPagination<DemoUser[]>
     }
   },
   {
-    url: '/api/demo/user',
+    url: formatUrl('demo/user'),
     method: 'post',
     timeout: 1000,
     statusCode: HttpStatusCode.OK,
     response: () => {
       return {
         code: HttpStatusCode.OK,
-        message: 'OK'
+        message: formatMsg('OK')
       } as Service.Result
     }
   },
   {
-    url: '/api/demo/user/1',
+    url: formatUrl('demo/user/1'),
     method: 'delete',
     timeout: 1500,
     statusCode: HttpStatusCode.OK,
     response: () => {
       return {
         code: HttpStatusCode.OK,
-        message: 'OK'
+        message: formatMsg('OK')
       } as Service.Result
     }
   },
   {
-    url: '/api/demo/user/1',
+    url: formatUrl('demo/user/1'),
     method: 'put',
     timeout: 2000,
     statusCode: HttpStatusCode.OK,
     response: () => {
       return {
         code: HttpStatusCode.OK,
-        message: 'OK'
+        message: formatMsg('OK')
       } as Service.Result
     }
   },
   {
-    url: '/api/demo/user/1',
+    url: formatUrl('demo/user/1'),
     method: 'get',
     timeout: 500,
     statusCode: HttpStatusCode.OK,
@@ -103,7 +103,7 @@ export default [
           updateAt: '@datetime'
         },
         code: HttpStatusCode.OK,
-        message: 'OK'
+        message: formatMsg('OK')
       } as Service.Result<DemoUser>
     }
   }
