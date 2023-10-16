@@ -8,6 +8,7 @@
   >
     <MForm
       :fields="props.fields"
+      :disabled="props.disabled"
       :model-value="formData"
       :inline="false"
       :col-attrs="24"
@@ -33,7 +34,13 @@ defineOptions({
 const props = defineProps(formDialogProps)
 const emit = defineEmits(formDialogEmits)
 
-const title = computed(() => (props.id ? props.editTitle : props.addTitle))
+const title = computed(() =>
+  props.disabled
+    ? props.disabledTitle
+    : props.id
+    ? props.editTitle
+    : props.addTitle
+)
 const loading = ref(false)
 const visible = ref(props.modelValue)
 

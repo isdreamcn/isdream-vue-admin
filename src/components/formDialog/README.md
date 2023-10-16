@@ -12,6 +12,8 @@
 | modelValue | `v-model` dialog 显示隐藏                | `boolean`                                              | false  |
 | id         | 0 为新增，其他为编辑                     | `number`                                               | 0      |
 | value      | form 默认值                              | `object`                                               | --     |
+| disabled   | form 是否禁用表单内的所有组件，隐藏默认按钮      | `boolean`                                              | false  |
+| disabledTitle | `disabled`为`true`时, dialog 标题      | `string`                                               | 查看     |
 | addTitle   | 新增时，dialog 标题                      | `string`                                               | 新增   |
 | editTitle  | 编辑时，dialog 标题                      | `string`                                               | 编辑   |
 | httpGet    | 获取详情的 api                           | `(id: number) => Promise<{data: Record<string, any>}>` | --     |

@@ -18,7 +18,11 @@
           <el-form-item :label="field.label" :prop="field.key">
             <component
               v-if="field.slot !== true"
-              v-bind="field.attrs || {}"
+              v-bind="{
+                ...field.attrs,
+                key: field.key,
+                disabled: props.disabled
+              }"
               v-on="field.on || {}"
               :is="field.tag"
               :placeholder="field.placeholder"
@@ -27,7 +31,11 @@
             <slot
               v-else
               :name="field.key"
-              :field="field"
+              v-bind="{
+                ...field.attrs,
+                key: field.key,
+                disabled: props.disabled
+              }"
               :value="formData[field.key]"
             ></slot>
           </el-form-item>
@@ -35,7 +43,7 @@
         <!-- buttons -->
         <div v-if="props.inline" v-bind="defaultColAttrs">
           <slot name="buttons">
-            <el-button-group>
+            <el-button-group v-if="!props.disabled">
               <el-button @click="cancel">
                 <MIcon
                   :name="props.cancelIcon || 'icon-refreshLeft'"
@@ -61,7 +69,7 @@
     </el-form>
     <div v-if="!props.inline" class="m-form__buttons">
       <slot name="buttons">
-        <el-space :size="20">
+        <el-space v-if="!props.disabled" :size="20">
           <el-button @click="cancel">
             <MIcon
               :name="props.cancelIcon || 'icon-refreshLeft'"

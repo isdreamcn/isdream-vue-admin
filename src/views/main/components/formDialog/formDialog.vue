@@ -5,6 +5,7 @@
     </div>
     <el-button type="primary" @click="show(0)">新增</el-button>
     <el-button type="primary" @click="show(1)">编辑</el-button>
+    <el-button type="primary" @click="show(1, true)">查看</el-button>
     <MFormDialog
       v-model="formDialog.visible"
       v-bind="formDialog"
@@ -13,7 +14,8 @@
       :httpEdit="demoUserEdit"
       :httpGet="demoUserDetails"
       @reload="reload"
-    ></MFormDialog>
+    >
+    </MFormDialog>
 
     <MMarkdownView :value="readme"></MMarkdownView>
   </div>
@@ -31,14 +33,16 @@ defineOptions({
 
 const formDialog = reactive({
   visible: false,
+  disabled: false,
   id: 0,
   value: {
     name: 'default'
   }
 })
 
-const show = (id: number) => {
+const show = (id: number, disabled = false) => {
   formDialog.id = id
+  formDialog.disabled = disabled
   formDialog.visible = true
 }
 

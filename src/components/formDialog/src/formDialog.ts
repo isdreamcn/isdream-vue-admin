@@ -27,6 +27,14 @@ export const formDialogProps = buildProps({
     type: Object,
     default: () => ({})
   },
+  disabled: {
+    type: Boolean,
+    default: false
+  },
+  disabledTitle: {
+    type: String,
+    default: '查看'
+  },
   addTitle: {
     type: String,
     default: '新增'

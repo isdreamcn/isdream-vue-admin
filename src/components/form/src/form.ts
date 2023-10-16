@@ -47,6 +47,10 @@ export const formProps = buildProps({
     type: definePropType<ColSize>([Number, Object]),
     default: 6
   },
+  disabled: {
+    type: Boolean,
+    default: false
+  },
   // 按钮放入col
   inline: {
     type: Boolean,
