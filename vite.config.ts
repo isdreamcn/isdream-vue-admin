@@ -1,12 +1,9 @@
 import type { ConfigEnv, UserConfig } from 'vite'
 import { loadEnv } from 'vite'
-import path from 'path'
+import { fileURLToPath, URL } from 'node:url'
 
 import { wrapperLoadViteEnv, dependenciesChunks } from './build/utils'
 import { createVitePlugins } from './build/vite/plugins'
-const pathResolve = (dir: string) => {
-  return path.resolve(__dirname, dir)
-}
 
 // https://vitejs.dev/config/
 export default ({ command, mode }: ConfigEnv): UserConfig => {
@@ -53,9 +50,9 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     },
     resolve: {
       alias: {
-        '@': pathResolve('src'),
-        '#': pathResolve('typings'),
-        '~': pathResolve('./')
+        '@': fileURLToPath(new URL('./src', import.meta.url)),
+        '#': fileURLToPath(new URL('./typings', import.meta.url)),
+        '~': fileURLToPath(new URL('./', import.meta.url))
       }
     },
     // 编译所有应用 scss 变量的组件
