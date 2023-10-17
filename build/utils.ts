@@ -10,7 +10,8 @@ export const wrapperLoadViteEnv = <T extends LoadViteEnv>(env: T): ViteEnv => {
     VITE_BUILD_GZIP: stringToBoolean(env.VITE_BUILD_GZIP),
     VITE_BUILD_ROLLUP_VISUALIZER: stringToBoolean(
       env.VITE_BUILD_ROLLUP_VISUALIZER
-    )
+    ),
+    VITE_BUILD_LEGACY: stringToBoolean(env.VITE_BUILD_LEGACY)
   }
 }
 

@@ -10,6 +10,7 @@ type DefineEnv = Readonly<{
 
   VITE_BUILD_GZIP: boolean
   VITE_BUILD_ROLLUP_VISUALIZER: boolean
+  VITE_BUILD_LEGACY: boolean
 }>
 
 // loadEnv(mode, process.cwd()) || import.meta.env
