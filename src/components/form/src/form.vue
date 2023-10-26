@@ -41,7 +41,7 @@
           </el-form-item>
         </component>
         <!-- buttons -->
-        <div v-if="props.inline" v-bind="defaultColAttrs">
+        <div v-if="props.inline" class="m-form__inline-buttons">
           <slot name="buttons">
             <el-button-group v-if="!props.disabled">
               <el-button @click="cancel">
@@ -106,7 +106,7 @@ defineOptions({
 const props = defineProps(formProps)
 const emit = defineEmits(formEmits)
 
-const { fields, showFields, defaultColAttrs } = useFields(props)
+const { fields, showFields } = useFields(props)
 
 const { formData } = useFormData(props, showFields, (formData) => {
   emit('update:modelValue', formData.value)
@@ -145,9 +145,12 @@ onMounted(() => {
   .m-icon {
     margin-right: 5px;
   }
-  .m-form__buttons {
+  &__buttons {
     display: flex;
     justify-content: center;
+  }
+  &__inline-buttons {
+    margin-bottom: 18px;
   }
 }
 </style>

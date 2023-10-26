@@ -39,7 +39,6 @@ export const useFields = (props: FormProps) => {
 
   return {
     fields,
-    showFields,
-    defaultColAttrs
+    showFields
   }
 }
