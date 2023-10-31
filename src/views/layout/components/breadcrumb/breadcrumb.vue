@@ -58,9 +58,9 @@ const goPath = (route: RouteMapItem) => {
 <style lang="scss" scoped>
 .m-breadcrumb {
   a {
+    @include m-menu-theme();
     display: flex;
     align-items: center;
-    @include m-menu-theme();
     .m-icon {
       margin-right: 5px;
     }

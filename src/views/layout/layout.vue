@@ -28,12 +28,13 @@ const layoutComponents = computed(
 <style lang="scss" scoped>
 .m-layout {
   :deep(.m-layout__header) {
+    @include m-menu-theme(true);
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: solid 1px;
-    @include m-menu-theme(true);
 
     .m-layout__header-tips {
       display: flex;

@@ -17,15 +17,17 @@ const { appSetting } = useAppSetting()
 
 <style lang="scss" scoped>
 .logo-container {
+  @include m-menu-theme(true);
   display: flex;
   align-items: center;
   justify-content: center;
   height: 60px;
   line-height: 60px;
   text-align: center;
-  border-bottom: solid 1px;
-  border-right: solid 1px;
-  @include m-menu-theme(true);
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-right-style: solid;
+  border-right-width: 1px;
 
   img {
     width: 45px;

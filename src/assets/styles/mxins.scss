@@ -1,13 +1,13 @@
-@mixin m-menu-theme($has-bg-color:false) {
-  @if($has-bg-color) {
-    background-color: var(--el-menu-bg-color) !important;
+@mixin m-menu-theme($set-bg-color:false) {
+  @if($set-bg-color) {
+    background-color: var(--el-menu-bg-color);
   }
-  color: var(--el-menu-text-color) !important;
-  border-color: var(--el-menu-border-color) !important;
+  color: var(--el-menu-text-color);
+  border-color: var(--border-color);
 }
 
 @mixin m-menu-theme-hover {
   &:hover {
-    background-color: var(--el-menu-hover-bg-color) !important;
+    background-color: var(--el-menu-hover-bg-color);
   }
 }

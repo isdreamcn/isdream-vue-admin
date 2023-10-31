@@ -29,7 +29,6 @@ const { appSetting } = useAppSetting()
   justify-content: center;
   align-items: center;
   color: var(--el-color-info-light-3);
-  font-size: var(--el-link-font-size);
   div {
     display: flex;
     align-items: center;

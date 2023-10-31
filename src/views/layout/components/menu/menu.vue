@@ -1,7 +1,7 @@
 <template>
   <el-menu
-    :default-active="routePath"
     class="menu-container"
+    :default-active="routePath"
     :collapse="collapsed"
     :mode="mode"
   >

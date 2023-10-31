@@ -51,7 +51,7 @@ defineOptions({
       padding: 0;
       display: flex;
       justify-content: space-between;
-      border-bottom: solid 1px var(--el-menu-border-color);
+      border-bottom: solid 1px var(--border-color);
       .m-layout__header-actions {
         margin-right: 20px;
       }
