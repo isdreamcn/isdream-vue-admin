@@ -1,26 +1,30 @@
 <template>
   <el-container class="m-layout top-menu-layout">
-    <el-header>
+    <el-header class="m-layout__header">
       <Logo></Logo>
       <Menu></Menu>
-      <div class="m-layout__header">
-        <div class="m-layout__header-actions">
-          <div class="m-layout__header-actions-item">
-            <UserMenu></UserMenu>
-          </div>
-          <div class="m-layout__header-actions-item">
-            <AppSetting></AppSetting>
-          </div>
+      <div class="m-layout__header-actions">
+        <div class="m-layout__header-actions-item">
+          <UserMenu></UserMenu>
+        </div>
+        <div class="m-layout__header-actions-item">
+          <AppSetting></AppSetting>
         </div>
       </div>
     </el-header>
-    <RouteHistory></RouteHistory>
-    <div class="top-menu-layout__container">
-      <el-main>
-        <slot></slot>
-      </el-main>
-      <Footer />
-    </div>
+    <el-container class="top-menu-layout__container">
+      <el-container>
+        <el-header style="padding: 0; height: auto">
+          <RouteHistory></RouteHistory>
+        </el-header>
+        <el-main class="top-menu-layout__main">
+          <div style="flex: 1">
+            <slot></slot>
+          </div>
+          <Footer />
+        </el-main>
+      </el-container>
+    </el-container>
   </el-container>
 </template>
 
@@ -43,46 +47,25 @@ defineOptions({
 .top-menu-layout {
   position: relative;
   height: 100%;
-  &.el-container {
-    height: 100%;
+  .el-header {
+    padding: 0;
+    .m-layout__header-actions {
+      margin-right: 20px;
+    }
+
+    .el-menu {
+      display: flex;
+      justify-content: center;
+      border: none;
+    }
+  }
+  .top-menu-layout__container {
+    height: calc(100% - var(--el-header-height));
+    overflow-y: auto;
+  }
+  .top-menu-layout__main {
     display: flex;
     flex-direction: column;
-    .el-header {
-      padding: 0;
-      display: flex;
-      justify-content: space-between;
-      border-bottom: solid 1px var(--border-color);
-      .m-layout__header-actions {
-        margin-right: 20px;
-      }
-
-      .top-menu-layout_actions {
-        display: flex;
-        align-items: center;
-      }
-
-      .el-menu {
-        display: flex;
-        justify-content: center;
-        border: none;
-      }
-
-      .logo-container {
-        width: 200px;
-        height: 100%;
-        border-right: none;
-      }
-    }
-    .top-menu-layout__container {
-      flex: 1;
-      overflow-y: auto;
-      overflow-x: hidden;
-      display: flex;
-      flex-direction: column;
-      .el-main {
-        overflow: visible;
-      }
-    }
   }
 }
 </style>

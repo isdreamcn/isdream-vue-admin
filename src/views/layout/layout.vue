@@ -31,7 +31,6 @@ const layoutComponents = computed(
     @include m-menu-theme(true);
     border-bottom-style: solid;
     border-bottom-width: 1px;
-    height: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;

@@ -46,7 +46,7 @@ const clickMenuItem = (item: UserMenu) => {
 
 <style lang="scss" scoped>
 .el-menu {
-  flex: 1;
+  height: 100%;
 }
 .menu-container:not(.el-menu--collapse) {
   width: 200px;
