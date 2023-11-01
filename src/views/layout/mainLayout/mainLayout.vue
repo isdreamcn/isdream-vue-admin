@@ -1,37 +1,39 @@
 <template>
   <el-container class="m-layout main-layout">
-    <el-aside>
-      <Logo></Logo>
-      <Menu></Menu>
-    </el-aside>
-    <el-container>
-      <el-header>
-        <div class="m-layout__header">
-          <div class="m-layout__header-tips">
-            <div class="m-layout__header-tips-item">
-              <MenuCollapsed></MenuCollapsed>
-            </div>
-            <div class="m-layout__header-tips-item">
-              <Breadcrumb></Breadcrumb>
-            </div>
-          </div>
-          <div class="m-layout__header-actions">
-            <div class="m-layout__header-actions-item">
-              <UserMenu></UserMenu>
-            </div>
-            <div class="m-layout__header-actions-item">
-              <AppSetting></AppSetting>
-            </div>
-          </div>
+    <el-header class="m-layout__header">
+      <div class="m-layout__header-tips">
+        <Logo></Logo>
+        <div class="m-layout__header-tips-item">
+          <MenuCollapsed></MenuCollapsed>
         </div>
-      </el-header>
-      <RouteHistory></RouteHistory>
-      <div class="main-layout__container">
-        <el-main>
-          <slot></slot>
-        </el-main>
-        <Footer />
+        <div class="m-layout__header-tips-item">
+          <Breadcrumb></Breadcrumb>
+        </div>
       </div>
+      <div class="m-layout__header-actions">
+        <div class="m-layout__header-actions-item">
+          <UserMenu></UserMenu>
+        </div>
+        <div class="m-layout__header-actions-item">
+          <AppSetting></AppSetting>
+        </div>
+      </div>
+    </el-header>
+    <el-container class="main-layout__container">
+      <el-aside>
+        <Menu></Menu>
+      </el-aside>
+      <el-container>
+        <el-header style="padding: 0; height: auto">
+          <RouteHistory></RouteHistory>
+        </el-header>
+        <el-main class="main-layout__main">
+          <div style="flex: 1">
+            <slot></slot>
+          </div>
+          <Footer></Footer>
+        </el-main>
+      </el-container>
     </el-container>
   </el-container>
 </template>
@@ -58,30 +60,21 @@ defineOptions({
   position: relative;
   height: 100%;
   .el-aside {
-    display: flex;
-    flex-direction: column;
     width: auto;
   }
-  .el-container {
-    height: 100%;
+  .el-header {
+    padding: 0;
+    .m-layout__header-actions {
+      margin-right: 20px;
+    }
+  }
+  .main-layout__container {
+    height: calc(100% - var(--el-header-height));
+    overflow-y: auto;
+  }
+  .main-layout__main {
     display: flex;
     flex-direction: column;
-    .el-header {
-      padding: 0;
-      .m-layout__header-actions {
-        margin-right: 20px;
-      }
-    }
-    .main-layout__container {
-      flex: 1;
-      overflow-y: auto;
-      overflow-x: hidden;
-      display: flex;
-      flex-direction: column;
-      .el-main {
-        overflow: visible;
-      }
-    }
   }
 }
 </style>

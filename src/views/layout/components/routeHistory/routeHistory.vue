@@ -111,7 +111,7 @@ const goPath = (path: string) => {
 <style lang="scss" scoped>
 .route-history__container {
   margin-top: 5px;
-  border-bottom: solid 1px var(--el-menu-border-color);
+  border-bottom: solid 1px var(--border-color);
   display: flex;
   justify-content: space-between;
   .route-history__actions {

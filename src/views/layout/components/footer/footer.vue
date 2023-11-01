@@ -1,14 +1,12 @@
 <template>
-  <el-footer v-if="appSetting.footer.show">
-    <div class="footer-container">
-      <div>
-        Copyright ©
-        <el-link type="info" href="https://isdream.cn" target="_blank"
-          >isdream.cn</el-link
-        >
-      </div>
+  <div v-if="appSetting.footer.show" class="footer-container">
+    <div>
+      Copyright ©
+      <el-link type="info" href="https://isdream.cn" target="_blank"
+        >isdream.cn</el-link
+      >
     </div>
-  </el-footer>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -23,13 +21,13 @@ const { appSetting } = useAppSetting()
 
 <style lang="scss" scoped>
 .footer-container {
-  height: 100%;
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   color: var(--el-color-info-light-3);
-  font-size: var(--el-link-font-size);
+  padding-top: var(--el-main-padding);
   div {
     display: flex;
     align-items: center;

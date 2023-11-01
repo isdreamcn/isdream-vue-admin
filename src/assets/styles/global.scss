@@ -11,21 +11,22 @@
   --animate-duration: 800ms;
   --animate-delay: 0.5s;
 
-  --bg-color: var(--el-fill-color-blank);
   --text-color: var(--el-text-color-primary);
+  --border-color: var(--el-border-color-light);
+  --bg-color: var(--el-fill-color-blank);
   --hover-bg-color: var(--el-color-primary-light-9);
 }
 
 html.light {
-  // element-plus
-  // menu
-  --el-menu-bg-color: var(--bg-color) !important;
-  --el-menu-text-color: var(--text-color) !important;
-  --el-menu-hover-bg-color: var(--hover-bg-color) !important;
-}
+  // el-menu
+  --el-menu-text-color: var(--text-color);
+  --el-menu-border-color: var(--border-color);
+  --el-menu-bg-color: var(--bg-color);
+  --el-menu-hover-bg-color: var(--hover-bg-color);
 
-html, body, #app {
-  height: 100%;
+  .el-menu--horizontal>.el-sub-menu .el-sub-menu__title:hover {
+    background-color: var(--el-menu-hover-bg-color);
+  }
 }
 
 // 思源黑体（3500常用字）
@@ -36,6 +37,7 @@ html, body, #app {
 }
 
 #app {
+  height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
   font-family: 'SourceHanSansCN-VF', 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
@@ -43,7 +45,6 @@ html, body, #app {
 }
 
 // scrollbar
-
 ::-webkit-scrollbar {
   width: 7px;
   height: 8px;
@@ -54,11 +55,11 @@ html, body, #app {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--el-color-primary);
+  background-color: #C1C1C1;
   border-radius: 2px;
   box-shadow: inset 0 0 6px rgb(0 0 0 / 20%);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: var(--el-color-primary);
+  background-color: #C1C1C1;
 }
