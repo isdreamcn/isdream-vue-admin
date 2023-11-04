@@ -1,2 +1,2 @@
 export { ElInput, ElSelect, ElDatePicker } from 'element-plus'
-export { MIcon, MUpload } from '@/components'
+export { MForm, MIcon, MUpload } from '@/components'

@@ -1,6 +1,5 @@
 import type { FormProps } from '../form'
 import { computed } from 'vue'
-import { formComponentMap } from '../components'
 
 export const useFields = (props: FormProps) => {
   const defaultColAttrs = computed(() =>
@@ -26,10 +25,8 @@ export const useFields = (props: FormProps) => {
 
   const fields = computed(() =>
     showFields.value.map((field) => {
-      const mComponent = formComponentMap.get(field.tag as any)
       return {
         ...field,
-        tag: mComponent ?? field.tag,
         label: field.label ?? field.key,
         colAttrs: getColAttrs(field.colAttrs),
         placeholder: field.placeholder ?? field.label ?? field.key
