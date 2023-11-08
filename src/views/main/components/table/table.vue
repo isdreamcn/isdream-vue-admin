@@ -49,7 +49,7 @@ const isReload = ref(true)
 const searchBtnPermission = ref('tableReset')
 
 const userList = ref<any[]>(
-  new Array(55).fill(0).map((val, index) => ({
+  new Array(55).fill(0).map((_, index) => ({
     id: index + 1,
     name: index + 1
   }))
@@ -58,7 +58,7 @@ const userList = ref<any[]>(
 // selectKeys
 const selectKeys = ref<any[]>([1, 3, 5])
 const setSelectKeys = () => {
-  selectKeys.value = new Array(10).fill(0).map((val, index) => index + 1)
+  selectKeys.value = new Array(10).fill(0).map((_, index) => index + 1)
 }
 
 // params

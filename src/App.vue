@@ -4,7 +4,7 @@ import { useRouterStore } from '@/store'
 import { ElConfigProvider } from 'element-plus'
 import { MLoadingLottie } from '@/components'
 // 国际化
-import zhCn from 'element-plus/lib/locale/lang/zh-cn'
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 
 // loading
 const routerStore = useRouterStore()

@@ -1,7 +1,7 @@
 import type Editor from './editor.vue'
 import type { ExtractPropTypes } from 'vue'
-import type { Editor as TinymceEditor, RawEditorSettings } from 'tinymce'
-import { buildProps, definePropType } from '@/utils'
+import { Editor as TinymceEditor, RawEditorSettings } from 'tinymce'
+import { buildProps, definePropType, isNil, isString } from '@/utils'
 import { toolbar, plugins } from './tinymce/tinymce'
 import { uploadCommon } from '@/api/common'
 
@@ -44,12 +44,10 @@ export const editorProps = buildProps({
 } as const)
 
 export const editorEmits = {
-  change: (content: string) => typeof content === 'string',
-  'update:modelValue': (content: string) => typeof content === 'string',
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  inited: (editor: TinymceEditor) => true,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  'init-error': (err: any) => true
+  change: (content: string) => isString(content),
+  'update:modelValue': (content: string) => isString(content),
+  inited: (editor: TinymceEditor) => editor instanceof TinymceEditor,
+  'init-error': (err: any) => !isNil(err)
 }
 
 export type EditorProps = ExtractPropTypes<typeof editorProps>

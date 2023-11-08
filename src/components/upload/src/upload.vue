@@ -122,7 +122,7 @@ const onPreview: ElUploadProps['onPreview'] = (uploadFile) => {
   })
 }
 
-const onRemove: ElUploadProps['onRemove'] = (uploadFile, uploadFiles) => {
+const onRemove: ElUploadProps['onRemove'] = (_, uploadFiles) => {
   fileList.value = uploadFiles as UploadFile[]
 }
 

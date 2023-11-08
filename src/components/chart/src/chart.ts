@@ -2,7 +2,7 @@ import type { ExtractPropTypes } from 'vue'
 import type { ECharts } from 'echarts/core'
 import type { ECOption } from '@/plugins'
 import type Chart from './chart.vue'
-import { buildProps, definePropType } from '@/utils'
+import { buildProps, definePropType, isNil } from '@/utils'
 
 export type ChartOptions = ECOption
 
@@ -26,8 +26,7 @@ export const chartProps = buildProps({
 } as const)
 
 export const chartEmits = {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  init: (chart: ECharts) => true
+  init: (chart: ECharts) => !isNil(chart)
 }
 
 export type ChartsProps = ExtractPropTypes<typeof chartProps>

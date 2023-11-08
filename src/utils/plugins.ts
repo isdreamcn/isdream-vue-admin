@@ -16,6 +16,8 @@ export {
   isNumber,
   uniqueId,
   debounce,
+  isUndefined,
   isNil,
+  isBoolean,
   fromPairs
 } from 'lodash-unified'

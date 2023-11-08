@@ -1,7 +1,7 @@
 import type Markdown from './markdown.vue'
 import type { ExtractPropTypes } from 'vue'
-import type Vditor from 'vditor'
-import { buildProps, definePropType } from '@/utils'
+import Vditor from 'vditor'
+import { buildProps, definePropType, isString } from '@/utils'
 import { uploadCommon } from '@/api/common'
 
 type MarkdownUpload = typeof uploadCommon
@@ -31,10 +31,9 @@ export const markdownProps = buildProps({
 } as const)
 
 export const markdownEmits = {
-  change: (content: string) => typeof content === 'string',
-  'update:modelValue': (content: string) => typeof content === 'string',
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  getVditor: (vditor: Vditor) => true
+  change: (content: string) => isString(content),
+  'update:modelValue': (content: string) => isString(content),
+  getVditor: (vditor: Vditor) => vditor instanceof Vditor
 }
 
 export type MarkdownProps = ExtractPropTypes<typeof markdownProps>

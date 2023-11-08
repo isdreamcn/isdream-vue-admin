@@ -1,8 +1,7 @@
-import { buildProps, definePropType } from '@/utils'
-
 import type { ExtractPropTypes } from 'vue'
-import { AnimationItem, AnimationConfig } from 'lottie-web'
 import type Lottie from './lottie.vue'
+import { AnimationItem, AnimationConfig } from 'lottie-web'
+import { buildProps, definePropType, isNil } from '@/utils'
 
 export type LottieConfig = AnimationConfig
 
@@ -26,8 +25,7 @@ export const lottieProps = buildProps({
 } as const)
 
 export const lottieEmits = {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  created: (anim: AnimationItem) => true
+  created: (anim: AnimationItem) => !isNil(anim)
 }
 
 export type LottieProps = ExtractPropTypes<typeof lottieProps>

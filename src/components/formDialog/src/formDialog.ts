@@ -1,7 +1,7 @@
 import type FormDialog from './formDialog.vue'
 import type { ExtractPropTypes } from 'vue'
 import type { FormField } from '@/components/form'
-import { buildProps, definePropType } from '@/utils'
+import { buildProps, definePropType, isBoolean } from '@/utils'
 
 type FormDialogHttpGet = (
   id: number
@@ -71,8 +71,7 @@ export const formDialogProps = buildProps({
 } as const)
 
 export const formDialogEmits = {
-  'update:modelValue': (visible: boolean) =>
-    visible === false || visible === true,
+  'update:modelValue': (visible: boolean) => isBoolean(visible),
   reload: () => true
 }
 

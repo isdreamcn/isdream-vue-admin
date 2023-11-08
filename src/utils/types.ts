@@ -1,7 +1,5 @@
 import { isNil, isArray, isObject } from './plugins'
 
-export const isUndefined = (val: any): val is undefined => val === undefined
-
 export const isEmpty = (val: unknown) =>
   (!val && val !== 0) ||
   (isArray(val) && val.length === 0) ||

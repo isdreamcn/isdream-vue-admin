@@ -1,6 +1,6 @@
 import type { ExtractPropTypes } from 'vue'
 import type ColorPicker from './colorPicker.vue'
-import { isString, buildProps, definePropType } from '@/utils'
+import { buildProps, definePropType, isUndefined, isString } from '@/utils'
 
 export interface ColorPickerOptionsItem {
   label?: string
@@ -20,8 +20,9 @@ export const colorPickerProps = buildProps({
 } as const)
 
 export const colorPickerEmits = {
-  'update:modelValue': (color?: string) => (color ? isString(color) : true),
-  change: (color?: string) => (color ? isString(color) : true)
+  'update:modelValue': (color?: string) =>
+    isUndefined(color) || isString(color),
+  change: (color?: string) => isUndefined(color) || isString(color)
 }
 
 export type ColorPickerProps = ExtractPropTypes<typeof colorPickerProps>

@@ -7,7 +7,7 @@ import type {
   FormItemRule,
   FormInstance as ElFormInstance
 } from 'element-plus'
-import { buildProps, definePropType, isObject } from '@/utils'
+import { buildProps, definePropType, isObject, isNil } from '@/utils'
 
 export interface FormFieldOptions {
   label: string
@@ -77,7 +77,7 @@ export const formEmits = {
   'update:modelValue': (formData: Record<string, any>) => isObject(formData),
   submit: (formData: Record<string, any>) => isObject(formData),
   cancel: (formData: Record<string, any>) => isObject(formData),
-  getForm: (elFormRef: ElFormInstance) => !!elFormRef
+  getForm: (elFormRef: ElFormInstance) => !isNil(elFormRef)
 }
 
 export type FormProps = ExtractPropTypes<typeof formProps>

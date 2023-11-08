@@ -12,6 +12,5 @@ export const formComponentsProps = buildProps({
 } as const)
 
 export const formComponentsEmits = {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  'update:modelValue': (val: any) => true
+  'update:modelValue': (val: any) => true || val
 }

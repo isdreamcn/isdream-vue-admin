@@ -1,17 +1,26 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
+    "target": "ES2020",
     "useDefineForClassFields": true,
     "module": "ESNext",
-    "moduleResolution": "Node",
-    "strict": true,
-    "jsx": "preserve",
-    "sourceMap": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "esModuleInterop": true,
-    "lib": ["ESNext", "DOM"],
-    "skipLibCheck": true,
+    "noEmit": true,
+    "jsx": "preserve",
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+
+    /* Custom */
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
@@ -24,20 +33,18 @@
     ]
   },
   "include": [
-    "typings/**/*.ts",
-    "typings/**/*.d.ts",
-
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
 
+    "typings/**/*.ts",
+    "typings/**/*.d.ts",
+
     "mock/**/*.ts",
     "build/**/*.ts",
-    "vite.config.ts",
     "components.d.ts",
     "auto-imports.d.ts",
-    "typings/env.d.ts"
   ],
-  // "references": [{ "path": "./tsconfig.node.json" }]
+  "references": [{ "path": "./tsconfig.node.json" }]
 }
