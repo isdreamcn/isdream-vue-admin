@@ -14,6 +14,7 @@ export const useTinymceOptions = (
   const skinName = computed(() =>
     appTheme.value === 'light' ? 'oxide' : 'oxide-dark'
   )
+
   const tinymceId = ref<string>(uniqueId('tinymce-'))
 
   const tinymceOptions = computed((): RawEditorSettings => {
@@ -45,6 +46,7 @@ export const useTinymceOptions = (
 
   return {
     tinymceOptions,
-    tinymceId
+    tinymceId,
+    skinName
   }
 }
