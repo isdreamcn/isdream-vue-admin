@@ -11,7 +11,7 @@ import Vditor from 'vditor'
 import { toolbar } from './vditor/vditor'
 
 import { markdownProps, markdownEmits } from './markdown'
-import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
+import { watch, onMounted, onBeforeUnmount } from 'vue'
 import { uniqueId, setBaseUrlFile, removeBaseUrlFile } from '@/utils'
 import { useVditorTheme, useVditorUpload } from './hooks'
 
@@ -23,49 +23,36 @@ const props = defineProps(markdownProps)
 const emit = defineEmits(markdownEmits)
 
 const vditorId = uniqueId('vditor-')
-const vditor = ref<Vditor>()
+let vditor: Nullable<Vditor> = null
 
-// value
-const vditorValue = ref('')
 // v-model
-const modelValueHandler = () => {
-  let content = ''
+let vditorContent = ''
+const setVditorContent = (content: string) => {
+  vditorContent = removeBaseUrlFile(content)
+  emit('update:modelValue', vditorContent)
+  emit('change', vditorContent)
 
-  watch(
-    () => vditorValue.value,
-    (val) => {
-      content = removeBaseUrlFile(val)
-      emit('update:modelValue', content)
-      emit('change', content)
-    }
-  )
-
-  watch(
-    () => props.modelValue,
-    (val) => {
-      if (val === content) {
-        return
-      }
-
-      if (vditor.value) {
-        vditor.value.setValue(setBaseUrlFile(val))
-      }
-    },
-    {
-      immediate: true
-    }
-  )
+  if (!vditor) return
+  vditor.setValue(setBaseUrlFile(content))
 }
 
+watch(
+  () => props.modelValue,
+  (val) => {
+    if (val === vditorContent) return
+    setVditorContent(val)
+  }
+)
+
 // 主题
-const { vditorTheme } = useVditorTheme(vditor)
+const { vditorTheme, setVditorTheme } = useVditorTheme()
+watch(vditorTheme.theme, () => {
+  setVditorTheme(vditor)
+})
+
 // 上传图片
 const { vditorUploadOptions } = useVditorUpload(props, (val) => {
-  if (vditor.value) {
-    vditor.value.insertValue(val)
-  } else {
-    vditorValue.value += val
-  }
+  setVditorContent(vditorContent + val)
 })
 
 let _toolbar = toolbar
@@ -74,7 +61,7 @@ if (!props.upload) {
 }
 
 const init = () => {
-  vditor.value = new Vditor(vditorId, {
+  vditor = new Vditor(vditorId, {
     // 设置外观主题
     theme: vditorTheme.theme.value,
     lang: 'zh_CN',
@@ -98,19 +85,20 @@ const init = () => {
     ...props.options,
     ...vditorUploadOptions,
     input: (v) => {
-      vditorValue.value = v
+      setVditorContent(v)
     },
     after: () => {
       // vditor.value is a instance of Vditor now and thus can be safely used here
-      modelValueHandler()
-      emit('getVditor', vditor.value!)
+      setVditorContent(props.modelValue)
+      emit('getVditor', vditor!)
     }
   })
 }
 
 const destroy = () => {
-  vditor.value && vditor.value.destroy()
-  vditor.value = undefined
+  if (!vditor) return
+  vditor.destroy()
+  vditor = null
 }
 
 onMounted(() => {

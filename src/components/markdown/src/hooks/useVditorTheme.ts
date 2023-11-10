@@ -1,9 +1,8 @@
 import type Vditor from 'vditor'
-import type { Ref } from 'vue'
-import { computed, watch } from 'vue'
+import { computed } from 'vue'
 import { useAppSetting } from '@/store'
 
-export const useVditorTheme = (vditor?: Ref<Vditor | undefined>) => {
+export const useVditorTheme = () => {
   const { appIsDark } = useAppSetting()
 
   const theme = {
@@ -12,20 +11,13 @@ export const useVditorTheme = (vditor?: Ref<Vditor | undefined>) => {
     code: computed(() => (appIsDark.value ? 'dracula' : 'github'))
   }
 
-  watch(
-    () => appIsDark.value,
-    () => {
-      if (vditor?.value) {
-        vditor.value.setTheme(
-          theme.theme.value,
-          theme.content.value,
-          theme.code.value
-        )
-      }
-    }
-  )
+  const setVditorTheme = (vditor: Nullable<Vditor>) => {
+    if (!vditor) return
+    vditor.setTheme(theme.theme.value, theme.content.value, theme.code.value)
+  }
 
   return {
-    vditorTheme: theme
+    vditorTheme: theme,
+    setVditorTheme
   }
 }

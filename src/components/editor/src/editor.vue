@@ -69,9 +69,6 @@ watch(
   () => props.disabled,
   () => {
     setMode()
-  },
-  {
-    immediate: true
   }
 )
 
@@ -88,9 +85,6 @@ watch(
   (val) => {
     if (val === editorContent) return
     setContent(val)
-  },
-  {
-    immediate: true
   }
 )
 
