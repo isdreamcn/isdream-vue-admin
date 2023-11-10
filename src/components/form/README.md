@@ -29,10 +29,9 @@
 | label         | 标签                              | `string`                                        | --     |
 | show          | 是否显示                          | `boolean`                                       | true   |
 | slot          | 是否使用具名插槽，name 为`key`    | `boolean`                                       | false  |
-| **attrs**         | 绑定在 tag 上的属性               | `object` & **{ options: FormFieldOption[] }** | --     |
+| **attrs**         | 绑定在 tag 上的属性               | `object` | --     |
 | on            | 绑定在 tag 上的事件               | `object`                                        | --     |
 | colAttrs      | el-col 属性                       | `number\|object`                                | --     |
-| placeholder   | 占位符                            | `string`                                        | --     |
 | required      | 是否必填                          | `boolean`                                       | false  |
 | validateRules | 校验规则 FormItem rules           | el `FormItemRule[]`                             | --     |
 

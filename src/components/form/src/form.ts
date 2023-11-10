@@ -22,10 +22,14 @@ export interface FormField {
   // show !== false 则显示
   show?: boolean
   slot?: boolean
-  attrs?: Record<string, any> & { options?: FormFieldOptions[] }
+  attrs?: {
+    options?: FormFieldOptions[]
+    placeholder?: string
+    disabled?: boolean
+    [key: string]: any
+  }
   on?: Record<string, (...payload: any[]) => void>
   colAttrs?: ColSize
-  placeholder?: string
   required?: boolean
   validateRules?: FormItemRule[]
 }

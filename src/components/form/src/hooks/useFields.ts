@@ -29,7 +29,7 @@ export const useFields = (props: FormProps) => {
         ...field,
         label: field.label ?? field.key,
         colAttrs: getColAttrs(field.colAttrs),
-        placeholder: field.placeholder ?? field.label ?? field.key
+        placeholder: field.attrs?.placeholder ?? field.label ?? field.key
       }
     })
   )
