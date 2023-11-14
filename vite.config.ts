@@ -50,9 +50,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     },
     resolve: {
       alias: {
-        '@': fileURLToPath(new URL('./src', import.meta.url)),
-        '#': fileURLToPath(new URL('./typings', import.meta.url)),
-        '~': fileURLToPath(new URL('./', import.meta.url))
+        '@': fileURLToPath(new URL('./src', import.meta.url))
       }
     },
     // 编译所有应用 scss 变量的组件

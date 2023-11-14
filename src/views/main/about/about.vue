@@ -52,9 +52,8 @@
 </template>
 
 <script setup lang="ts">
-import readme from '~/README.md?raw'
-
-import packageData from '~/package.json'
+import readme from '@/../README.md?raw'
+import packageData from '@/../package.json'
 
 defineOptions({
   name: 'About'
