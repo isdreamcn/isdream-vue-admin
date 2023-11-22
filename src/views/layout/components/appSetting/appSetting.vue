@@ -76,7 +76,6 @@
 
 <script setup lang="ts">
 import type { ElDrawer } from 'element-plus'
-import type { LayoutKeys } from '../../config'
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessageBox } from 'element-plus'
@@ -85,7 +84,7 @@ import { getVal, generateObj } from '@/utils'
 import db from '@/storage'
 import { appConfig } from '@/config'
 import { ToggleDark } from '../index'
-import { layoutOptions, getLayout } from '../../config'
+import { layoutOptions, getLayout, LayoutKeys } from '../../config'
 
 defineOptions({
   name: 'AppSetting'

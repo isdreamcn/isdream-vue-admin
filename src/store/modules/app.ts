@@ -1,8 +1,7 @@
-import type { StorageSetOptions } from '@/storage'
 import type { LayoutKeys } from '@/views/layout/config'
 import { computed } from 'vue'
 import { defineStore } from 'pinia'
-import db from '@/storage'
+import db, { StorageSetOptions } from '@/storage'
 import { mergeObjDeep } from '@/utils'
 import { useCssVariable, useDark } from '@/hooks'
 

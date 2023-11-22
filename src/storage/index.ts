@@ -1,7 +1,7 @@
-import { Storage } from './storage'
+import { createStorage } from './storage'
 import config from '@/config'
 
-export const db = new Storage(config.storageConfig)
+export const db = createStorage(window.localStorage, config.storageConfig)
 export default db
 
-export type { StorageType, StorageConfig, StorageSetOptions } from './types'
+export type * from './storage'

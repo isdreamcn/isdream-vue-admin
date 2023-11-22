@@ -45,7 +45,6 @@ const config: Readonly<AppConfig> = {
   },
   // storage
   storageConfig: {
-    type: 'localStorage',
     prefix: 'isdream',
     expires: 7 * 24 * 60 * 60 * 1000,
     version: 1
