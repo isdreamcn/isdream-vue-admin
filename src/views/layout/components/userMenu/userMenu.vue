@@ -16,9 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
 import { useUserStore } from '@/store'
-import config from '@/config'
 
 defineOptions({
   name: 'LayoutCpnUserMenu'
@@ -27,12 +25,8 @@ defineOptions({
 const userStore = useUserStore()
 const userInfo = userStore.userInfo
 
-const router = useRouter()
 const logout = () => {
   userStore.logout()
-  router.push({
-    name: config.routeLoginName
-  })
 }
 
 const errorHandler = () => {}

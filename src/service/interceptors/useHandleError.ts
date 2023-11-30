@@ -1,16 +1,11 @@
 import type { RequestInterceptors } from '../types'
 import { ElMessage } from 'element-plus'
 import { HttpStatusCode } from '@/constants'
-import db from '@/storage'
-import { appConfig } from '@/config'
-import router from '@/router'
+import { useUserStore } from '@/store'
 
 // 身份验证失败
 const failAuth = () => {
-  db.clear()
-  router.push({
-    name: appConfig.routeLoginName
-  })
+  useUserStore().logout()
 }
 interface FailHandler {
   message?: string
@@ -21,7 +16,6 @@ interface FailHandler {
 const failCodeMap = new Map<HttpStatusCode, FailHandler>([
   [HttpStatusCode.Unauthorized, { handler: failAuth }],
   [HttpStatusCode.Forbidden, { handler: failAuth }],
-  [HttpStatusCode.Not_Found, {}],
   [HttpStatusCode.Not_Found, { message: '404 (Not Found)' }],
   [
     HttpStatusCode.Internal_Server_Error,

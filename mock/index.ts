@@ -1,4 +1,4 @@
-//  mockProdServer.ts
+// mockProdServer.ts
 import { createProdMockServer } from 'vite-plugin-mock/es/createProdMockServer'
 import { loadFiles } from '@/utils'
 

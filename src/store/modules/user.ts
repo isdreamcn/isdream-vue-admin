@@ -112,7 +112,7 @@ export const useUserStore = defineStore('user', {
         return this.loginHandler(res.data).then(() => res)
       })
     },
-    // 退出登录
+    // 退出登录/身份验证失败
     logout() {
       db.removeKeys('token', 'userInfo', 'userPermissions', 'userMenu')
       this.setState({
@@ -128,6 +128,10 @@ export const useUserStore = defineStore('user', {
       routerStore.setState({
         keepAliveMap: new Map(),
         routeHistoryMap: new Map()
+      })
+
+      router.push({
+        name: appConfig.routeLoginName
       })
     },
     setState(state: Partial<UserState>, dbOptions?: StorageSetOptions) {
@@ -167,14 +171,13 @@ export const useUserStore = defineStore('user', {
           closeLoading: false
         })
         promise.then(() => {
-          router
-            .replace(location.hash ? location.hash.slice(1) : location.pathname)
-            .then(() => {
-              routerStore.setState({
-                loading: false,
-                closeLoading: true
-              })
+          const { hash, pathname } = window.location
+          router.replace(hash ? hash.slice(1) : pathname).then(() => {
+            routerStore.setState({
+              loading: false,
+              closeLoading: true
             })
+          })
         })
       })
     }
