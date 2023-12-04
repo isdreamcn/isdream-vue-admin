@@ -15,10 +15,6 @@ const useGuards = [
   useDocumentTitle
 ]
 
-const useGuard = (router: Router) => {
-  queueMicrotask(() =>
-    useGuards.forEach((useGuardItem) => useGuardItem(router))
-  )
+export const useRouterGuard = (router: Router) => {
+  useGuards.forEach((useGuardItem) => useGuardItem(router))
 }
-
-export default useGuard
