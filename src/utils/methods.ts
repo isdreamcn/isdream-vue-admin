@@ -12,13 +12,10 @@ export const composeFns = <T = any>(
   const length = fns.length
 
   return (payload) => {
-    let result = length ? fns[0](payload) : payload
-    if (pause && pause(result)) {
-      return result
-    }
+    let result = payload
     let index = 0
-    while (++index < length) {
-      result = fns[index](result)
+    while (index < length) {
+      result = fns[index++](result)
       if (pause && pause(result)) {
         return result
       }
