@@ -43,12 +43,24 @@ export const useUserList = (): MockUserLoginList[] => {
     {
       username: 'admin',
       password: '123456',
-      token: '123456789',
+      token: 'ud1Ow3F7ofBFiHd3mOj1OBCKL',
       user: {
         id: 1,
         username: 'admin'
       },
       permissions: ['tableSearch', 'test'],
+      // 路由
+      menus: []
+    },
+    {
+      username: 'test',
+      password: '123456',
+      token: 'uRP85yE5kBTtzBa2jTC4G5MtG',
+      user: {
+        id: 2,
+        username: 'test'
+      },
+      permissions: [],
       // 路由
       menus: [
         {

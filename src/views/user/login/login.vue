@@ -27,6 +27,8 @@
               没有账户?
               <a href="#" @click="toggleForm">注册</a>
             </p>
+            <div class="tip-item"><span>账号: admin</span> 密码: 123456</div>
+            <div class="tip-item"><span>账号: test</span> 密码: 123456</div>
           </form>
         </div>
       </div>

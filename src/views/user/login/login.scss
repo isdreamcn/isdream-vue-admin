@@ -95,6 +95,18 @@ section {
             color: #577eff;
           }
         }
+        .tip-item {
+          font-size: 14px;
+          color: #555;
+          margin-top: 5px;
+          span {
+            display: inline-block;
+            width: 85px;
+          }
+          &:first-child {
+            margin-top: 25px;
+          }
+        }
       }
     }
     .signupBx {
