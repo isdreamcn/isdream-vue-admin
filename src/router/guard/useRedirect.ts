@@ -8,12 +8,10 @@ export const useRedirect = (router: Router) => {
     if (to.name === appConfig.routeMainName) {
       return useRouteMainPath().value
     }
-    const route = routesHandler.getRouteByPath(to.path)
-    if (route?.children) {
-      const path = routesHandler.getNotChildRoute(route.children)?.path
-      if (path) {
-        return path
-      }
+
+    const path = routesHandler.getRouteByPath(to.path)?.redirectNode?.path
+    if (path) {
+      return path
     }
   })
 }

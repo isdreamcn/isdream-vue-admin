@@ -1,21 +1,20 @@
 import type { RouteRecordRaw } from 'vue-router'
 import { appConfig } from '@/config'
 import { loadFiles } from '@/utils'
-import { RoutesHandler } from '../utils'
 
 const loadRoutes = loadFiles<RouteRecordRaw>
 
-export const routesHandler = new RoutesHandler(
-  loadRoutes(import.meta.glob('./main/*.ts', { eager: true })),
-  appConfig.routesHandlerOptions
-)
+// 经过`useRoutesHandler`处理，动态添加到`router`上
+export const routes: RouteRecordRaw[] = [
+  ...loadRoutes(import.meta.glob('./main/*.ts', { eager: true }))
+]
 
-const routes: RouteRecordRaw[] = [
+// 基础路由、不受权限控制
+export const basicRoutes: RouteRecordRaw[] = [
   {
     path: '/',
     name: appConfig.routeMainName,
-    component: () => import('@/views/layout/layout.vue'),
-    children: routesHandler.originRoutes
+    component: () => import('@/views/layout/layout.vue')
   },
   {
     path: '/user',
@@ -33,5 +32,3 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/views/error/error404.vue')
   }
 ]
-
-export default routes

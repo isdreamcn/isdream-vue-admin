@@ -5,7 +5,7 @@
     separator="/"
   >
     <el-breadcrumb-item v-for="item in matched" :key="item.path">
-      <a @click="item.children ? goPath(item) : NOOP">
+      <a @click="goPath(item.path)">
         <MIcon
           v-if="appSetting.breadcrumb.icon && item.meta?.icon"
           :name="item.meta.icon"
@@ -17,12 +17,10 @@
 </template>
 
 <script setup lang="ts">
-import type { RouteMapItem } from '@/router'
 import { computed } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { RouteRecordRaw, useRoute, useRouter } from 'vue-router'
 import { appConfig } from '@/config'
 import { routesHandler } from '@/router'
-import { NOOP } from '@/utils'
 import { useAppSetting } from '@/store'
 
 defineOptions({
@@ -35,10 +33,10 @@ const route = useRoute()
 const matched = computed(() => {
   const path = route.matched[route.matched.length - 1].path
   let _route = routesHandler.getRouteByPath(path)
-  const _matched: RouteMapItem[] = []
+  const _matched: RouteRecordRaw[] = []
   while (_route) {
     _matched.unshift(_route)
-    _route = _route.parent
+    _route = _route.parentNode
   }
   return _matched.filter(
     (item) =>
@@ -47,11 +45,8 @@ const matched = computed(() => {
 })
 
 const router = useRouter()
-const goPath = (route: RouteMapItem) => {
-  let path = routesHandler.getNotChildRoute(route.children!)?.path
-  if (path) {
-    router.push(path)
-  }
+const goPath = (path: string) => {
+  router.push(path)
 }
 </script>
 

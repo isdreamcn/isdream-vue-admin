@@ -33,7 +33,6 @@ interface UserState {
   userPermissionMap: Map<string, boolean>
 }
 
-const $generatorMenu = appConfig.routesHandlerOptions.generatorMenu
 export const useUserStore = defineStore('user', {
   state: (): UserState => ({
     token: '',
@@ -49,6 +48,8 @@ export const useUserStore = defineStore('user', {
       this.token = db.get<string>('token') ?? this.token
       this.userInfo = db.get<UserInfo>('userInfo')
 
+      routesHandler.setupRoutes()
+
       if (!this.token) return
 
       this.reloadCurrentPage(
@@ -57,11 +58,6 @@ export const useUserStore = defineStore('user', {
     },
     // 设置用户菜单
     setUserMenu() {
-      if ($generatorMenu) {
-        routesHandler.setupGeneratorMenu()
-        return Promise.resolve()
-      }
-
       let http = getUserMenu
       const userMenu = db.get<UserMenu[]>('userMenu')
       if (appConfig.storeConfig.userMenuStorage && userMenu) {
@@ -69,6 +65,8 @@ export const useUserStore = defineStore('user', {
       }
 
       return http().then((res) => {
+        if (!res.data.length) return res
+
         if (appConfig.storeConfig.userMenuStorage && !userMenu) {
           db.set('userMenu', res.data)
         }
@@ -95,6 +93,8 @@ export const useUserStore = defineStore('user', {
       })
     },
     async loginHandler(data: { token: string; user: UserInfo }) {
+      routesHandler.setupRoutes()
+
       this.setToken(data.token, {
         expires: appConfig.serviceTokenConfig.expires
       })
