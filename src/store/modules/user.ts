@@ -107,10 +107,10 @@ export const useUserStore = defineStore('user', {
       })
     },
     // 登录
-    login(params: UserLoginParams) {
-      return userLogin(params).then((res) => {
-        return this.loginHandler(res.data).then(() => res)
-      })
+    async login(params: UserLoginParams) {
+      const res = await userLogin(params)
+      await this.loginHandler(res.data)
+      return res
     },
     // 退出登录/身份验证失败
     logout() {
@@ -163,22 +163,21 @@ export const useUserStore = defineStore('user', {
       return !!this.userPermissionMap.get(permission)
     },
     // 重载当前页
-    reloadCurrentPage(promise: Promise<any>) {
-      setTimeout(() => {
-        const routerStore = useRouterStore()
-        routerStore.setState({
-          loading: true,
-          closeLoading: false
-        })
-        promise.then(() => {
-          const { hash, pathname } = window.location
-          router.replace(hash ? hash.slice(1) : pathname).then(() => {
-            routerStore.setState({
-              loading: false,
-              closeLoading: true
-            })
-          })
-        })
+    async reloadCurrentPage(promise: Promise<any>) {
+      const routerStore = useRouterStore()
+      routerStore.setState({
+        loading: true,
+        closeLoading: false
+      })
+
+      await promise
+
+      const { hash, pathname } = window.location
+      await router.replace(hash ? hash.slice(1) : pathname)
+
+      routerStore.setState({
+        loading: false,
+        closeLoading: true
       })
     }
   }
