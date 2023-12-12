@@ -1,4 +1,4 @@
-import type { RequestInterceptors } from '../types'
+import type { ServiceInterceptors } from '../service'
 import { useUserStore } from '@/store'
 
 type ServiceTokenPosition = 'headers' | 'params' | 'data'
@@ -12,7 +12,7 @@ export interface ServiceTokenConfig {
 
 export const useSetupToken = (
   appConfig: ServiceTokenConfig
-): RequestInterceptors => {
+): ServiceInterceptors => {
   const { position, key, value } = appConfig
   return {
     requestInterceptor(config) {

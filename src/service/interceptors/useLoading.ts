@@ -1,4 +1,4 @@
-import type { RequestInterceptors } from '../types'
+import type { ServiceInterceptors } from '../service'
 import { watch } from 'vue'
 import { useRouterStore } from '@/store'
 
@@ -48,7 +48,7 @@ const useLoadingShowHidden = () => {
   }
 }
 
-export const useLoading = (): RequestInterceptors => {
+export const useLoading = (): ServiceInterceptors => {
   return {
     requestInterceptor(config) {
       const { showLoading } = useLoadingShowHidden()
@@ -60,10 +60,10 @@ export const useLoading = (): RequestInterceptors => {
       hiddenLoading(res.config.url)
       return res
     },
-    responseInterceptorCatch(error) {
+    responseInterceptorCatch(err) {
       const { hiddenLoading } = useLoadingShowHidden()
-      hiddenLoading(error.config.url)
-      return error
+      hiddenLoading(err.response.config.url)
+      return Promise.reject(err)
     }
   }
 }
