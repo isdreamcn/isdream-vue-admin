@@ -14,9 +14,9 @@ export const useSetupToken = (
   appConfig: ServiceTokenConfig
 ): ServiceInterceptors => {
   const { position, key, value } = appConfig
+  const userStore = useUserStore()
   return {
     requestInterceptor(config) {
-      const userStore = useUserStore()
       if (!userStore.token) {
         return config
       }

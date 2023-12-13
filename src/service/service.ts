@@ -11,35 +11,28 @@ export interface ServiceInterceptors<T = any> {
   responseInterceptorCatch?: onRejected
 }
 
-export interface ServiceConfig<T = any> {
-  interceptors?: ServiceInterceptors<T>[]
-}
+// export interface ServiceConfig {}
 
-export const useService = (
-  axiosConfig?: AxiosRequestConfig,
-  config?: ServiceConfig
+export const createService = (
+  axiosConfig?: AxiosRequestConfig
+  // config?: ServiceConfig
 ) => {
   // 创建实例
   const instance = axios.create(axiosConfig)
 
   // 使用拦截器
-  config?.interceptors?.forEach(
-    ({
-      requestInterceptor,
-      requestInterceptorCatch,
-      responseInterceptor,
-      responseInterceptorCatch
-    }) => {
+  const useInterceptors = (data: ServiceInterceptors[]) => {
+    data.forEach((item) => {
       instance.interceptors.request.use(
-        requestInterceptor,
-        requestInterceptorCatch
+        item.requestInterceptor,
+        item.requestInterceptorCatch
       )
       instance.interceptors.response.use(
-        responseInterceptor,
-        responseInterceptorCatch
+        item.responseInterceptor,
+        item.responseInterceptorCatch
       )
-    }
-  )
+    })
+  }
 
   /**
    * 函数说明
@@ -59,6 +52,8 @@ export const useService = (
   }
 
   return {
-    request
+    instance,
+    request,
+    useInterceptors
   }
 }
