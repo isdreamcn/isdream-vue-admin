@@ -31,7 +31,7 @@ const collapsed = computed(() => appStore.appSetting.menu.collapsed)
 const mode = computed(() => appStore.appSetting.menu.mode)
 
 const userStore = useUserStore()
-const menu = userStore.userMenu || []
+const menu = computed(() => userStore.userMenu || [])
 
 const clickMenuItem = (item: UserMenu) => {
   if (item.link) {
