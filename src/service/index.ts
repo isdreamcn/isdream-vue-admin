@@ -12,14 +12,17 @@ export const mockService = createService({
 })
 
 export const useServiceInterceptors = () => {
+  // 共同控制loading
+  const loading = useLoading()
+
   service.useInterceptors([
     useSetupToken(config.serviceTokenConfig),
-    useLoading(),
+    loading,
     useHandleError()
   ])
   mockService.useInterceptors([
     useSetupToken(config.serviceTokenConfig),
-    useLoading(),
+    loading,
     useHandleError()
   ])
 }
