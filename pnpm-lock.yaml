@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   '@element-plus/icons-vue':
     specifier: ^2.1.0
@@ -44,8 +48,8 @@ dependencies:
     specifier: ^3.0.10
     version: 3.0.10(vue@3.2.47)
   vditor:
-    specifier: ^3.9.2
-    version: 3.9.2
+    specifier: 3.9.6
+    version: 3.9.6
   vue:
     specifier: ^3.2.47
     version: 3.2.47
@@ -5404,8 +5408,8 @@ packages:
       spdx-expression-parse: 3.0.1
     dev: true
 
-  /vditor@3.9.2:
-    resolution: {integrity: sha512-Uei2HV1WACPE82FRkYLo3ys5E3KR7ucYgbMQNR8t33f2QxZMjwR6e5S/zoXccc9ru6ZWGi35DJE5vEW29hD4lQ==}
+  /vditor@3.9.6:
+    resolution: {integrity: sha512-97sPNHnBpfEFnk5WARCpmdKxgUiPtp0/fPLAUmzZ+axFFf7kExWHRNIUO7OTQzEUMJP/rcXESQTlYGhgKYrsOQ==}
     dependencies:
       diff-match-patch: 1.0.5
     dev: false

@@ -13,7 +13,7 @@ import { toolbar } from './vditor/vditor'
 import { markdownProps, markdownEmits } from './markdown'
 import { watch, onMounted, onBeforeUnmount } from 'vue'
 import { uniqueId, setBaseUrlFile, removeBaseUrlFile } from '@/utils'
-import { useVditorTheme, useVditorUpload } from './hooks'
+import { useVditorTheme, useVditorUpload, useVditorCDN } from './hooks'
 
 defineOptions({
   name: 'MMarkDown'
@@ -60,8 +60,10 @@ if (!props.upload) {
   _toolbar = toolbar.filter((item) => item !== 'upload')
 }
 
+const vditorCDN = useVditorCDN()
 const init = () => {
   vditor = new Vditor(vditorId, {
+    cdn: vditorCDN.cdn,
     // 设置外观主题
     theme: vditorTheme.theme.value,
     lang: 'zh_CN',
@@ -70,7 +72,8 @@ const init = () => {
     preview: {
       theme: {
         // 设置内容主题
-        current: vditorTheme.content.value
+        current: vditorTheme.content.value,
+        path: vditorCDN.themePath
       },
       hljs: {
         // 设置代码块主题
@@ -78,6 +81,9 @@ const init = () => {
         lineNumber: true
       },
       actions: []
+    },
+    hint: {
+      emojiPath: vditorCDN.emojiPath
     },
     cache: {
       enable: false
