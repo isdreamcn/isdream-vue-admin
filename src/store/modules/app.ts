@@ -1,4 +1,4 @@
-import type { LayoutKeys } from '@/views/layout/config'
+import type { LayoutKey } from '@/views/layout/config'
 import { computed } from 'vue'
 import { defineStore } from 'pinia'
 import db, { StorageSetOptions } from '@/storage'
@@ -9,7 +9,7 @@ type Theme = 'light' | 'dark'
 
 export interface AppSetting {
   colorPrimary: string
-  layout: LayoutKeys
+  layout: LayoutKey
   showLogo: boolean
   menu: {
     // 折叠

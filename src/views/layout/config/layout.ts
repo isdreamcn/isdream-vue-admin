@@ -1,7 +1,5 @@
-import type { Component } from 'vue'
-import type { AppSettingPartial } from '@/store/index'
-import mainLayout from '../mainLayout/mainLayout.vue'
-import topMenuLayout from '../topMenuLayout/topMenuLayout.vue'
+import type { AppSettingPartial } from '@/store'
+import { Component, defineAsyncComponent } from 'vue'
 
 export interface LayoutFunctionItem {
   label: string
@@ -16,18 +14,20 @@ export interface LayoutMapItem {
   functions: LayoutFunctionItem[]
 }
 
-export type LayoutKeys = 'mainLayout' | 'topMenuLayout'
+export type LayoutKey = 'mainLayout' | 'topMenuLayout'
 
-export interface layoutOption {
+export interface LayoutOption {
   label: string
-  value: LayoutKeys
+  value: LayoutKey
 }
 
-export const layoutMap = new Map<LayoutKeys, LayoutMapItem>([
+export const layoutMap = new Map<LayoutKey, LayoutMapItem>([
   [
     'mainLayout',
     {
-      component: mainLayout,
+      component: defineAsyncComponent(
+        () => import('../mainLayout/mainLayout.vue')
+      ),
       label: '左侧菜单',
       appSetting: {
         menu: {
@@ -69,7 +69,9 @@ export const layoutMap = new Map<LayoutKeys, LayoutMapItem>([
   [
     'topMenuLayout',
     {
-      component: topMenuLayout,
+      component: defineAsyncComponent(
+        () => import('../topMenuLayout/topMenuLayout.vue')
+      ),
       label: '顶部菜单',
       appSetting: {
         menu: {
@@ -107,14 +109,13 @@ export const layoutMap = new Map<LayoutKeys, LayoutMapItem>([
   ]
 ])
 
-export const layoutOptions: layoutOption[] = []
-layoutMap.forEach((item, key) => {
-  layoutOptions.push({
+export const layoutOptions: LayoutOption[] = [...layoutMap.entries()].map(
+  ([key, item]) => ({
     label: item.label,
     value: key
   })
-})
+)
 
-export const getLayout = (key: LayoutKeys) => {
+export const getLayout = (key: LayoutKey) => {
   return layoutMap.get(key)
 }

@@ -1,9 +1,9 @@
 <template>
   <div class="app-setting-container">
-    <m-icon name="icon-setting" @click="updateDrawer(true)"></m-icon>
+    <m-icon name="icon-setting" @click="drawerVisible = true"></m-icon>
     <el-drawer
       ref="drawerRef"
-      v-model="drawer"
+      v-model="drawerVisible"
       size="25%"
       title="项目配置"
       append-to-body
@@ -75,38 +75,23 @@
 </template>
 
 <script setup lang="ts">
-import type { ElDrawer } from 'element-plus'
 import { ref, computed } from 'vue'
-import { useRouter } from 'vue-router'
 import { ElMessageBox } from 'element-plus'
-import { useAppStore } from '@/store'
+import { useAppStore, useUserStore } from '@/store'
 import { getVal, generateObj } from '@/utils'
 import db from '@/storage'
-import { appConfig } from '@/config'
-import { ToggleDark } from '../index'
-import { layoutOptions, getLayout, LayoutKeys } from '../../config'
+import ToggleDark from '../toggleDark/toggleDark.vue'
+import { layoutOptions, getLayout, LayoutKey } from '../../config'
 
 defineOptions({
   name: 'AppSetting'
 })
 
-// const drawerRef = ref<InstanceType<typeof ElDrawer>>()
-
-// 取消 el-drawer 懒加载
-// nextTick(() => {
-//   if (drawerRef.value) {
-//     drawerRef.value.rendered = true
-//   }
-// })
-
-// 显示隐藏
-const drawer = ref(false)
-const updateDrawer = (val: boolean) => {
-  drawer.value = val
-}
+// 显示/隐藏
+const drawerVisible = ref(false)
 
 const appStore = useAppStore()
-// layout
+// 当前布局
 const layout = computed({
   get: () => appStore.appSetting.layout,
   set: (val) => {
@@ -116,7 +101,8 @@ const layout = computed({
   }
 })
 
-const layoutChange = (key: LayoutKeys) => {
+// 修改布局
+const layoutChange = (key: LayoutKey) => {
   layout.value = key
   const appSetting = getLayout(key)?.appSetting
   if (appSetting) {
@@ -124,6 +110,7 @@ const layoutChange = (key: LayoutKeys) => {
   }
 }
 
+// 功能
 const functions = computed(() => getLayout(layout.value)?.functions || [])
 const getAppSetting = (key: string) => {
   return getVal(appStore.appSetting, key)
@@ -132,7 +119,7 @@ const setAppSetting = (key: string, val: any) => {
   appStore.setAppSetting(generateObj(key, val))
 }
 
-// actions
+// 操作
 const copy = () => {
   navigator.clipboard
     .writeText(JSON.stringify(appStore.appSetting, null, 2))
@@ -160,12 +147,9 @@ const reset = () => {
   appStore.resetAppSetting()
 }
 
-const router = useRouter()
 const clearCache = () => {
   db.clear()
-  router.push({
-    name: appConfig.routeLoginName
-  })
+  useUserStore().logout()
 }
 </script>
 
