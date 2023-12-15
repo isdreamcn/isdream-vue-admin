@@ -1,4 +1,3 @@
-import 'element-plus/es/components/message/style/css'
 import { AppUsePlugin } from '../types'
 
 import * as components from './components'

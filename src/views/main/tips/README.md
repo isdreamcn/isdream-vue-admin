@@ -9,3 +9,11 @@
 **新问题**：在`components/*`增加全局组件，**没有该组件的类型声明**、也就不会对 props 进行类型校验
 
 **解决**：**新增的组件第一次使用后，手动进行一次`pnpm run build`**
+
+## unplugin-auto-import/vite
+
+**问题**: `unplugin-auto-import/vite`无法自动导入某些组件
+
+**原因**: `@/components/form/src/form.vue` 使用 `<component :is="props.fields.tag"></component>`进行组件渲染
+
+**解决**: `props.fields.tag` 里使用的组件需要在 `@/plugins/components/components` 进行导出，进而全局注册
