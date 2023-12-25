@@ -109,6 +109,14 @@ export default {
       },
       component: () =>
         import('@/views/main/components/searchTree/searchTree.vue')
+    },
+    {
+      path: 'treeSelect',
+      meta: {
+        title: 'treeSelect(下拉树)'
+      },
+      component: () =>
+        import('@/views/main/components/treeSelect/treeSelect.vue')
     }
   ]
 } as RouteRecordRaw
