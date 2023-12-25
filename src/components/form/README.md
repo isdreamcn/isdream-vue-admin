@@ -6,34 +6,34 @@
 
 ### Form 属性
 
-| 属性名     | 说明               | 类型             | 预设值 |
-| ---------- | ------------------ | ---------------- | ------ |
-| **fields**     | 表单字段配置       | **FormField[]** | --     |
-| modelValue | `v-model`          | `object`         | --     |
-| labelWidth | 标签所占宽度, `inline: true` 时忽略       | `number\|string` | auto   |
-| colAttrs   | el-col 属性, `inline: true` 时忽略        | `number\|object` | 6      |
-| disabled   | 是否禁用该表单内的所有组件, 隐藏默认按钮(`slot`依然可用)。如果设置为 true, 它将覆盖内部组件的 disabled 属性  | `boolean` | false |
-| inline     | 按钮放入 col       | `boolean`        | true   |
-| loading    | 提交按钮是否加载中 | `boolean`        | true   |
-| submitText | 提交按钮文字       | `string`         | --     |
-| cancelText | 取消按钮文字       | `string`         | --     |
-| submitIcon | 提交按钮图标       | `string\|false`  | --     |
-| cancelIcon | 取消按钮图标       | `string\|false`  | --     |
+| 属性名     | 说明                                                                                                        | 类型             | 预设值 |
+| ---------- | ----------------------------------------------------------------------------------------------------------- | ---------------- | ------ |
+| **fields** | 表单字段配置                                                                                                | **FormField[]**  | --     |
+| modelValue | `v-model`                                                                                                   | `object`         | --     |
+| labelWidth | 标签所占宽度, `inline: true` 时忽略                                                                         | `number\|string` | auto   |
+| colAttrs   | el-col 属性, `inline: true` 时忽略                                                                          | `number\|object` | 6      |
+| disabled   | 是否禁用该表单内的所有组件, 隐藏默认按钮(`slot`依然可用)。如果设置为 true, 它将覆盖内部组件的 disabled 属性 | `boolean`        | false  |
+| inline     | 按钮放入 col                                                                                                | `boolean`        | true   |
+| loading    | 提交按钮是否加载中                                                                                          | `boolean`        | true   |
+| submitText | 提交按钮文字                                                                                                | `string`         | --     |
+| cancelText | 取消按钮文字                                                                                                | `string`         | --     |
+| submitIcon | 提交按钮图标                                                                                                | `string\|false`  | --     |
+| cancelIcon | 取消按钮图标                                                                                                | `string\|false`  | --     |
 
 #### Form-fields (FormField)
 
-| 属性名        | 说明                              | 类型                                            | 预设值 |
-| ------------- | --------------------------------- | ----------------------------------------------- | ------ |
-| tag           | 渲染的组件类型， 需要支持 v-model | `Component\|string`                             | --     |
-| key           | 唯一值                            | `string`                                        | --     |
-| label         | 标签                              | `string`                                        | --     |
-| show          | 是否显示                          | `boolean`                                       | true   |
-| slot          | 是否使用具名插槽，name 为`key`    | `boolean`                                       | false  |
-| **attrs**         | 绑定在 tag 上的属性               | `object` | --     |
-| on            | 绑定在 tag 上的事件               | `object`                                        | --     |
-| colAttrs      | el-col 属性                       | `number\|object`                                | --     |
-| required      | 是否必填                          | `boolean`                                       | false  |
-| validateRules | 校验规则 FormItem rules           | el `FormItemRule[]`                             | --     |
+| 属性名        | 说明                              | 类型                | 预设值 |
+| ------------- | --------------------------------- | ------------------- | ------ |
+| tag           | 渲染的组件类型， 需要支持 v-model | `Component\|string` | --     |
+| key           | 唯一值                            | `string`            | --     |
+| label         | 标签                              | `string`            | --     |
+| show          | 是否显示                          | `boolean`           | true   |
+| slot          | 是否使用具名插槽，name 为`key`    | `boolean`           | false  |
+| **attrs**     | 绑定在 tag 上的属性               | `object`            | --     |
+| on            | 绑定在 tag 上的事件               | `object`            | --     |
+| colAttrs      | el-col 属性                       | `number\|object`    | --     |
+| required      | 是否必填                          | `boolean`           | false  |
+| validateRules | 校验规则 FormItem rules           | el `FormItemRule[]` | --     |
 
 #### Form-fields-attrs-oprions (FormFieldOption)
 

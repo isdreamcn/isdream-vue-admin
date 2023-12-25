@@ -1,5 +1,5 @@
-@mixin m-menu-theme($set-bg-color:false) {
-  @if($set-bg-color) {
+@mixin m-menu-theme($set-bg-color: false) {
+  @if ($set-bg-color) {
     background-color: var(--el-menu-bg-color);
   }
   color: var(--el-menu-text-color);
