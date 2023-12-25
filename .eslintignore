@@ -1,5 +1,6 @@
-# see https://git-scm.com/docs/gitignore
 node_modules
-pnpm-lock.yaml
 public
 dist
+
+pnpm-lock.yaml
+stats.html

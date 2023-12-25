@@ -6,11 +6,13 @@
   "license": "MIT",
   "scripts": {
     "dev": "vite --mode dev",
-    "build": "vite build --mode prod",
+    "dev:prod": "vite --mode prod",
+    "build": "vite build --mode dev",
+    "build:prod": "vite build --mode prod",
     "preview": "vite preview",
     "type-check": "vue-tsc",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
-    "format": "prettier --write src/",
+    "format": "prettier --write .",
     "commit": "cz",
     "prepare": "husky install",
     "preinstall": "node ./scripts/preinstall.js"
