@@ -101,6 +101,14 @@ export default {
         title: 'loading'
       },
       component: () => import('@/views/main/components/loading/loading.vue')
+    },
+    {
+      path: 'searchTree',
+      meta: {
+        title: 'searchTree(可搜索树)'
+      },
+      component: () =>
+        import('@/views/main/components/searchTree/searchTree.vue')
     }
   ]
 } as RouteRecordRaw

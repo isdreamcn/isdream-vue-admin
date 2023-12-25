@@ -1,4 +1,4 @@
-import { isArray, isObject, hasOwn } from './plugins'
+import { isArray, isObject, hasOwn, cloneDeep } from './plugins'
 
 interface MergeObjOptions {
   deep: boolean
@@ -93,4 +93,27 @@ export const generateObj = (key: string, val: any) => {
   })
 
   return o
+}
+
+/*
+ 修改对象的key
+*/
+export const updateObjKeys = <T extends object = object>(
+  obj: T,
+  keys: Record<string, string>,
+  childKey: string | false = false
+) => {
+  const _o = cloneDeep(obj)
+  const fn = (o: any) => {
+    if (isArray(o)) {
+      o.forEach((item) => fn(item))
+    } else if (isObject(o)) {
+      Object.entries(keys).forEach(([newKey, oldKey]) => {
+        o[newKey] = o[oldKey]
+        childKey && fn(o[childKey])
+      })
+    }
+  }
+  fn(_o)
+  return _o
 }
