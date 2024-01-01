@@ -28,12 +28,7 @@ let vditor: Nullable<Vditor> = null
 // v-model
 let vditorContent = ''
 const setVditorContent = (content: string) => {
-  vditorContent = removeBaseUrlFile(content)
-  emit('update:modelValue', vditorContent)
-  emit('change', vditorContent)
-
-  if (!vditor) return
-  vditor.setValue(setBaseUrlFile(content))
+  vditor?.setValue(setBaseUrlFile(content))
 }
 
 watch(
@@ -52,7 +47,7 @@ watch(vditorTheme.theme, () => {
 
 // 上传图片
 const { vditorUploadOptions } = useVditorUpload(props, (val) => {
-  setVditorContent(vditorContent + val)
+  vditor?.insertValue(val)
 })
 
 let _toolbar = toolbar
@@ -91,7 +86,9 @@ const init = () => {
     ...props.options,
     ...vditorUploadOptions,
     input: (v) => {
-      setVditorContent(v)
+      vditorContent = removeBaseUrlFile(v)
+      emit('update:modelValue', vditorContent)
+      emit('change', vditorContent)
     },
     after: () => {
       // vditor.value is a instance of Vditor now and thus can be safely used here
