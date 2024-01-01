@@ -5,6 +5,7 @@ import { useRouterStore } from '@/store'
 export const useKeepAlive = (router: Router) => {
   const routerStore = useRouterStore()
   router.afterEach((to) => {
+    if (to.meta.hiddenInMenu) return
     if (to.meta.keepAlive ?? appConfig.defaultRouteMeta.keepAlive) {
       const matched = to.matched
       const len = matched.length - 1
