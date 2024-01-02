@@ -103,13 +103,8 @@ export const useUserList = (): MockUserLoginList[] => {
         },
         {
           id: 7,
-          path: '/system',
-          children: [
-            {
-              id: 8,
-              path: '/system/user'
-            }
-          ]
+          icon: 'icon-user',
+          path: '/example/user'
         }
       ]
     }

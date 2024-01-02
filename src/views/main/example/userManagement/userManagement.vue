@@ -52,7 +52,7 @@ import {
 } from '@/api/test'
 
 defineOptions({
-  name: 'SystemUser'
+  name: 'ExampleUserManagement'
 })
 
 // 搜索
