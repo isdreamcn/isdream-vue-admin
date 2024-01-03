@@ -9,7 +9,7 @@
     <MForm
       :fields="props.fields"
       :disabled="props.disabled"
-      :model-value="formData"
+      v-model="formData"
       :inline="false"
       :col-attrs="24"
       :loading="loading"

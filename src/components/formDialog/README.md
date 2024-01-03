@@ -11,7 +11,7 @@
 | **fields**    | 表单字段配置                                | **FormField[]**                                        | --     |
 | modelValue    | `v-model` dialog 显示隐藏                   | `boolean`                                              | false  |
 | id            | 0 为新增，其他为编辑                        | `number`                                               | 0      |
-| value         | form 默认值                                 | `object`                                               | --     |
+| value         | form 值为 `Object.assign({}, 'form原值', 'value')`      | `object`                                               | --     |
 | disabled      | form 是否禁用表单内的所有组件，隐藏默认按钮 | `boolean`                                              | false  |
 | disabledTitle | `disabled`为`true`时, dialog 标题           | `string`                                               | 查看   |
 | addTitle      | 新增时，dialog 标题                         | `string`                                               | 新增   |
