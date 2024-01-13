@@ -18,10 +18,6 @@
 <script setup lang="ts">
 import { useUserStore } from '@/store'
 
-defineOptions({
-  name: 'LayoutCpnUserMenu'
-})
-
 const userStore = useUserStore()
 const userInfo = userStore.userInfo
 

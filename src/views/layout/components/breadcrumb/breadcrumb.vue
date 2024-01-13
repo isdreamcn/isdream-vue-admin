@@ -23,10 +23,6 @@ import { appConfig } from '@/config'
 import { routesHandler } from '@/router'
 import { useAppSetting } from '@/store'
 
-defineOptions({
-  name: 'LayoutCpnBreadcrumb'
-})
-
 const { appSetting } = useAppSetting()
 
 const route = useRoute()

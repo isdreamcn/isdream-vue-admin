@@ -23,13 +23,8 @@
 
 <script setup lang="ts">
 import readme from '@/components/form/README.md?raw'
-
 import { ref } from 'vue'
 import { fields } from './config'
-
-defineOptions({
-  name: 'DemoCpnsMForm'
-})
 
 const modelValue = ref({
   name: 'demo'

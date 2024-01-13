@@ -24,10 +24,6 @@ import { randomNum } from '@/utils'
 import { appConfig } from '@/config'
 import data404 from '@/assets/lottie/not-found-404.json'
 
-defineOptions({
-  name: 'Error404'
-})
-
 const tips = [
   '我们怎么到这来了？',
   '看起来我们进入了错误的链接',

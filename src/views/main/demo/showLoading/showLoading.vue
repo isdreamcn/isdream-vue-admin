@@ -9,10 +9,6 @@
 import { getDemoUserList } from '@/api/demo/user'
 import { demoErrorNotFount } from '@/api/demo/error'
 
-defineOptions({
-  name: 'DemoShowLoading'
-})
-
 getDemoUserList().then((res) => {
   console.log(res, 'getDemoUserList')
 })

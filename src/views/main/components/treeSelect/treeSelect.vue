@@ -19,10 +19,6 @@
 import readme from '@/components/treeSelect/README.md?raw'
 import { ref } from 'vue'
 
-defineOptions({
-  name: 'DemoCpnsMTreeSelect'
-})
-
 const moduleValue1 = ref(4)
 const moduleValue2 = ref([4])
 

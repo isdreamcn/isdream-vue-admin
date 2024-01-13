@@ -16,10 +16,6 @@ import { useRoute, useRouter } from 'vue-router'
 import { useUserStore, useAppStore } from '@/store'
 import SubMenu from './subMenu.vue'
 
-defineOptions({
-  name: 'LayoutCpnMenu'
-})
-
 const router = useRouter()
 const route = useRoute()
 const routePath = computed<string | undefined>(

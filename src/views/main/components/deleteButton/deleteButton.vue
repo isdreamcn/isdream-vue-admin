@@ -18,10 +18,6 @@
 import readme from '@/components/deleteButton/README.md?raw'
 import { demoUserDel } from '@/api/demo/user'
 
-defineOptions({
-  name: 'DemoCpnsDeleteButton'
-})
-
 const selectKeys = [1]
 
 const reload = () => {

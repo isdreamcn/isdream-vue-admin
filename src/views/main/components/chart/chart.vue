@@ -12,10 +12,6 @@ import readme from '@/components/chart/README.md?raw'
 import type { ChartOptions } from '@/components'
 import { ref } from 'vue'
 
-defineOptions({
-  name: 'DemoCpnsMChart'
-})
-
 const options = ref<ChartOptions>({
   title: {
     text: 'ECharts 入门示例'

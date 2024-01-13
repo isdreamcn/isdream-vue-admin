@@ -37,10 +37,6 @@ import {
   RouteHistory,
   Footer
 } from '../components'
-
-defineOptions({
-  name: 'TopMenuLayout'
-})
 </script>
 
 <style scoped lang="scss">

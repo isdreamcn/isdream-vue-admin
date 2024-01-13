@@ -10,10 +10,6 @@ import { useAppStore } from '@/store'
 import { getLayout, layoutOptions } from './config'
 import { createBasicLayout } from './index'
 
-defineOptions({
-  name: 'MLayout'
-})
-
 const appStore = useAppStore()
 
 if (!getLayout(appStore.appSetting.layout)) {

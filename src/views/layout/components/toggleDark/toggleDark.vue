@@ -8,10 +8,6 @@
 <script lang="ts" setup>
 import { useDark } from '@/hooks'
 const { isDark, toggleDark } = useDark()
-
-defineOptions({
-  name: 'LayoutCpnToggleDark'
-})
 </script>
 
 <style lang="scss" scoped>

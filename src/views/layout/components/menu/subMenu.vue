@@ -20,9 +20,6 @@
 <script setup lang="ts">
 import type { UserMenu } from '@/store'
 import { definePropType } from '@/utils'
-defineOptions({
-  name: 'LayoutCpnSubMenu'
-})
 
 const props = defineProps({
   menu: {

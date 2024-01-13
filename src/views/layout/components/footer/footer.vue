@@ -12,10 +12,6 @@
 <script setup lang="ts">
 import { useAppSetting } from '@/store'
 
-defineOptions({
-  name: 'LayoutCpnFooter'
-})
-
 const { appSetting } = useAppSetting()
 </script>
 

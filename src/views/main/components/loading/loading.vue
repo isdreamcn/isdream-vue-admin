@@ -20,10 +20,6 @@
 import readme from '@/components/loading/README.md?raw'
 import { ref } from 'vue'
 
-defineOptions({
-  name: 'DemoCpnsLoading'
-})
-
 const loading = ref(true)
 const setLoading = () => {
   loading.value = !loading.value

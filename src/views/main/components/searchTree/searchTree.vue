@@ -28,10 +28,6 @@
 import readme from '@/components/searchTree/README.md?raw'
 import { ref } from 'vue'
 
-defineOptions({
-  name: 'DemoCpnsMSearchTree'
-})
-
 const modelValue1 = ref(4)
 const modelValue2 = ref([4])
 

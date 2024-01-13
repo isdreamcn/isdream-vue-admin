@@ -9,10 +9,6 @@
 import { ref } from 'vue'
 import readme from '@/components/markdown/README.md?raw'
 
-defineOptions({
-  name: 'DemoCpnsMMarkdown'
-})
-
 const content = ref(readme)
 </script>
 

@@ -22,10 +22,6 @@
 
 <script setup lang="ts">
 import readme from '@/components/icon/README.md?raw'
-
-defineOptions({
-  name: 'DemoCpnsIcon'
-})
 </script>
 
 <style lang="scss" scoped>

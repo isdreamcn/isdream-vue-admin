@@ -2,10 +2,6 @@
   <div>Menu2</div>
 </template>
 
-<script setup lang="ts">
-defineOptions({
-  name: 'Menu2'
-})
-</script>
+<script setup lang="ts"></script>
 
 <style lang="scss" scoped></style>

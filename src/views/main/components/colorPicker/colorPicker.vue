@@ -11,10 +11,6 @@
 import { ref } from 'vue'
 import readme from '@/components/colorPicker/README.md?raw'
 
-defineOptions({
-  name: 'DemoCpnsMColorPicker'
-})
-
 const color = ref('#1890FF')
 const colorOptions = [
   {

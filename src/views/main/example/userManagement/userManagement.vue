@@ -51,10 +51,6 @@ import {
   testDetails
 } from '@/api/test'
 
-defineOptions({
-  name: 'ExampleUserManagement'
-})
-
 // 搜索
 const params = ref<any>({})
 const search = (data: any) => {

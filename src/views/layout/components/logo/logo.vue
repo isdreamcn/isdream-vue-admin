@@ -8,10 +8,6 @@
 <script setup lang="ts">
 import { useAppSetting } from '@/store'
 
-defineOptions({
-  name: 'LayoutCpnMenuLogo'
-})
-
 const { appSetting } = useAppSetting()
 </script>
 

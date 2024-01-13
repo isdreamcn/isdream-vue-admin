@@ -80,13 +80,8 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import config from '@/config'
-
 import { useLogin } from './hooks/useLogin'
 import { useSignin } from './hooks/useSignin'
-defineOptions({
-  name: config.routeLoginName
-})
 
 const active = ref(false)
 const toggleForm = () => {

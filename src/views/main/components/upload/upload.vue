@@ -9,13 +9,8 @@
 
 <script setup lang="ts">
 import readme from '@/components/upload/README.md?raw'
-
 import type { UploadFile } from '@/components'
 import { ref } from 'vue'
-
-defineOptions({
-  name: 'DemoCpnsMUpload'
-})
 
 const fileList = ref<UploadFile[]>([
   {

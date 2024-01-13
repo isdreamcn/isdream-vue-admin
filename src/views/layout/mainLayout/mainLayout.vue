@@ -49,10 +49,6 @@ import {
   RouteHistory,
   Footer
 } from '../components'
-
-defineOptions({
-  name: 'MainLayout'
-})
 </script>
 
 <style scoped lang="scss">

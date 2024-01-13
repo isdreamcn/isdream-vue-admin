@@ -36,14 +36,9 @@
 
 <script setup lang="ts">
 import readme from '@/components/table/README.md?raw'
-
 import { ref, reactive } from 'vue'
 import { tableColumns } from './config'
 import { getDemoUserList } from '@/api/demo/user'
-
-defineOptions({
-  name: 'DemoCpnsMTable'
-})
 
 const isReload = ref(true)
 const searchBtnPermission = ref('tableReset')

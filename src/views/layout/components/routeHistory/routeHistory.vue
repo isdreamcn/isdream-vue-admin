@@ -47,10 +47,6 @@ import { computed, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useRouterStore, useAppSetting } from '@/store'
 
-defineOptions({
-  name: 'LayoutCpnRouteHistory'
-})
-
 const { appSetting } = useAppSetting()
 const routerStore = useRouterStore()
 const routeHistory = computed(() => routerStore.routeHistory)

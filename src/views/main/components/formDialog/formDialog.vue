@@ -27,10 +27,6 @@ import { fields } from './config'
 import { demoUserAdd, demoUserEdit, demoUserDetails } from '@/api/demo/user'
 import readme from '@/components/formDialog/README.md?raw'
 
-defineOptions({
-  name: 'DemoCpnsMFormDialog'
-})
-
 const formDialog = reactive({
   visible: false,
   disabled: false,

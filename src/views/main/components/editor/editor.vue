@@ -14,10 +14,6 @@
 import readme from '@/components/editor/README.md?raw'
 import { ref } from 'vue'
 
-defineOptions({
-  name: 'DemoCpnsMEditor'
-})
-
 const content = ref('123')
 const setContent = () => {
   content.value += 'abc'

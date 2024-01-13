@@ -17,10 +17,6 @@
 import { computed } from 'vue'
 import { useAppStore } from '@/store'
 
-defineOptions({
-  name: 'LayoutCpnMenuCollapsed'
-})
-
 const appStore = useAppStore()
 const collapsed = computed(() => appStore.appSetting.menu.collapsed)
 

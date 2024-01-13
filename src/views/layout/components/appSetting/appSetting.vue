@@ -83,10 +83,6 @@ import db from '@/storage'
 import ToggleDark from '../toggleDark/toggleDark.vue'
 import { layoutOptions, getLayout, LayoutKey } from '../../config'
 
-defineOptions({
-  name: 'AppSetting'
-})
-
 // 显示/隐藏
 const drawerVisible = ref(false)
 

@@ -10,10 +10,6 @@
 
 <script setup lang="ts">
 import readme from '@/components/a/README.md?raw'
-
-defineOptions({
-  name: 'DemoCpnsMA'
-})
 </script>
 
 <style lang="scss" scoped></style>
