@@ -1,6 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router'
 import type { UserMenu, RoleMenu, RouteMapItem, RouteMap } from './types'
-import { createBasicLayout } from '@/views/layout'
+import { createBasicLayout, createHasNameComponent } from '@/views/layout'
 import { appConfig } from '@/config'
 
 const hiddenInMenu = (route: RouteRecordRaw) =>
@@ -56,17 +56,25 @@ export const flatRoutes = (
   return routesArr
 }
 
-// 实现深度缓存
-// route有`children`、但没有设置`component`，则自动设置component = createBasicLayout()
+/*
+  KeepAlive 缓存
+  设置了`component`，则自动设置`component.name`, 用于 KeepAlive include
+  深度缓存
+  route有`children`、但没有设置`component`，则自动设置component = createBasicLayout()
+*/
 export const setRoutesComponent = (routes: RouteRecordRaw[]) => {
-  return routes.map(
-    (route): RouteRecordRaw =>
-      Object.assign({}, route, {
-        component:
-          route.component ?? (route.children && createBasicLayout(route.path)),
-        children: route.children && setRoutesComponent(route.children)
-      })
-  )
+  return routes.map((route): RouteRecordRaw => {
+    let component = route.component
+    if (component) {
+      component = createHasNameComponent(component, route.path)
+    } else if (route.children) {
+      component = createBasicLayout(route.path)
+    }
+    return Object.assign({}, route, {
+      component,
+      children: route.children && setRoutesComponent(route.children)
+    })
+  })
 }
 
 // map => 根据path快速查找route

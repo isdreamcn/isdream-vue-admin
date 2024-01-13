@@ -21,8 +21,8 @@ export const useRoutesHandler = (
   const _originRoutes = composeFns([
     formatRoutes,
     sortRoutes,
-    setRoutesComponent,
-    joinRoutesPath
+    joinRoutesPath,
+    setRoutesComponent
   ])(originRoutes)
   const _originRouteMap = generRouteMap(_originRoutes)
 
