@@ -1,7 +1,6 @@
 <template>
   <div>
     <MForm :fields="fields" @submit="search" @cancel="search"> </MForm>
-
     <MTable
       :columns="columns"
       :http="getTestList"
@@ -77,16 +76,11 @@ const reload = () => {
 }
 
 const selectKeys = ref<number[]>([])
-const clearSelectKeysReload = () => {
-  selectKeys.value = []
-  reload()
-}
-
 // 删除
 const del = (ids: number[]) => {
   testDel(ids).then(() => {
     ElMessage.success('删除成功')
-    clearSelectKeysReload()
+    reload()
   })
 }
 </script>

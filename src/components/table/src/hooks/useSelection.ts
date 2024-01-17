@@ -3,7 +3,7 @@ import type { Ref } from 'vue'
 import type { TableProps } from '../table'
 
 import { ref, watch, nextTick } from 'vue'
-import { isFunction } from '@/utils'
+import { isFunction, getVal } from '@/utils'
 
 export const useSelection = (
   props: TableProps,
@@ -11,6 +11,9 @@ export const useSelection = (
   changeSelectKeys?: (selectKeys: any[]) => void
 ) => {
   const elTableRef = ref<InstanceType<typeof ElTable>>()
+
+  const getRowKey = (row: any) =>
+    isFunction(props.rowKey) ? props.rowKey(row) : getVal(row, props.rowKey)
 
   // 不需要多选框
   if (!props.selectKeys) {
@@ -23,39 +26,31 @@ export const useSelection = (
 
   let selectKeys: any[] = []
   const handleSelectionChange = (rows: any[]) => {
-    selectKeys = rows.map((row: any) =>
-      isFunction(props.rowKey) ? props.rowKey(row) : row[props.rowKey]
-    )
+    selectKeys = rows.map(getRowKey)
     if (changeSelectKeys) {
       changeSelectKeys(selectKeys)
     }
   }
 
   // 选择rows
-  const selectionRows = (rows?: any[]) => {
+  const selectionRows = (rows: any[]) => {
     nextTick(() => {
-      if (!elTableRef.value) {
-        return
-      }
+      if (!elTableRef.value) return
+
       elTableRef.value.clearSelection()
-      if (rows) {
-        rows.forEach((row) => {
-          elTableRef.value!.toggleRowSelection(row, true)
-        })
-      }
+      rows.forEach((row) => {
+        elTableRef.value?.toggleRowSelection(row, true)
+      })
     })
   }
 
-  // 选择selectKeys对应的data items
+  // 选择selectKeys对应的data rows
   const selectionSelectKeysRows = () => {
     const rows = data.value.filter((row: any) => {
-      const key = isFunction(props.rowKey)
-        ? props.rowKey(row)
-        : row[props.rowKey]
+      const key = getRowKey(row)
       return props.selectKeys?.includes(key)
     })
     selectionRows(rows)
-    handleSelectionChange(rows)
   }
 
   watch(
