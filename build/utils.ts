@@ -17,9 +17,11 @@ export const wrapperLoadViteEnv = <T extends LoadViteEnv>(env: T): ViteEnv => {
 
 export const dependenciesChunks = (ignores: string[] = []) => {
   const chunks: any = {}
-  Object.keys(dependencies).forEach((key) => {
-    if (ignores.includes(key)) return
-    chunks[key] = [key]
-  })
+  const set = new Set(ignores)
+  Object.keys(dependencies)
+    .filter((key) => !set.has(key))
+    .forEach((key) => {
+      chunks[key] = [key]
+    })
   return chunks
 }

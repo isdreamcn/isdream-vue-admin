@@ -48,7 +48,8 @@ export const testAdd = (data: any) => {
 
 export const testDel = (ids: number[]) => {
   return generPromise().then(() => {
-    testList = testList.filter((item) => !ids.includes(item.id))
+    const set = new Set(ids)
+    testList = testList.filter((item) => !set.has(item.id))
     return {
       code: 200
     }

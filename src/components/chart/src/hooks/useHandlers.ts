@@ -43,8 +43,9 @@ const validEvents = [
 ]
 
 export const useHandlers = (chart: ECharts, listeners: Record<string, any>) => {
+  const set = new Set(validEvents)
   Object.keys(listeners)
-    .filter((key) => validEvents.includes(key))
+    .filter((key) => set.has(key))
     .forEach((key: string) => {
       chart.on(key.substring(2), listeners[key])
     })
