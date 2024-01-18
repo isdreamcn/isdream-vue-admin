@@ -34,6 +34,12 @@ export const tableProps = buildProps({
   selectKeys: {
     type: Array
   },
+  // 切换页码/http调用/data更新
+  // 不会根据table数据，过滤selectKeys
+  selectKeysKeep: {
+    type: Boolean,
+    default: false
+  },
   // 行数据的 Key
   rowKey: {
     type: definePropType<string | ((row: Record<string, any>) => any)>([

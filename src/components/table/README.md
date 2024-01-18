@@ -11,6 +11,7 @@
 | series               | 显示序号列                                                    | `boolean`                                             | true   |
 | **columns**          | 表格列                                                        | **TableColumn[]**                                     | --     |
 | selectKeys           | 多选框列，`v-model:selectKeys`                                | `array`                                               | --     |
+| selectKeysKeep       | 切换页码/http调用/data更新, 不会根据table数据，过滤`selectKeys`  | `boolean`                                             |  false   |
 | rowKey               | 行数据的 Key                                                  | `string\|((row: Record<string, any>) => any`          | id     |
 | **paginationConfig** | 分页器                                                        | `false` \| **TablePaginationOptions**                 | --     |
 | loading              | table 显示加载动画                                            | `boolean`                                             | --     |
