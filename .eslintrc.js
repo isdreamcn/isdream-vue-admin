@@ -5,7 +5,6 @@ module.exports = {
     es2021: true,
     node: true
   },
-  globals: { defineOptions: 'writable' },
   extends: [
     'eslint:recommended',
     'plugin:vue/vue3-essential',

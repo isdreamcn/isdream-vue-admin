@@ -4,7 +4,12 @@ import type { ECOption } from '@/plugins'
 import type Chart from './chart.vue'
 import { buildProps, definePropType, isNil } from '@/utils'
 
-export type ChartOptions = ECOption
+export type ChartOptions =
+  | ECOption
+  | {
+      [x: string]: unknown
+      [x: number]: unknown
+    }
 
 export const chartProps = buildProps({
   options: {

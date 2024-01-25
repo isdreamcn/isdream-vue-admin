@@ -1,6 +1,5 @@
 import type { PluginOption } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import DefineOptions from 'unplugin-vue-define-options/vite'
 
 import { useAutoImportComponents } from './autoImportComponents'
 import { useMock } from './mock'
@@ -10,7 +9,7 @@ import { useGzip } from './useGzip'
 import { rollupVisualizer } from './rollupVisualizer'
 
 export const createVitePlugins = (viteEnv: DefineEnv, isBuild: boolean) => {
-  const plugins: PluginOption[] = [vue(), DefineOptions()]
+  const plugins: PluginOption[] = [vue()]
 
   plugins.push(useAutoImportComponents(isBuild))
   plugins.push(useHtmlDev())

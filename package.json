@@ -41,7 +41,7 @@
     "tinymce": "^5.10.3",
     "v-viewer": "^3.0.10",
     "vditor": "3.9.6",
-    "vue": "^3.2.47",
+    "vue": "^3.3.13",
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
@@ -68,7 +68,6 @@
     "unplugin-auto-import": "^0.15.3",
     "unplugin-element-plus": "^0.8.0",
     "unplugin-vue-components": "^0.24.1",
-    "unplugin-vue-define-options": "^0.11.1",
     "vite": "^4.3.5",
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-html": "^3.2.0",
