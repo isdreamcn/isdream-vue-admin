@@ -39,7 +39,7 @@ export const useRoutesHandler = (
     })
   }
 
-  // 保存stores第一个叶子节点
+  // 保存stores第一个节点
   const saveRouteHistory = () => {
     const routerStore = useRouterStore()
     routerStore.clearRouteHistory()

@@ -39,21 +39,20 @@ export const createService = (
    * @param T 返回数据的类型
    */
   const request = <T = any>(config: AxiosRequestConfig): Promise<T> => {
-    return new Promise((resolve, reject) => {
-      instance
-        .request<T>(config)
-        .then((res) => {
-          resolve(res.data)
-        })
-        .catch((err) => {
-          reject(err.response.data)
-        })
-    })
+    return instance
+      .request<T>(config)
+      .then((res) => res.data)
+      .catch((err) => Promise.reject(err.response.data))
+  }
+
+  const requestNotHandle = <T = any>(config: AxiosRequestConfig) => {
+    return instance.request<T>(config)
   }
 
   return {
     instance,
     request,
+    requestNotHandle,
     useInterceptors
   }
 }
