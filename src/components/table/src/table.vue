@@ -12,7 +12,7 @@
       v-bind="$attrs"
       :ref="selection.elTableRef"
       v-loading="props.loading || httpRes.loading"
-      :data="data"
+      :data="(data as any[])"
       :row-key="props.rowKey"
       @selection-change="selection.handleSelectionChange"
     >
@@ -61,10 +61,9 @@
     <!-- 分页器 -->
     <div v-if="props.paginationConfig" class="m-table__pagination">
       <el-pagination
+        v-bind="props.paginationConfig"
         v-model:currentPage="paginationParams.currentPage"
         v-model:page-size="paginationParams.pageSize"
-        :page-sizes="props.paginationConfig.pageSizes"
-        layout="total, sizes, prev, pager, next, jumper"
         :total="httpRes.total || props.data.length"
         @size-change="handleSizeChange"
       />

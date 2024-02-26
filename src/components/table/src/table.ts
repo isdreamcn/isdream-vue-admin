@@ -1,6 +1,6 @@
 import type Table from './table.vue'
 import type { ExtractPropTypes } from 'vue'
-import type { ElTableColumn } from 'element-plus'
+import type { ElTableColumn, PaginationProps } from 'element-plus'
 import { buildProps, definePropType, isArray } from '@/utils'
 
 export interface TableColumn<T extends string = string> {
@@ -50,7 +50,8 @@ export const tableProps = buildProps({
   },
   paginationConfig: {
     type: definePropType<false | TablePaginationOptions>([Boolean, Object]),
-    default: (): TablePaginationOptions => ({
+    default: (): TablePaginationOptions & Partial<PaginationProps> => ({
+      layout: 'total, sizes, prev, pager, next, jumper',
       currentPage: 1,
       pageSize: 10,
       pageSizes: [10, 20, 30]
