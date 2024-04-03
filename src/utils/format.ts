@@ -1,6 +1,5 @@
 import dayjs from 'dayjs'
 import { appConfig } from '@/config'
-import { isFunction } from './plugins'
 
 export const setBaseUrlFile = (str: string) => {
   return str.replaceAll(
@@ -24,10 +23,12 @@ export const dateFormat = (
   template = 'YYYY-MM-DD HH:mm:ss'
 ) => {
   try {
-    return dayjs(value).format(template)
+    const date = dayjs(value).format(template)
+    if (date === 'Invalid Date') {
+      throw new Error('Invalid Date')
+    }
+    return date
   } catch {
-    const toString = value?.toString
-    const res = isFunction(toString) ? toString() : ''
-    return res || ''
+    return value?.toString() || ''
   }
 }
