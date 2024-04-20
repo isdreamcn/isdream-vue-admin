@@ -10,6 +10,7 @@
 | -------------------- | ------------------------------------------------------------------- | ----------------------------------------------------- | ------ |
 | series               | 显示序号列                                                          | `boolean`                                             | true   |
 | **columns**          | 表格列                                                              | **TableColumn[]**                                     | --     |
+| selectable           | 决定 `CheckBox` 是否可以勾选, `() => true` 可以勾选                 | `(row: any, index: number) => boolean`                | --     |
 | selectKeys           | 多选框列，`v-model:selectKeys`                                      | `array`                                               | --     |
 | selectKeysKeep       | 切换页码/http 调用/data 更新, 不会根据 table 数据，过滤`selectKeys` | `boolean`                                             | false  |
 | rowKey               | 行数据的 Key                                                        | `string\|((row: Record<string, any>) => any`          | id     |

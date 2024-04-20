@@ -17,7 +17,11 @@
       @selection-change="selection.handleSelectionChange"
     >
       <template v-if="props.selectKeys">
-        <el-table-column type="selection" width="55" />
+        <el-table-column
+          type="selection"
+          width="55"
+          :selectable="props.selectable"
+        />
       </template>
 
       <template v-if="props.series">

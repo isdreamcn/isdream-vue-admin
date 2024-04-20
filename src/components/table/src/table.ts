@@ -31,6 +31,10 @@ export const tableProps = buildProps({
     type: definePropType<TableColumn[]>(Array),
     required: true
   },
+  // 决定 CheckBox 是否可以勾选
+  selectable: {
+    type: definePropType<(row: any, index: number) => boolean>(Function)
+  },
   selectKeys: {
     type: Array
   },
