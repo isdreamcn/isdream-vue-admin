@@ -1,6 +1,7 @@
 import type { RouteRecordRaw } from 'vue-router'
 import { appConfig } from '@/config'
 import { loadFiles } from '@/utils'
+import { createHasNameComponent } from '@/views/layout'
 
 const loadRoutes = loadFiles<RouteRecordRaw>
 
@@ -14,7 +15,10 @@ export const basicRoutes: RouteRecordRaw[] = [
   {
     path: '/',
     name: appConfig.routeMainName,
-    component: () => import('@/views/layout/layout.vue')
+    component: createHasNameComponent(
+      () => import('@/views/layout/layout.vue'),
+      appConfig.routeMainName
+    )
   },
   {
     path: '/user',

@@ -25,6 +25,7 @@ export interface AppConfig {
   storeConfig: StoreConfig
   storageConfig: StorageConfig
   serviceTokenConfig: ServiceTokenConfig
+  needKeepAlive: boolean
   defaultRouteMeta: DefaultRouteMeta
   routesHandlerOptions: RoutesHandlerOptions
   routeMainName: string
@@ -57,6 +58,8 @@ const config: Readonly<AppConfig> = {
     expires: 7 * 24 * 60 * 60 * 1000
   },
   // router
+  // `route.component`需要使用keepAlive
+  needKeepAlive: true,
   defaultRouteMeta: {
     // 使用KeepAlive进行缓存
     keepAlive: true,

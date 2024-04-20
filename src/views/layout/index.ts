@@ -72,7 +72,7 @@ export const createBasicLayout = (
     name: path,
     setup() {
       const {
-        keepAlive = appConfig.defaultRouteMeta.keepAlive,
+        keepAlive = appConfig.needKeepAlive,
         // 使用过渡
         transition = false
       } = options || {}

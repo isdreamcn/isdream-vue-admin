@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { appConfig } from '@/config'
 import { useRouterStore } from '@/store'
 import { ElConfigProvider } from 'element-plus'
 import { MLoadingLottie } from '@/components'
@@ -13,7 +14,12 @@ const loading = computed(() => routerStore.loading)
 
 <template>
   <ElConfigProvider :locale="zhCn">
-    <RouterView></RouterView>
+    <router-view v-if="appConfig.needKeepAlive" v-slot="{ Component }">
+      <keep-alive :include="[appConfig.routeMainName]">
+        <component :is="Component" />
+      </keep-alive>
+    </router-view>
+    <router-view v-else></router-view>
   </ElConfigProvider>
   <MLoadingLottie :loading="loading"></MLoadingLottie>
 </template>
