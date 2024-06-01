@@ -2,7 +2,7 @@ import type { RouteRecordRaw, RouteRecordName } from 'vue-router'
 import type { UserMenu } from '@/store'
 
 export interface RoutesHandlerOptions {
-  setupRoutes: boolean
+  setupRoutesType: 'all' | 'roleMenu' | 'permissions'
   addRouteParentName: RouteRecordName
   flatRoutes: boolean
 }

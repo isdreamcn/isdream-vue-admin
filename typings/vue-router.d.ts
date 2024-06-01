@@ -11,6 +11,9 @@ declare module 'vue-router' {
     link?: string
     // 顺序
     sort?: number
+    // `setupRoutesType === permissions`
+    // `setupRoutes` 忽略 route 权限校验
+    ignoreAuth?: boolean
     // 缓存
     keepAlive?: boolean
     // 不显示在菜单中

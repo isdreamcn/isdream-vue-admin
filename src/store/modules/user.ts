@@ -1,12 +1,13 @@
 import { defineStore } from 'pinia'
 import db, { StorageSetOptions } from '@/storage'
 import { appConfig } from '@/config'
+import type { RoleMenu } from '@/router/useRoutesHandler/types'
 import router, { routesHandler } from '@/router'
 import { useRouterStore } from './router'
 import {
   UserLoginParams,
   userLogin,
-  getUserMenu,
+  getRoleMenu,
   getUserPermissions
 } from '@/api/user/login'
 
@@ -28,15 +29,19 @@ export interface UserInfo {
 interface UserState {
   token: string
   userInfo: Nullable<UserInfo>
+  roleMenu: Nullable<RoleMenu[]>
   userMenu: Nullable<UserMenu[]>
   userPermissions: Nullable<string[]>
   userPermissionMap: Map<string, boolean>
 }
 
+const SETUP_ROUTES_TYPE = appConfig.routesHandlerOptions.setupRoutesType
+
 export const useUserStore = defineStore('user', {
   state: (): UserState => ({
     token: '',
     userInfo: null,
+    roleMenu: null,
     userMenu: null,
     userPermissions: null,
     // 用于O(1)判断权限
@@ -48,30 +53,43 @@ export const useUserStore = defineStore('user', {
       this.token = db.get<string>('token') ?? this.token
       this.userInfo = db.get<UserInfo>('userInfo')
 
-      routesHandler.setupRoutes()
+      if (SETUP_ROUTES_TYPE === 'all') {
+        routesHandler.setupRoutes()
+      }
 
       if (!this.token) return
 
-      this.reloadCurrentPage(
-        Promise.all([this.setUserPermissions(), this.setUserMenu()])
-      )
+      this.reloadCurrentPage(this.setUserMenu())
     },
-    // 设置用户菜单
     setUserMenu() {
-      let http = getUserMenu
-      const userMenu = db.get<UserMenu[]>('userMenu')
-      if (appConfig.storeConfig.userMenuStorage && userMenu) {
-        http = () => Promise.resolve({ data: userMenu })
+      return Promise.all(
+        SETUP_ROUTES_TYPE === 'permissions'
+          ? [this.setUserPermissions()]
+          : [this.setUserPermissions(), this.setRoleMenu()]
+      ).then(() => {
+        // 注册路由
+        if (SETUP_ROUTES_TYPE !== 'all') {
+          routesHandler.setupRoutes(this.roleMenu || [], this.userPermissionMap)
+        }
+      })
+    },
+    // 获取角色菜单
+    setRoleMenu() {
+      let http = getRoleMenu
+      const roleMenu = db.get<UserMenu[]>('roleMenu')
+      if (appConfig.storeConfig.userMenuStorage && roleMenu) {
+        http = () => Promise.resolve({ data: roleMenu })
       }
 
       return http().then((res) => {
         if (!res.data.length) return res
 
-        if (appConfig.storeConfig.userMenuStorage && !userMenu) {
-          db.set('userMenu', res.data)
+        if (appConfig.storeConfig.userMenuStorage && !roleMenu) {
+          db.set('roleMenu', res.data)
         }
-        // 注册路由
-        routesHandler.useRoleMenu(res.data)
+
+        this.roleMenu = res.data
+
         return res
       })
     },
@@ -93,14 +111,12 @@ export const useUserStore = defineStore('user', {
       })
     },
     async loginHandler(data: { token: string; user: UserInfo }) {
-      routesHandler.setupRoutes()
-
       this.setToken(data.token, {
         expires: appConfig.serviceTokenConfig.expires
       })
       this.setUserInfo(data.user)
 
-      await Promise.all([this.setUserPermissions(), this.setUserMenu()])
+      await this.setUserMenu()
 
       return router.push({
         name: appConfig.routeMainName
@@ -114,25 +130,13 @@ export const useUserStore = defineStore('user', {
     },
     // 退出登录/身份验证失败
     logout() {
-      db.removeKeys('token', 'userInfo', 'userPermissions', 'userMenu')
-      this.setState({
-        token: '',
-        userInfo: null,
-        userPermissions: null,
-        userPermissionMap: new Map(),
-        userMenu: null
-      })
-
-      // 处理 routerStore
-      const routerStore = useRouterStore()
-      routerStore.setState({
-        keepAliveMap: new Map(),
-        routeHistoryMap: new Map()
-      })
+      db.removeKeys('token', 'userInfo', 'userPermissions', 'roleMenu')
 
       router.push({
         name: appConfig.routeLoginName
       })
+
+      location.reload()
     },
     setState(state: Partial<UserState>, dbOptions?: StorageSetOptions) {
       this.$patch(state)

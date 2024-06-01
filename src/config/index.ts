@@ -73,8 +73,11 @@ const config: Readonly<AppConfig> = {
 
   // router/routes/index `routesHandler`
   routesHandlerOptions: {
-    // 是否默认添加全部路由，可通过 (store/user `setUserMenu`) 重设权限菜单
-    setupRoutes: true,
+    // 可通过 (store/user `setUserMenu`) 重设权限菜单
+    // `all`         添加全部路由
+    // `roleMenu`    匹配roleMenu，可以改变userMenu名称、层级、顺序等
+    // `permissions` 匹配permissions，不能改变userMenu名称、层级、顺序等
+    setupRoutesType: 'roleMenu',
     // router.addRoute(`addRouteParentName`, [])
     addRouteParentName: '__ROUTE_TEMP_NAME',
     // 路由扁平化，只注册最后一层route，性能比较高。（但父级route不会注册, 缓存路由较深时推荐使用）

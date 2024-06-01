@@ -10,7 +10,8 @@ import {
   setRoutesComponent,
   generRouteMap,
   generUserMenu,
-  generRoutes
+  generRoutesByRoleMenu,
+  generRoutesByPermissions
 } from './utils'
 
 export const useRoutesHandler = (
@@ -76,20 +77,24 @@ export const useRoutesHandler = (
   }
 
   // `@/store/user` 执行
-  const setupRoutes = () => {
-    if (!options.setupRoutes) return
+  const setupRoutes = (
+    roleMenu: RoleMenu[] = [],
+    permissionsMap: Map<string, boolean> = new Map()
+  ) => {
+    if (options.setupRoutesType === 'all') {
+      routes = _originRoutes
+      routeMap = _originRouteMap
+    }
 
-    routes = _originRoutes
-    routeMap = _originRouteMap
+    if (options.setupRoutesType === 'roleMenu') {
+      routes = generRoutesByRoleMenu(roleMenu, routeMap)
+      routeMap = generRouteMap(routes)
+    }
 
-    addRoutes()
-    saveUserMenu()
-    saveRouteHistory()
-  }
-
-  const useRoleMenu = (roleMenu: RoleMenu[]) => {
-    routes = generRoutes(roleMenu, routeMap)
-    routeMap = generRouteMap(routes)
+    if (options.setupRoutesType === 'permissions') {
+      routes = generRoutesByPermissions(permissionsMap, _originRoutes)
+      routeMap = generRouteMap(routes)
+    }
 
     addRoutes()
     saveUserMenu()
@@ -98,7 +103,6 @@ export const useRoutesHandler = (
 
   return {
     getRouteByPath,
-    setupRoutes,
-    useRoleMenu
+    setupRoutes
   }
 }

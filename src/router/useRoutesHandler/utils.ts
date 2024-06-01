@@ -7,12 +7,14 @@ const hiddenInMenu = (route: RouteRecordRaw) =>
   route.meta?.hiddenInMenu ?? appConfig.defaultRouteMeta.hiddenInMenu
 
 // 格式化routes
-export const formatRoutes = (routes: RouteRecordRaw[]) => {
+export const formatRoutes = (routes: RouteRecordRaw[]): RouteRecordRaw[] => {
   return routes.map(
     (route) =>
       ({
         ...route,
-        children: route.children?.length ? route.children : undefined
+        children: route.children?.length
+          ? formatRoutes(route.children)
+          : undefined
       } as RouteRecordRaw)
   )
 }
@@ -116,7 +118,7 @@ export const generUserMenu = (routes: RouteRecordRaw[]): UserMenu[] => {
 }
 
 // roleMenu => routes
-export const generRoutes = (
+export const generRoutesByRoleMenu = (
   roleMenu: RoleMenu[],
   routeMap: RouteMap
 ): RouteRecordRaw[] => {
@@ -133,7 +135,26 @@ export const generRoutes = (
           title: item.title ?? meta.title,
           link: item.link ?? meta.link
         },
-        children: item.children && generRoutes(item.children, routeMap)
+        children:
+          item.children && generRoutesByRoleMenu(item.children, routeMap)
       } as RouteRecordRaw
     })
+}
+
+// permissions => routes
+export const generRoutesByPermissions = (
+  permissionsMap: Map<string, boolean>,
+  routes: RouteRecordRaw[]
+): RouteRecordRaw[] => {
+  return routes
+    .filter((item) => item.meta?.ignoreAuth || permissionsMap.get(item.path))
+    .map(
+      (item) =>
+        ({
+          ...item,
+          children:
+            item.children &&
+            generRoutesByPermissions(permissionsMap, item.children)
+        } as RouteRecordRaw)
+    )
 }
