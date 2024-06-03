@@ -13,8 +13,9 @@ export interface RoleMenu extends PartialDeep<UserMenu> {
   children?: RoleMenu[]
 }
 
-// path => route
-export type RouteMapItem = RouteRecordRaw & {
+// path => routeData
+export type RouteMapItem = {
+  route: RouteRecordRaw
   parentNode?: RouteMapItem
   redirectNode?: RouteMapItem
 }

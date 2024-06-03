@@ -28,7 +28,7 @@ export const useRoutesHandler = (
   const _originRouteMap = generRouteMap(_originRoutes)
 
   let routes = _originRoutes
-  // path => route
+  // path => routeData
   let routeMap: RouteMap = _originRouteMap
   const getRouteByPath = (path: string) => routeMap.get(path)
 
@@ -46,15 +46,17 @@ export const useRoutesHandler = (
     routerStore.clearRouteHistory()
 
     const path = routes[0]?.path
-    let route = routeMap.get(path)
-    if (route?.redirectNode) {
-      route = route.redirectNode
+    const routeData = routeMap.get(path)
+
+    let firstRoute = routeData?.route
+    if (routeData?.redirectNode) {
+      firstRoute = routeData.redirectNode.route
     }
 
-    if (route) {
+    if (firstRoute) {
       routerStore.addRouteHistory({
-        path: route.path,
-        meta: route.meta || {}
+        path: firstRoute.path,
+        meta: firstRoute.meta || {}
       })
     }
   }

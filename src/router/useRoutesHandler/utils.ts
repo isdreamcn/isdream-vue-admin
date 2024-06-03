@@ -86,7 +86,7 @@ export const generRouteMap = (
   parentNode?: RouteMapItem
 ) => {
   routes.forEach((route, index) => {
-    const _route: RouteMapItem = { ...route, parentNode }
+    const _route: RouteMapItem = { route, parentNode }
     routeMap.set(route.path, _route)
     if (route.children) {
       return generRouteMap(route.children, routeMap, _route)
@@ -95,7 +95,7 @@ export const generRouteMap = (
     // 用于`../guard/useRedirect`重定向到第一个叶子节点
     if (index === 0) {
       let parentRoute = _route.parentNode
-      while (parentRoute) {
+      while (parentRoute && !parentRoute.redirectNode) {
         parentRoute.redirectNode = _route
         parentRoute = parentRoute.parentNode
       }
@@ -125,10 +125,10 @@ export const generRoutesByRoleMenu = (
   return roleMenu
     .filter((item) => routeMap.has(item.path))
     .map((item) => {
-      const routeItem = routeMap.get(item.path)!
-      const meta = routeItem.meta || {}
+      const routeData = routeMap.get(item.path)!
+      const meta = routeData.route.meta || {}
       return {
-        ...routeItem,
+        ...routeData.route,
         meta: {
           ...meta,
           icon: item.icon ?? meta.icon,

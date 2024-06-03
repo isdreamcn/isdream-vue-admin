@@ -28,11 +28,11 @@ const { appSetting } = useAppSetting()
 const route = useRoute()
 const matched = computed(() => {
   const path = route.matched[route.matched.length - 1].path
-  let _route = routesHandler.getRouteByPath(path)
+  let routeData = routesHandler.getRouteByPath(path)
   const _matched: RouteRecordRaw[] = []
-  while (_route) {
-    _matched.unshift(_route)
-    _route = _route.parentNode
+  while (routeData) {
+    _matched.unshift(routeData.route)
+    routeData = routeData.parentNode
   }
   return _matched.filter(
     (item) =>

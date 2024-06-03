@@ -11,18 +11,17 @@ export const useRedirect = (router: Router) => {
       return useRouteMainPath().value
     }
 
-    const { redirect, redirectNode } =
-      routesHandler.getRouteByPath(to.path) || {}
+    const { route, redirectNode } = routesHandler.getRouteByPath(to.path) || {}
 
     // `flatRoutes: true` 路由扁平化，父级的`redirect`不生效
     // TIP: redirect 需要是可以访问的路由
-    if (redirect) {
-      return isFunction(redirect) ? redirect(to) : redirect
+    if (route?.redirect) {
+      return isFunction(route.redirect) ? route.redirect(to) : route.redirect
     }
 
     // to的第一个叶子节点
-    if (redirectNode?.path) {
-      return redirectNode?.path
+    if (redirectNode?.route.path) {
+      return redirectNode?.route.path
     }
   })
 }
