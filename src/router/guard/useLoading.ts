@@ -1,6 +1,5 @@
 import type { Router } from 'vue-router'
 import { useRouterStore } from '@/store'
-import { appConfig } from '@/config'
 import { debounce } from '@/utils'
 
 export const useLoading = (router: Router) => {
@@ -13,8 +12,7 @@ export const useLoading = (router: Router) => {
 
   router.afterEach((to) => {
     routerStore.setState({
-      needLoading:
-        to.meta.needLoading ?? appConfig.defaultRouteMeta.needLoading,
+      needLoading: to.meta.needLoading,
       loading: false
     })
     notNeedLoading()

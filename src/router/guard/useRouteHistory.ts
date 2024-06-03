@@ -1,14 +1,11 @@
 import type { Router } from 'vue-router'
 import { useRouterStore } from '@/store'
-import { appConfig } from '@/config'
 
 export const useRouteHistory = (router: Router) => {
   const routerStore = useRouterStore()
 
   router.afterEach((to) => {
-    if (
-      !(to.meta.needRouteHistory ?? appConfig.defaultRouteMeta.needRouteHistory)
-    ) {
+    if (!to.meta.needRouteHistory) {
       return
     }
     routerStore.addRouteHistory({

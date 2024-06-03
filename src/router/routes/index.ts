@@ -15,6 +15,9 @@ export const basicRoutes: RouteRecordRaw[] = [
   {
     path: '/',
     name: appConfig.routeMainName,
+    meta: {
+      needToken: true
+    },
     component: createHasNameComponent(
       () => import('@/views/layout/layout.vue'),
       appConfig.routeMainName
@@ -31,6 +34,7 @@ export const basicRoutes: RouteRecordRaw[] = [
   {
     path: '/:pathMatch(.*)*',
     meta: {
+      needToken: true,
       needRouteHistory: false
     },
     component: () => import('@/views/error/error404.vue')

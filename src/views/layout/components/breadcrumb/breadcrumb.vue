@@ -19,7 +19,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { RouteRecordRaw, useRoute, useRouter } from 'vue-router'
-import { appConfig } from '@/config'
 import { routesHandler } from '@/router'
 import { useAppSetting } from '@/store'
 
@@ -34,10 +33,7 @@ const matched = computed(() => {
     _matched.unshift(routeData.route)
     routeData = routeData.parentNode
   }
-  return _matched.filter(
-    (item) =>
-      !(item.meta?.hiddenInBread ?? appConfig.defaultRouteMeta.hiddenInBread)
-  )
+  return _matched.filter((item) => !item.meta?.hiddenInBread)
 })
 
 const router = useRouter()

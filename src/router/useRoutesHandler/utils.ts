@@ -3,20 +3,28 @@ import type { UserMenu, RoleMenu, RouteMapItem, RouteMap } from './types'
 import { createBasicLayout, createHasNameComponent } from '@/views/layout'
 import { appConfig } from '@/config'
 
-const hiddenInMenu = (route: RouteRecordRaw) =>
-  route.meta?.hiddenInMenu ?? appConfig.defaultRouteMeta.hiddenInMenu
-
 // 格式化routes
 export const formatRoutes = (routes: RouteRecordRaw[]): RouteRecordRaw[] => {
-  return routes.map(
-    (route) =>
-      ({
-        ...route,
-        children: route.children?.length
-          ? formatRoutes(route.children)
-          : undefined
-      } as RouteRecordRaw)
-  )
+  return routes.map((route) => {
+    const meta = route.meta || {}
+    const defaultRouteMeta = appConfig.defaultRouteMeta
+    return {
+      ...route,
+      meta: {
+        ...route.meta,
+        keepAlive: meta.keepAlive ?? defaultRouteMeta.keepAlive,
+        hiddenInMenu: meta.hiddenInMenu ?? defaultRouteMeta.hiddenInMenu,
+        hiddenInBread: meta.hiddenInBread ?? defaultRouteMeta.hiddenInBread,
+        needLoading: meta.needLoading ?? defaultRouteMeta.needLoading,
+        needToken: meta.needToken ?? defaultRouteMeta.needToken,
+        needRouteHistory:
+          meta.needRouteHistory ?? defaultRouteMeta.needRouteHistory
+      },
+      children: route.children?.length
+        ? formatRoutes(route.children)
+        : undefined
+    } as RouteRecordRaw
+  })
 }
 
 // path => /path
@@ -107,7 +115,7 @@ export const generRouteMap = (
 // routes => userMenu
 export const generUserMenu = (routes: RouteRecordRaw[]): UserMenu[] => {
   return routes
-    .filter((route) => !hiddenInMenu(route))
+    .filter((route) => !route?.meta?.hiddenInMenu)
     .map((route) => ({
       path: route.path,
       title: route.meta?.title || route.path,
