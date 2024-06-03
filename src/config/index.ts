@@ -81,7 +81,6 @@ const config: Readonly<AppConfig> = {
     // router.addRoute(`addRouteParentName`, [])
     addRouteParentName: '__ROUTE_TEMP_NAME',
     // 路由扁平化，只注册最后一层route，性能比较高。（但父级route不会注册, 缓存路由较深时推荐使用）
-    // 父级route不会注册，父级的`redirect`不生效
     flatRoutes: true
   },
 

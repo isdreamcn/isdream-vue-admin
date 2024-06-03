@@ -3,9 +3,6 @@ import type { RouteRecordRaw } from 'vue-router'
 export default {
   path: 'demo',
   name: 'Demo',
-  redirect: {
-    name: 'DemoShowLoading'
-  },
   meta: {
     title: '功能',
     icon: 'icon-files',
@@ -18,7 +15,8 @@ export default {
       meta: {
         title: '加载动画',
         icon: 'icon-loading',
-        needLoading: true
+        needLoading: true,
+        keepAlive: false
       },
       component: () => import('@/views/main/demo/showLoading/showLoading.vue')
     },
@@ -34,9 +32,6 @@ export default {
     {
       path: 'menu',
       name: 'Menu',
-      redirect: {
-        name: 'Menu1'
-      },
       meta: {
         title: '多级菜单',
         icon: 'icon-menu',
@@ -50,9 +45,6 @@ export default {
             title: 'Menu1',
             sort: 2,
             icon: 'icon-ticket'
-          },
-          redirect: {
-            name: 'Menu11'
           },
           children: [
             {
