@@ -5,7 +5,8 @@ export default {
   meta: {
     title: '使用例子',
     icon: 'icon-Guide',
-    sort: 5
+    sort: 5,
+    topMenu: true
   },
   children: [
     {

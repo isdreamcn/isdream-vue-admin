@@ -16,6 +16,10 @@ declare module 'vue-router' {
     ignoreAuth?: boolean
     // 缓存
     keepAlive?: boolean
+    // 顶级菜单，用于多模块系统
+    // 用户菜单展示：该route.children
+    // 面包屑展示：该route -> 当前route
+    topMenu?: boolean
     // 不显示在菜单中
     hiddenInMenu?: boolean
     // 不显示在面包屑中

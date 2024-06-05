@@ -34,8 +34,9 @@ export default {
       name: 'Menu',
       meta: {
         title: '多级菜单',
-        icon: 'icon-menu',
-        sort: 4
+        icon: 'icon-ticket',
+        sort: 4,
+        topMenu: true
       },
       children: [
         {

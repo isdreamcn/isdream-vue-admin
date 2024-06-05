@@ -5,7 +5,8 @@ export default {
   meta: {
     title: '组件',
     icon: 'icon-menu',
-    sort: 4
+    sort: 4,
+    topMenu: true
   },
   children: [
     {
@@ -16,7 +17,7 @@ export default {
       component: () => import('@/views/main/components/icon/icon.vue')
     },
     {
-      path: 'color-picker',
+      path: 'colorPicker',
       meta: {
         title: '颜色选择器'
       },
