@@ -2,8 +2,8 @@
   <el-menu
     class="menu-container"
     :default-active="routePath"
-    :collapse="collapsed"
-    :mode="mode"
+    :collapse="appSetting.menu.collapsed"
+    :mode="appSetting.menu.mode"
   >
     <SubMenu :menu="menu" @click="clickMenuItem" />
   </el-menu>
@@ -13,7 +13,8 @@
 import type { UserMenu } from '@/store'
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { useUserStore, useAppStore } from '@/store'
+import { useUserStore, useAppSetting } from '@/store'
+import { routesHandler } from '@/router'
 import SubMenu from './subMenu.vue'
 
 const router = useRouter()
@@ -22,12 +23,16 @@ const routePath = computed<string | undefined>(
   () => route.matched[route.matched.length - 1].path
 )
 
-const appStore = useAppStore()
-const collapsed = computed(() => appStore.appSetting.menu.collapsed)
-const mode = computed(() => appStore.appSetting.menu.mode)
+const { appSetting } = useAppSetting()
 
 const userStore = useUserStore()
-const menu = computed(() => userStore.userMenu || [])
+const menu = computed(() => {
+  const userMenu = userStore.userMenu || []
+  if (!appSetting.value.menu.mergeTopMenu && routePath.value) {
+    return routesHandler.getTopMenuByPath(routePath.value)?.children || userMenu
+  }
+  return userMenu
+})
 
 const clickMenuItem = (item: UserMenu) => {
   if (item.link) {

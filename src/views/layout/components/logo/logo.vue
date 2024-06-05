@@ -1,14 +1,29 @@
 <template>
   <div v-if="appSetting.showLogo" class="logo-container">
-    <img src="/favicon.ico" />
-    <span>LOGO</span>
+    <template v-if="!appSetting.menu.mergeTopMenu && topMenu">
+      <MIcon v-if="topMenu.icon" :name="topMenu.icon" :size="26"></MIcon>
+      <span>{{ topMenu.title }}</span>
+    </template>
+    <template v-else>
+      <img src="/favicon.ico" />
+      <span>LOGO</span>
+    </template>
   </div>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 import { useAppSetting } from '@/store'
+import { routesHandler } from '@/router'
 
+const route = useRoute()
 const { appSetting } = useAppSetting()
+
+const topMenu = computed(() => {
+  const path = route.matched[route.matched.length - 1].path
+  return routesHandler.getTopMenuByPath(path)
+})
 </script>
 
 <style lang="scss" scoped>

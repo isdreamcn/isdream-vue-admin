@@ -18,16 +18,22 @@
         <div style="flex: 1" class="nav-menus-container">
           <div class="nav-menus">
             <div
-              v-for="i in 8"
+              v-for="(item, index) in routesHandler.topMenuData.value"
               class="nav-menu"
-              :key="i"
+              :key="item.path"
               :style="`background-color: ${
-                themColors[(i - 1) % themColors.length]
+                themColors[index % themColors.length]
               };`"
+              @click="goPage(item.path)"
             >
-              <MIcon name="icon-menu" :size="80" color="#ffffff"></MIcon>
+              <MIcon
+                v-if="item.meta?.icon"
+                :name="item.meta.icon"
+                :size="80"
+                color="#ffffff"
+              ></MIcon>
               <div class="nav-menu__title">
-                {{ i }}
+                {{ item.meta?.title || item.path }}
               </div>
             </div>
           </div>
@@ -39,6 +45,8 @@
 </template>
 
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
+import { routesHandler } from '@/router'
 import { Logo, UserMenu, AppSetting, Footer } from '@/views/layout/components'
 
 const themColors = [
@@ -51,6 +59,11 @@ const themColors = [
   '#e74c3c',
   '#34495e'
 ]
+
+const router = useRouter()
+const goPage = (path: string) => {
+  router.push(path)
+}
 </script>
 
 <style scoped lang="scss">

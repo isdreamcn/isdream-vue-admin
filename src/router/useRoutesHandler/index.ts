@@ -1,5 +1,11 @@
 import type { RouteRecordRaw, Router } from 'vue-router'
-import type { RoutesHandlerOptions, RouteMap, RoleMenu } from './types'
+import type {
+  RoutesHandlerOptions,
+  RouteMap,
+  RoleMenu,
+  UserMenu
+} from './types'
+import { ref, readonly } from 'vue'
 import { useUserStore, useRouterStore } from '@/store'
 import { composeFns } from '@/utils'
 import {
@@ -78,6 +84,32 @@ export const useRoutesHandler = (
     })
   }
 
+  // 保存顶级菜单，用于多模块系统
+  const topMenuData = ref<RouteRecordRaw[]>([])
+  let topMenuMap = new Map<string, UserMenu>()
+
+  const saveTopMenuData = () => {
+    topMenuData.value = [...routeMap.values()]
+      .filter((item) => item.route.meta?.topMenu)
+      .map((item) => item.route)
+    topMenuMap = new Map()
+  }
+
+  const getTopMenuByPath = (path: string) => {
+    let topMenu = topMenuMap.get(path)
+    if (topMenu) return topMenu
+
+    let routeItem = routeMap.get(path)
+    while (routeItem && !routeItem.route.meta?.topMenu) {
+      routeItem = routeItem.parentNode
+    }
+    if (!routeItem) return null
+
+    topMenu = generUserMenu([routeItem.route])[0]
+    topMenuMap.set(path, topMenu)
+    return topMenu
+  }
+
   // `@/store/user` 执行
   const setupRoutes = (
     roleMenu: RoleMenu[] = [],
@@ -101,10 +133,13 @@ export const useRoutesHandler = (
     addRoutes()
     saveUserMenu()
     saveRouteHistory()
+    saveTopMenuData()
   }
 
   return {
     getRouteByPath,
-    setupRoutes
+    setupRoutes,
+    topMenuData: readonly(topMenuData),
+    getTopMenuByPath
   }
 }

@@ -28,12 +28,24 @@ const route = useRoute()
 const matched = computed(() => {
   const path = route.matched[route.matched.length - 1].path
   let routeData = routesHandler.getRouteByPath(path)
-  const _matched: RouteRecordRaw[] = []
+  let _matched: RouteRecordRaw[] = []
   while (routeData) {
     _matched.unshift(routeData.route)
     routeData = routeData.parentNode
   }
-  return _matched.filter((item) => !item.meta?.hiddenInBread)
+  _matched = _matched.filter((item) => !item.meta?.hiddenInBread)
+  if (!appSetting.value.menu.mergeTopMenu) {
+    let topMenuIndex = 0
+    _matched.forEach((route, index) => {
+      if (route.meta?.topMenu) {
+        topMenuIndex = index
+      }
+    })
+    if (topMenuIndex) {
+      _matched = _matched.slice(topMenuIndex)
+    }
+  }
+  return _matched
 })
 
 const router = useRouter()
