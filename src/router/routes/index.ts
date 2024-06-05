@@ -24,6 +24,15 @@ export const basicRoutes: RouteRecordRaw[] = [
     )
   },
   {
+    path: '/topMenuNav',
+    meta: {
+      title: '菜单导航',
+      needToken: true,
+      needRouteHistory: false
+    },
+    component: () => import('@/views/topMenuNav/topMenuNav.vue')
+  },
+  {
     path: '/user',
     redirect: {
       name: appConfig.routeLoginName

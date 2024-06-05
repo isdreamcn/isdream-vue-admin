@@ -61,7 +61,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
           additionalData: `
             @use "@/assets/styles/element.scss" as *;
             @use "@/assets/styles/variables.scss" as *;
-            @use "@/assets/styles/mxins.scss" as *;
+            @use "@/assets/styles/mixins.scss" as *;
           `
         }
       }

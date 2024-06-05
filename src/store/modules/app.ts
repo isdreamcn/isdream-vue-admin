@@ -12,6 +12,8 @@ export interface AppSetting {
   layout: LayoutKey
   showLogo: boolean
   menu: {
+    // 合并展示全部菜单
+    mergeTopMenu: boolean
     // 折叠
     collapsed: boolean
     mode: 'horizontal' | 'vertical'
@@ -37,6 +39,7 @@ const useAppSettingDefault = (): AppSetting => ({
   layout: 'mainLayout',
   showLogo: true,
   menu: {
+    mergeTopMenu: true,
     collapsed: false,
     mode: 'vertical',
     backgroundColor: '#ffffff',

@@ -36,6 +36,10 @@ export const layoutMap = new Map<LayoutKey, LayoutMapItem>([
       },
       functions: [
         {
+          label: '合并多模块菜单',
+          appSettingKey: 'menu.mergeTopMenu'
+        },
+        {
           label: '折叠菜单',
           appSettingKey: 'menu.collapsed'
         },
@@ -80,6 +84,10 @@ export const layoutMap = new Map<LayoutKey, LayoutMapItem>([
         }
       },
       functions: [
+        {
+          label: '合并多模块菜单',
+          appSettingKey: 'menu.mergeTopMenu'
+        },
         {
           label: 'logo',
           appSettingKey: 'showLogo'

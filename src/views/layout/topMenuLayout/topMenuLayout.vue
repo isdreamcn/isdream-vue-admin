@@ -4,6 +4,9 @@
       <Logo></Logo>
       <Menu></Menu>
       <div class="m-layout__header-actions">
+        <div class="m-layout__header-actions-item" style="padding: 0">
+          <GoBackTopMenuNav></GoBackTopMenuNav>
+        </div>
         <div class="m-layout__header-actions-item">
           <UserMenu></UserMenu>
         </div>
@@ -13,17 +16,15 @@
       </div>
     </el-header>
     <el-container class="top-menu-layout__container">
-      <el-container>
-        <el-header style="padding: 0; height: auto">
-          <RouteHistory></RouteHistory>
-        </el-header>
-        <el-main class="top-menu-layout__main">
-          <div style="flex: 1">
-            <slot></slot>
-          </div>
-          <Footer />
-        </el-main>
-      </el-container>
+      <el-header style="padding: 0; height: auto">
+        <RouteHistory></RouteHistory>
+      </el-header>
+      <el-main class="top-menu-layout__main">
+        <div style="flex: 1">
+          <slot></slot>
+        </div>
+        <Footer />
+      </el-main>
     </el-container>
   </el-container>
 </template>
@@ -35,11 +36,13 @@ import {
   UserMenu,
   AppSetting,
   RouteHistory,
-  Footer
+  Footer,
+  GoBackTopMenuNav
 } from '../components'
 </script>
 
 <style scoped lang="scss">
+@use '../layout.scss';
 .top-menu-layout {
   position: relative;
   height: 100%;

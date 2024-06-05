@@ -11,6 +11,9 @@
         </div>
       </div>
       <div class="m-layout__header-actions">
+        <div class="m-layout__header-actions-item" style="padding: 0">
+          <GoBackTopMenuNav></GoBackTopMenuNav>
+        </div>
         <div class="m-layout__header-actions-item">
           <UserMenu></UserMenu>
         </div>
@@ -47,11 +50,13 @@ import {
   UserMenu,
   AppSetting,
   RouteHistory,
-  Footer
+  Footer,
+  GoBackTopMenuNav
 } from '../components'
 </script>
 
 <style scoped lang="scss">
+@use '../layout.scss';
 .main-layout {
   position: relative;
   height: 100%;

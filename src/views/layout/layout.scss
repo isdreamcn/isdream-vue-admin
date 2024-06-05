@@ -1,0 +1,32 @@
+@use "@/assets/styles/mixins.scss" as mixins;
+
+.m-layout {
+  .m-layout__header {
+    @include mixins.m-menu-theme(true);
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .m-layout__header-tips {
+      display: flex;
+      align-items: center;
+      .m-layout__header-tips-item {
+        padding: 0 10px;
+      }
+    }
+
+    .m-layout__header-actions {
+      display: flex;
+      height: 100%;
+      .m-layout__header-actions-item {
+        @include mixins.m-menu-theme-hover();
+        padding: 0 10px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+      }
+    }
+  }
+}

@@ -21,35 +21,4 @@ const layoutComponents = computed(
 )
 </script>
 
-<style lang="scss" scoped>
-.m-layout {
-  :deep(.m-layout__header) {
-    @include m-menu-theme(true);
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    .m-layout__header-tips {
-      display: flex;
-      align-items: center;
-      .m-layout__header-tips-item {
-        padding: 0 10px;
-      }
-    }
-
-    .m-layout__header-actions {
-      display: flex;
-      height: 100%;
-      .m-layout__header-actions-item {
-        @include m-menu-theme-hover();
-        padding: 0 10px;
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-      }
-    }
-  }
-}
-</style>
+<style lang="scss" scoped></style>
