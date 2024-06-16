@@ -60,7 +60,19 @@ export const useUserList = (): MockUserLoginList[] => {
         id: 2,
         username: 'test'
       },
-      permissions: [],
+      permissions: [
+        '/home',
+        '/about',
+        '/demo',
+        '/demo/link',
+        '/demo/show-loading',
+        '/demo/menu',
+        '/demo/menu/menu1',
+        '/demo/menu/menu1/menu11',
+        '/demo/menu/menu2',
+        '/example',
+        '/example/user'
+      ],
       // 路由
       menus: [
         {

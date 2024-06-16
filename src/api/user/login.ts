@@ -1,3 +1,4 @@
+import type { RouteRecordRaw } from 'vue-router'
 import type {
   UserLoginMenu,
   UserLoginParams,
@@ -5,6 +6,8 @@ import type {
 } from './types/login.type'
 import { mockService } from '@/service'
 
+import { appConfig } from '@/config'
+import db from '@/storage'
 import { routes } from '@/router/routes'
 import { joinRoutesPath, sortRoutes } from '@/router/useRoutesHandler/utils'
 
@@ -50,8 +53,10 @@ export const getRoleMenu = () => {
     })
     .then((res) => {
       // mockUser: admin
-      // roleMenu为空时，显示全部菜单
-      if (!res.data.length) {
+      if (
+        appConfig.routesHandlerOptions.setupRoutesType === 'roleMenu' &&
+        db.get('token') === 'ud1Ow3F7ofBFiHd3mOj1OBCKL'
+      ) {
         return {
           ...res,
           data: joinRoutesPath(sortRoutes(routes))
@@ -63,10 +68,39 @@ export const getRoleMenu = () => {
 
 // 用户按钮权限
 export const getUserPermissions = () => {
-  return mockService.request<Service.Result<string[]>>({
-    url: Api.Permissions,
-    method: 'GET'
-  })
+  return mockService
+    .request<Service.Result<string[]>>({
+      url: Api.Permissions,
+      method: 'GET'
+    })
+    .then((res) => {
+      // mockUser: admin
+      if (
+        appConfig.routesHandlerOptions.setupRoutesType === 'permissions' &&
+        db.get('token') === 'ud1Ow3F7ofBFiHd3mOj1OBCKL'
+      ) {
+        return {
+          ...res,
+          data: getRoutesPermissions(joinRoutesPath(sortRoutes(routes))).concat(
+            res.data
+          )
+        }
+      }
+      return res
+    })
 }
 
 export * from './types/login.type'
+
+function getRoutesPermissions(
+  routes: RouteRecordRaw[],
+  permissions: string[] = []
+) {
+  routes.forEach((route) => {
+    permissions.push(route.path)
+    if (route.children) {
+      getRoutesPermissions(route.children, permissions)
+    }
+  })
+  return permissions
+}
