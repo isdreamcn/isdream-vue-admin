@@ -6,8 +6,8 @@
 </template>
 
 <script setup lang="ts">
-import { getDemoUserList } from '@/api/demo/user'
-import { demoErrorNotFount } from '@/api/demo/error'
+import { getDemoUserList } from '@/api/examples/user'
+import { demoErrorNotFount } from '@/api/examples/error'
 
 getDemoUserList().then((res) => {
   console.log(res, 'getDemoUserList')

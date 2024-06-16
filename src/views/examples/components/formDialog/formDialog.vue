@@ -24,7 +24,7 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 import { fields } from './config'
-import { demoUserAdd, demoUserEdit, demoUserDetails } from '@/api/demo/user'
+import { demoUserAdd, demoUserEdit, demoUserDetails } from '@/api/examples/user'
 import readme from '@/components/formDialog/README.md?raw'
 
 const formDialog = reactive({

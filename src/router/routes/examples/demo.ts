@@ -18,7 +18,8 @@ export default {
         needLoading: true,
         keepAlive: false
       },
-      component: () => import('@/views/main/demo/showLoading/showLoading.vue')
+      component: () =>
+        import('@/views/examples/demo/showLoading/showLoading.vue')
     },
     {
       path: 'link',
@@ -56,7 +57,7 @@ export default {
                 icon: 'icon-ticket'
               },
               component: () =>
-                import('@/views/main/menu/menu1/menu11/menu11.vue')
+                import('@/views/examples/menu/menu1/menu11/menu11.vue')
             }
           ]
         },
@@ -68,7 +69,7 @@ export default {
             sort: 1,
             icon: 'icon-ticket'
           },
-          component: () => import('@/views/main/menu/menu2/menu2.vue')
+          component: () => import('@/views/examples/menu/menu2/menu2.vue')
         }
       ]
     }

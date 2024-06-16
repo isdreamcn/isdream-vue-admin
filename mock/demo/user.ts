@@ -3,7 +3,7 @@ import type { MockRequestParams } from '../_types'
 import { HttpStatusCode } from '@/constants'
 import { Random } from 'mockjs'
 import { generateResultPagination, formatUrl, formatMsg } from '../_utils'
-import { GetDemoUserListParams, DemoUser } from '@/api/demo/user'
+import { GetDemoUserListParams, DemoUser } from '@/api/examples/user'
 
 export default [
   {

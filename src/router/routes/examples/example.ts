@@ -15,7 +15,7 @@ export default {
         title: '用户管理'
       },
       component: () =>
-        import('@/views/main/example/userManagement/userManagement.vue')
+        import('@/views/examples/example/userManagement/userManagement.vue')
     }
   ]
 } as RouteRecordRaw

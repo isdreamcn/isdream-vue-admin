@@ -7,5 +7,5 @@ export default {
     icon: 'IconHelp',
     sort: 3
   },
-  component: () => import('@/views/main/tips/tips.vue')
+  component: () => import('@/views/examples/tips/tips.vue')
 } as RouteRecordRaw

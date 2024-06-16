@@ -8,5 +8,5 @@ export default {
     icon: 'icon-cpu',
     sort: 2
   },
-  component: () => import('@/views/main/about/about.vue')
+  component: () => import('@/views/examples/about/about.vue')
 } as RouteRecordRaw

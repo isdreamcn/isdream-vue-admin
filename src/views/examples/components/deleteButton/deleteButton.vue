@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 import readme from '@/components/deleteButton/README.md?raw'
-import { demoUserDel } from '@/api/demo/user'
+import { demoUserDel } from '@/api/examples/user'
 
 const selectKeys = [1]
 

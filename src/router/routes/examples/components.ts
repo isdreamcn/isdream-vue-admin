@@ -14,7 +14,7 @@ export default {
       meta: {
         title: 'icon图标'
       },
-      component: () => import('@/views/main/components/icon/icon.vue')
+      component: () => import('@/views/examples/components/icon/icon.vue')
     },
     {
       path: 'colorPicker',
@@ -22,21 +22,21 @@ export default {
         title: '颜色选择器'
       },
       component: () =>
-        import('@/views/main/components/colorPicker/colorPicker.vue')
+        import('@/views/examples/components/colorPicker/colorPicker.vue')
     },
     {
       path: 'table',
       meta: {
         title: '表格'
       },
-      component: () => import('@/views/main/components/table/table.vue')
+      component: () => import('@/views/examples/components/table/table.vue')
     },
     {
       path: 'form',
       meta: {
         title: '表单'
       },
-      component: () => import('@/views/main/components/form/form.vue')
+      component: () => import('@/views/examples/components/form/form.vue')
     },
     {
       path: 'formDialog',
@@ -44,7 +44,7 @@ export default {
         title: '表单对话框'
       },
       component: () =>
-        import('@/views/main/components/formDialog/formDialog.vue')
+        import('@/views/examples/components/formDialog/formDialog.vue')
     },
     {
       path: 'deleteButton',
@@ -52,56 +52,57 @@ export default {
         title: '批量删除按钮'
       },
       component: () =>
-        import('@/views/main/components/deleteButton/deleteButton.vue')
+        import('@/views/examples/components/deleteButton/deleteButton.vue')
     },
     {
       path: 'a',
       meta: {
         title: 'a按钮'
       },
-      component: () => import('@/views/main/components/a/a.vue')
+      component: () => import('@/views/examples/components/a/a.vue')
     },
     {
       path: 'editor',
       meta: {
         title: 'tinymce富文本'
       },
-      component: () => import('@/views/main/components/editor/editor.vue')
+      component: () => import('@/views/examples/components/editor/editor.vue')
     },
     {
       path: 'markdown',
       meta: {
         title: 'markdown'
       },
-      component: () => import('@/views/main/components/markdown/markdown.vue')
+      component: () =>
+        import('@/views/examples/components/markdown/markdown.vue')
     },
     {
       path: 'upload',
       meta: {
         title: 'upload'
       },
-      component: () => import('@/views/main/components/upload/upload.vue')
+      component: () => import('@/views/examples/components/upload/upload.vue')
     },
     {
       path: 'chart',
       meta: {
         title: 'echarts图表'
       },
-      component: () => import('@/views/main/components/chart/chart.vue')
+      component: () => import('@/views/examples/components/chart/chart.vue')
     },
     {
       path: 'lottie',
       meta: {
         title: 'lottie动画'
       },
-      component: () => import('@/views/main/components/lottie/lottie.vue')
+      component: () => import('@/views/examples/components/lottie/lottie.vue')
     },
     {
       path: 'loading',
       meta: {
         title: 'loading'
       },
-      component: () => import('@/views/main/components/loading/loading.vue')
+      component: () => import('@/views/examples/components/loading/loading.vue')
     },
     {
       path: 'searchTree',
@@ -109,7 +110,7 @@ export default {
         title: 'searchTree(可搜索树)'
       },
       component: () =>
-        import('@/views/main/components/searchTree/searchTree.vue')
+        import('@/views/examples/components/searchTree/searchTree.vue')
     },
     {
       path: 'treeSelect',
@@ -117,7 +118,7 @@ export default {
         title: 'treeSelect(下拉树)'
       },
       component: () =>
-        import('@/views/main/components/treeSelect/treeSelect.vue')
+        import('@/views/examples/components/treeSelect/treeSelect.vue')
     }
   ]
 } as RouteRecordRaw

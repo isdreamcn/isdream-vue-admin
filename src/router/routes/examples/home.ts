@@ -7,5 +7,5 @@ export default {
     icon: 'IconHomeFilled',
     sort: 1
   },
-  component: () => import('@/views/main/home/home.vue')
+  component: () => import('@/views/examples/home/home.vue')
 } as RouteRecordRaw
