@@ -48,13 +48,13 @@ const props = defineProps(uploadProps)
 const emit = defineEmits(uploadEmits)
 
 const fileList = ref<UploadFile[]>([])
+let successFileList: UploadFile[] = []
 
 watch(
   () => props.modelValue,
   (val) => {
-    if (fileList.value === val) {
-      return
-    }
+    if (JSON.stringify(val) === JSON.stringify(successFileList)) return
+
     const modelValue = cloneDeep(val)
     fileList.value = modelValue.map((item) => ({
       ...item,
@@ -75,11 +75,17 @@ watch(
 watch(
   () => fileList.value,
   (val) => {
-    emit('update:modelValue', val)
-    emit('change', val)
+    successFileList = val.filter(
+      (item) => !item.status || item.status === 'success'
+    )
+    if (successFileList.length === props.modelValue.length) return
+
+    const _successFileList = cloneDeep(successFileList)
+    emit('update:modelValue', _successFileList)
+    emit('change', _successFileList)
   },
   {
-    immediate: true
+    deep: true
   }
 )
 
@@ -160,11 +166,7 @@ const beforeUpload: ElUploadProps['beforeUpload'] = (rawFile) => {
 }
 
 const onChange = () => {
-  if (props.removeFail) {
-    fileList.value = fileList.value.filter((file) => file.status !== 'fail')
-  } else {
-    fileList.value = [...fileList.value]
-  }
+  fileList.value = [...fileList.value]
 }
 
 const httpRequest: ElUploadProps['httpRequest'] = (options) => {

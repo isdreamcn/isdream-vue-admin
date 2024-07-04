@@ -65,11 +65,6 @@ export const uploadProps = buildProps({
     type: String,
     default: 'file'
   },
-  // 移除上传失败的文件
-  removeFail: {
-    type: Boolean,
-    default: true
-  },
   // 显示本次上传结果(上传成功/上传失败)
   showMessage: {
     type: Boolean,

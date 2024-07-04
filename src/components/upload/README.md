@@ -19,7 +19,6 @@
 | preview        | 预览功能                        | `(file: UploadFile) => void\| boolean` | true                       |
 | http           | 文件上传接口                    | `Function`                             | /api/common `uploadCommon` |
 | httpFileKey    | formData.key                    | `string`                               | file                       |
-| removeFail     | 移除上传失败的文件              | `boolean`                              | true                       |
 | showMessage    | 显示上传结果(上传成功/上传失败) | `boolean`                              | true                       |
 
 #### Upload-modelValue (UploadFile)

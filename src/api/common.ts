@@ -13,7 +13,7 @@ export const uploadCommon = (formData: FormData) => {
           }
         })
       }
-    }, 500)
+    }, 2000)
   })
 }
 

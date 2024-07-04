@@ -39,7 +39,7 @@ defineOptions({
 })
 
 const props = defineProps(searchTreeProps)
-const emits = defineEmits(searchTreeEmits)
+const emit = defineEmits(searchTreeEmits)
 const attrs = useAttrs()
 
 const treeRef = ref<InstanceType<typeof ElTree>>()
@@ -80,7 +80,7 @@ const selectChange = debounce(() => {
     ? treeRef.value?.getCheckedKeys()
     : treeRef.value?.getCurrentKey()
 
-  emits('update:modelValue', selectKeys)
+  emit('update:modelValue', selectKeys)
 })
 
 const setSelectKeys = (val?: any) => {
