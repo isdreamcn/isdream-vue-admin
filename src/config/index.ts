@@ -26,6 +26,7 @@ export interface AppConfig {
   storageConfig: StorageConfig
   serviceTokenConfig: ServiceTokenConfig
   needKeepAlive: boolean
+  routerHistory: 'Hash' | 'HTML5'
   defaultRouteMeta: DefaultRouteMeta
   routesHandlerOptions: RoutesHandlerOptions
   routeMainName: string
@@ -58,6 +59,7 @@ const config: Readonly<AppConfig> = {
     expires: 7 * 24 * 60 * 60 * 1000
   },
   // router
+  routerHistory: 'Hash',
   // `route.component`需要使用keepAlive
   needKeepAlive: true,
   defaultRouteMeta: {
