@@ -1,11 +1,24 @@
-import type { Router } from 'vue-router'
+import type { Router, RouteLocationNormalized } from 'vue-router'
 import { routesHandler } from '@/router'
 import { useRouteMainPath } from '@/store'
 import { appConfig } from '@/config'
 import { isFunction } from '@/utils'
 
+const getRoutePath = (route: RouteLocationNormalized) =>
+  route.matched[route.matched.length - 1]?.path
+
 export const useRedirect = (router: Router) => {
-  router.beforeEach((to) => {
+  router.beforeEach((to, from) => {
+    // 只改变路由中的参数，路由地址不改变，页面自动刷新
+    if (router.hasRoute('refresh') && getRoutePath(to) === getRoutePath(from)) {
+      return {
+        name: 'refresh',
+        query: {
+          fullPath: to.fullPath
+        }
+      }
+    }
+
     // 第一个路由的path(返回首页)
     if (to.name === appConfig.routeMainName) {
       return useRouteMainPath().value
