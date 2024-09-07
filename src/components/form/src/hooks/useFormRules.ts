@@ -13,7 +13,7 @@ export const useFormRules = (showFields: Ref<FormProps['fields']>) => {
         validateRules.push({
           required: true,
           message: `请填写${field.label}`,
-          trigger: 'blur'
+          trigger: 'change'
         })
       }
       if (field.validateRules) {
