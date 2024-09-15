@@ -1,13 +1,12 @@
 <template>
-  <div class="m-tree-select">
-    <el-tree-select
-      clearable
-      filterable
-      v-bind="$attrs"
-      :data="_data"
-      v-model="modelValue"
-    />
-  </div>
+  <el-tree-select
+    class="m-tree-select"
+    clearable
+    filterable
+    v-bind="$attrs"
+    :data="_data"
+    v-model="modelValue"
+  />
 </template>
 
 <script setup lang="ts">

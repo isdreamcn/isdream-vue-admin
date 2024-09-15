@@ -121,7 +121,7 @@ const copy = () => {
     .writeText(JSON.stringify(appStore.appSetting, null, 2))
     .then(() => {
       ElMessageBox.alert(
-        '复制成功,请到 src/store/modules/app.ts 中修改配置！',
+        '复制成功, 请到 src/store/modules/app.ts 中修改 useAppSettingDefault 返回！',
         '提示',
         {
           confirmButtonText: '确定',

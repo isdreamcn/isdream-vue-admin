@@ -34,6 +34,7 @@ export interface AppSetting {
   }
 }
 
+// 项目配置
 const useAppSettingDefault = (): AppSetting => ({
   colorPrimary: '#409EFF',
   layout: 'mainLayout',
