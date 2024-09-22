@@ -1,6 +1,10 @@
 <template>
   <div>
-    <MUpload list-type="picture-card" v-model="fileList"></MUpload>
+    <MUpload
+      list-type="picture-card"
+      accept=".png,.jpg,.jpge"
+      v-model="fileList"
+    ></MUpload>
     <pre>{{ fileList }}</pre>
 
     <MMarkdownView :value="readme"></MMarkdownView>

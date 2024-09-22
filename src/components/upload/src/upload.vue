@@ -146,7 +146,7 @@ const beforeUpload: ElUploadProps['beforeUpload'] = (rawFile) => {
         if (props.accept === 'all') {
           return false
         }
-        const fileType = file.type.split('/')[1]
+        const fileType = file.name.split('.').pop() || ''
         return !props.accept.includes(fileType)
       },
       message: '文件格式不符合要求'
