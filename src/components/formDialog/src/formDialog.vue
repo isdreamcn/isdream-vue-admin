@@ -16,7 +16,15 @@
       @getForm="getForm"
       @submit="submit"
       @cancel="cancel"
-    ></MForm>
+    >
+      <template
+        v-for="field in slotFields"
+        :key="field.key"
+        #[field.key]="attrs"
+      >
+        <slot :name="field.key" v-bind="attrs"></slot>
+      </template>
+    </MForm>
   </el-dialog>
 </template>
 
@@ -33,6 +41,8 @@ defineOptions({
 
 const props = defineProps(formDialogProps)
 const emit = defineEmits(formDialogEmits)
+
+const slotFields = computed(() => props.fields.filter((item) => item.slot))
 
 const title = computed(() =>
   props.disabled
