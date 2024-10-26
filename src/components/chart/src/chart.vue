@@ -4,9 +4,18 @@
 
 <script setup lang="ts">
 import type { ECharts } from 'echarts/core'
+import {
+  ref,
+  computed,
+  useAttrs,
+  watch,
+  nextTick,
+  onMounted,
+  onBeforeUnmount
+} from 'vue'
 import * as echarts from 'echarts/core'
 import { useECharts } from '@/plugins/echarts'
-import { ref, computed, useAttrs, watch, onMounted, onBeforeUnmount } from 'vue'
+import { debounce } from '@/utils'
 import { chartProps, chartEmits } from './chart'
 import { useHandlers } from './hooks'
 
@@ -31,9 +40,8 @@ const chartRef = ref<HTMLElement>()
 // TODO: https://github.com/apache/echarts/issues/14339
 let chart: Nullable<ECharts> = null
 
-const resize = () => {
-  chart?.resize()
-}
+const resize = () => nextTick(() => chart?.resize())
+const resizeDebounce = debounce(resize, 100)
 
 const init = () => {
   // 基于准备好的dom，初始化echarts实例
@@ -55,16 +63,19 @@ const init = () => {
 
   emit('init', chart)
 
-  window.addEventListener('resize', resize)
+  window.addEventListener('resize', resizeDebounce)
+  window.addEventListener('orientationchange', resizeDebounce)
 }
 
 const destroy = () => {
   chart && echarts.dispose(chart)
-  window.removeEventListener('resize', resize)
+  window.removeEventListener('resize', resizeDebounce)
+  window.removeEventListener('orientationchange', resizeDebounce)
 }
 
 onMounted(() => {
   init()
+  resize()
 })
 
 onBeforeUnmount(() => {
@@ -73,7 +84,8 @@ onBeforeUnmount(() => {
 
 defineExpose({
   chart,
-  chartRef
+  chartRef,
+  resize
 })
 </script>
 
