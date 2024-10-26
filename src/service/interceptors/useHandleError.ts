@@ -39,19 +39,37 @@ const handleError = (code: number, message?: string) => {
 
 export const useHandleError = (): ServiceInterceptors => {
   return {
+    // httpStatus通过, 进一步校验data.code
     responseInterceptor(res) {
-      const data = res.data
-      if (handleError(data.code, data.message)) {
+      const { code, message } = res.data
+      if (handleError(code, message)) {
         return Promise.reject({
           response: res
         })
       }
+
+      // 只有code为200才算成功
+      // if (code !== 200) {
+      //   message && ElMessage.error(message)
+      //   return Promise.reject({
+      //     response: res
+      //   })
+      // }
       return res
     },
+    // httpStatus不通过
     responseInterceptorCatch(err) {
-      handleError(err.response.data?.code, err.response.data?.message)
-      if (err.response.data?.code !== err.response.status) {
-        handleError(err.response.status)
+      // 错误处理结果
+      const handleRes: boolean[] = []
+      const { code, message } = err.response.data
+
+      handleRes.push(handleError(code, message))
+      if (code !== err.response.status) {
+        handleRes.push(handleError(err.response.status, message))
+      }
+
+      if (message && !handleRes.includes(true)) {
+        ElMessage.error(message)
       }
       return Promise.reject(err)
     }
