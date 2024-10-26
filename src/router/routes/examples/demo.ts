@@ -31,6 +31,14 @@ export default {
       }
     },
     {
+      path: 'rem',
+      meta: {
+        title: 'rem布局',
+        icon: 'icon-ScaleToOriginal'
+      },
+      component: () => import('@/views/layout/remLayout/remLayout.vue')
+    },
+    {
       path: 'menu',
       name: 'Menu',
       meta: {
