@@ -11,6 +11,7 @@ export interface TableColumn<T extends string = string> {
   fixed?: 'left' | 'right'
   attrs?: Partial<ExtractPropTypes<typeof ElTableColumn>> & Record<string, any>
   customRender?: (value: any, row: Record<string, any>, index: number) => string
+  children?: TableColumn[]
 }
 
 export interface TablePaginationOptions {

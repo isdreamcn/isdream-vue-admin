@@ -94,6 +94,7 @@ declare module '@vue/runtime-core' {
     RouterView: typeof import('vue-router')['RouterView']
     SearchTree: typeof import('./src/components/searchTree/src/searchTree.vue')['default']
     Table: typeof import('./src/components/table/src/table.vue')['default']
+    TableColumn: typeof import('./src/components/table/src/tableColumn.vue')['default']
     TreeSelect: typeof import('./src/components/treeSelect/src/treeSelect.vue')['default']
     Upload: typeof import('./src/components/upload/src/upload.vue')['default']
   }

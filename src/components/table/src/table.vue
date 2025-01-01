@@ -34,33 +34,37 @@
           {{ indexStart + $index + 1 }}
         </el-table-column>
       </template>
-      <el-table-column
+
+      <TableColumn
         v-for="column in props.columns"
-        v-bind="column.attrs"
         :key="column.key"
-        :prop="column.key"
-        :label="column.label ?? column.key"
-        :width="column.width"
-        :fixed="column.fixed"
+        :column="column"
       >
-        <template
-          v-if="column.slot || column.customRender"
-          #default="{ row, $index }"
-        >
-          <slot
-            :name="column.key"
-            :row="row"
-            :index="$index"
-            :value="getVal(row, column.key)"
-          >
+        <template #default="{ row, $index, column }">
+          <template v-if="column.slot">
+            <slot
+              :name="column.key"
+              :row="row"
+              :index="$index"
+              :value="getVal(row, column.key)"
+            >
+              {{
+                column.customRender
+                  ? column.customRender(getVal(row, column.key), row, $index)
+                  : getVal(row, column.key)
+              }}
+            </slot>
+          </template>
+
+          <template v-else>
             {{
               column.customRender
                 ? column.customRender(getVal(row, column.key), row, $index)
                 : getVal(row, column.key)
             }}
-          </slot>
+          </template>
         </template>
-      </el-table-column>
+      </TableColumn>
     </el-table>
     <!-- 分页器 -->
     <div v-if="props.paginationConfig" class="m-table__pagination">
@@ -80,6 +84,7 @@ import { computed } from 'vue'
 import { getVal } from '@/utils'
 import { tableProps, tableEmits } from './table'
 import { usePagination, useHttpData, useSelection } from './hooks'
+import TableColumn from './tableColumn.vue'
 
 defineOptions({
   name: 'MTable',

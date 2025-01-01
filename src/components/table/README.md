@@ -32,7 +32,8 @@
 | width        | 宽度                         | `number`                                                          | false  |
 | fixed        | 列固定                       | `left\|right`                                                     | --     |
 | attrs        | `ElTable-column 属性`        | `object`                                                          | --     |
-| customRender | 自定义渲染内容、并会开启插槽 | `(value: any, row: Record<string, any>, index: number) => string` | --     |
+| customRender | 自定义渲染内容       | `(value: any, row: Record<string, any>, index: number) => string` | --     |
+| children     | 多级表头                     | **TableColumn[]**     | --     |
 
 #### Table-paginationConfig (TablePaginationOptions)
 
