@@ -11,6 +11,7 @@
 | **fields** | 表单字段配置                                                                                                | **FormField[]**  | --     |
 | modelValue | `v-model`                                                                                                   | `object`         | --     |
 | labelWidth | 标签所占宽度, `inline: true` 时忽略                                                                         | `number\|string` | auto   |
+| rowAttrs   | el-row 属性                                                                                                 | `object`         | '--'   |
 | colAttrs   | el-col 属性, `inline: true` 时忽略                                                                          | `number\|object` | 6      |
 | disabled   | 是否禁用该表单内的所有组件, 隐藏默认按钮(`slot`依然可用)。如果设置为 true, 它将覆盖内部组件的 disabled 属性 | `boolean`        | false  |
 | inline     | 按钮放入 col                                                                                                | `boolean`        | true   |

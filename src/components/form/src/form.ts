@@ -3,6 +3,7 @@ import type { GlobalComponents } from '@/plugins/components'
 import type { FormComponents } from './components'
 import type { ExtractPropTypes, Component } from 'vue'
 import type {
+  RowProps,
   ColSize,
   FormItemRule,
   FormInstance as ElFormInstance
@@ -46,6 +47,10 @@ export const formProps = buildProps({
   labelWidth: {
     type: definePropType<number | string>([Number, String]),
     default: 'auto'
+  },
+  rowAttrs: {
+    type: definePropType<RowProps>(Object),
+    default: () => ({})
   },
   colAttrs: {
     type: definePropType<ColSize>([Number, Object]),

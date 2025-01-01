@@ -8,7 +8,7 @@
       :model="formData"
       :rules="formRules"
     >
-      <el-row>
+      <el-row v-bind="rowAttrs">
         <component
           v-for="field in fields"
           :is="props.inline ? 'div' : ElCol"
