@@ -6,6 +6,10 @@ export const loadingProps = buildProps({
   loading: {
     type: Boolean,
     default: false
+  },
+  zIndex: {
+    type: Number,
+    default: 2147483646
   }
 } as const)
 

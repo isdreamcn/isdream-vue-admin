@@ -6,7 +6,6 @@
       v-model="drawerVisible"
       size="25%"
       title="项目配置"
-      append-to-body
       class="app-setting-container__drawer"
     >
       <el-divider>主题</el-divider>
@@ -152,15 +151,14 @@ const clearCache = () => {
 <style lang="scss" scoped>
 .app-setting-container {
   font-size: 25px;
-  cursor: pointer;
   display: flex;
   align-items: center;
+  cursor: auto;
+  .m-icon {
+    cursor: pointer;
+  }
 }
 .app-setting-container__drawer {
-  .el-drawer__body {
-    padding-top: 0;
-  }
-
   .item--center {
     display: flex;
     justify-content: center;
@@ -185,6 +183,14 @@ const clearCache = () => {
         margin-right: 5px;
       }
     }
+  }
+}
+
+:deep(.el-drawer) {
+  transition-property: opacity, transform;
+
+  .el-drawer__body {
+    padding-top: 0;
   }
 }
 </style>

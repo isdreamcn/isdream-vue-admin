@@ -1,6 +1,13 @@
 <template>
   <transition appear leave-active-class="animate__animated animate__zoomOut">
-    <div v-show="props.loading" class="m-loading" ref="loadingRef">
+    <div
+      v-show="props.loading"
+      class="m-loading"
+      :style="{
+        'z-index': zIndex
+      }"
+      ref="loadingRef"
+    >
       <slot>Loading~</slot>
     </div>
   </transition>
@@ -32,8 +39,7 @@ onMounted(() => {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: #ffffff;
-  z-index: 9999;
+  background-color: var(--el-bg-color);
   overflow: hidden;
 
   display: flex;
