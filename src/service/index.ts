@@ -11,7 +11,7 @@ export const mockService = createService({
   baseURL: '/mockApi/'
 })
 
-export const useServiceInterceptors = () => {
+const useServiceInterceptors = () => {
   // 共同控制loading
   const loading = useLoading()
 
@@ -26,6 +26,10 @@ export const useServiceInterceptors = () => {
     useHandleError()
   ])
 }
+
+queueMicrotask(() => {
+  useServiceInterceptors()
+})
 
 export default service
 
