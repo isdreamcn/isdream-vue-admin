@@ -1,1 +1,2 @@
-export { dateFormat, checkAuth, getVal } from '@/utils'
+export { dateFormat, getVal } from '@/utils'
+export { checkAuth } from '@/utils/methods'
