@@ -1,5 +1,5 @@
 <template>
-  <el-select v-model="value">
+  <el-select clearable v-model="value">
     <el-option
       v-for="item in options"
       :key="item.value"
