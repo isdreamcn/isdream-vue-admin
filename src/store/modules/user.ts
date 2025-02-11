@@ -63,9 +63,9 @@ export const useUserStore = defineStore('user', {
     },
     setUserMenu() {
       return Promise.all(
-        SETUP_ROUTES_TYPE === 'permissions'
-          ? [this.setUserPermissions()]
-          : [this.setUserPermissions(), this.setRoleMenu()]
+        SETUP_ROUTES_TYPE === 'roleMenu'
+          ? [this.setUserPermissions(), this.setRoleMenu()]
+          : [this.setUserPermissions()]
       ).then(() => {
         // 注册路由
         if (SETUP_ROUTES_TYPE !== 'all') {
