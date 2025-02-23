@@ -3,6 +3,7 @@
     <el-upload
       v-bind="$attrs"
       :multiple="props.multiple"
+      :limit="props.max"
       :accept="props.accept"
       :list-type="props.listType"
       :disabled="disabled"
@@ -10,6 +11,7 @@
       :on-preview="onPreview"
       :on-remove="onRemove"
       :on-change="onChange"
+      :on-exceed="onExceed"
       :before-upload="beforeUpload"
       :http-request="httpRequest"
     >
@@ -132,15 +134,10 @@ const onRemove: ElUploadProps['onRemove'] = (_, uploadFiles) => {
   fileList.value = uploadFiles as UploadFile[]
 }
 
-const isMax = computed(() => fileList.value.length >= props.max)
 const disabled = computed(() => props.disabled)
 
 const beforeUpload: ElUploadProps['beforeUpload'] = (rawFile) => {
   const rules: UploadRule[] = [
-    {
-      validator: () => isMax.value,
-      message: `最多上传${props.max}个文件`
-    },
     {
       validator: (file) => {
         if (props.accept === 'all') {
@@ -152,8 +149,8 @@ const beforeUpload: ElUploadProps['beforeUpload'] = (rawFile) => {
       message: '文件格式不符合要求'
     },
     {
-      validator: (file) => file.size > props.maxSize,
-      message: `文件不能超过${props.maxSize}byte`
+      validator: (file) => file.size / 1024 / 1024 > props.maxSize,
+      message: `文件不能超过${props.maxSize}MB`
     },
     ...props.rules
   ]
@@ -167,6 +164,10 @@ const beforeUpload: ElUploadProps['beforeUpload'] = (rawFile) => {
 
 const onChange = () => {
   fileList.value = [...fileList.value]
+}
+
+const onExceed = () => {
+  ElMessage.warning(`最多上传${props.max}个文件`)
 }
 
 const httpRequest: ElUploadProps['httpRequest'] = (options) => {

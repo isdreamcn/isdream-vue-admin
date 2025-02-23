@@ -2,7 +2,9 @@
   <div>
     <MUpload
       list-type="picture-card"
-      accept=".png,.jpg,.jpge"
+      accept=".png,.jpg,.jpeg"
+      :max="5"
+      :maxSize="2"
       v-model="fileList"
     ></MUpload>
     <pre>{{ fileList }}</pre>

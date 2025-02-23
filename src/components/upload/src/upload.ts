@@ -35,7 +35,7 @@ export const uploadProps = buildProps({
     type: Number,
     default: Infinity
   },
-  // 文件大小限制(byte)
+  // 文件大小限制(MB)
   maxSize: {
     type: Number,
     default: Infinity

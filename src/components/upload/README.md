@@ -12,7 +12,7 @@
 | multiple       | 批量上传                        | `boolean`                              | true                       |
 | accept         | 接收上传的文件类型              | `string`                               | all                        |
 | max            | 文件数量限制                    | `number`                               | --                         |
-| maxSize        | 文件大小限制(byte)              | `number`                               | --                         |
+| maxSize        | 文件大小限制(MB)              | `number`                               | --                         |
 | listType       | 上传的文件展示形态              | `text\|picture\| picture-card`         | picture                    |
 | disabled       | 是否禁用                        | `boolean`                              | false                      |
 | **rules**      | 文件上传前的校验                | **UploadRule[]**                       | --                         |
