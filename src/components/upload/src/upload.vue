@@ -14,6 +14,10 @@
       :on-exceed="onExceed"
       :before-upload="beforeUpload"
       :http-request="httpRequest"
+      :class="{
+        'is--hidden-upload':
+          listType === 'picture-card' && fileList.length >= max
+      }"
     >
       <slot :disabled="disabled">
         <el-button
@@ -222,5 +226,10 @@ const httpRequest: ElUploadProps['httpRequest'] = (options) => {
 <style lang="scss" scoped>
 .m-upload {
   width: 100%;
+  .is--hidden-upload {
+    :deep(.el-upload--picture-card) {
+      display: none;
+    }
+  }
 }
 </style>

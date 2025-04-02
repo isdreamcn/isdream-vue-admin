@@ -1,10 +1,11 @@
 <template>
   <div class="m-form">
     <el-form
-      v-bind="$attrs"
       ref="elFormRef"
+      v-bind="$attrs"
       :label-width="props.inline ? '' : props.labelWidth"
       :inline="props.inline"
+      :validate-on-rule-change="false"
       :model="formData"
       :rules="formRules"
     >
