@@ -8,7 +8,7 @@
 
 | 属性名  | 说明                                           | 类型       | 预设值 |
 | ------- | ---------------------------------------------- | ---------- | ------ |
-| options | ECharts Options                                | `ECOption` | --     |
+| option  | ECharts Option                                | `ECOption` | --     |
 | width   | 宽度                                           | `string`   | 100%   |
 | height  | 高度                                           | `string`   | 100%   |
 | lazy    | 是否直接渲染, 为 true 时, options 改变才会渲染 | `boolean`  | false  |

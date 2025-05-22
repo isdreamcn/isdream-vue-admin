@@ -48,11 +48,11 @@ const init = () => {
   chart = echarts.init(chartRef.value!)
   // 绘制图表
   if (!props.lazy) {
-    chart.setOption(props.options)
+    chart.setOption(props.option)
   }
   watch(
-    () => props.options,
-    () => chart?.setOption(props.options),
+    () => props.option,
+    () => chart?.setOption(props.option),
     {
       deep: true
     }

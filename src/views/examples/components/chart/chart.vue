@@ -1,7 +1,7 @@
 <template>
   <div>
-    <MChart height="500px" :options="options" @click="onClick"></MChart>
-    <MChart height="500px" :options="lineOptions" @click="onClick"></MChart>
+    <MChart height="500px" :option="option" @click="onClick"></MChart>
+    <MChart height="500px" :option="lineOption" @click="onClick"></MChart>
 
     <MMarkdownView :value="readme"></MMarkdownView>
   </div>
@@ -9,10 +9,10 @@
 
 <script setup lang="ts">
 import readme from '@/components/chart/README.md?raw'
-import type { ChartOptions } from '@/components'
+import type { ChartOption } from '@/components'
 import { ref } from 'vue'
 
-const options = ref<ChartOptions>({
+const option = ref<ChartOption>({
   title: {
     text: 'ECharts 入门示例'
   },
@@ -30,7 +30,7 @@ const options = ref<ChartOptions>({
   ]
 })
 
-const lineOptions = ref<ChartOptions>({
+const lineOption = ref<ChartOption>({
   xAxis: {
     type: 'category',
     data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
