@@ -93,7 +93,8 @@ export const generRouteMap = (
   routeMap: RouteMap = new Map(),
   parentNode?: RouteMapItem
 ) => {
-  routes.forEach((route, index) => {
+  let flag = false
+  routes.forEach((route) => {
     const _route: RouteMapItem = { route, parentNode }
     routeMap.set(route.path, _route)
     if (route.children) {
@@ -101,7 +102,8 @@ export const generRouteMap = (
     }
     // 路由扁平化后，不会存在上下级关系
     // 用于`../guard/useRedirect`重定向到第一个叶子节点
-    if (index === 0) {
+    if (!flag && !route.meta?.hiddenInMenu) {
+      flag = true
       let parentRoute = _route.parentNode
       while (parentRoute && !parentRoute.redirectNode) {
         parentRoute.redirectNode = _route
