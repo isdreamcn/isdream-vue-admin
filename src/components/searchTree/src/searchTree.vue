@@ -92,16 +92,18 @@ const setSelectKeys = (val?: any) => {
   }
 }
 
-// 默认选中
-nextTick(() => setSelectKeys(toRaw(props.modelValue)))
-
 watch(
   () => props.modelValue,
   () => {
     const value = toRaw(props.modelValue)
     if (selectKeys === value) return
 
-    setSelectKeys(value)
+    nextTick(() => {
+      setSelectKeys(value)
+    })
+  },
+  {
+    immediate: true
   }
 )
 </script>
