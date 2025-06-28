@@ -51,7 +51,8 @@ export const useRoutesHandler = (
     const routerStore = useRouterStore()
     routerStore.clearRouteHistory()
 
-    const path = routes[0]?.path
+    const path = routes.find((item) => !item.meta?.hiddenInMenu)?.path
+    if (!path) return
     const routeData = routeMap.get(path)
 
     let firstRoute = routeData?.route
