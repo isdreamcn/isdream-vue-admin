@@ -176,12 +176,11 @@ export const useUserStore = defineStore('user', {
 
       await promise
 
-      const { pathname, search, hash } = window.location
-      if (appConfig.routerHistory === 'Hash') {
-        await router.replace(hash.slice(1))
-      } else if (appConfig.routerHistory === 'HTML5') {
-        await router.replace(pathname + search + hash)
-      }
+      await router.replace({
+        path: router.currentRoute.value.path,
+        query: router.currentRoute.value.query,
+        force: true
+      })
 
       routerStore.setState({
         loading: false,

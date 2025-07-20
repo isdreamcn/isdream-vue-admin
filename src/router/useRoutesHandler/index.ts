@@ -33,9 +33,9 @@ export const useRoutesHandler = (
   ])(originRoutes)
   const _originRouteMap = generRouteMap(_originRoutes)
 
-  let routes = _originRoutes
+  let routes: RouteRecordRaw[] = []
   // path => routeData
-  let routeMap: RouteMap = _originRouteMap
+  let routeMap: RouteMap = new Map()
   const getRouteByPath = (path: string) => routeMap.get(path)
 
   // 保存用户菜单
@@ -122,7 +122,7 @@ export const useRoutesHandler = (
     }
 
     if (options.setupRoutesType === 'roleMenu') {
-      routes = generRoutesByRoleMenu(roleMenu, routeMap)
+      routes = generRoutesByRoleMenu(roleMenu, _originRouteMap)
       routeMap = generRouteMap(routes)
     }
 

@@ -10,7 +10,11 @@ const getRoutePath = (route: RouteLocationNormalized) =>
 export const useRedirect = (router: Router) => {
   router.beforeEach((to, from) => {
     // 只改变路由中的参数，路由地址不改变，页面自动刷新
-    if (router.hasRoute('refresh') && getRoutePath(to) === getRoutePath(from)) {
+    if (
+      router.hasRoute('refresh') &&
+      to.fullPath !== from.fullPath &&
+      getRoutePath(to) === getRoutePath(from)
+    ) {
       return {
         name: 'refresh',
         query: {

@@ -8,7 +8,7 @@
         :effect="routePath === route.path ? 'dark' : 'plain'"
         :type="
           hoverRoutePath === route.path || routePath === route.path
-            ? ''
+            ? undefined
             : 'info'
         "
         @mouseover="mouseover(route.path)"
