@@ -62,6 +62,7 @@ import {
   height: 100%;
   .el-aside {
     width: auto;
+    overflow-x: hidden;
   }
   .el-header {
     padding: 0;

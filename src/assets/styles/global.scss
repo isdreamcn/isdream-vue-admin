@@ -89,3 +89,12 @@ html.light {
 .dark::view-transition-new(root) {
   z-index: 1;
 }
+
+/* 在el-dialog中tinymce z-index 被太小而被遮挡 */
+.tox-tinymce-aux {
+  z-index: 9701 !important;
+}
+
+.tox-tinymce-aux .tox-menu {
+  z-index: 9702 !important;
+}
