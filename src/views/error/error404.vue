@@ -22,6 +22,7 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { randomNum } from '@/utils'
 import { appConfig } from '@/config'
+import { MLottie } from '@/components/lottie'
 import data404 from '@/assets/lottie/not-found-404.json'
 
 const tips = [

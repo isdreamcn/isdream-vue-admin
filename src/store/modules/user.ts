@@ -177,8 +177,7 @@ export const useUserStore = defineStore('user', {
       await promise
 
       await router.replace({
-        path: router.currentRoute.value.path,
-        query: router.currentRoute.value.query,
+        ...getRouteLocationRaw(appConfig.routerHistory),
         force: true
       })
 
@@ -189,3 +188,46 @@ export const useUserStore = defineStore('user', {
     }
   }
 })
+
+// 根据路由模式从当前 URL 中解析出 path、query、hash
+function getRouteLocationRaw(mode: 'Hash' | 'HTML5') {
+  const { location } = window
+  let path = ''
+  let query: Record<string, string | string[]> = {}
+  let hash = ''
+
+  if (mode === 'Hash') {
+    const hashContent = location.hash.substring(1)
+    const [pathAndQuery, hashFragment = ''] = hashContent.split('#', 2)
+    const [pathPart, queryString] = pathAndQuery.split('?', 2)
+
+    path = pathPart || '/'
+    query = queryString ? parseQuery(queryString) : {}
+    hash = hashFragment ? '#' + hashFragment : ''
+  } else {
+    path = location.pathname || '/'
+    query = location.search ? parseQuery(location.search.substring(1)) : {}
+    hash = location.hash
+  }
+
+  return { path, query, hash }
+}
+
+// 将查询字符串解析为对象
+function parseQuery(queryString?: string) {
+  if (!queryString) return {}
+
+  const params = new URLSearchParams(queryString)
+  const query: Record<string, string | string[]> = {}
+
+  for (const [key, value] of params.entries()) {
+    if (Object.prototype.hasOwnProperty.call(query, key)) {
+      const cur = query[key] as string | string[]
+      query[key] = Array.isArray(cur) ? [...cur, value] : [cur, value]
+    } else {
+      query[key] = value
+    }
+  }
+
+  return query
+}
