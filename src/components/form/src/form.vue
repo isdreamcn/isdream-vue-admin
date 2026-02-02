@@ -22,7 +22,7 @@
               v-bind="{
                 ...field.attrs,
                 key: field.key,
-                disabled: props.disabled ?? field.attrs?.disabled
+                disabled: field.attrs?.disabled ?? props.disabled
               }"
               v-on="field.on || {}"
               :is="field.tag"
@@ -35,7 +35,7 @@
               v-bind="{
                 ...field.attrs,
                 key: field.key,
-                disabled: props.disabled ?? field.attrs?.disabled
+                disabled: field.attrs?.disabled ?? props.disabled
               }"
               :value="formData[field.key]"
             ></slot>

@@ -58,7 +58,7 @@ export const formProps = buildProps({
   },
   disabled: {
     type: Boolean,
-    default: undefined
+    default: false
   },
   // 按钮放入col
   inline: {

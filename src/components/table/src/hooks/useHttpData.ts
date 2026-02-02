@@ -29,16 +29,23 @@ export const useHttpData = (
     pageSize: paginationParams.pageSize
   }))
 
+  // 生成请求ID来标识每个请求
+  let currentRequestId = 0
+
   const requestHttp = () => {
     if (props.http) {
       httpRes.loading = true
+      const requestId = ++currentRequestId // 递增ID
+
       props
         .http(params.value)
         .then((res) => {
+          if (requestId !== currentRequestId) return
           httpRes.data = res.data
           httpRes.total = res.count ?? res.data.length
         })
         .finally(() => {
+          if (requestId !== currentRequestId) return
           httpRes.loading = false
           requestFinally()
         })
