@@ -1,21 +1,34 @@
 import dayjs from 'dayjs'
 import { appConfig } from '@/config'
 
-export const setBaseUrlFile = (str: string) => {
-  return str.replaceAll(
-    /(!\[.*\]\(|<img.*src=")(?!blob:http|http)/g,
-    `$1${appConfig.baseUrlFile}`
+export const joinBaseUrlFile = (url: string): string => {
+  if (!url || /^(blob:|https?:\/\/|\/\/)/i.test(url)) return url
+
+  const baseUrl = appConfig.baseUrlFile.replace(/\/$/, '') // 去掉末尾斜杠
+  const cleanUrl = url.replace(/^\.+\//, '').replace(/^\//, '') // 去掉 ./ ../ /
+
+  return `${baseUrl}/${cleanUrl}`
+}
+
+export const setBaseUrlFile = (str: string): string => {
+  // Markdown 图片
+  str = str.replace(
+    /!\[([^[\]]*)\]\((.*?)\)/g,
+    (_, alt, src) => `![${alt}](${joinBaseUrlFile(src)})`
   )
+
+  // HTML img 单/双引号 src
+  str = str.replace(
+    /(<img\b[^>]*?\ssrc\s*=\s*)(['"])(.*?)\2/gi,
+    (_, prefix, quote, src) =>
+      `${prefix}${quote}${joinBaseUrlFile(src)}${quote}`
+  )
+
+  return str
 }
 
 export const removeBaseUrlFile = (str: string) => {
   return str.replaceAll(appConfig.baseUrlFile, '')
-}
-
-export const joinBaseUrlFile = (url: string) => {
-  if (/^blob:/.test(url)) return url
-
-  return /^https?:\/\//.test(url) ? url : appConfig.baseUrlFile + url
 }
 
 export const dateFormat = (
