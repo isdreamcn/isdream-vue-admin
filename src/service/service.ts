@@ -1,11 +1,15 @@
-import type { AxiosRequestConfig, AxiosResponse } from 'axios'
+import type {
+  AxiosRequestConfig,
+  AxiosResponse,
+  InternalAxiosRequestConfig
+} from 'axios'
 import axios from 'axios'
 
 type onFulfilled<T> = (value: T) => T | Promise<T>
 type onRejected = (error: any) => any
 
 export interface ServiceInterceptors<T = any> {
-  requestInterceptor?: onFulfilled<AxiosRequestConfig<any>>
+  requestInterceptor?: onFulfilled<InternalAxiosRequestConfig<any>>
   requestInterceptorCatch?: onRejected
   responseInterceptor?: onFulfilled<AxiosResponse<T, any>>
   responseInterceptorCatch?: onRejected

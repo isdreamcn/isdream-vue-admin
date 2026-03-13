@@ -59,15 +59,34 @@ export const useHandleError = (): ServiceInterceptors => {
     },
     // httpStatus不通过
     responseInterceptorCatch(err) {
-      // 错误处理结果
       const handleRes: boolean[] = []
-      const { code, message } = err.response.data
 
-      handleRes.push(handleError(code, message))
+      // 处理无响应的情况（网络错误、请求超时等）
+      if (!err.response) {
+        if (err.code === 'ECONNABORTED') {
+          ElMessage.error('请求超时，请稍后重试')
+        } else if (err.message?.includes('Network Error')) {
+          ElMessage.error('网络连接失败，请检查网络设置')
+        } else {
+          ElMessage.error(`请求失败: ${err.message || '未知错误'}`)
+        }
+        return Promise.reject(err)
+      }
+
+      const { code, message } = (err.response.data || {}) as {
+        code?: number
+        message?: string
+      }
+
+      // 处理业务错误码
+      if (code !== undefined) {
+        handleRes.push(handleError(code, message))
+      }
+      // 处理 HTTP 状态码（当与业务码不同时）
       if (code !== err.response.status) {
         handleRes.push(handleError(err.response.status, message))
       }
-
+      // 兜底处理：若错误未被识别，则直接显示后端返回的消息
       if (message && !handleRes.includes(true)) {
         ElMessage.error(message)
       }
