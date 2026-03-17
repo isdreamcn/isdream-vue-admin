@@ -23,7 +23,7 @@ export const markdownProps = buildProps({
     type: String,
     default: 'file'
   },
-  // TODO https://www.w3schools.com/tags/att_input_accept.asp
+  // @see https://developer.mozilla.org/zh-CN/docs/Web/HTML/Reference/Attributes/accept
   uploadFileAccept: {
     type: String,
     default: 'image/*'

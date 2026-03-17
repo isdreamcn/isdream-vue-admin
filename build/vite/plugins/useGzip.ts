@@ -1,4 +1,4 @@
-// TODO: https://github.com/vbenjs/vite-plugin-compression
+// @see https://github.com/vbenjs/vite-plugin-compression
 import commpressPlugin from 'vite-plugin-compression'
 
 /*

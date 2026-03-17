@@ -11,7 +11,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended'
   ],
-  // TODO: https://github.com/vuejs/eslint-plugin-vue/issues/1625
+  // @see https://github.com/vuejs/eslint-plugin-vue/issues/1625
   overrides: [
     {
       files: ['*.vue'],

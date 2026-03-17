@@ -124,7 +124,7 @@ const onPreview: ElUploadProps['onPreview'] = (uploadFile) => {
   )
 
   viewerApi({
-    // TODO: https://github.com/fengyuanchen/viewerjs
+    // @see https://github.com/fengyuanchen/viewerjs
     options: {
       toolbar: true,
       url: 'url',

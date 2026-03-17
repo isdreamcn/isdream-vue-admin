@@ -1,6 +1,6 @@
 import type { ECharts } from 'echarts/core'
 
-// TODO: https://echarts.apache.org/zh/api.html#events
+// @see https://echarts.apache.org/zh/api.html#events
 const validEvents = [
   'onClick',
   'onDblclick',

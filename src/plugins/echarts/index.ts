@@ -11,7 +11,7 @@ import {
 } from 'echarts/components'
 import { LabelLayout, UniversalTransition } from 'echarts/features'
 // 引入 Svg 渲染器，注意引入 CanvasRenderer 或者 SVGRenderer 是必须的一步
-// TODO: https://github.com/apache/echarts-handbook/blob/master/contents/en/best-practices/canvas-vs-svg.md
+// @see https://github.com/apache/echarts-handbook/blob/master/contents/en/best-practices/canvas-vs-svg.md
 import { SVGRenderer } from 'echarts/renderers'
 
 import type {

@@ -60,8 +60,8 @@ transition 和 keep-alive 现在必须通过 v-slot API 在 RouterView 内部使
   </transition>
 </router-view>
 
-TODO: https://router.vuejs.org/zh/guide/migration/#-router-view-%E3%80%81-keep-alive-%E5%92%8C-transition-
-TODO: https://github.com/vuejs/rfcs/blob/master/active-rfcs/0034-router-view-keep-alive-transitions.md
+@see https://router.vuejs.org/zh/guide/migration/#-router-view-%E3%80%81-keep-alive-%E5%92%8C-transition-
+@see https://github.com/vuejs/rfcs/blob/master/active-rfcs/0034-router-view-keep-alive-transitions.md
 */
 
 export const createBasicLayout = (

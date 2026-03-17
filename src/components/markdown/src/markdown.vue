@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-//TODO https://b3log.org/vditor/
+// @see https://b3log.org/vditor/
 import 'vditor/dist/index.css'
 import Vditor from 'vditor'
 import { toolbar } from './vditor/vditor'

@@ -1,7 +1,7 @@
 // 自动导入
-// TODO:https://github.com/unplugin/unplugin-auto-import
+// @see https://github.com/unplugin/unplugin-auto-import
 import AutoImport from 'unplugin-auto-import/vite'
-// TODO:https://github.com/antfu/unplugin-vue-components
+// @see https://github.com/antfu/unplugin-vue-components
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 // import 手动导入的组件、自动其导入样式
