@@ -9,5 +9,8 @@ src/assets/**/*.json
 pnpm-lock.yaml
 stats.html
 
+auto-imports.d.ts
+components.d.ts
+
 **/*.svg
 **/*.sh

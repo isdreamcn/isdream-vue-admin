@@ -24,16 +24,16 @@
 
 #### Table-columns (TableColumn)
 
-| 属性名       | 说明                         | 类型                                                              | 预设值 |
-| ------------ | ---------------------------- | ----------------------------------------------------------------- | ------ |
-| key          | 唯一值                       | `string`                                                          | --     |
-| label        | 列标签                       | `string`                                                          | --     |
-| slot         | 开启 `name=key` 的插槽       | `boolean`                                                         | false  |
-| width        | 宽度                         | `number`                                                          | false  |
-| fixed        | 列固定                       | `left\|right`                                                     | --     |
-| attrs        | `ElTable-column 属性`        | `object`                                                          | --     |
-| customRender | 自定义渲染内容       | `(value: any, row: Record<string, any>, index: number) => string` | --     |
-| children     | 多级表头                     | **TableColumn[]**     | --     |
+| 属性名       | 说明                   | 类型                                                              | 预设值 |
+| ------------ | ---------------------- | ----------------------------------------------------------------- | ------ |
+| key          | 唯一值                 | `string`                                                          | --     |
+| label        | 列标签                 | `string`                                                          | --     |
+| slot         | 开启 `name=key` 的插槽 | `boolean`                                                         | false  |
+| width        | 宽度                   | `number`                                                          | false  |
+| fixed        | 列固定                 | `left\|right`                                                     | --     |
+| attrs        | `ElTable-column 属性`  | `object`                                                          | --     |
+| customRender | 自定义渲染内容         | `(value: any, row: Record<string, any>, index: number) => string` | --     |
+| children     | 多级表头               | **TableColumn[]**                                                 | --     |
 
 #### Table-paginationConfig (TablePaginationOptions)
 
