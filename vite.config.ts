@@ -57,6 +57,8 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     css: {
       preprocessorOptions: {
         scss: {
+          api: 'modern-compiler',
+          silenceDeprecations: ['legacy-js-api'],
           // 修改element变量、全局导入scss变量
           additionalData: `
             @use "@/assets/styles/element.scss" as *;
