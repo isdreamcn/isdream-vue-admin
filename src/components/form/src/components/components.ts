@@ -12,5 +12,5 @@ export const formComponentsProps = buildProps({
 } as const)
 
 export const formComponentsEmits = {
-  'update:modelValue': (val: any) => true || val
+  'update:modelValue': (_val: any) => true
 }
