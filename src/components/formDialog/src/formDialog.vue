@@ -48,8 +48,8 @@ const title = computed(() =>
   props.disabled
     ? props.disabledTitle
     : props.id
-    ? props.editTitle
-    : props.addTitle
+      ? props.editTitle
+      : props.addTitle
 )
 const loading = ref(false)
 const visible = ref(props.modelValue)

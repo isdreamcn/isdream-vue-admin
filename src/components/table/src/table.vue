@@ -12,7 +12,7 @@
       v-bind="$attrs"
       :ref="selection.elTableRef"
       v-loading="props.loading || httpRes.loading"
-      :data="(data as any[])"
+      :data="data as any[]"
       :row-key="props.rowKey"
       @selection-change="selection.handleSelectionChange"
     >

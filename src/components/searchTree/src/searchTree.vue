@@ -30,6 +30,7 @@
 
 <script lang="ts" setup>
 import type { ElTree } from 'element-plus'
+import type { TreeNodeData } from 'element-plus/es/components/tree/src/tree.type'
 import { ref, watch, computed, useAttrs, toRaw, nextTick } from 'vue'
 import { searchTreeProps, searchTreeEmits } from './searchTree'
 import { updateObjKeys, debounce } from '@/utils'
@@ -53,7 +54,7 @@ const _data = computed(() => {
       children: props.fields.children ?? 'children'
     },
     props.fields?.children ?? 'children'
-  )
+  ) as TreeNodeData[]
 })
 
 // 筛选

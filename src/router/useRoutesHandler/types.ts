@@ -1,15 +1,17 @@
-import type { RouteRecordRaw, RouteRecordName } from 'vue-router'
-import type { UserMenu } from '@/store'
+import type { RouteRecordRaw, RouteRecordNameGeneric } from 'vue-router'
 
 export interface RoutesHandlerOptions {
   setupRoutesType: 'all' | 'roleMenu' | 'permissions'
-  addRouteParentName: RouteRecordName
+  addRouteParentName?: RouteRecordNameGeneric
   flatRoutes: boolean
 }
 
-// 角色菜单
-export interface RoleMenu extends PartialDeep<UserMenu> {
+export interface RoleMenu {
+  title?: string
+  name?: string | symbol
   path: string
+  icon?: string
+  link?: string
   children?: RoleMenu[]
 }
 

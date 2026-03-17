@@ -33,7 +33,9 @@ export const useRedirect = (router: Router) => {
     // `flatRoutes: true` 路由扁平化，父级的`redirect`不生效
     // TIP: redirect 需要是可以访问的路由
     if (route?.redirect) {
-      return isFunction(route.redirect) ? route.redirect(to) : route.redirect
+      return isFunction(route.redirect)
+        ? route.redirect(to, from)
+        : route.redirect
     }
 
     // to的第一个叶子节点

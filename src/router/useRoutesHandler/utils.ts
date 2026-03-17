@@ -165,6 +165,6 @@ export const generRoutesByPermissions = (
           children:
             item.children &&
             generRoutesByPermissions(permissionsMap, item.children)
-        } as RouteRecordRaw)
+        }) as RouteRecordRaw
     )
 }

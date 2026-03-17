@@ -13,6 +13,7 @@ import {
 
 export interface UserMenu {
   title: string
+  name?: string
   // 唯一key，多级路由地址拼接，/开头
   path: string
   icon?: string
@@ -88,7 +89,7 @@ export const useUserStore = defineStore('user', {
           db.set('roleMenu', res.data)
         }
 
-        this.roleMenu = res.data
+        this.roleMenu = res.data as RoleMenu[]
 
         return res
       })

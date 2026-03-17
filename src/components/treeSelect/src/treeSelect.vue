@@ -10,6 +10,7 @@
 </template>
 
 <script setup lang="ts">
+import type { TreeNodeData } from 'element-plus/es/components/tree/src/tree.type'
 import { computed } from 'vue'
 import { treeSelectProps, treeSelectEmits } from './treeSelect'
 import { updateObjKeys } from '@/utils'
@@ -39,7 +40,7 @@ const _data = computed(() => {
       children: props.fields.children ?? 'children'
     },
     props.fields?.children ?? 'children'
-  )
+  ) as TreeNodeData[]
 })
 </script>
 

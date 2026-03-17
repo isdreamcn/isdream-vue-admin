@@ -80,7 +80,9 @@ export const useRoutesHandler = (
       _routes = flatRoutes(routes)
     }
     _routes.forEach((route) => {
-      const removeRouteFn = router.addRoute(options.addRouteParentName, route)
+      const removeRouteFn = options.addRouteParentName
+        ? router.addRoute(options.addRouteParentName, route)
+        : router.addRoute(route)
       removeRouteFns.push(removeRouteFn)
     })
   }
