@@ -3,7 +3,7 @@
     <p>批量删除按钮</p>
     <MDeleteButton
       :http="demoUserDel"
-      :selectKeys="selectKeys"
+      :select-keys="selectKeys"
       @click="reload"
       @reload="reload"
     ></MDeleteButton>

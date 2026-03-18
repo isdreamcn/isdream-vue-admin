@@ -2,11 +2,11 @@
   <transition appear leave-active-class="animate__animated animate__zoomOut">
     <div
       v-show="props.loading"
+      ref="loadingRef"
       class="m-loading"
       :style="{
         'z-index': zIndex
       }"
-      ref="loadingRef"
     >
       <slot>Loading~</slot>
     </div>

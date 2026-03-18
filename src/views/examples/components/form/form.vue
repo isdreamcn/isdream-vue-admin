@@ -3,12 +3,12 @@
     <p>编辑表单、双向绑定：{{ modelValue }}</p>
     <el-button @click="modelValue.name += 'a'">name + a</el-button>
     <MForm
+      v-model="modelValue"
       style="max-width: 800px; margin-bottom: 50px"
       :fields="fields"
       :inline="false"
       :col-attrs="24"
       :label-width="200"
-      v-model="modelValue"
       @submit="submit"
       @cancel="cancel"
     >

@@ -7,7 +7,7 @@
   >
     <slot>
       <!-- element plus icons -->
-      <component v-if="!isIconfont" :is="props.name"></component>
+      <component :is="props.name" v-if="!isIconfont"></component>
     </slot>
   </el-icon>
 </template>

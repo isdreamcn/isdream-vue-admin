@@ -69,7 +69,7 @@ export const useRoutesHandler = (
   }
 
   // 添加路由
-  let removeRouteFns: Function[] = []
+  let removeRouteFns: (() => void)[] = []
   const addRoutes = () => {
     // 移除上次添加的路由
     removeRouteFns.forEach((fn) => fn())

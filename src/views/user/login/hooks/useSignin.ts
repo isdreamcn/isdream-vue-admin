@@ -31,7 +31,7 @@ export const useSignin = (toggleForm?: () => void) => {
       signinLoading.value = true
       userSignin(signinForm)
         .then(() => {
-          toggleForm && toggleForm()
+          toggleForm?.()
         })
         .finally(() => {
           signinLoading.value = false

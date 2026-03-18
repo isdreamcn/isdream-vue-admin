@@ -1,5 +1,5 @@
 <template>
-  <MLoading :loading="props.loading" :zIndex="zIndex">
+  <MLoading :loading="props.loading" :z-index="zIndex">
     <MLottie
       :data="loadingData"
       style="width: 25%; min-width: 350px"

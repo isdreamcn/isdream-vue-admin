@@ -1,5 +1,5 @@
 <template>
-  <div class="rem-layout" ref="elRef">
+  <div ref="elRef" class="rem-layout">
     <div style="font-size: 0.5rem">rem布局</div>
   </div>
 </template>

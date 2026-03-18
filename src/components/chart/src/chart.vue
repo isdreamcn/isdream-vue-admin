@@ -1,5 +1,5 @@
 <template>
-  <div class="m-chart" ref="chartRef" :style="style"></div>
+  <div ref="chartRef" class="m-chart" :style="style"></div>
 </template>
 
 <script setup lang="ts">
@@ -68,7 +68,9 @@ const init = () => {
 }
 
 const destroy = () => {
-  chart && echarts.dispose(chart)
+  if (chart) {
+    echarts.dispose(chart)
+  }
   window.removeEventListener('resize', resizeDebounce)
   window.removeEventListener('orientationchange', resizeDebounce)
 }

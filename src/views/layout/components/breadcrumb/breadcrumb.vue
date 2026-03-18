@@ -1,7 +1,7 @@
 <template>
   <el-breadcrumb
-    class="m-breadcrumb"
     v-if="appSetting.breadcrumb.show"
+    class="m-breadcrumb"
     separator="/"
   >
     <el-breadcrumb-item v-for="item in matched" :key="item.path">

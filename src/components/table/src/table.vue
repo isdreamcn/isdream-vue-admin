@@ -6,12 +6,12 @@
       </el-space>
     </div>
     <el-table
-      class="m-table__main"
-      border
-      stripe
       v-bind="$attrs"
       :ref="selection.elTableRef"
       v-loading="props.loading || httpRes.loading"
+      class="m-table__main"
+      border
+      stripe
       :data="data as any[]"
       :row-key="props.rowKey"
       @selection-change="selection.handleSelectionChange"
@@ -26,10 +26,10 @@
 
       <template v-if="props.series">
         <el-table-column
+          v-slot="{ $index }"
           type="index"
           width="55"
           label="序号"
-          #default="{ $index }"
         >
           {{ indexStart + $index + 1 }}
         </el-table-column>
@@ -40,27 +40,27 @@
         :key="column.key"
         :column="column"
       >
-        <template #default="{ row, $index, column }">
-          <template v-if="column.slot">
+        <template #default="{ row, $index, column: col }">
+          <template v-if="col.slot">
             <slot
-              :name="column.key"
+              :name="col.key"
               :row="row"
               :index="$index"
-              :value="getVal(row, column.key)"
+              :value="getVal(row, col.key)"
             >
               {{
-                column.customRender
-                  ? column.customRender(getVal(row, column.key), row, $index)
-                  : getVal(row, column.key)
+                col.customRender
+                  ? col.customRender(getVal(row, col.key), row, $index)
+                  : getVal(row, col.key)
               }}
             </slot>
           </template>
 
           <template v-else>
             {{
-              column.customRender
-                ? column.customRender(getVal(row, column.key), row, $index)
-                : getVal(row, column.key)
+              col.customRender
+                ? col.customRender(getVal(row, col.key), row, $index)
+                : getVal(row, col.key)
             }}
           </template>
         </template>
@@ -70,7 +70,7 @@
     <div v-if="props.paginationConfig" class="m-table__pagination">
       <el-pagination
         v-bind="props.paginationConfig"
-        v-model:currentPage="paginationParams.currentPage"
+        v-model:current-page="paginationParams.currentPage"
         v-model:page-size="paginationParams.pageSize"
         :total="httpRes.total || props.data.length"
         @size-change="handleSizeChange"

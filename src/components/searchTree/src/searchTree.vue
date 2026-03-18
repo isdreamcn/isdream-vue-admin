@@ -17,8 +17,8 @@
         :data="_data"
         node-key="value"
         :filter-node-method="filterNode"
-        @currentChange="selectChange"
-        @checkChange="selectChange"
+        @current-change="selectChange"
+        @check-change="selectChange"
       />
     </div>
 

@@ -5,11 +5,11 @@
     >
     <div class="loading-box">
       123456
-      <MLoading :loading="loading" :zIndex="1"></MLoading>
+      <MLoading :loading="loading" :z-index="1"></MLoading>
     </div>
     <div class="loading-box">
       123456
-      <MLoadingLottie :loading="loading" :zIndex="1"></MLoadingLottie>
+      <MLoadingLottie :loading="loading" :z-index="1"></MLoadingLottie>
     </div>
 
     <MMarkdownView :value="readme"></MMarkdownView>

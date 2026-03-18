@@ -1,5 +1,5 @@
 <template>
-  <div class="m-markdown-view" ref="vditorViewRef">加载中...</div>
+  <div ref="vditorViewRef" class="m-markdown-view">加载中...</div>
 </template>
 
 <script setup lang="ts">

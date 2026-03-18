@@ -111,8 +111,10 @@ export const updateObjKeys = <T extends object = object>(
     } else if (isObject(o)) {
       Object.entries(keys).forEach(([newKey, oldKey]) => {
         o[newKey] = o[oldKey]
-        childKey && fn(o[childKey])
       })
+      if (childKey) {
+        fn(o[childKey])
+      }
     }
   }
   fn(_o)

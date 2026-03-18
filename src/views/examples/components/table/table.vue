@@ -3,12 +3,12 @@
     <div>isReload: {{ isReload }}</div>
     <div>selectKeys: {{ selectKeys }}</div>
     <MTable
+      v-model:is-reload="isReload"
+      v-model:select-keys="selectKeys"
       :columns="tableColumns"
       :data="userList"
       :http="getDemoUserList"
       :params="params"
-      v-model:isReload="isReload"
-      v-model:selectKeys="selectKeys"
     >
       <template #extra>
         <el-button v-auth="searchBtnPermission" @click="isReload = true"

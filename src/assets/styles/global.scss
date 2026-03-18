@@ -34,7 +34,8 @@ html.light {
 // 思源黑体（3500常用字）
 @font-face {
   font-family: 'SourceHanSansCN-VF';
-  src: url('/SourceHanSansCN-VF.woff2') format('woff2'),
+  src:
+    url('/SourceHanSansCN-VF.woff2') format('woff2'),
     url('/SourceHanSansCN-VF.ttf') format('truetype');
 }
 
@@ -42,7 +43,8 @@ html.light {
   height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
-  font-family: 'SourceHanSansCN-VF', 'Helvetica Neue', Helvetica, 'PingFang SC',
+  font-family:
+    'SourceHanSansCN-VF', 'Helvetica Neue', Helvetica, 'PingFang SC',
     'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
   font-size: 16px;
 }

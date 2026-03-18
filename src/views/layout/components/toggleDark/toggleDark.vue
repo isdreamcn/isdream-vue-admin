@@ -1,7 +1,7 @@
 <template>
-  <div class="toggleDark-container" ref="switchRef" @click="beforeChange">
-    <m-icon name="icon-sunny" v-show="!isDark"></m-icon>
-    <m-icon name="icon-moon" v-show="isDark"></m-icon>
+  <div ref="switchRef" class="toggleDark-container" @click="beforeChange">
+    <m-icon v-show="!isDark" name="icon-sunny"></m-icon>
+    <m-icon v-show="isDark" name="icon-moon"></m-icon>
   </div>
 </template>
 

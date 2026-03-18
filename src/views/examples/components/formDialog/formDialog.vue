@@ -10,9 +10,9 @@
       v-model="formDialog.visible"
       v-bind="formDialog"
       :fields="fields"
-      :httpAdd="demoUserAdd"
-      :httpEdit="demoUserEdit"
-      :httpGet="demoUserDetails"
+      :http-add="demoUserAdd"
+      :http-edit="demoUserEdit"
+      :http-get="demoUserDetails"
       @reload="reload"
     >
     </MFormDialog>

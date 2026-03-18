@@ -1,14 +1,14 @@
 <template>
   <div>
     <p>单选 {{ moduleValue1 }}</p>
-    <MTreeSelect :data="data" v-model="moduleValue1"></MTreeSelect>
+    <MTreeSelect v-model="moduleValue1" :data="data"></MTreeSelect>
 
     <p>选择框-多选 {{ moduleValue2 }}</p>
     <MTreeSelect
+      v-model="moduleValue2"
       :data="data"
       :multiple="true"
-      :showCheckbox="true"
-      v-model="moduleValue2"
+      :show-checkbox="true"
     ></MTreeSelect>
 
     <MMarkdownView :value="readme"></MMarkdownView>

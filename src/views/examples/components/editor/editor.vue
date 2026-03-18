@@ -2,9 +2,9 @@
   <div>
     <p>{{ content }}</p>
     <div class="btns">
-      <ElButton @click="setContent" type="primary">修改content</ElButton>
+      <ElButton type="primary" @click="setContent">修改content</ElButton>
     </div>
-    <MEditor v-model="content" @mouseDown="mouseDown"></MEditor>
+    <MEditor v-model="content" @mouse-down="mouseDown"></MEditor>
 
     <MMarkdownView :value="readme"></MMarkdownView>
   </div>

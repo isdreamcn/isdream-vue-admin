@@ -2,16 +2,16 @@
   <div>
     <MForm :fields="fields" @submit="search" @cancel="search"> </MForm>
     <MTable
+      v-model:is-reload="isReload"
+      v-model:select-keys="selectKeys"
       :columns="columns"
       :http="getTestList"
       :params="params"
-      v-model:isReload="isReload"
-      v-model:selectKeys="selectKeys"
     >
       <template #extra>
         <el-button type="primary" @click="edit(0)">新增</el-button>
         <MDeleteButton
-          :selectKeys="selectKeys"
+          :select-keys="selectKeys"
           @click="del(selectKeys)"
         ></MDeleteButton>
       </template>
@@ -30,9 +30,9 @@
       v-model="formDialog.visible"
       v-bind="formDialog"
       :fields="dialogFields"
-      :httpAdd="testAdd"
-      :httpEdit="testEdit"
-      :httpGet="testDetails"
+      :http-add="testAdd"
+      :http-edit="testEdit"
+      :http-get="testDetails"
       @reload="reload"
     ></MFormDialog>
   </div>

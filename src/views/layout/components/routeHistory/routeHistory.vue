@@ -2,20 +2,20 @@
   <div v-if="appSetting.routeHistory.show" class="route-history__container">
     <div class="route-history__tags">
       <el-tag
-        v-for="(route, index) in routeHistory"
-        :key="route.path"
+        v-for="(routeItem, index) in routeHistory"
+        :key="routeItem.path"
         :closable="index !== 0"
-        :effect="routePath === route.path ? 'dark' : 'plain'"
+        :effect="routePath === routeItem.path ? 'dark' : 'plain'"
         :type="
-          hoverRoutePath === route.path || routePath === route.path
+          hoverRoutePath === routeItem.path || routePath === routeItem.path
             ? undefined
             : 'info'
         "
-        @mouseover="mouseover(route.path)"
+        @mouseover="mouseover(routeItem.path)"
         @mouseout="mouseout"
-        @close="handleClose(route.path, routeHistory[index - 1].path)"
-        @click="goPath(route.path)"
-        >{{ route.meta.title || route.path }}</el-tag
+        @close="handleClose(routeItem.path, routeHistory[index - 1].path)"
+        @click="goPath(routeItem.path)"
+        >{{ routeItem.meta.title || routeItem.path }}</el-tag
       >
     </div>
     <div v-if="appSetting.routeHistory.actions" class="route-history__actions">

@@ -1,21 +1,21 @@
 <template>
   <el-table-column
     v-bind="column.attrs"
-    :show-overflow-tooltip="!column.slot"
     :key="column.key"
+    :show-overflow-tooltip="!column.slot"
     :prop="column.key"
     :label="column.label ?? column.key"
     :width="column.width"
     :fixed="column.fixed"
   >
-    <template #header="attrs">
-      <slot v-bind="attrs" name="header">
+    <template #header="headerAttrs">
+      <slot v-bind="headerAttrs" name="header">
         {{ column.label ?? column.key }}
       </slot>
     </template>
 
-    <template #default="attrs">
-      <slot v-bind="attrs" name="default" :column="column" />
+    <template #default="defaultAttrs">
+      <slot v-bind="defaultAttrs" name="default" :column="column" />
 
       <!-- 多级表头 -->
       <template v-if="column.children?.length">
@@ -24,12 +24,16 @@
           :key="columnItem.key"
           :column="columnItem"
         >
-          <template #header="attrs">
-            <slot v-bind="attrs" name="header" />
+          <template #header="childHeaderAttrs">
+            <slot v-bind="childHeaderAttrs" name="header" />
           </template>
 
-          <template #default="attrs">
-            <slot v-bind="attrs" name="default" :column="columnItem" />
+          <template #default="childDefaultAttrs">
+            <slot
+              v-bind="childDefaultAttrs"
+              name="default"
+              :column="columnItem"
+            />
           </template>
         </TableColumn>
       </template>

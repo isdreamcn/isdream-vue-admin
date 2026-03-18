@@ -1,19 +1,19 @@
 <template>
   <el-dialog
-    class="m-form-dialog"
     v-bind="$attrs"
     v-model="visible"
+    class="m-form-dialog"
     :title="title"
     @close="cancel"
   >
     <MForm
+      v-model="formData"
       :fields="props.fields"
       :disabled="props.disabled"
-      v-model="formData"
       :inline="false"
       :col-attrs="24"
       :loading="loading"
-      @getForm="getForm"
+      @get-form="getForm"
       @submit="submit"
       @cancel="cancel"
     >

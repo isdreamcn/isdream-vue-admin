@@ -1,11 +1,11 @@
 <template>
   <el-tree-select
+    v-bind="$attrs"
+    v-model="modelValue"
     class="m-tree-select"
     clearable
     filterable
-    v-bind="$attrs"
     :data="_data"
-    v-model="modelValue"
   />
 </template>
 

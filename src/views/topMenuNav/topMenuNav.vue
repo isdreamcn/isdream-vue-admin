@@ -19,8 +19,8 @@
           <div class="nav-menus">
             <div
               v-for="(item, index) in routesHandler.topMenuData.value"
-              class="nav-menu"
               :key="item.path"
+              class="nav-menu"
               :style="`background-color: ${
                 themColors[index % themColors.length]
               };`"

@@ -2,20 +2,20 @@
   <div>
     <p>单选: {{ modelValue1 }}</p>
     <MSearchTree
+      v-model="modelValue1"
       height="250px"
       :data="data"
-      v-model="modelValue1"
-      @nodeClick="nodeClick"
+      @node-click="nodeClick"
     >
     </MSearchTree>
 
     <p>多选: {{ modelValue2 }}</p>
     <MSearchTree
+      v-model="modelValue2"
       height="250px"
       :data="data"
       show-checkbox
-      v-model="modelValue2"
-      @nodeClick="nodeClick"
+      @node-click="nodeClick"
     >
       <template #footer> footer插槽 </template>
     </MSearchTree>

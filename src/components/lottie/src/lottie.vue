@@ -1,5 +1,5 @@
 <template>
-  <div class="m-lottie" :style="style" ref="lottieContainerRef"></div>
+  <div ref="lottieContainerRef" class="m-lottie" :style="style"></div>
 </template>
 
 <script setup lang="ts">
@@ -40,7 +40,7 @@ onMounted(() => {
 })
 
 const destroy = () => {
-  anim && anim.destroy()
+  anim?.destroy()
 }
 
 onBeforeUnmount(() => {
