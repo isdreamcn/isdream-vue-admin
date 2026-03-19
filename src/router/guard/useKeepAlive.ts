@@ -2,7 +2,6 @@ import type { Router } from 'vue-router'
 import { useRouterStore } from '@/store'
 
 export const useKeepAlive = (router: Router) => {
-  const routerStore = useRouterStore()
   router.afterEach((to) => {
     if (to.meta.hiddenInMenu) return
     if (to.meta.keepAlive) {
@@ -12,7 +11,7 @@ export const useKeepAlive = (router: Router) => {
         const key = matched[i].path
         const name = matched[i + 1].components?.default.name
         if (name) {
-          routerStore.addAlive(key, name)
+          useRouterStore().addAlive(key, name)
         }
       }
     }

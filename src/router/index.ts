@@ -5,6 +5,7 @@ import {
 } from 'vue-router'
 import { appConfig } from '@/config'
 import { basicRoutes, routes } from './routes'
+import { useRouterGuard } from './guard'
 import { useRoutesHandler } from './useRoutesHandler'
 
 const router = createRouter({
@@ -14,6 +15,8 @@ const router = createRouter({
       ? createWebHashHistory()
       : createWebHistory(import.meta.env.VITE_BASE_URL)
 })
+
+useRouterGuard(router)
 
 export const routesHandler = useRoutesHandler(
   router,

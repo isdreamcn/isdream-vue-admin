@@ -3,36 +3,14 @@ import { watch } from 'vue'
 import { useRouterStore } from '@/store'
 
 const requestApiMap = new Map<string, number>()
-const useLoadingShowHidden = () => {
-  const routerStore = useRouterStore()
-  const showLoading = (url?: string) => {
-    if (!url || !routerStore.needLoading) {
-      return
-    }
-    if (!routerStore.loading) {
-      routerStore.setState({
-        loading: true
-      })
-    }
-    requestApiMap.set(url, (requestApiMap.get(url) || 0) + 1)
-  }
-  const hiddenLoading = (url?: string) => {
-    if (!url || !routerStore.loading) {
-      return
-    }
-    const requestApiNum = (requestApiMap.get(url) || 1) - 1
-    if (!requestApiNum) {
-      requestApiMap.delete(url)
-    } else {
-      requestApiMap.set(url, requestApiNum)
-    }
-    if (!requestApiMap.size) {
-      routerStore.setState({
-        loading: false
-      })
-    }
-  }
 
+let watchLoadingFlag = false
+const watchLoading = () => {
+  if (watchLoadingFlag) {
+    return
+  }
+  const routerStore = useRouterStore()
+  watchLoadingFlag = true
   // 切换路由
   watch(
     () => routerStore.loading,
@@ -42,16 +20,43 @@ const useLoadingShowHidden = () => {
       }
     }
   )
-  return {
-    showLoading,
-    hiddenLoading
+}
+
+const showLoading = (url?: string) => {
+  const routerStore = useRouterStore()
+  if (!url || !routerStore.needLoading) {
+    return
+  }
+  if (!routerStore.loading) {
+    routerStore.setState({
+      loading: true
+    })
+  }
+  requestApiMap.set(url, (requestApiMap.get(url) || 0) + 1)
+}
+
+const hiddenLoading = (url?: string) => {
+  const routerStore = useRouterStore()
+  if (!url || !routerStore.loading) {
+    return
+  }
+  const requestApiNum = (requestApiMap.get(url) || 1) - 1
+  if (!requestApiNum) {
+    requestApiMap.delete(url)
+  } else {
+    requestApiMap.set(url, requestApiNum)
+  }
+  if (!requestApiMap.size) {
+    routerStore.setState({
+      loading: false
+    })
   }
 }
 
 export const useLoading = (): ServiceInterceptors => {
-  const { showLoading, hiddenLoading } = useLoadingShowHidden()
   return {
     requestInterceptor(config) {
+      watchLoading()
       showLoading(config.url)
       return config
     },
@@ -60,7 +65,7 @@ export const useLoading = (): ServiceInterceptors => {
       return res
     },
     responseInterceptorCatch(err) {
-      hiddenLoading(err.response.config.url)
+      hiddenLoading(err.config?.url)
       return Promise.reject(err)
     }
   }

@@ -11,11 +11,7 @@ export const mockService = createService({
   baseURL: '/mockApi/'
 })
 
-let useServiceInterceptorsFlag = false
-export const useServiceInterceptors = () => {
-  if (useServiceInterceptorsFlag) return
-  useServiceInterceptorsFlag = true
-
+const useServiceInterceptors = () => {
   // 共同控制loading
   const loading = useLoading()
 
@@ -30,6 +26,8 @@ export const useServiceInterceptors = () => {
     useHandleError()
   ])
 }
+
+useServiceInterceptors()
 
 export default service
 
