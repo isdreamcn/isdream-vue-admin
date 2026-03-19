@@ -13,7 +13,7 @@ export const useProgressFake = (
   const { maxNum = 100, interval, increaseNum = 1 } = options
 
   let currNum = 0
-  let timer: Nullable<NodeJS.Timeout> = setInterval(() => {
+  let timer: ReturnType<typeof setInterval> | null = setInterval(() => {
     currNum += increaseNum
     if (currNum >= maxNum) {
       currNum = maxNum

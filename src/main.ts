@@ -3,9 +3,20 @@ import App from './App.vue'
 import { setupAppPlugins } from '@/plugins'
 import './assets/styles/global.scss'
 
-const app = createApp(App)
+const bootstrap = async () => {
+  const app = createApp(App)
 
-// 注册插件、全局组件、方法
-app.use(setupAppPlugins)
+  if (import.meta.env.VITE_USE_MOCK) {
+    const { worker } = await import('@/mocks/browser')
+    await worker.start({
+      onUnhandledRequest: 'bypass'
+    })
+  }
 
-app.mount('#app')
+  // 注册插件、全局组件、方法
+  app.use(setupAppPlugins)
+
+  app.mount('#app')
+}
+
+bootstrap()
