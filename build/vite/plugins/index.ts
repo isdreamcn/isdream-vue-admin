@@ -17,7 +17,7 @@ export const createVitePlugins = (viteEnv: DefineEnv, isBuild: boolean) => {
     plugins.push(useLegacy())
   }
   if (viteEnv.VITE_BUILD_GZIP) {
-    plugins.push(useGzip())
+    plugins.push(...useGzip())
   }
   if (viteEnv.VITE_BUILD_ROLLUP_VISUALIZER) {
     plugins.push(rollupVisualizer() as PluginOption)

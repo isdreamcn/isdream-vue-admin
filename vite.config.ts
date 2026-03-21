@@ -2,7 +2,7 @@ import type { ConfigEnv, UserConfig } from 'vite'
 import { loadEnv } from 'vite'
 import { fileURLToPath, URL } from 'node:url'
 
-import { wrapperLoadViteEnv, dependenciesChunks } from './build/utils'
+import { wrapperLoadViteEnv } from './build/utils'
 import { createVitePlugins } from './build/vite/plugins'
 
 // https://vitejs.dev/config/
@@ -27,23 +27,20 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         : {}
     },
     build: {
-      chunkSizeWarningLimit: 5 * 1024,
+      chunkSizeWarningLimit: 2 * 1024,
       rollupOptions: {
         output: {
           chunkFileNames: 'assets/js/[name]-[hash].js',
           entryFileNames: 'assets/js/[name]-[hash].js',
           assetFileNames: 'assets/[ext]/[name]-[hash].[ext]',
           manualChunks: {
-            // 最小 ...dependenciesChunks(['vue'])
-            ...dependenciesChunks([
-              'vue',
-              'vue-router',
-              'pinia',
-              'animate.css',
-              'normalize.css',
-              'lodash-unified',
-              '@vue/shared'
-            ])
+            vue: ['vue', 'vue-router', 'pinia'],
+            ui: ['element-plus'],
+            icon: ['@element-plus/icons-vue'],
+            echarts: ['echarts'],
+            tinymce: ['tinymce'],
+            vditor: ['vditor'],
+            lottie: ['lottie-web']
           }
         }
       }

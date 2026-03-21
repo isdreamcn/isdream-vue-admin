@@ -22,6 +22,7 @@
   "engines": {
     "node": "^20.19.0"
   },
+  "packageManager": "pnpm@10.32.1",
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
@@ -29,7 +30,6 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.2",
-    "@vue/shared": "^3.2.47",
     "animate.css": "^4.1.1",
     "axios": "^1.13.6",
     "dayjs": "^1.11.20",
@@ -41,7 +41,7 @@
     "pinia": "^2.3.1",
     "tinymce": "^5.10.3",
     "v-viewer": "^3.0.10",
-    "vditor": "3.11.2",
+    "vditor": "^3.11.2",
     "vue": "^3.5.30",
     "vue-router": "^4.6.4"
   },
@@ -62,7 +62,7 @@
     "prettier": "^3.8.1",
     "rollup-plugin-visualizer": "^5.9.0",
     "sass": "^1.98.0",
-    "typescript": "^5.5.4",
+    "typescript": "^5.9.3",
     "typescript-eslint": "^8.57.1",
     "unplugin-auto-import": "^21.0.0",
     "unplugin-element-plus": "^0.8.0",
