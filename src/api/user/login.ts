@@ -11,6 +11,8 @@ import db from '@/storage'
 import { routes } from '@/router/routes'
 import { joinRoutesPath, sortRoutes } from '@/router/useRoutesHandler/utils'
 
+const ADMIN_TOKEN = 'ud1Ow3F7ofBFiHd3mOj1OBCKL'
+
 enum Api {
   Login = 'user/login',
   Signin = 'user/signin',
@@ -28,7 +30,7 @@ export const userLogin = (data: UserLoginParams) => {
 }
 
 // 注册
-export const userSignin = (data: any) => {
+export const userSignin = (data: UserLoginParams) => {
   return mockService.request({
     url: Api.Signin,
     method: 'POST',
@@ -55,7 +57,7 @@ export const getRoleMenu = () => {
       // mockUser: admin
       if (
         appConfig.routesHandlerOptions.setupRoutesType === 'roleMenu' &&
-        db.get('token') === 'ud1Ow3F7ofBFiHd3mOj1OBCKL'
+        db.get('token') === ADMIN_TOKEN
       ) {
         return {
           ...res,
@@ -77,7 +79,7 @@ export const getUserPermissions = () => {
       // mockUser: admin
       if (
         appConfig.routesHandlerOptions.setupRoutesType === 'permissions' &&
-        db.get('token') === 'ud1Ow3F7ofBFiHd3mOj1OBCKL'
+        db.get('token') === ADMIN_TOKEN
       ) {
         return {
           ...res,

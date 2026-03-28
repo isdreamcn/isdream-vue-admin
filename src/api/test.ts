@@ -10,7 +10,7 @@ for (let i = 0; i < 15; i++) {
   })
 }
 
-const generPromise = () => {
+const generatePromise = () => {
   return new Promise<any>((resolve) => {
     setTimeout(() => {
       resolve({})
@@ -20,10 +20,10 @@ const generPromise = () => {
 
 export const getTestList = (params: any = {}) => {
   const { page = 1, pageSize = 10, name = '' } = params
-  return generPromise().then(() => {
+  return generatePromise().then(() => {
     let data = testList
     if (name) {
-      data = testList.filter((item) => item.name?.indexOf(name) !== -1)
+      data = testList.filter((item) => item.name?.includes(name))
     }
     return {
       code: 200,
@@ -33,8 +33,8 @@ export const getTestList = (params: any = {}) => {
   })
 }
 
-export const testAdd = (data: any) => {
-  return generPromise().then(() => {
+export const testAdd = (data: { name: string }) => {
+  return generatePromise().then(() => {
     testList.unshift({
       id: ++id,
       name: data.name,
@@ -47,7 +47,7 @@ export const testAdd = (data: any) => {
 }
 
 export const testDel = (ids: number[]) => {
-  return generPromise().then(() => {
+  return generatePromise().then(() => {
     const set = new Set(ids)
     testList = testList.filter((item) => !set.has(item.id))
     return {
@@ -56,8 +56,8 @@ export const testDel = (ids: number[]) => {
   })
 }
 
-export const testEdit = (id: number, data: any) => {
-  return generPromise().then(() => {
+export const testEdit = (id: number, data: { name: string }) => {
+  return generatePromise().then(() => {
     const item = testList.find((item) => item.id === id)
     if (!item) {
       return Promise.reject({
@@ -73,7 +73,7 @@ export const testEdit = (id: number, data: any) => {
 }
 
 export const testDetails = (id: number) => {
-  return generPromise().then(() => {
+  return generatePromise().then(() => {
     const item = testList.find((item) => item.id === id)
     if (!item) {
       return Promise.reject({

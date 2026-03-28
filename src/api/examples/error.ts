@@ -1,12 +1,12 @@
 import { mockService } from '@/service'
 
 enum Api {
-  NotFount = 'demo/error/not_found'
+  NotFound = 'demo/error/not_found'
 }
 
-export const demoErrorNotFount = () => {
+export const demoErrorNotFound = () => {
   return mockService.request({
-    url: Api.NotFount,
+    url: Api.NotFound,
     method: 'GET'
   })
 }

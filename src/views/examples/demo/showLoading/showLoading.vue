@@ -7,18 +7,18 @@
 
 <script setup lang="ts">
 import { getDemoUserList } from '@/api/examples/user'
-import { demoErrorNotFount } from '@/api/examples/error'
+import { demoErrorNotFound } from '@/api/examples/error'
 
 getDemoUserList().then((res) => {
   console.log(res, 'getDemoUserList')
 })
 
-demoErrorNotFount()
+demoErrorNotFound()
   .then((res) => {
-    console.log(res, 'demoErrorNotFount')
+    console.log(res, 'demoErrorNotFound')
   })
   .catch((err) => {
-    console.log(err, 'demoErrorNotFount err')
+    console.log(err, 'demoErrorNotFound err')
   })
 </script>
 
