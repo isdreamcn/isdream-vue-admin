@@ -77,7 +77,12 @@ export const useSelection = (
   watch(
     () => props.selectKeys,
     () => {
-      if (props.selectKeys?.join() === selectKeys.join()) return
+      const newKeys = props.selectKeys || []
+      if (
+        newKeys.length === selectKeys.length &&
+        newKeys.every((key: any) => selectKeys.includes(key))
+      )
+        return
 
       if (props.selectKeysKeep) {
         selectKeysMap = new Map()

@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { loadingProps } from './loading'
 
 defineOptions({
@@ -24,10 +24,20 @@ defineOptions({
 const props = defineProps(loadingProps)
 
 const loadingRef = ref<Element>()
+let originalPosition = ''
+
 onMounted(() => {
-  const parentElement = loadingRef.value!.parentElement
+  const parentElement = loadingRef.value?.parentElement
   if (parentElement) {
+    originalPosition = parentElement.style.position
     parentElement.style.position = 'relative'
+  }
+})
+
+onBeforeUnmount(() => {
+  const parentElement = loadingRef.value?.parentElement
+  if (parentElement) {
+    parentElement.style.position = originalPosition
   }
 })
 </script>

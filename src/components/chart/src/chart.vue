@@ -69,7 +69,9 @@ const init = () => {
 
 const destroy = () => {
   if (chart) {
+    chart.off()
     echarts.dispose(chart)
+    chart = null
   }
   window.removeEventListener('resize', resizeDebounce)
   window.removeEventListener('orientationchange', resizeDebounce)

@@ -29,12 +29,20 @@ export const useFormData = (
   watch(
     () => props.modelValue,
     (val) => {
-      if (props.modelValue === formData.value) {
+      if (!val || val === formData.value) return
+
+      const _val = cloneDeep(val)
+      const formKeys = Object.keys(formData.value)
+      const modelKeys = Object.keys(_val)
+
+      if (
+        formKeys.length === modelKeys.length &&
+        formKeys.every((key) => formData.value[key] === _val[key])
+      ) {
         return
       }
 
-      const _val = cloneDeep(val)
-      for (const key of Object.keys(formData.value)) {
+      for (const key of formKeys) {
         formData.value[key] = _val[key]
       }
     },

@@ -54,6 +54,9 @@ const title = computed(() =>
 const loading = ref(false)
 const visible = ref(props.modelValue)
 
+// 生成请求ID来标识每个请求
+let currentRequestId = 0
+
 let elFormRef: Nullable<FormInstance> = null
 const getForm = (form: FormInstance) => {
   elFormRef = form
@@ -79,7 +82,9 @@ const init = () => {
   visible.value = true
   const value = cloneDeep(props.value)
   if (props.id) {
+    const requestId = ++currentRequestId
     props.httpGet(props.id).then((res) => {
+      if (requestId !== currentRequestId) return
       formData.value = props.getHandler({
         ...value,
         ...res.data

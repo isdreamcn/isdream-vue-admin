@@ -39,7 +39,7 @@
 import type { UploadProps as ElUploadProps } from 'element-plus'
 import type { UploadFile, UploadRule } from './upload'
 import { uploadProps, uploadEmits } from './upload'
-import { ref, watch, computed, reactive } from 'vue'
+import { ref, watch, computed, reactive, onBeforeUnmount } from 'vue'
 import { ElMessage } from 'element-plus'
 import { api as viewerApi } from 'v-viewer'
 import { useProgressFake } from './hooks'
@@ -56,10 +56,36 @@ const emit = defineEmits(uploadEmits)
 const fileList = ref<UploadFile[]>([])
 let successFileList: UploadFile[] = []
 
+// 追踪需要释放的 Blob URL
+const blobUrls = new Set<string>()
+
+const revokeBlobUrl = (url: string) => {
+  if (blobUrls.has(url)) {
+    URL.revokeObjectURL(url)
+    blobUrls.delete(url)
+  }
+}
+
+const revokeAllBlobUrls = () => {
+  blobUrls.forEach((url) => URL.revokeObjectURL(url))
+  blobUrls.clear()
+}
+
+// 浅比较数组元素
+const isEqualFileList = (a: UploadFile[], b: UploadFile[]): boolean => {
+  if (a.length !== b.length) return false
+  return a.every((item, i) => {
+    const bi = b[i]
+    return (
+      item.url === bi.url && item.name === bi.name && item.status === bi.status
+    )
+  })
+}
+
 watch(
   () => props.modelValue,
   (val) => {
-    if (JSON.stringify(val) === JSON.stringify(successFileList)) return
+    if (isEqualFileList(val, successFileList)) return
 
     const modelValue = cloneDeep(val)
     fileList.value = modelValue.map((item) => ({
@@ -177,9 +203,11 @@ const onExceed = () => {
 const httpRequest: ElUploadProps['httpRequest'] = (options) => {
   const { file } = options
   // 当前文件信息
+  const blobUrl = URL.createObjectURL(file)
+  blobUrls.add(blobUrl)
   const fileListItem = reactive<UploadFile>({
     name: file.name,
-    url: URL.createObjectURL(file),
+    url: blobUrl,
     status: 'uploading',
     percentage: 0
   })
@@ -205,6 +233,8 @@ const httpRequest: ElUploadProps['httpRequest'] = (options) => {
   return props
     .http(formdata)
     .then(({ data }) => {
+      // 上传成功后释放 Blob URL
+      revokeBlobUrl(blobUrl)
       fileListItem.name = data.filename
       fileListItem.url = joinBaseUrlFile(data.url)
       fileListItem.status = 'success'
@@ -221,6 +251,10 @@ const httpRequest: ElUploadProps['httpRequest'] = (options) => {
     })
     .finally(cancel)
 }
+
+onBeforeUnmount(() => {
+  revokeAllBlobUrls()
+})
 </script>
 
 <style lang="scss" scoped>
