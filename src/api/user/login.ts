@@ -30,7 +30,7 @@ export const userLogin = (data: UserLoginParams) => {
 }
 
 // 注册
-export const userSignin = (data: UserLoginParams) => {
+export const userSignin = (data: any) => {
   return mockService.request({
     url: Api.Signin,
     method: 'POST',

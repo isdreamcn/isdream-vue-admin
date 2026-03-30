@@ -22,7 +22,7 @@ export {
 const hasOwnProperty = Object.prototype.hasOwnProperty
 export const hasOwn = (
   val: object,
-  key: string | symbol,
+  key: string | symbol
 ): key is keyof typeof val => hasOwnProperty.call(val, key)
 
 export const NOOP = (): void => {}
@@ -37,4 +37,3 @@ export const isPromise = <T = any>(val: unknown): val is Promise<T> => {
     isFunction((val as any).catch)
   )
 }
-

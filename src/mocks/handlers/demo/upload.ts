@@ -9,20 +9,17 @@ const BASE_URL = formatUrl('demo/upload')
  * 用于测试文件上传功能
  */
 export const demoUploadHandlers = [
-  http.post(
-    `${BASE_URL}`,
-    async () => {
-      await delay(1000)
-      return HttpResponse.json(
-        {
-          data: {
-            url: 'favicon.ico'
-          },
-          code: HttpStatusCode.OK,
-          message: formatMsg('OK')
+  http.post(`${BASE_URL}`, async () => {
+    await delay(1000)
+    return HttpResponse.json(
+      {
+        data: {
+          url: 'favicon.ico'
         },
-        { status: HttpStatusCode.OK }
-      )
-    }
-  )
+        code: HttpStatusCode.OK,
+        message: formatMsg('OK')
+      },
+      { status: HttpStatusCode.OK }
+    )
+  })
 ]

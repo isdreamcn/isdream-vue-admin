@@ -9,17 +9,14 @@ const BASE_URL = formatUrl('demo/error')
  * 用于测试各种错误响应场景
  */
 export const demoErrorHandlers = [
-  http.get(
-    `${BASE_URL}/not_found`,
-    async () => {
-      await delay(2000)
-      return HttpResponse.json(
-        {
-          code: HttpStatusCode.Not_Found,
-          message: formatMsg('测试错误, Not_Found')
-        },
-        { status: HttpStatusCode.Not_Found }
-      )
-    }
-  )
+  http.get(`${BASE_URL}/not_found`, async () => {
+    await delay(2000)
+    return HttpResponse.json(
+      {
+        code: HttpStatusCode.Not_Found,
+        message: formatMsg('测试错误, Not_Found')
+      },
+      { status: HttpStatusCode.Not_Found }
+    )
+  })
 ]
