@@ -1,3 +1,5 @@
+import { HttpStatusCode } from '@/constants'
+
 let id = 0
 let testList: any[] = []
 
@@ -26,7 +28,7 @@ export const getTestList = (params: any = {}) => {
       data = testList.filter((item) => item.name?.includes(name))
     }
     return {
-      code: 200,
+      code: HttpStatusCode.OK,
       data: data.slice((page - 1) * pageSize, page * pageSize),
       count: data.length
     }
@@ -41,7 +43,7 @@ export const testAdd = (data: { name: string }) => {
       createAt: new Date()
     })
     return {
-      code: 200
+      code: HttpStatusCode.OK
     }
   })
 }
@@ -51,7 +53,7 @@ export const testDel = (ids: number[]) => {
     const set = new Set(ids)
     testList = testList.filter((item) => !set.has(item.id))
     return {
-      code: 200
+      code: HttpStatusCode.OK
     }
   })
 }
@@ -61,13 +63,13 @@ export const testEdit = (id: number, data: { name: string }) => {
     const item = testList.find((item) => item.id === id)
     if (!item) {
       return Promise.reject({
-        code: 404,
+        code: HttpStatusCode.Not_Found,
         message: `id为${id}的用户不存在`
       })
     }
     item.name = data.name
     return {
-      code: 200
+      code: HttpStatusCode.OK
     }
   })
 }
@@ -77,13 +79,13 @@ export const testDetails = (id: number) => {
     const item = testList.find((item) => item.id === id)
     if (!item) {
       return Promise.reject({
-        code: 404,
+        code: HttpStatusCode.Not_Found,
         message: `id为${id}的用户不存在`
       })
     }
 
     return {
-      code: 200,
+      code: HttpStatusCode.OK,
       data: item
     }
   })

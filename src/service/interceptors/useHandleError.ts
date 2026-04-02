@@ -15,11 +15,11 @@ interface FailHandler {
 // 需要错误处理的状态码
 const failCodeMap = new Map<HttpStatusCode, FailHandler>([
   [HttpStatusCode.Unauthorized, { handler: failAuth }],
-  [HttpStatusCode.Forbidden, { message: '403 (访问被拒绝)' }],
-  [HttpStatusCode.Not_Found, { message: '404 (Not Found)' }],
+  [HttpStatusCode.Forbidden, { message: '访问被拒绝' }],
+  [HttpStatusCode.Not_Found, { message: '请求的资源不存在' }],
   [
     HttpStatusCode.Internal_Server_Error,
-    { message: '500 (Internal Server Error)' }
+    { message: '服务器内部错误' }
   ]
 ])
 
