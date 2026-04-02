@@ -9,8 +9,8 @@ export const useRouteHistory = (router: Router) => {
     useRouterStore().addRouteHistory({
       path: to.fullPath,
       meta: {
-        title: to.fullPath,
-        ...to.meta
+        ...to.meta,
+        title: to.meta.title || to.fullPath
       }
     })
   })

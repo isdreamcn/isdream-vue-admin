@@ -1,5 +1,5 @@
 import type { VNode } from 'vue'
-import type { RouteLocationNormalizedLoaded } from 'vue-router'
+import type { RouteLocationNormalizedLoaded, RouteComponent } from 'vue-router'
 import type { DefaultRouteMeta } from '@/config'
 import { h, defineComponent, computed, KeepAlive, Transition } from 'vue'
 import { RouterView } from 'vue-router'
@@ -49,6 +49,7 @@ export const createTransitionVNode = (component: VNode) => {
   )
 }
 
+
 /*
 transition 和 keep-alive 现在必须通过 v-slot API 在 RouterView 内部使用：
 
@@ -73,7 +74,6 @@ export const createBasicLayout = (
     setup() {
       const {
         keepAlive = appConfig.needKeepAlive,
-        // 使用过渡
         transition = false
       } = options || {}
 
@@ -92,24 +92,34 @@ export const createBasicLayout = (
     }
   })
 
-export const createHasNameComponent = (component: any, name: string) => {
-  return () => {
-    if (isFunction(component)) {
-      component = component()
+type ResolvedModule = { default: RouteComponent } | RouteComponent
+type NameableComponent = RouteComponent & { name?: string }
+
+export const createHasNameComponent = (
+  component: RouteComponent,
+  name: string
+): RouteComponent => {
+  return (() => {
+    let resolved: RouteComponent | Promise<ResolvedModule> | undefined = component
+
+    if (isFunction(resolved)) {
+      resolved = (resolved as () => RouteComponent | Promise<ResolvedModule>)()
     }
-    if (isPromise(component)) {
-      component.then((res: any) => {
-        if (isObject(res?.default)) {
-          res.default.name = name
-        } else if (isObject(res)) {
-          res.name = name
+
+    if (isPromise<ResolvedModule>(resolved)) {
+      resolved.then((res) => {
+        const target = isObject(res) && 'default' in res ? res.default : res
+        if (isObject(target)) {
+          ;(target as NameableComponent).name = name
         }
         return res
       })
     }
-    if (isObject(component)) {
-      component.name = name
+
+    if (isObject(resolved)) {
+      ;(resolved as NameableComponent).name = name
     }
-    return component
-  }
+
+    return resolved as RouteComponent
+  }) as RouteComponent
 }

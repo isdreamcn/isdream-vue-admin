@@ -9,7 +9,7 @@ import { mockService } from '@/service'
 import { appConfig } from '@/config'
 import db from '@/storage'
 import { routes } from '@/router/routes'
-import { joinRoutesPath, sortRoutes } from '@/router/useRoutesHandler/utils'
+import { processRoutes } from '@/router/useRoutesHandler/utils'
 
 const ADMIN_TOKEN = 'ud1Ow3F7ofBFiHd3mOj1OBCKL'
 
@@ -61,7 +61,7 @@ export const getRoleMenu = () => {
       ) {
         return {
           ...res,
-          data: joinRoutesPath(sortRoutes(routes))
+          data: processRoutes(routes)
         }
       }
       return res
@@ -83,7 +83,7 @@ export const getUserPermissions = () => {
       ) {
         return {
           ...res,
-          data: getRoutesPermissions(joinRoutesPath(sortRoutes(routes))).concat(
+          data: getRoutesPermissions(processRoutes(routes)).concat(
             res.data
           )
         }

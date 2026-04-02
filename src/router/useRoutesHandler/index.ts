@@ -7,13 +7,9 @@ import type {
 } from './types'
 import { ref, readonly } from 'vue'
 import { useUserStore, useRouterStore } from '@/store'
-import { composeFns } from '@/utils'
 import {
-  formatRoutes,
-  joinRoutesPath,
-  sortRoutes,
+  processRoutes,
   flatRoutes,
-  setRoutesComponent,
   generRouteMap,
   generUserMenu,
   generRoutesByRoleMenu,
@@ -25,16 +21,11 @@ export const useRoutesHandler = (
   originRoutes: RouteRecordRaw[],
   options: RoutesHandlerOptions
 ) => {
-  const _originRoutes = composeFns([
-    formatRoutes,
-    sortRoutes,
-    joinRoutesPath,
-    setRoutesComponent
-  ])(originRoutes)
+  // 格式化路由
+  const _originRoutes = processRoutes(originRoutes)
   const _originRouteMap = generRouteMap(_originRoutes)
 
   let routes: RouteRecordRaw[] = []
-  // path => routeData
   let routeMap: RouteMap = new Map()
   const getRouteByPath = (path: string) => routeMap.get(path)
 
@@ -46,7 +37,7 @@ export const useRoutesHandler = (
     })
   }
 
-  // 保存stores第一个节点
+  // 保存 stores 第一个节点
   const saveRouteHistory = () => {
     const routerStore = useRouterStore()
     routerStore.clearRouteHistory()
@@ -118,25 +109,30 @@ export const useRoutesHandler = (
     roleMenu: RoleMenu[] = [],
     permissionsMap: Map<string, boolean> = new Map()
   ) => {
-    if (options.setupRoutesType === 'all') {
-      routes = _originRoutes
-      routeMap = _originRouteMap
-    }
+    try {
+      if (options.setupRoutesType === 'all') {
+        routes = _originRoutes
+        // 不直接复用 _originRouteMap，避免 redirectNode 污染原始数据
+        routeMap = generRouteMap(routes)
+      }
 
-    if (options.setupRoutesType === 'roleMenu') {
-      routes = generRoutesByRoleMenu(roleMenu, _originRouteMap)
-      routeMap = generRouteMap(routes)
-    }
+      if (options.setupRoutesType === 'roleMenu') {
+        routes = generRoutesByRoleMenu(roleMenu, _originRouteMap)
+        routeMap = generRouteMap(routes)
+      }
 
-    if (options.setupRoutesType === 'permissions') {
-      routes = generRoutesByPermissions(permissionsMap, _originRoutes)
-      routeMap = generRouteMap(routes)
-    }
+      if (options.setupRoutesType === 'permissions') {
+        routes = generRoutesByPermissions(permissionsMap, _originRoutes)
+        routeMap = generRouteMap(routes)
+      }
 
-    addRoutes()
-    saveUserMenu()
-    saveRouteHistory()
-    saveTopMenuData()
+      addRoutes()
+      saveUserMenu()
+      saveRouteHistory()
+      saveTopMenuData()
+    } catch (error) {
+      console.error('[RoutesHandler] setupRoutes failed:', error)
+    }
   }
 
   return {

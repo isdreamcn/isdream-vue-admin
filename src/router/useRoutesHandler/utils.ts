@@ -1,55 +1,50 @@
-import type { RouteRecordRaw } from 'vue-router'
+import type { RouteRecordRaw, RouteComponent } from 'vue-router'
 import type { UserMenu, RoleMenu, RouteMapItem, RouteMap } from './types'
 import { createBasicLayout, createHasNameComponent } from '@/views/layout'
 import { appConfig } from '@/config'
 
-// 格式化routes
-export const formatRoutes = (routes: RouteRecordRaw[]): RouteRecordRaw[] => {
-  return routes.map((route) => {
-    const meta = route.meta || {}
-    const defaultRouteMeta = appConfig.defaultRouteMeta
-    return {
-      ...route,
-      meta: {
-        ...route.meta,
-        keepAlive: meta.keepAlive ?? defaultRouteMeta.keepAlive,
-        hiddenInMenu: meta.hiddenInMenu ?? defaultRouteMeta.hiddenInMenu,
-        hiddenInBread: meta.hiddenInBread ?? defaultRouteMeta.hiddenInBread,
-        needLoading: meta.needLoading ?? defaultRouteMeta.needLoading,
-        needToken: meta.needToken ?? defaultRouteMeta.needToken,
-        needRouteHistory:
-          meta.needRouteHistory ?? defaultRouteMeta.needRouteHistory
-      },
-      children: route.children?.length
-        ? formatRoutes(route.children)
-        : undefined
-    } as RouteRecordRaw
-  })
-}
+/**
+ * 格式化 meta、规范化 path、排序、设置 component
+ */
+export const processRoutes = (
+  routes: RouteRecordRaw[],
+  prePath = ''
+): RouteRecordRaw[] => {
+  const defaultMeta = appConfig.defaultRouteMeta
 
-// path => /path
-export const joinRoutesPath = (routes: RouteRecordRaw[], prePath = '') => {
-  return routes.map((route): RouteRecordRaw => {
+  const processed = routes.map((route): RouteRecordRaw => {
+    const meta = { ...defaultMeta, ...route.meta }
+
+    // 规范化 path
     const path = route.path.startsWith('/')
       ? route.path
       : `${prePath}/${route.path}`
-    return Object.assign({}, route, {
-      path,
-      children: route.children && joinRoutesPath(route.children, path)
-    })
-  })
-}
 
-// 排序
-export const sortRoutes = (routes: RouteRecordRaw[]) => {
-  return routes
-    .sort((a, b) => (a.meta?.sort || 0) - (b.meta?.sort || 0))
-    .map(
-      (route): RouteRecordRaw =>
-        Object.assign({}, route, {
-          children: route.children && sortRoutes(route.children)
-        })
-    )
+    // 设置 component
+    let component: RouteComponent | undefined = route.component as
+      | RouteComponent
+      | undefined
+    if (component) {
+      component = createHasNameComponent(component, path)
+    } else if (route.children) {
+      component = createBasicLayout(path)
+    }
+
+    return {
+      ...route,
+      meta,
+      path,
+      component,
+      children: route.children?.length
+        ? processRoutes(route.children, path)
+        : undefined
+    } as RouteRecordRaw
+  })
+
+  // 排序
+  return processed.sort(
+    (a, b) => (a.meta?.sort || 0) - (b.meta?.sort || 0)
+  )
 }
 
 // 路由扁平化
@@ -64,27 +59,6 @@ export const flatRoutes = (
     routesArr.push(route)
   })
   return routesArr
-}
-
-/*
-  KeepAlive 缓存
-  设置了`component`，则自动设置`component.name`, 用于 KeepAlive include
-  深度缓存
-  route有`children`、但没有设置`component`，则自动设置component = createBasicLayout()
-*/
-export const setRoutesComponent = (routes: RouteRecordRaw[]) => {
-  return routes.map((route): RouteRecordRaw => {
-    let component = route.component
-    if (component) {
-      component = createHasNameComponent(component, route.path)
-    } else if (route.children) {
-      component = createBasicLayout(route.path)
-    }
-    return Object.assign({}, route, {
-      component,
-      children: route.children && setRoutesComponent(route.children)
-    })
-  })
 }
 
 // map => 根据path快速查找route
