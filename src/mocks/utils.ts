@@ -1,3 +1,5 @@
+import { HttpResponse, type DefaultBodyType } from 'msw'
+import { HttpStatusCode } from '@/constants'
 import type {
   UserLoginResult,
   UserLoginMenu
@@ -17,6 +19,23 @@ export const formatUrl = (url: string) => `/mockApi/${url}`
  */
 export const formatMsg = (msg: string) => `${msg} (mockApi)`
 
+/**
+ * Mock API 延迟时间常量
+ * 按操作类型区分，用于模拟真实网络延迟
+ */
+export const MOCK_DELAY = {
+  /** 快速操作（认证接口） */
+  FAST: 100,
+  /** 标准操作（详情查询） */
+  NORMAL: 500,
+  /** 默认操作（列表/创建/上传） */
+  DEFAULT: 1000,
+  /** 较慢操作（删除） */
+  MODERATE: 1500,
+  /** 慢速操作（更新/错误模拟） */
+  SLOW: 2000
+} as const
+
 interface ResultTablePaginationOptions {
   page: number
   pageSize: number
@@ -29,12 +48,12 @@ interface ResultTablePaginationOptions {
  * @param options - 分页选项
  * @returns 分页结果
  */
-export const generateResultPagination = <T = any>(
+export const generateResultPagination = <T>(
   generater: (index: number) => T,
   options?: ResultTablePaginationOptions
 ): Service.ResultPagination<T[]> => {
   const { page = 1, pageSize = 10, count = 100 } = options || {}
-  const data: any[] = []
+  const data: T[] = []
   const start = (page - 1) * pageSize
   const end = page * pageSize > count ? count : page * pageSize
 
@@ -154,4 +173,44 @@ export const extractToken = (authorization: string | null): string | null => {
   if (!authorization) return null
   const match = authorization.match(/^bearer\s+(.+)$/i)
   return match ? match[1] : null
+}
+
+/**
+ * 验证 token 并返回对应用户信息
+ * @param request - MSW 请求对象
+ * @returns [错误响应, 用户信息] 元组，错误响应非 null 表示验证失败
+ */
+export const validateTokenAndGetUser = (
+  request: Request
+): [HttpResponse<DefaultBodyType> | null, MockUserLoginList | null] => {
+  const authorization = request.headers.get('authorization')
+  const token = extractToken(authorization)
+  if (!token) {
+    return [
+      HttpResponse.json(
+        {
+          code: HttpStatusCode.Unauthorized,
+          message: formatMsg('headers中不存在token')
+        },
+        { status: HttpStatusCode.OK }
+      ),
+      null
+    ]
+  }
+  const userInfo = useUserList().find(
+    (item: MockUserLoginList) => item.token === token
+  )
+  if (!userInfo) {
+    return [
+      HttpResponse.json(
+        {
+          code: HttpStatusCode.Unauthorized,
+          message: formatMsg(`token:${token}校验失败`)
+        },
+        { status: HttpStatusCode.OK }
+      ),
+      null
+    ]
+  }
+  return [null, userInfo]
 }

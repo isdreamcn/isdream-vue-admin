@@ -1,9 +1,12 @@
 import { http, HttpResponse, delay } from 'msw'
 import { HttpStatusCode } from '@/constants'
-import { generateResultPagination, formatUrl, formatMsg } from '../../utils'
+import { generateResultPagination, formatUrl, formatMsg, MOCK_DELAY } from '../../utils'
 import type { DemoUser } from '@/api/examples/user'
 
 const BASE_URL = formatUrl('demo/user')
+
+const CITIES = ['北京市', '上海市', '广州市', '深圳市', '杭州市', '成都市', '武汉市', '南京市']
+const SURNAMES = ['张', '李', '王', '赵', '刘', '陈', '杨', '黄', '周', '吴']
 
 /**
  * 生成模拟用户数据
@@ -12,8 +15,8 @@ const BASE_URL = formatUrl('demo/user')
  */
 const generateMockUser = (id: number): DemoUser => ({
   id,
-  name: `用户${id}`,
-  address: '北京市',
+  name: `${SURNAMES[id % SURNAMES.length]}用户${id}`,
+  address: CITIES[id % CITIES.length],
   email: `user${id}@example.com`,
   userInfo: {
     origin: 'mockApi'
@@ -29,10 +32,10 @@ const generateMockUser = (id: number): DemoUser => ({
  */
 export const demoUserHandlers = [
   http.get(`${BASE_URL}/list`, async ({ request }) => {
-    await delay(1000)
+    await delay(MOCK_DELAY.DEFAULT)
     const url = new URL(request.url)
-    const page = parseInt(url.searchParams.get('page') || '1')
-    const pageSize = parseInt(url.searchParams.get('pageSize') || '55')
+    const page = parseInt(url.searchParams.get('page') ?? '') || 1
+    const pageSize = parseInt(url.searchParams.get('pageSize') ?? '') || 10
 
     return HttpResponse.json(
       {
@@ -49,7 +52,7 @@ export const demoUserHandlers = [
   }),
 
   http.post(`${BASE_URL}`, async () => {
-    await delay(1000)
+    await delay(MOCK_DELAY.DEFAULT)
     return HttpResponse.json(
       {
         code: HttpStatusCode.OK,
@@ -60,7 +63,7 @@ export const demoUserHandlers = [
   }),
 
   http.delete(`${BASE_URL}/:id`, async ({ params }) => {
-    await delay(1500)
+    await delay(MOCK_DELAY.MODERATE)
     return HttpResponse.json(
       {
         code: HttpStatusCode.OK,
@@ -71,7 +74,7 @@ export const demoUserHandlers = [
   }),
 
   http.put(`${BASE_URL}/:id`, async ({ params }) => {
-    await delay(2000)
+    await delay(MOCK_DELAY.SLOW)
     return HttpResponse.json(
       {
         code: HttpStatusCode.OK,
@@ -82,7 +85,7 @@ export const demoUserHandlers = [
   }),
 
   http.get(`${BASE_URL}/:id`, async ({ params }) => {
-    await delay(500)
+    await delay(MOCK_DELAY.NORMAL)
     const id = Number(params.id)
     return HttpResponse.json(
       {

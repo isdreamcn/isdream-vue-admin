@@ -4,7 +4,8 @@ import {
   useUserList,
   formatUrl,
   formatMsg,
-  extractToken,
+  MOCK_DELAY,
+  validateTokenAndGetUser,
   type MockUserLoginList
 } from '../../utils'
 import type {
@@ -21,7 +22,7 @@ const BASE_URL = formatUrl('user')
  */
 export const userLoginHandlers = [
   http.post<UserLoginParams>(`${BASE_URL}/login`, async ({ request }) => {
-    await delay(100)
+    await delay(MOCK_DELAY.FAST)
     const body = (await request.json()) as UserLoginParams
     const userInfo = useUserList().find(
       (user: MockUserLoginList) =>
@@ -46,7 +47,7 @@ export const userLoginHandlers = [
   }),
 
   http.post(`${BASE_URL}/signin`, async () => {
-    await delay(100)
+    await delay(MOCK_DELAY.FAST)
     return HttpResponse.json(
       {
         code: HttpStatusCode.Not_Found,
@@ -57,7 +58,7 @@ export const userLoginHandlers = [
   }),
 
   http.post(`${BASE_URL}/logout`, async () => {
-    await delay(100)
+    await delay(MOCK_DELAY.FAST)
     return HttpResponse.json(
       {
         code: HttpStatusCode.OK,
@@ -68,68 +69,26 @@ export const userLoginHandlers = [
   }),
 
   http.get(`${BASE_URL}/menu`, async ({ request }) => {
-    await delay(100)
-    const authorization = request.headers.get('authorization')
-    const token = extractToken(authorization)
-    if (!token) {
-      return HttpResponse.json(
-        {
-          code: HttpStatusCode.Unauthorized,
-          message: formatMsg('headers中不存在token')
-        },
-        { status: HttpStatusCode.OK }
-      )
-    }
-    const userInfo = useUserList().find(
-      (item: MockUserLoginList) => item.token === token
-    )
-    if (!userInfo) {
-      return HttpResponse.json(
-        {
-          code: HttpStatusCode.Unauthorized,
-          message: formatMsg(`token:${token}校验失败`)
-        },
-        { status: HttpStatusCode.OK }
-      )
-    }
+    await delay(MOCK_DELAY.FAST)
+    const [error, user] = validateTokenAndGetUser(request)
+    if (error) return error
     return HttpResponse.json(
       {
         code: HttpStatusCode.OK,
-        data: userInfo.menus
+        data: user!.menus
       } as Service.Result<UserLoginMenu[]>,
       { status: HttpStatusCode.OK }
     )
   }),
 
   http.get(`${BASE_URL}/permissions`, async ({ request }) => {
-    await delay(100)
-    const authorization = request.headers.get('authorization')
-    const token = extractToken(authorization)
-    if (!token) {
-      return HttpResponse.json(
-        {
-          code: HttpStatusCode.Unauthorized,
-          message: formatMsg('headers中不存在token')
-        },
-        { status: HttpStatusCode.OK }
-      )
-    }
-    const userInfo = useUserList().find(
-      (item: MockUserLoginList) => item.token === token
-    )
-    if (!userInfo) {
-      return HttpResponse.json(
-        {
-          code: HttpStatusCode.Unauthorized,
-          message: formatMsg(`token:${token}校验失败`)
-        },
-        { status: HttpStatusCode.OK }
-      )
-    }
+    await delay(MOCK_DELAY.FAST)
+    const [error, user] = validateTokenAndGetUser(request)
+    if (error) return error
     return HttpResponse.json(
       {
         code: HttpStatusCode.OK,
-        data: userInfo.permissions
+        data: user!.permissions
       } as Service.Result<string[]>,
       { status: HttpStatusCode.OK }
     )

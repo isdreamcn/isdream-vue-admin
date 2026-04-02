@@ -1,6 +1,6 @@
 import { http, HttpResponse, delay } from 'msw'
 import { HttpStatusCode } from '@/constants'
-import { formatUrl, formatMsg } from '../../utils'
+import { formatUrl, formatMsg, MOCK_DELAY } from '../../utils'
 
 const BASE_URL = formatUrl('demo/error')
 
@@ -10,7 +10,7 @@ const BASE_URL = formatUrl('demo/error')
  */
 export const demoErrorHandlers = [
   http.get(`${BASE_URL}/not_found`, async () => {
-    await delay(2000)
+    await delay(MOCK_DELAY.SLOW)
     return HttpResponse.json(
       {
         code: HttpStatusCode.Not_Found,

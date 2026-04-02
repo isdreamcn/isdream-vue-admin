@@ -1,6 +1,6 @@
 import { http, HttpResponse, delay } from 'msw'
 import { HttpStatusCode } from '@/constants'
-import { formatUrl, formatMsg } from '../../utils'
+import { formatUrl, formatMsg, MOCK_DELAY } from '../../utils'
 
 const BASE_URL = formatUrl('demo/upload')
 
@@ -10,7 +10,7 @@ const BASE_URL = formatUrl('demo/upload')
  */
 export const demoUploadHandlers = [
   http.post(`${BASE_URL}`, async () => {
-    await delay(1000)
+    await delay(MOCK_DELAY.DEFAULT)
     return HttpResponse.json(
       {
         data: {
