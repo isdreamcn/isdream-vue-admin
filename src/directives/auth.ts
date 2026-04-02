@@ -6,7 +6,7 @@ import { checkAuth } from '@/utils/methods'
   v-auth:test
   v-auth="permission"
 */
-export const auth: Directive<HTMLElement, any> = {
+export const auth: Directive<HTMLElement, string | undefined> = {
   mounted(el, binding) {
     const { value, arg } = binding
     const permission = value ?? arg
@@ -15,7 +15,7 @@ export const auth: Directive<HTMLElement, any> = {
     }
 
     if (!checkAuth(permission)) {
-      el.parentElement?.removeChild(el)
+      el.remove()
     }
   }
 }
