@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import { defineStore } from 'pinia'
 import db, { StorageSetOptions } from '@/storage'
 import { mergeObjDeep } from '@/utils'
-import { useCssVariable, useDark } from '@/hooks'
+import { setCssVariable, applyThemeClass } from '@/hooks'
 
 type Theme = 'light' | 'dark'
 
@@ -85,11 +85,11 @@ export const useAppStore = defineStore('app', {
     },
     setRootCss() {
       const { colorPrimary, menu } = this.appSetting
-      useDark()
-      useCssVariable('--el-color-primary', colorPrimary)
-      useCssVariable('--bg-color', menu.backgroundColor)
-      useCssVariable('--text-color', menu.textColor)
-      useCssVariable('--hover-bg-color', menu.hoverBackgroundColor)
+      applyThemeClass()
+      setCssVariable('--el-color-primary', colorPrimary)
+      setCssVariable('--bg-color', menu.backgroundColor)
+      setCssVariable('--text-color', menu.textColor)
+      setCssVariable('--hover-bg-color', menu.hoverBackgroundColor)
     },
     setState(state: Partial<AppState>, dbOptions?: StorageSetOptions) {
       this.$patch(state)

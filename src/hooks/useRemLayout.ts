@@ -32,7 +32,7 @@ export const useRemLayout = ({
   }
 
   // 使用防抖来优化性能
-  let debounceSetHtmlFontSize: Nullable<() => void> = null
+  let debounceSetHtmlFontSize: Nullable<(() => void) & { cancel: () => void }> = null
 
   // 开始监听容器尺寸变化
   const start = (el: HTMLDivElement) => {
@@ -48,13 +48,14 @@ export const useRemLayout = ({
   // 取消监听
   const cancel = () => {
     if (!debounceSetHtmlFontSize) return
+    // 先取消待执行的 debounced 回调，防止竞态
+    debounceSetHtmlFontSize.cancel()
     window.removeEventListener('resize', debounceSetHtmlFontSize)
     window.removeEventListener('orientationchange', debounceSetHtmlFontSize)
     debounceSetHtmlFontSize = null
-    setTimeout(() => {
-      htmlEl.style.fontSize = ''
-      document.body.style.fontSize = ''
-    }, debounceWait + 1)
+    // 同步清理样式
+    htmlEl.style.fontSize = ''
+    document.body.style.fontSize = ''
   }
 
   return {

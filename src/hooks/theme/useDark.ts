@@ -1,33 +1,28 @@
-import { ref } from 'vue'
+import { computed } from 'vue'
 import { useAppStore } from '@/store/index'
+
+export const applyThemeClass = () => {
+  const appStore = useAppStore()
+  const htmlEl = document.documentElement
+  const isDark = appStore.theme === 'dark'
+  htmlEl.classList.remove('dark', 'light')
+  htmlEl.classList.add(isDark ? 'dark' : 'light')
+}
 
 export const useDark = () => {
   const appStore = useAppStore()
 
-  const isDark = ref(appStore.theme === 'dark')
-
-  const htmlEl = document.querySelector('html')
+  const isDark = computed(() => appStore.theme === 'dark')
 
   const toggleDark = () => {
-    if (isDark.value) {
-      htmlEl?.classList.add('light')
-      htmlEl?.classList.remove('dark')
-    } else {
-      htmlEl?.classList.add('dark')
-      htmlEl?.classList.remove('light')
-    }
-
-    isDark.value = !isDark.value
+    const newTheme = isDark.value ? 'light' : 'dark'
     appStore.setState({
-      theme: isDark.value ? 'dark' : 'light'
+      theme: newTheme
     })
-  }
 
-  // 恢复缓存样式
-  if (isDark.value) {
-    htmlEl?.classList.add('dark')
-  } else {
-    htmlEl?.classList.add('light')
+    const htmlEl = document.documentElement
+    htmlEl.classList.remove('dark', 'light')
+    htmlEl.classList.add(newTheme)
   }
 
   return {
