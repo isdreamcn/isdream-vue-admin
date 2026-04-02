@@ -6,7 +6,7 @@ import * as icons from './icons'
 const useIcons: AppUsePlugin = (app) => {
   // icons
   for (const [key, icon] of Object.entries(icons)) {
-    app.component('Icon' + icon.name || key, icon)
+    app.component('Icon' + (icon.name || key), icon)
   }
 }
 
@@ -25,19 +25,23 @@ export const useComponents: AppUsePlugin = (app) => {
 
 // 组件全部导入、用于开发环境
 export const useComponentsAll: AppUsePlugin = (app) => {
-  import('element-plus/dist/index.css')
-  import('element-plus').then((ElementPlus) => {
-    app.use(ElementPlus)
-  })
+  import('element-plus/dist/index.css').catch(console.error)
+  import('element-plus')
+    .then((ElementPlus) => {
+      app.use(ElementPlus)
+    })
+    .catch(console.error)
 
   // m-components
-  import('@/components').then((MComponents: Record<string, any>) => {
-    for (const component of Object.values(MComponents)) {
-      if (typeof component?.install === 'function') {
-        app.use(component)
+  import('@/components')
+    .then((MComponents: Record<string, any>) => {
+      for (const component of Object.values(MComponents)) {
+        if (typeof component?.install === 'function') {
+          app.use(component)
+        }
       }
-    }
-  })
+    })
+    .catch(console.error)
 
   useIcons(app)
 }
