@@ -26,7 +26,21 @@ export const createStorage = (
     config.prefix ? `${config.prefix}-${key}` : key
 
   const remove = (key: string) => storage.removeItem(getKey(key))
-  const clear = () => storage.clear()
+
+  const clear = () => {
+    if (!config.prefix) {
+      storage.clear()
+      return
+    }
+    const keysToRemove: string[] = []
+    for (let i = 0; i < storage.length; i++) {
+      const key = storage.key(i)
+      if (key && key.startsWith(`${config.prefix}-`)) {
+        keysToRemove.push(key)
+      }
+    }
+    keysToRemove.forEach((key) => storage.removeItem(key))
+  }
 
   const set = (key: string, value: any, options?: StorageSetOptions) => {
     const data: StorageSetValue = {
@@ -43,17 +57,26 @@ export const createStorage = (
     const data = storage.getItem(getKey(key))
     if (!data) return null
 
-    const { version, time, expires, value } = JSON.parse(
-      data
-    ) as StorageSetValue
+    try {
+      const { version, time, expires, value } = JSON.parse(
+        data
+      ) as StorageSetValue
 
-    // 版本不一 || 过期
-    if (version !== config.version || (expires && getTime() - time > expires)) {
+      // 版本不一致 || 已过期
+      if (
+        version !== config.version ||
+        (expires && getTime() - time > expires)
+      ) {
+        remove(key)
+        return null
+      }
+
+      return value
+    } catch {
+      // 数据损坏时自动删除
       remove(key)
       return null
     }
-
-    return value
   }
 
   const has = (key: string) => get(key) !== null
