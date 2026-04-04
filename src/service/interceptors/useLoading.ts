@@ -23,8 +23,9 @@ const watchLoading = () => {
 }
 
 const showLoading = (url?: string) => {
+  if (!url) return
   const routerStore = useRouterStore()
-  if (!url || !routerStore.needLoading) {
+  if (!routerStore.needLoading) {
     return
   }
   if (!routerStore.loading) {
@@ -36,8 +37,9 @@ const showLoading = (url?: string) => {
 }
 
 const hiddenLoading = (url?: string) => {
+  if (!url) return
   const routerStore = useRouterStore()
-  if (!url || !routerStore.loading) {
+  if (!routerStore.loading) {
     return
   }
   const requestApiNum = (requestApiMap.get(url) || 1) - 1

@@ -8,6 +8,19 @@ import axios from 'axios'
 type onFulfilled<T> = (value: T) => T | Promise<T>
 type onRejected = (error: any) => any
 
+export interface ServiceError {
+  code?: number
+  message?: string
+  response?: AxiosResponse
+}
+
+export interface ServiceResponse {
+  code?: number
+  message?: string
+  data?: any
+  count?: number
+}
+
 export interface ServiceInterceptors<T = any> {
   requestInterceptor?: onFulfilled<InternalAxiosRequestConfig<any>>
   requestInterceptorCatch?: onRejected
@@ -15,13 +28,7 @@ export interface ServiceInterceptors<T = any> {
   responseInterceptorCatch?: onRejected
 }
 
-// export interface ServiceConfig {}
-
-export const createService = (
-  axiosConfig?: AxiosRequestConfig
-  // config?: ServiceConfig
-) => {
-  // 创建实例
+export const createService = (axiosConfig?: AxiosRequestConfig) => {
   const instance = axios.create(axiosConfig)
 
   // 使用拦截器
@@ -42,11 +49,10 @@ export const createService = (
    * 函数说明
    * @param T 返回数据的类型
    */
-  const request = <T = any>(config: AxiosRequestConfig): Promise<T> => {
-    return instance
-      .request<T>(config)
-      .then((res) => res.data)
-      .catch((err) => Promise.reject(err.response.data))
+  const request = <T extends ServiceResponse = any>(
+    config: AxiosRequestConfig
+  ): Promise<T> => {
+    return instance.request<T>(config).then((res) => res.data)
   }
 
   const requestNotHandle = <T = any>(config: AxiosRequestConfig) => {

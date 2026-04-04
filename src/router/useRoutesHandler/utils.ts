@@ -42,9 +42,7 @@ export const processRoutes = (
   })
 
   // 排序
-  return processed.sort(
-    (a, b) => (a.meta?.sort || 0) - (b.meta?.sort || 0)
-  )
+  return processed.sort((a, b) => (a.meta?.sort || 0) - (b.meta?.sort || 0))
 }
 
 // 路由扁平化

@@ -83,9 +83,7 @@ export const getUserPermissions = () => {
       ) {
         return {
           ...res,
-          data: getRoutesPermissions(processRoutes(routes)).concat(
-            res.data
-          )
+          data: getRoutesPermissions(processRoutes(routes)).concat(res.data)
         }
       }
       return res

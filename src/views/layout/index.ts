@@ -49,7 +49,6 @@ export const createTransitionVNode = (component: VNode) => {
   )
 }
 
-
 /*
 transition 和 keep-alive 现在必须通过 v-slot API 在 RouterView 内部使用：
 
@@ -72,10 +71,8 @@ export const createBasicLayout = (
   defineComponent({
     name: path,
     setup() {
-      const {
-        keepAlive = appConfig.needKeepAlive,
-        transition = false
-      } = options || {}
+      const { keepAlive = appConfig.needKeepAlive, transition = false } =
+        options || {}
 
       return () =>
         h(RouterView, null, {
@@ -100,7 +97,8 @@ export const createHasNameComponent = (
   name: string
 ): RouteComponent => {
   return (() => {
-    let resolved: RouteComponent | Promise<ResolvedModule> | undefined = component
+    let resolved: RouteComponent | Promise<ResolvedModule> | undefined =
+      component
 
     if (isFunction(resolved)) {
       resolved = (resolved as () => RouteComponent | Promise<ResolvedModule>)()

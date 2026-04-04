@@ -1,11 +1,25 @@
 import { http, HttpResponse, delay } from 'msw'
 import { HttpStatusCode } from '@/constants'
-import { generateResultPagination, formatUrl, formatMsg, MOCK_DELAY } from '../../utils'
+import {
+  generateResultPagination,
+  formatUrl,
+  formatMsg,
+  MOCK_DELAY
+} from '../../utils'
 import type { DemoUser } from '@/api/examples/user'
 
 const BASE_URL = formatUrl('demo/user')
 
-const CITIES = ['北京市', '上海市', '广州市', '深圳市', '杭州市', '成都市', '武汉市', '南京市']
+const CITIES = [
+  '北京市',
+  '上海市',
+  '广州市',
+  '深圳市',
+  '杭州市',
+  '成都市',
+  '武汉市',
+  '南京市'
+]
 const SURNAMES = ['张', '李', '王', '赵', '刘', '陈', '杨', '黄', '周', '吴']
 
 /**
@@ -57,7 +71,7 @@ export const demoUserHandlers = [
       {
         code: HttpStatusCode.OK,
         message: formatMsg('OK')
-      } as Service.Result,
+      } as Service.ResultEmpty,
       { status: HttpStatusCode.OK }
     )
   }),
@@ -68,7 +82,7 @@ export const demoUserHandlers = [
       {
         code: HttpStatusCode.OK,
         message: formatMsg(`删除用户 ${params.id} 成功`)
-      } as Service.Result,
+      } as Service.ResultEmpty,
       { status: HttpStatusCode.OK }
     )
   }),
@@ -79,7 +93,7 @@ export const demoUserHandlers = [
       {
         code: HttpStatusCode.OK,
         message: formatMsg(`更新用户 ${params.id} 成功`)
-      } as Service.Result,
+      } as Service.ResultEmpty,
       { status: HttpStatusCode.OK }
     )
   }),

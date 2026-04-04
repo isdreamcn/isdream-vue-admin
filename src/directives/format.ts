@@ -7,10 +7,7 @@ import { dateFormat as dateFormatFn } from '@/utils'
   v-dateFormat:YYYY-MM-DD="value" => 2023-9-18
   v-dateFormat:YYYY__MM__DD.space="value" => 2023 09 18
 */
-export const dateFormat: Directive<HTMLElement, ConfigType> = (
-  el,
-  binding
-) => {
+export const dateFormat: Directive<HTMLElement, ConfigType> = (el, binding) => {
   const { value = el.textContent, arg, modifiers } = binding
   if (!value) {
     return

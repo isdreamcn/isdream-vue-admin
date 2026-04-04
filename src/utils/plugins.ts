@@ -1,5 +1,3 @@
-import { isFunction } from 'lodash-unified'
-
 export { warn, isVNode } from 'vue'
 
 export {
@@ -32,8 +30,10 @@ export const isObject = (val: unknown): val is Record<any, any> =>
 
 export const isPromise = <T = any>(val: unknown): val is Promise<T> => {
   return (
-    (isObject(val) || isFunction(val)) &&
-    isFunction((val as any).then) &&
-    isFunction((val as any).catch)
+    isObject(val) &&
+    typeof (val as any).then === 'function' &&
+    typeof (val as any).catch === 'function'
   )
 }
+
+export const isBlob = (val: unknown): val is Blob => val instanceof Blob

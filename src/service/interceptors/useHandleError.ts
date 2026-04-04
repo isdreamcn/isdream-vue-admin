@@ -1,4 +1,4 @@
-import type { ServiceInterceptors } from '../service'
+import type { ServiceInterceptors, ServiceError } from '../service'
 import { ElMessage } from 'element-plus'
 import { HttpStatusCode } from '@/constants'
 import { useUserStore } from '@/store'
@@ -13,14 +13,11 @@ interface FailHandler {
 }
 
 // 需要错误处理的状态码
-const failCodeMap = new Map<HttpStatusCode, FailHandler>([
+const failCodeMap = new Map<number, FailHandler>([
   [HttpStatusCode.Unauthorized, { handler: failAuth }],
   [HttpStatusCode.Forbidden, { message: '访问被拒绝' }],
   [HttpStatusCode.Not_Found, { message: '请求的资源不存在' }],
-  [
-    HttpStatusCode.Internal_Server_Error,
-    { message: '服务器内部错误' }
-  ]
+  [HttpStatusCode.Internal_Server_Error, { message: '服务器内部错误' }]
 ])
 
 const handleError = (code: number, message?: string) => {
@@ -39,38 +36,34 @@ const handleError = (code: number, message?: string) => {
 
 export const useHandleError = (): ServiceInterceptors => {
   return {
-    // httpStatus通过, 进一步校验data.code
     responseInterceptor(res) {
       const { code, message } = res.data
       if (handleError(code, message)) {
-        return Promise.reject({
-          response: res
-        })
+        return Promise.reject({ code, message, response: res })
       }
 
       // 只有code为200才算成功
       // if (code !== 200) {
-      //   message && ElMessage.error(message)
+      //   if (message) {
+      //     ElMessage.error(message)
+      //   }
       //   return Promise.reject({
       //     response: res
       //   })
       // }
       return res
     },
-    // httpStatus不通过
-    responseInterceptorCatch(err) {
-      const handleRes: boolean[] = []
-
+    responseInterceptorCatch(err): Promise<ServiceError> {
       // 处理无响应的情况（网络错误、请求超时等）
       if (!err.response) {
-        if (err.code === 'ECONNABORTED') {
-          ElMessage.error('请求超时，请稍后重试')
-        } else if (err.message?.includes('Network Error')) {
-          ElMessage.error('网络连接失败，请检查网络设置')
-        } else {
-          ElMessage.error(`请求失败: ${err.message || '未知错误'}`)
-        }
-        return Promise.reject(err)
+        const message =
+          err.code === 'ECONNABORTED'
+            ? '请求超时，请稍后重试'
+            : err.message?.includes('Network Error')
+              ? '网络连接失败，请检查网络设置'
+              : `请求失败: ${err.message || '未知错误'}`
+        ElMessage.error(message)
+        return Promise.reject({ message })
       }
 
       const { code, message } = (err.response.data || {}) as {
@@ -78,19 +71,23 @@ export const useHandleError = (): ServiceInterceptors => {
         message?: string
       }
 
-      // 处理业务错误码
-      if (code !== undefined) {
-        handleRes.push(handleError(code, message))
+      if (code !== undefined && handleError(code, message)) {
+        return Promise.reject({ code, message, response: err.response })
       }
-      // 处理 HTTP 状态码（当与业务码不同时）
-      if (code !== err.response.status) {
-        handleRes.push(handleError(err.response.status, message))
+      if (
+        code !== err.response.status &&
+        handleError(err.response.status, message)
+      ) {
+        return Promise.reject({
+          code: err.response.status,
+          message,
+          response: err.response
+        })
       }
-      // 兜底处理：若错误未被识别，则直接显示后端返回的消息
-      if (message && !handleRes.includes(true)) {
+      if (message) {
         ElMessage.error(message)
       }
-      return Promise.reject(err)
+      return Promise.reject({ code, message, response: err.response })
     }
   }
 }

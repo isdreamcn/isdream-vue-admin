@@ -32,7 +32,8 @@ export const useRemLayout = ({
   }
 
   // 使用防抖来优化性能
-  let debounceSetHtmlFontSize: Nullable<(() => void) & { cancel: () => void }> = null
+  let debounceSetHtmlFontSize: Nullable<(() => void) & { cancel: () => void }> =
+    null
 
   // 开始监听容器尺寸变化
   const start = (el: HTMLDivElement) => {
