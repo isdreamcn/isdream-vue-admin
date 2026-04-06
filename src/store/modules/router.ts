@@ -33,15 +33,15 @@ export const useRouterStore = defineStore('router', {
   actions: {
     setupState() {},
     setState(state: Partial<RouterStore>) {
-      if (this.loading && !(state.closeLoading || this.closeLoading)) {
+      // loading锁定时，防止API拦截器提前关闭loading
+      if (this.loading && !this.closeLoading && !state.closeLoading) {
         state.loading = true
       }
       this.$patch(state)
     },
     // keepAlive
     getAlive(key: string) {
-      const include = this.keepAliveMap.get(key) || []
-      return [...include]
+      return [...(this.keepAliveMap.get(key) ?? [])]
     },
     addAlive(path: string, name: string) {
       let set = this.keepAliveMap.get(path)

@@ -32,7 +32,6 @@ interface UserState {
   roleMenu: Nullable<RoleMenu[]>
   userMenu: Nullable<UserMenu[]>
   userPermissions: Nullable<string[]>
-  userPermissionMap: Map<string, boolean>
 }
 
 const SETUP_ROUTES_TYPE = appConfig.routesHandlerOptions.setupRoutesType
@@ -46,11 +45,20 @@ export const useUserStore = defineStore('user', {
     userInfo: null,
     roleMenu: null,
     userMenu: null,
-    userPermissions: null,
-    // 用于O(1)判断权限
-    userPermissionMap: new Map()
+    userPermissions: null
   }),
-  getters: {},
+  getters: {
+    // 用于O(1)判断权限
+    userPermissionMap(state): Map<string, boolean> {
+      const map = new Map<string, boolean>()
+      if (state.userPermissions) {
+        for (const permission of state.userPermissions) {
+          map.set(permission, true)
+        }
+      }
+      return map
+    }
+  },
   actions: {
     async setupState() {
       this.token = db.get<string>('token') ?? this.token
@@ -81,13 +89,13 @@ export const useUserStore = defineStore('user', {
     // 获取角色菜单
     setRoleMenu() {
       let http = getRoleMenu
-      const roleMenu = db.get<UserMenu[]>('roleMenu')
+      const roleMenu = db.get<RoleMenu[]>('roleMenu')
       if (appConfig.storeConfig.userMenuStorage && roleMenu) {
         http = () => Promise.resolve({ data: roleMenu })
       }
 
       return http().then((res) => {
-        if (!res.data.length) return res
+        if (!res.data?.length) return res
 
         if (appConfig.storeConfig.userMenuStorage && !roleMenu) {
           db.set('roleMenu', res.data)
@@ -111,7 +119,6 @@ export const useUserStore = defineStore('user', {
           db.set('userPermissions', res.data)
         }
         this.userPermissions = res.data
-        this.generaterPermissionMap()
         return res
       })
     },
@@ -158,16 +165,6 @@ export const useUserStore = defineStore('user', {
     setUserInfo(userInfo: UserInfo, dbOptions?: StorageSetOptions) {
       this.userInfo = userInfo
       db.set('userInfo', this.userInfo, dbOptions)
-    },
-    // 生成PermissionMap
-    generaterPermissionMap() {
-      const map = new Map<string, boolean>()
-      if (this.userPermissions) {
-        for (const permission of this.userPermissions) {
-          map.set(permission, true)
-        }
-      }
-      this.userPermissionMap = map
     },
     // 校验权限
     permissionAuth(permission: string) {
