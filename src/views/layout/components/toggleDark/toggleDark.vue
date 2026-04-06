@@ -1,5 +1,5 @@
 <template>
-  <div ref="switchRef" class="toggleDark-container" @click="beforeChange">
+  <div ref="switchRef" class="toggleDark-container" @click="toggleDarkHandler">
     <m-icon v-show="!isDark" name="icon-sunny"></m-icon>
     <m-icon v-show="isDark" name="icon-moon"></m-icon>
   </div>
@@ -15,9 +15,9 @@ const switchRef = ref<any>()
 const beforeChange = () => {
   return new Promise<boolean>((resolve) => {
     const isAppearanceTransition =
-      typeof (document as any).startViewTransition === 'function' &&
+      // @ts-expect-error: Transition API
+      document.startViewTransition &&
       !window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
     if (!isAppearanceTransition) {
       resolve(true)
       return
@@ -33,30 +33,47 @@ const beforeChange = () => {
       Math.max(y, innerHeight - y)
     )
 
+    const ratioX = (100 * x) / innerWidth
+    const ratioY = (100 * y) / innerHeight
+    const referR = Math.hypot(innerWidth, innerHeight) / Math.SQRT2
+    const ratioR = (100 * endRadius) / referR
+
     const transition = (document as any).startViewTransition(async () => {
       resolve(true)
       await nextTick()
     })
-    transition.ready.then(() => {
-      const clipPath = [
-        `circle(0px at ${x}px ${y}px)`,
-        `circle(${endRadius}px at ${x}px ${y}px)`
-      ]
-      document.documentElement.animate(
-        {
-          clipPath: isDark.value ? [...clipPath].reverse() : clipPath
-        },
-        {
-          duration: 400,
-          easing: 'ease-in',
-          pseudoElement: isDark.value
-            ? '::view-transition-old(root)'
-            : '::view-transition-new(root)'
-        }
-      )
-    })
-  }).finally(() => {
-    toggleDark()
+    transition.ready
+      .then(() => {
+        const clipPath = [
+          `circle(0% at ${ratioX}% ${ratioY}%)`,
+          `circle(${ratioR}% at ${ratioX}% ${ratioY}%)`
+        ]
+        document.documentElement.animate(
+          {
+            clipPath: isDark.value ? [...clipPath].reverse() : clipPath
+          },
+          {
+            duration: 400,
+            easing: 'ease-in',
+            fill: 'both',
+            pseudoElement: isDark.value
+              ? '::view-transition-old(root)'
+              : '::view-transition-new(root)'
+          }
+        )
+      })
+      .catch(() => {
+        // View Transition API 出错时直接 resolve，回退到无动画切换
+        resolve(true)
+      })
+  })
+}
+
+const toggleDarkHandler = () => {
+  beforeChange().then((result) => {
+    if (result) {
+      toggleDark()
+    }
   })
 }
 </script>
