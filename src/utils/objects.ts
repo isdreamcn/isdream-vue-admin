@@ -48,7 +48,10 @@ export const mergeObjDeep = createMergeObjFn({
   overlayable: () => true
 })
 
-export function getVal(form: any, s: string): any {
+export function getVal<T = any>(
+  form: Record<string, any>,
+  s: string
+): T | undefined {
   if (!isObject(form)) {
     return
   }
@@ -56,25 +59,27 @@ export function getVal(form: any, s: string): any {
     .replace(/\[(\w+)\]/g, '.$1')
     .replace(/^\./, '')
     .split('.')
-    .reduce((prev: object | undefined, cur) => {
+    .reduce((prev: Record<string, any> | undefined, cur) => {
       if (prev && hasOwn(prev, cur)) {
         return prev[cur]
       }
-    }, form)
+    }, form) as T | undefined
 }
 
 // (a.b.c, 5) => { a: { b: { c: 5 } } }
 // ([0].a, 5) => [{ a: 5 }]
 export const generateObj = (key: string, val: any) => {
-  // 数组标识
-  const sign = '##'
-  const signLen = sign.length
+  // 数组标识分隔符，用于区分数组索引与普通属性键
+  const ARRAY_KEY_SEPARATOR = '##'
+  const separatorLen = ARRAY_KEY_SEPARATOR.length
 
-  let _key = key.replace(/\[(\w+)\]/g, `${sign}.$1`).replace(/^\./, '')
+  let _key = key
+    .replace(/\[(\w+)\]/g, `${ARRAY_KEY_SEPARATOR}.$1`)
+    .replace(/^\./, '')
   let o: Record<string | number, any> = {}
-  if (_key.startsWith(sign + '.')) {
+  if (_key.startsWith(ARRAY_KEY_SEPARATOR + '.')) {
     o = []
-    _key = _key.slice(signLen + 1)
+    _key = _key.slice(separatorLen + 1)
   }
 
   const keys = _key.split('.')
@@ -84,8 +89,8 @@ export const generateObj = (key: string, val: any) => {
       _o[k] = val
       return
     }
-    if (k.endsWith(sign)) {
-      k = k.slice(0, 0 - signLen)
+    if (k.endsWith(ARRAY_KEY_SEPARATOR)) {
+      k = k.slice(0, 0 - separatorLen)
       _o[k] = []
     } else {
       _o[k] = {}
@@ -129,19 +134,21 @@ type VerifyObjTip = Record<
 export const verifyObj = (
   tip: VerifyObjTip,
   obj: Record<string, any>,
-  verifyFn = (val: any) => (val ?? false) !== false
+  verifyFn = (val: any) => (val ?? false) !== false,
+  showMessage: ((msg: string) => void) | false = (msg: string) =>
+    ElMessage.info(msg)
 ): boolean => {
   for (const key of Object.keys(tip)) {
     const val = tip[key]
     if (typeof val === 'function') {
       const res = val(obj[key], key)
       if (res) {
-        ElMessage.info(res)
+        if (showMessage) showMessage(res as string)
         return false
       }
     } else {
       if (!verifyFn(obj[key])) {
-        ElMessage.info(val)
+        if (showMessage) showMessage(val)
         return false
       }
     }

@@ -4,7 +4,7 @@ import { NOOP } from './plugins'
 export type SFCWithInstall<T> = T & Plugin
 
 export type SFCInstallWithContext<T> = SFCWithInstall<T> & {
-  _context: Nullable<AppContext>
+  _context: AppContext | null
 }
 
 export const withInstall = <T, E extends Record<string, any>>(
@@ -13,7 +13,11 @@ export const withInstall = <T, E extends Record<string, any>>(
   mainName?: string
 ) => {
   ;(main as SFCWithInstall<T>).install = (app: App): void => {
-    app.component(mainName || (main as any).name, main as any)
+    const name = mainName || (main as any).name
+    if (import.meta.env.DEV && !name) {
+      console.warn('[withInstall] Component name is required for registration')
+    }
+    app.component(name, main as any)
     for (const comp of [...Object.values(extra ?? {})]) {
       app.component(comp.name, comp)
     }

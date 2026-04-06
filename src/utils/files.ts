@@ -8,11 +8,15 @@ export const loadFiles = <T>(
     }
   >
 ) => {
-  return Object.values(modules).reduce((arr: T[], module) => {
-    const _arr = module.default
-    if (!_arr) {
-      return arr
+  const result: T[] = []
+  for (const module of Object.values(modules)) {
+    const moduleDefault = module.default
+    if (moduleDefault === undefined) continue
+    if (isArray(moduleDefault)) {
+      result.push(...moduleDefault)
+    } else {
+      result.push(moduleDefault)
     }
-    return arr.concat(isArray(_arr) ? _arr : [_arr])
-  }, [])
+  }
+  return result
 }

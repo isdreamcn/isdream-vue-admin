@@ -38,10 +38,13 @@ export const dateFormat = (
   try {
     const date = dayjs(value).format(template)
     if (date === 'Invalid Date') {
-      throw new Error('Invalid Date')
+      return value?.toString() || ''
     }
     return date
-  } catch {
+  } catch (e) {
+    if (import.meta.env.DEV) {
+      console.warn('[dateFormat] Failed to format date:', e)
+    }
     return value?.toString() || ''
   }
 }

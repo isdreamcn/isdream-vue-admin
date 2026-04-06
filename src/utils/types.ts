@@ -15,6 +15,6 @@ export const isPropAbsent = (prop: unknown): prop is null | undefined => {
 }
 
 export const isImageByExtname = (str: string) => {
-  const reg = /\.(jpg|jpeg|png|gif|bmp|webp)$/i
+  const reg = /\.(jpg|jpeg|png|gif|bmp|webp|svg|tiff|tif|ico|avif|apng)$/i
   return reg.test(str)
 }
