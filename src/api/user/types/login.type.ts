@@ -3,6 +3,19 @@ export interface UserLoginParams {
   password: string
 }
 
+export interface UserSigninParams {
+  username: string
+  email: string
+  password: string
+  emailCaptcha: string
+}
+
+export interface UserResetPasswordParams {
+  email: string
+  password: string
+  emailCaptcha: string
+}
+
 export interface UserLoginMenu {
   id?: number
   title?: string

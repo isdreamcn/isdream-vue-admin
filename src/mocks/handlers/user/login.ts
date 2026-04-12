@@ -39,7 +39,7 @@ export const userLoginHandlers = [
     }
     return HttpResponse.json(
       {
-        code: HttpStatusCode.Unauthorized,
+        code: HttpStatusCode.Bad_Request,
         message: formatMsg('用户名或密码错误')
       },
       { status: HttpStatusCode.OK }
@@ -53,7 +53,18 @@ export const userLoginHandlers = [
         code: HttpStatusCode.Not_Found,
         message: formatMsg('注册功能暂未开放')
       },
-      { status: HttpStatusCode.Not_Found }
+      { status: HttpStatusCode.OK }
+    )
+  }),
+
+  http.post(`${BASE_URL}/reset_password`, async () => {
+    await delay(MOCK_DELAY.FAST)
+    return HttpResponse.json(
+      {
+        code: HttpStatusCode.Not_Found,
+        message: formatMsg('找回密码功能暂未开放')
+      },
+      { status: HttpStatusCode.OK }
     )
   }),
 
