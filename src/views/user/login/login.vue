@@ -1,97 +1,88 @@
 <template>
-  <section :class="{ active: active }">
-    <div :class="{ container: true, active: active }">
-      <div class="user signinBx">
-        <div class="imgBx">
-          <img src="@/assets/img/1.jpg" alt="" />
+  <FormWrapper ref="formRef">
+    <form class="form" @submit.prevent="onSubmit">
+      <div class="form__header">
+        <h1 class="form__header__title">登录</h1>
+        <div class="form__header__desc">
+          还没有账户吗?
+          <router-link class="form__button-link" :to="{ name: 'register' }"
+            >在此注册</router-link
+          >
         </div>
-        <div class="formBx">
-          <form>
-            <h2>登录</h2>
-            <input
-              v-model="loginForm.username"
-              type="text"
-              autocomplete="username"
-              placeholder="用户名"
-            />
-            <input
-              v-model="loginForm.password"
-              type="password"
-              autocomplete="current-password"
-              placeholder="密码"
-            />
-            <el-button type="primary" :loading="loginLoading" @click="login"
-              >登 录</el-button
-            >
-            <p class="signup">
-              没有账户?
-              <a href="#" @click="toggleForm">注册</a>
-            </p>
-            <div class="tip-item"><span>账号: admin</span> 密码: 123456</div>
-            <div class="tip-item"><span>账号: test</span> 密码: 123456</div>
-          </form>
+      </div>
+      <FormDivider />
+      <FormItem
+        v-model="loginForm.username"
+        label="用户名"
+        placeholder="请输入用户名"
+        :rules="[(val) => !val && '请输入用户名']"
+      />
+      <FormItem
+        v-model="loginForm.password"
+        label="密码"
+        type="password"
+        placeholder="请正确输入你的密码"
+        :rules="[(val) => !val && '请输入密码']"
+      >
+        <template #label-extra>
+          <router-link class="form__button-link" :to="{ name: 'resetPassword' }"
+            >忘记密码？</router-link
+          >
+        </template>
+      </FormItem>
+
+      <FormButton :loading="loginLoading">登入</FormButton>
+
+      <div class="form__tip-accounts">
+        <div class="form__tip-accounts__item">
+          <span>账号: admin</span> 密码: 123456
+        </div>
+        <div class="form__tip-accounts__item">
+          <span>账号: test</span> 密码: 123456
         </div>
       </div>
 
-      <div class="user signupBx">
-        <div class="formBx">
-          <form>
-            <h2>创建账户</h2>
-            <input
-              v-model="signinForm.username"
-              type="text"
-              autocomplete="username"
-              placeholder="用户名"
-            />
-            <input
-              v-model="signinForm.email"
-              type="text"
-              autocomplete="email"
-              placeholder="邮箱地址"
-            />
-            <input
-              v-model="signinForm.password"
-              type="password"
-              autocomplete="new-password"
-              placeholder="密码"
-            />
-            <input
-              v-model="signinForm.confirmPassword"
-              type="password"
-              autocomplete="new-password"
-              placeholder="确认密码"
-            />
-            <el-button type="danger" :loading="signinLoading" @click="signin"
-              >注 册</el-button
-            >
-            <p class="signup">
-              已经有账户了?
-              <a href="#" @click="toggleForm">登录</a>
-            </p>
-          </form>
-        </div>
-        <div class="imgBx">
-          <img src="@/assets/img/2.jpg" alt="" />
-        </div>
-      </div>
-    </div>
-  </section>
+      <FormResult :status="requestStatus" :message="requestMessage" />
+    </form>
+  </FormWrapper>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useLogin } from './hooks/useLogin'
-import { useSignin } from './hooks/useSignin'
+import FormWrapper from '../components/FormWrapper.vue'
+import FormDivider from '../components/FormDivider.vue'
+import FormItem from '../components/FormItem.vue'
+import FormButton from '../components/FormButton.vue'
+import FormResult from '../components/FormResult.vue'
+import { useLogin } from './useLogin'
 
-const active = ref(false)
-const toggleForm = () => {
-  active.value = !active.value
+const formRef = ref<InstanceType<typeof FormWrapper>>()
+
+const { loginLoading, loginForm, requestStatus, requestMessage, login } =
+  useLogin()
+
+const onSubmit = () => {
+  if (!formRef.value?.validate()) return
+  login()
 }
-
-const { loginLoading, loginForm, login } = useLogin()
-const { signinLoading, signinForm, signin } = useSignin(toggleForm)
 </script>
 
 <style scoped lang="scss">
-@use 'login';
+.form__tip-accounts {
+  margin-top: 16px;
+  padding: 12px 16px;
+  border-radius: 4px;
+  background-color: rgba(231, 234, 243, 0.4);
+
+  &__item {
+    font-size: 13px;
+    color: #677788;
+    line-height: 1.8;
+
+    span {
+      display: inline-block;
+      width: 100px;
+    }
+  }
+}
 </style>
