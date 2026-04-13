@@ -1,5 +1,5 @@
 import type { Directive } from 'vue'
-import { checkAuth } from '@/utils/methods'
+import { checkAuth } from '@/utils'
 
 /*
   const permission = 'test'

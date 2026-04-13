@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import db, { StorageSetOptions } from '@/storage'
 import { appConfig } from '@/config'
 import type { RoleMenu } from '@/router/useRoutesHandler/types'
+import router, { routesHandler } from '@/router'
 import { useRouterStore } from './router'
 import {
   UserLoginParams,
@@ -36,9 +37,6 @@ interface UserState {
 
 const SETUP_ROUTES_TYPE = appConfig.routesHandlerOptions.setupRoutesType
 
-const getRouter = async () => (await import('@/router')).default
-const getRoutesHandler = async () => (await import('@/router')).routesHandler
-
 export const useUserStore = defineStore('user', {
   state: (): UserState => ({
     token: '',
@@ -64,8 +62,6 @@ export const useUserStore = defineStore('user', {
       this.token = db.get<string>('token') ?? this.token
       this.userInfo = db.get<UserInfo>('userInfo')
 
-      const routesHandler = await getRoutesHandler()
-
       if (SETUP_ROUTES_TYPE === 'all') {
         routesHandler.setupRoutes()
       }
@@ -79,8 +75,7 @@ export const useUserStore = defineStore('user', {
         SETUP_ROUTES_TYPE === 'roleMenu'
           ? [this.setUserPermissions(), this.setRoleMenu()]
           : [this.setUserPermissions()]
-      ).then(async () => {
-        const routesHandler = await getRoutesHandler()
+      ).then(() => {
         if (SETUP_ROUTES_TYPE !== 'all') {
           routesHandler.setupRoutes(this.roleMenu || [], this.userPermissionMap)
         }
@@ -130,7 +125,6 @@ export const useUserStore = defineStore('user', {
 
       await this.setUserMenu()
 
-      const router = await getRouter()
       return router.push({
         name: appConfig.routeMainName
       })
@@ -145,7 +139,6 @@ export const useUserStore = defineStore('user', {
     async logout() {
       db.removeKeys('token', 'userInfo', 'userPermissions', 'roleMenu')
 
-      const router = await getRouter()
       router.push({
         name: appConfig.routeLoginName
       })
@@ -180,7 +173,6 @@ export const useUserStore = defineStore('user', {
 
       await promise
 
-      const router = await getRouter()
       await router.replace({
         ...getRouteLocationRaw(appConfig.routerHistory),
         force: true

@@ -24,7 +24,7 @@ provide(FORM_ITEM_REGISTER_KEY, register)
 provide(FORM_ITEM_UNREGISTER_KEY, unregister)
 
 const validate = () => {
-  return [...formItems].every(item => item.validate())
+  return [...formItems].every((item) => item.validate())
 }
 
 defineExpose({ validate })
