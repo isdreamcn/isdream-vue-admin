@@ -6,7 +6,7 @@
  * 如需提高稳定性，可将 CDN 资源下载到本地 public 目录，步骤如下：
  * 1. 访问 https://www.jsdelivr.com/package/npm/vditor?version=3.11.2
  * 2. 将整个 dist 目录下载到 public/vditor/
- * 2. 将下方 cdn 改为 '/vditor'（即 public/vditor 的访问路径）
+ * 3. 将下方 cdn 改为 '/vditor'（即 public/vditor 的访问路径）
  */
 
 export const useVditorCDN = () => {
