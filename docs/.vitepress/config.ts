@@ -13,7 +13,8 @@ export default defineConfig({
 
     nav: [
       { text: '指南', link: '/guide/getting-started' },
-      { text: '组件', link: '/components/table' }
+      { text: '组件', link: '/components/table' },
+      { text: '常见问题', link: '/faq' }
     ],
 
     sidebar: {

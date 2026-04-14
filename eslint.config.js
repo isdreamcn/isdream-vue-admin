@@ -27,7 +27,7 @@ export default defineConfig(
       'auto-imports.d.ts',
       'components.d.ts',
       'docs/.vitepress/cache/**',
-      'docs/.vitepress/dist/**',
+      'docs/.vitepress/dist/**'
     ]
   },
 
