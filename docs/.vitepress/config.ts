@@ -11,9 +11,26 @@ export default defineConfig({
       provider: 'local'
     },
 
-    nav: [],
+    nav: [
+      { text: '指南', link: '/guide/getting-started' }
+    ],
 
-    sidebar: {},
+    sidebar: {
+      '/guide/': [
+        {
+          text: '开发指南',
+          items: [
+            { text: '快速开始', link: '/guide/getting-started' },
+            { text: '目录结构', link: '/guide/directory-structure' },
+            { text: '权限系统', link: '/guide/permission' },
+            { text: '布局系统', link: '/guide/layout' },
+            { text: '主题配置', link: '/guide/theme' },
+            { text: 'Mock 数据', link: '/guide/mock' },
+            { text: '用户认证', link: '/guide/authentication' }
+          ]
+        }
+      ]
+    },
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/isdreamcn/isdream-vue-admin' }
