@@ -26,3 +26,7 @@ dist-ssr
 
 # rollup-plugin-visualizer
 stats.html
+
+# VitePress
+docs/.vitepress/cache
+docs/.vitepress/dist

@@ -14,3 +14,7 @@ components.d.ts
 
 **/*.svg
 **/*.sh
+
+# VitePress
+docs/.vitepress/cache
+docs/.vitepress/dist
