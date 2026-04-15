@@ -14,7 +14,8 @@
 
 ## 预览
 
-[在线预览](https://v3t.isdream.cn/)
+- [在线预览](https://v3t.isdream.cn/)
+- [文档站点](https://isdreamcn.github.io/isdream-vue-admin/)
 
 ## 技术栈
 
@@ -32,11 +33,15 @@
 | Markdown 编辑器 | Vditor       |
 | 日期处理        | Day.js       |
 | 动画            | Lottie       |
+| CSS 预处理      | Sass         |
+| 图片查看        | v-viewer     |
+| 文档            | VitePress    |
 
 ## 目录结构
 
 ```
 ├── build/                  # Vite 构建配置与插件
+├── docs/                   # VitePress 文档站点
 ├── public/                 # 静态资源
 ├── scripts/                # 构建辅助脚本
 ├── src/
@@ -100,6 +105,9 @@ pnpm lint         # ESLint 检查
 pnpm lint:fix     # ESLint 自动修复
 pnpm format       # Prettier 格式化
 pnpm commit       # 使用 Commitizen 规范提交
+pnpm docs:dev     # 文档站点开发
+pnpm docs:build   # 文档站点构建
+pnpm docs:preview # 文档站点预览
 ```
 
 ## 权限系统
@@ -134,18 +142,19 @@ pnpm commit       # 使用 Commitizen 规范提交
 | 组件         | 说明                                        |
 | ------------ | ------------------------------------------- |
 | Table        | 数据表格，支持分页、多选、HTTP 自动请求     |
-| Chart        | ECharts 图表封装                            |
 | Form         | 动态表单，支持配置式字段渲染与校验          |
 | FormDialog   | 弹窗表单，封装新增/编辑的 CRUD 流程         |
 | Upload       | 文件上传，支持拖拽、预览、格式校验          |
 | Editor       | TinyMCE 富文本编辑器，集成图片上传          |
 | Markdown     | Vditor Markdown 编辑器，集成上传            |
+| Chart        | ECharts 图表封装                            |
 | SearchTree   | 可搜索的树形组件                            |
 | TreeSelect   | 树形选择器                                  |
-| Icon         | 图标组件，支持 Element Plus 图标和 iconfont |
 | ColorPicker  | 颜色选择器，支持主题色联动                  |
+| Icon         | 图标组件，支持 Element Plus 图标和 iconfont |
 | DeleteButton | 带确认弹窗的删除按钮                        |
 | Loading      | 加载遮罩                                    |
+| ActionButton | 操作按钮组件                                |
 | Lottie       | Lottie 动画组件，封装 lottie-web            |
 
 ## 环境配置
@@ -154,6 +163,8 @@ pnpm commit       # 使用 Commitizen 规范提交
 
 | 变量                           | 说明                                | 默认值              |
 | ------------------------------ | ----------------------------------- | ------------------- |
+| `VITE_BASE_URL`                | 应用基础路径                        | `/`                 |
+| `VITE_PUBLIC_PATH`             | 公共资源路径                        | `/`                 |
 | `VITE_APP_TITLE`               | 应用标题                            | `isdream-vue-admin` |
 | `VITE_USE_MOCK`                | 是否启用 Mock                       | `true`              |
 | `VITE_BUILD_GZIP`              | 生产构建 Gzip 压缩                  | `true`              |
