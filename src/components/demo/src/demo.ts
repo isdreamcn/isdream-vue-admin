@@ -18,8 +18,8 @@ export const demoProps = buildProps({
   type: {
     type: String,
     values: ['a', 'b'],
-    default: 'a',
-  },
+    default: 'a'
+  }
 } as const)
 
 export const demoEmits = {

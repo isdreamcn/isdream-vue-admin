@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import { appConfig } from '@/config'
 import { useRouterStore } from '@/store'
 import { ElConfigProvider } from 'element-plus'
-import { MLoadingLottie } from '@/components'
+import { MLoadingLottie } from '@/components/loading'
 // 国际化
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 

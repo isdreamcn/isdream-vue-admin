@@ -7,7 +7,7 @@ import type { AnimationItem } from 'lottie-web'
 import lottie from 'lottie-web/build/player/lottie_light'
 import { ref, onMounted, onBeforeUnmount, computed } from 'vue'
 import { lottieProps, lottieEmits } from './lottie'
- 
+
 defineOptions({
   name: 'MLottie'
 })
