@@ -3,12 +3,11 @@
 </template>
 
 <script setup lang="ts">
-import lottie from 'lottie-web'
+import type { AnimationItem } from 'lottie-web'
+import lottie from 'lottie-web/build/player/lottie_light'
 import { ref, onMounted, onBeforeUnmount, computed } from 'vue'
 import { lottieProps, lottieEmits } from './lottie'
-
-import { AnimationItem } from 'lottie-web'
-
+ 
 defineOptions({
   name: 'MLottie'
 })
