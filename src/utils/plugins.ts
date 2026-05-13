@@ -15,7 +15,7 @@ export {
   isNil,
   isBoolean,
   fromPairs
-} from 'lodash-unified'
+} from 'lodash-es'
 
 const hasOwnProperty = Object.prototype.hasOwnProperty
 export const hasOwn = (
