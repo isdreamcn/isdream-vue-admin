@@ -22,7 +22,7 @@
 | 类别            | 技术         |
 | --------------- | ------------ |
 | 框架            | Vue 3        |
-| 构建工具        | Vite 5       |
+| 构建工具        | Vite 8       |
 | 语言            | TypeScript   |
 | UI 库           | Element Plus |
 | 状态管理        | Pinia        |
@@ -168,7 +168,6 @@ pnpm docs:preview # 文档站点预览
 | `VITE_APP_TITLE`               | 应用标题                            | `isdream-vue-admin` |
 | `VITE_USE_MOCK`                | 是否启用 Mock                       | `true`              |
 | `VITE_BUILD_GZIP`              | 生产构建 Gzip 压缩                  | `true`              |
-| `VITE_BUILD_LEGACY`            | 兼容旧版浏览器                      | `true`              |
 | `VITE_BUILD_ROLLUP_VISUALIZER` | 生产构建包分析（Rollup Visualizer） | `true`              |
 | `VITE_BASE_URL_API`            | API 基础地址                        | —                   |
 | `VITE_BASE_URL_FILE`           | 文件服务基础地址                    | —                   |

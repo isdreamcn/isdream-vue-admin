@@ -28,19 +28,37 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     },
     build: {
       chunkSizeWarningLimit: 2 * 1024,
-      rollupOptions: {
+      rolldownOptions: {
+        checks: {
+          ineffectiveDynamicImport: false,
+          pluginTimings: false
+        },
         output: {
           chunkFileNames: 'assets/js/[name]-[hash].js',
           entryFileNames: 'assets/js/[name]-[hash].js',
-          assetFileNames: 'assets/[ext]/[name]-[hash].[ext]',
-          manualChunks: {
-            vue: ['vue', 'vue-router', 'pinia'],
-            ui: ['element-plus'],
-            icon: ['@element-plus/icons-vue'],
-            echarts: ['echarts'],
-            tinymce: ['tinymce'],
-            vditor: ['vditor'],
-            lottie: ['lottie-web']
+          assetFileNames: 'assets/[ext]/[name]-[hash][extname]',
+          codeSplitting: {
+            groups: [
+              {
+                name: 'vue',
+                test: /node_modules[\\/](vue|vue-router|pinia|@vue)[\\/]/,
+                priority: 20
+              },
+              {
+                name: 'icon',
+                test: /node_modules.*@element-plus[\\/]icons-vue/,
+                priority: 19
+              },
+              { name: 'ui', test: /node_modules.*element-plus/, priority: 15 },
+              {
+                name: 'viewer',
+                test: /node_modules[\\/](v-viewer|viewerjs)[\\/]/,
+                priority: 15
+              },
+              { name: 'echarts', test: /node_modules.*echarts/, priority: 15 },
+              { name: 'vditor', test: /node_modules.*vditor/, priority: 15 },
+              { name: 'lottie', test: /node_modules.*lottie-web/, priority: 15 }
+            ]
           }
         }
       }
@@ -54,8 +72,6 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     css: {
       preprocessorOptions: {
         scss: {
-          api: 'modern-compiler',
-          silenceDeprecations: ['legacy-js-api'],
           // 修改element变量、全局导入scss变量
           additionalData: `
             @use "@/assets/styles/element.scss" as *;

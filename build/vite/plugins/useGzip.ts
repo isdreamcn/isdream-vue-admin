@@ -1,5 +1,5 @@
-// @see https://github.com/vbenjs/vite-plugin-compression
-import compressPlugin from 'vite-plugin-compression'
+// @see https://github.com/nonzzz/vite-plugin-compression
+import { compression } from 'vite-plugin-compression2'
 
 /**
  * 静态资源压缩插件
@@ -12,15 +12,8 @@ import compressPlugin from 'vite-plugin-compression'
  *
  * @returns 压缩插件数组
  */
-export const useGzip = () => [
-  compressPlugin({
-    algorithm: 'gzip',
-    ext: '.gz',
-    deleteOriginFile: false
-  }),
-  compressPlugin({
-    algorithm: 'brotliCompress',
-    ext: '.br',
-    deleteOriginFile: false
+export const useGzip = () =>
+  compression({
+    algorithms: ['gzip', 'brotliCompress'],
+    deleteOriginalAssets: false
   })
-]

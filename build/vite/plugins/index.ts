@@ -2,8 +2,6 @@ import type { PluginOption } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
 import { useAutoImportComponents } from './autoImportComponents'
-import { useHtmlDev } from './htmlDev'
-import { useLegacy } from './legacy'
 import { useGzip } from './useGzip'
 import { rollupVisualizer } from './rollupVisualizer'
 
@@ -11,13 +9,9 @@ export const createVitePlugins = (viteEnv: DefineEnv, isBuild: boolean) => {
   const plugins: PluginOption[] = [vue()]
 
   plugins.push(useAutoImportComponents(isBuild))
-  plugins.push(useHtmlDev())
 
-  if (viteEnv.VITE_BUILD_LEGACY) {
-    plugins.push(useLegacy())
-  }
   if (viteEnv.VITE_BUILD_GZIP) {
-    plugins.push(...useGzip())
+    plugins.push(useGzip())
   }
   if (viteEnv.VITE_BUILD_ROLLUP_VISUALIZER) {
     plugins.push(rollupVisualizer() as PluginOption)
