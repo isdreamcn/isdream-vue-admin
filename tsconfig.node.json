@@ -8,9 +8,9 @@
   },
   "include": [
     "vite.config.ts",
+    "vitest.config.ts",
     "package.json",
     "build/**/*.ts",
-
     "typings/**/*.d.ts"
   ]
 }

@@ -107,6 +107,32 @@ export default defineConfig(
   },
 
   /**
+   * 测试文件配置
+   * 声明 Vitest 全局变量，避免 ESLint 报 no-undef
+   */
+  {
+    name: 'test-files',
+    files: ['**/*.test.ts', '**/*.spec.ts', 'src/test/**/*.ts'],
+    languageOptions: {
+      globals: {
+        describe: 'readonly',
+        it: 'readonly',
+        test: 'readonly',
+        expect: 'readonly',
+        vi: 'readonly',
+        beforeEach: 'readonly',
+        afterEach: 'readonly',
+        beforeAll: 'readonly',
+        afterAll: 'readonly',
+        suite: 'readonly',
+        xdescribe: 'readonly',
+        xit: 'readonly',
+        xtest: 'readonly'
+      }
+    }
+  },
+
+  /**
    * Prettier 配置
    * 必须放在最后，用于禁用与 Prettier 冲突的 ESLint 规则
    */
