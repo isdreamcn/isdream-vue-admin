@@ -95,10 +95,86 @@ describe('useRemLayout', () => {
 
     start(container)
     expect(addSpy).toHaveBeenCalledWith('resize', expect.any(Function))
-    expect(addSpy).toHaveBeenCalledWith('orientationchange', expect.any(Function))
+    expect(addSpy).toHaveBeenCalledWith(
+      'orientationchange',
+      expect.any(Function)
+    )
 
     cancel()
     expect(removeSpy).toHaveBeenCalledWith('resize', expect.any(Function))
-    expect(removeSpy).toHaveBeenCalledWith('orientationchange', expect.any(Function))
+    expect(removeSpy).toHaveBeenCalledWith(
+      'orientationchange',
+      expect.any(Function)
+    )
+  })
+
+  it('start 前调用 setHtmlFontSize 应为空操作', () => {
+    const { setHtmlFontSize } = useRemLayout()
+    setHtmlFontSize()
+    expect(document.documentElement.style.fontSize).toBe('')
+  })
+
+  it('容器尺寸为零时 scale 应返回 1', () => {
+    const { start, cancel } = useRemLayout()
+
+    const container = document.createElement('div')
+    Object.defineProperty(container, 'clientWidth', { value: 0 })
+    Object.defineProperty(container, 'clientHeight', { value: 540 })
+
+    start(container)
+    expect(document.documentElement.style.fontSize).toBe('100px')
+
+    cancel()
+  })
+
+  it('cancel 应调用 debounce cancel 方法', () => {
+    const { start, cancel } = useRemLayout()
+    const addSpy = vi.spyOn(window, 'addEventListener')
+
+    const container = document.createElement('div')
+    Object.defineProperty(container, 'clientWidth', { value: 1920 })
+    Object.defineProperty(container, 'clientHeight', { value: 1080 })
+
+    start(container)
+
+    // 从 addEventListener 调用中捕获 debounced 函数
+    const debouncedFn = addSpy.mock.calls[0][1] as (() => void) & {
+      cancel: () => void
+    }
+    const cancelSpy = vi.spyOn(debouncedFn, 'cancel')
+
+    cancel()
+    expect(cancelSpy).toHaveBeenCalled()
+  })
+
+  it('自定义配置值应正确应用', () => {
+    const { start, cancel } = useRemLayout({
+      fontSize: 200,
+      width: 800,
+      height: 600
+    })
+
+    const container = document.createElement('div')
+    Object.defineProperty(container, 'clientWidth', { value: 400 })
+    Object.defineProperty(container, 'clientHeight', { value: 300 })
+
+    start(container)
+    expect(document.documentElement.style.fontSize).toBe('100px')
+
+    cancel()
+  })
+
+  it('非等比容器应按约束维度缩放', () => {
+    const { start, cancel } = useRemLayout()
+
+    // 宽度匹配但高度只有一半，scale 应为 0.5
+    const container = document.createElement('div')
+    Object.defineProperty(container, 'clientWidth', { value: 1920 })
+    Object.defineProperty(container, 'clientHeight', { value: 540 })
+
+    start(container)
+    expect(document.documentElement.style.fontSize).toBe('50px')
+
+    cancel()
   })
 })

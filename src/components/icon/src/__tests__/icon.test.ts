@@ -4,7 +4,8 @@ import Icon from '../icon.vue'
 // Stub Element Plus 组件（测试环境中无 auto-import）
 const globalStubs = {
   'el-icon': {
-    template: '<div class="mock-el-icon" :size="size" :color="color"><slot /></div>',
+    template:
+      '<div class="mock-el-icon" :size="size" :color="color"><slot /></div>',
     props: ['size', 'color']
   }
 }
@@ -14,10 +15,6 @@ const globalStubs = {
 beforeEach(() => {
   vi.spyOn(console, 'warn').mockImplementation(() => {})
 })
-afterEach(() => {
-  vi.restoreAllMocks()
-})
-
 describe('MIcon', () => {
   it('使用必需的 name prop 渲染', () => {
     const wrapper = mount(Icon, {
