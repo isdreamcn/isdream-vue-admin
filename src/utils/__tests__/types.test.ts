@@ -1,4 +1,4 @@
-import { isEmpty, isPropAbsent, isImageByExtname } from '../types'
+import { isEmpty, isPropAbsent, isImageByExtname, isElement } from '../types'
 
 describe('isEmpty', () => {
   it('null 返回 true', () => {
@@ -67,5 +67,25 @@ describe('isImageByExtname', () => {
 
   it('大小写不敏感', () => {
     expect(isImageByExtname('photo.JPG')).toBe(true)
+  })
+})
+
+describe('isElement', () => {
+  it('DOM 元素返回 true', () => {
+    const div = document.createElement('div')
+    expect(isElement(div)).toBe(true)
+  })
+
+  it('文本节点返回 false', () => {
+    const text = document.createTextNode('hello')
+    expect(isElement(text)).toBe(false)
+  })
+
+  it('普通对象返回 false', () => {
+    expect(isElement({})).toBe(false)
+  })
+
+  it('null 返回 false', () => {
+    expect(isElement(null)).toBe(false)
   })
 })
