@@ -25,7 +25,7 @@ export const useComponents: AppUsePlugin = (app) => {
 
 // 组件全部导入、用于开发环境
 export const useComponentsAll: AppUsePlugin = (app) => {
-  import('element-plus/dist/index.css').catch(console.error)
+  import('element-plus/theme-chalk/src/index.scss').catch(console.error)
   import('element-plus')
     .then((ElementPlus) => {
       app.use(ElementPlus)

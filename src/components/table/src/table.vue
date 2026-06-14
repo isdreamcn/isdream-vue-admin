@@ -12,7 +12,7 @@
       class="m-table__main"
       border
       stripe
-      :data="data as any[]"
+      :data="data"
       :row-key="props.rowKey"
       @selection-change="selection.handleSelectionChange"
     >
@@ -107,7 +107,7 @@ const handleSizeChange = () => {
 }
 
 // table 实际渲染的数据
-const data = computed(() => httpRes.data || paginationData.value)
+const data = computed(() => (httpRes.data || paginationData.value) as any[])
 
 // selectkey
 const selection = useSelection(props, data, (selectKeys) => {
