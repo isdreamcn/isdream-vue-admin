@@ -28,6 +28,28 @@
           >详情</el-button
         >
       </template>
+
+      <!-- header 插槽：每一层（含分组列）都可独立使用，无需在 column 配置 slot -->
+      <template #userInfo-header="{ column }">
+        <span style="display: inline-flex; align-items: center">
+          <el-icon><IconUser /></el-icon>
+          <span style="margin-left: 4px">{{ column.label }}</span>
+        </span>
+      </template>
+      <template #name-header="{ column }">
+        <span style="display: inline-flex; align-items: center">
+          <el-icon><IconPostcard /></el-icon>
+          <span style="margin-left: 4px">{{ column.label }}</span>
+        </span>
+      </template>
+      <template #actions-header="{ column }">
+        <el-tooltip :content="`自定义表头：${column.label}`" placement="top">
+          <span style="display: inline-flex; align-items: center">
+            <el-icon><IconSetting /></el-icon>
+            <span style="margin-left: 4px">{{ column.label }}</span>
+          </span>
+        </el-tooltip>
+      </template>
     </MTable>
 
     <MMarkdownView :value="readme"></MMarkdownView>

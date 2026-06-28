@@ -2,18 +2,25 @@ import type { TableColumn } from '@/components'
 
 export const tableColumns: TableColumn[] = [
   {
-    key: '用户信息',
+    key: 'userInfo',
     label: '用户信息',
     children: [
       {
-        key: 'name',
-        label: '姓名',
-        width: 200
-      },
-      {
-        key: 'address',
-        label: '地区',
-        width: 200
+        key: 'nameAddress',
+        label: '姓名/地区',
+        children: [
+          {
+            key: 'name',
+            label: '姓名',
+            width: 200
+          },
+          {
+            key: 'address',
+            label: '地区',
+            width: 200,
+            slot: true
+          }
+        ]
       },
       {
         key: 'email',

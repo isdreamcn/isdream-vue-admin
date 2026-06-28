@@ -40,6 +40,12 @@
         :key="column.key"
         :column="column"
       >
+        <template #header="{ column: col, ...headerScope }">
+          <slot :name="`${col.key}-header`" v-bind="headerScope" :column="col">
+            {{ col.label ?? col.key }}
+          </slot>
+        </template>
+
         <template #default="{ row, $index, column: col }">
           <template v-if="col.slot">
             <slot
