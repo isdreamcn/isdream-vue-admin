@@ -202,7 +202,12 @@ function getRouteLocationRaw(mode: 'Hash' | 'HTML5') {
     query = queryString ? parseQuery(queryString) : {}
     hash = hashFragment ? '#' + hashFragment : ''
   } else {
-    path = location.pathname || '/'
+    // HTML5 模式下 location.pathname 包含 base 前缀（如 /web/login），
+    // 需要剥离掉 createWebHistory(base) 的 base，否则 router.replace 会再次拼接 base，
+    // 导致刷新后路径累积重复的前缀（如 /web/web/login）。
+    const base = (import.meta.env.VITE_BASE_URL || '').replace(/\/$/, '')
+    const pathname = location.pathname || '/'
+    path = base && pathname.startsWith(base) ? pathname.slice(base.length) || '/' : pathname
     query = location.search ? parseQuery(location.search.substring(1)) : {}
     hash = location.hash
   }
