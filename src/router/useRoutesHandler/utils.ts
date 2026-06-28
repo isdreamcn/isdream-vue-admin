@@ -4,6 +4,20 @@ import { createBasicLayout, createHasNameComponent } from '@/views/layout'
 import { appConfig } from '@/config'
 
 /**
+ * 获取路由的权限标识 key
+ * name 为字符串时优先用 name（跨 path 重构保持稳定），否则回退 path
+ */
+export const getRouteKey = (route: RouteRecordRaw): string =>
+  typeof route.name === 'string' ? route.name : route.path
+
+/**
+ * 获取 RoleMenu 的匹配键，与 getRouteKey 语义对齐
+ * name 为字符串时优先 name，否则回退 path
+ */
+const getRoleMenuKey = (item: RoleMenu): string =>
+  typeof item.name === 'string' ? item.name : item.path
+
+/**
  * 格式化 meta、规范化 path、排序、设置 component
  */
 export const processRoutes = (
@@ -67,7 +81,7 @@ export const generRouteMap = (
 ) => {
   let flag = false
   routes.forEach((route) => {
-    const _route: RouteMapItem = { route, parentNode }
+    const _route: RouteMapItem = { route, key: getRouteKey(route), parentNode }
     routeMap.set(route.path, _route)
     if (route.children) {
       return generRouteMap(route.children, routeMap, _route)
@@ -104,23 +118,29 @@ export const generRoutesByRoleMenu = (
   roleMenu: RoleMenu[],
   routeMap: RouteMap
 ): RouteRecordRaw[] => {
-  return roleMenu
-    .filter((item) => routeMap.has(item.path))
-    .map((item) => {
-      const routeData = routeMap.get(item.path)!
-      const meta = routeData.route.meta || {}
-      return {
-        ...routeData.route,
-        meta: {
-          ...meta,
-          icon: item.icon ?? meta.icon,
-          title: item.title ?? meta.title,
-          link: item.link ?? meta.link
-        },
-        children:
-          item.children && generRoutesByRoleMenu(item.children, routeMap)
-      } as RouteRecordRaw
-    })
+  // 派生 key => routeData 索引，匹配键为 name ?? path（与 RouteMapItem.key 对齐）
+  const keyMap = new Map<string, RouteMapItem>()
+  routeMap.forEach((routeData) => keyMap.set(routeData.key, routeData))
+
+  const build = (menu: RoleMenu[]): RouteRecordRaw[] =>
+    menu
+      .filter((item) => keyMap.has(getRoleMenuKey(item)))
+      .map((item) => {
+        const routeData = keyMap.get(getRoleMenuKey(item))!
+        const meta = routeData.route.meta || {}
+        return {
+          ...routeData.route,
+          meta: {
+            ...meta,
+            icon: item.icon ?? meta.icon,
+            title: item.title ?? meta.title,
+            link: item.link ?? meta.link
+          },
+          children: item.children && build(item.children)
+        } as RouteRecordRaw
+      })
+
+  return build(roleMenu)
 }
 
 // permissions => routes
@@ -129,7 +149,9 @@ export const generRoutesByPermissions = (
   routes: RouteRecordRaw[]
 ): RouteRecordRaw[] => {
   return routes
-    .filter((item) => item.meta?.ignoreAuth || permissionsMap.get(item.path))
+    .filter(
+      (item) => item.meta?.ignoreAuth || permissionsMap.get(getRouteKey(item))
+    )
     .map(
       (item) =>
         ({

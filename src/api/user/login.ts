@@ -11,7 +11,7 @@ import { mockService } from '@/service'
 import { appConfig } from '@/config'
 import db from '@/storage'
 import { routes } from '@/router/routes'
-import { processRoutes } from '@/router/useRoutesHandler/utils'
+import { processRoutes, getRouteKey } from '@/router/useRoutesHandler/utils'
 
 const ADMIN_TOKEN = 'ud1Ow3F7ofBFiHd3mOj1OBCKL'
 
@@ -112,7 +112,7 @@ function getRoutesPermissions(
   permissions: string[] = []
 ) {
   routes.forEach((route) => {
-    permissions.push(route.path)
+    permissions.push(getRouteKey(route))
     if (route.children) {
       getRoutesPermissions(route.children, permissions)
     }

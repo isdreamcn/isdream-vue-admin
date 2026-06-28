@@ -83,6 +83,32 @@ export default {
 }
 ```
 
+### 权限标识 key
+
+`roleMenu` 与 `permissions` 模式在匹配路由时，使用一个**权限标识 key** 而非 `path`：
+
+```
+key = route.name（字符串时优先） ?? route.path（兜底）
+```
+
+- 路由声明了 `name`（字符串）时，用 `name` 作为 key
+- 未声明 `name` 时，回退到 `path`
+
+这样设计的目的是**把「URL 结构（path）」与「权限契约」解耦**：当产品调整导致 `path` 变化时，只要 `name` 保持不变，后端录入的权限 / 角色菜单数据无需重新录入。
+
+::: tip 命名建议
+`name` 是稳定的业务标识，应当**显式声明且不随意改动**；`path` 面向用户与 URL，可以随产品调整。因此推荐给需要权限控制的路由显式声明 `name`。多数路由若 `path` 稳定，也可不写 `name`（回退到 `path` 同样可用）。
+:::
+
+对应到两种模式的数据格式：
+
+| 模式 | 后端返回数据 | 取值 |
+| --- | --- | --- |
+| `roleMenu` | 角色菜单 `UserLoginMenu[]`（含 `name` / `path`） | 每个菜单项用 `name ?? path` 作为匹配键 |
+| `permissions` | 权限字符串 `string[]` | 数组元素即 key（路由有 name 时填 name，否则填 path） |
+
+匹配逻辑实现见 `src/router/useRoutesHandler/utils.ts` 中的 `getRouteKey` 与 `getRoleMenuKey`。
+
 ## 按钮级权限
 
 使用 `v-auth` 指令控制按钮级权限：

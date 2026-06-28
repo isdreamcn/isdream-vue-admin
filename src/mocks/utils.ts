@@ -98,14 +98,14 @@ const USER_LIST: MockUserLoginList[] = [
     },
     permissions: [
       '/home',
-      '/about',
-      '/demo',
-      '/demo/link',
-      '/demo/show-loading',
-      '/demo/menu',
-      '/demo/menu/menu1',
-      '/demo/menu/menu1/menu11',
-      '/demo/menu/menu2',
+      'About',
+      'Demo',
+      'Link',
+      'DemoShowLoading',
+      'Menu',
+      'Menu1',
+      'Menu11',
+      'Menu2',
       '/example',
       '/example/user'
     ],
@@ -118,33 +118,33 @@ const USER_LIST: MockUserLoginList[] = [
       },
       {
         id: 2,
-        path: '/about'
+        name: 'About'
       },
       {
         id: 9,
-        path: '/demo/link'
+        name: 'Link'
       },
       {
         id: 10,
-        path: '/demo/show-loading'
+        name: 'DemoShowLoading'
       },
       {
         id: 3,
-        path: '/demo/menu',
+        name: 'Menu',
         children: [
           {
             id: 4,
-            path: '/demo/menu/menu1',
+            name: 'Menu1',
             children: [
               {
                 id: 5,
-                path: '/demo/menu/menu1/menu11'
+                name: 'Menu11'
               }
             ]
           },
           {
             id: 6,
-            path: '/demo/menu/menu2'
+            name: 'Menu2'
           }
         ]
       },

@@ -19,7 +19,8 @@ export interface UserResetPasswordParams {
 export interface UserLoginMenu {
   id?: number
   title?: string
-  path: string
+  name?: string
+  path?: string
   icon?: string
   link?: string
   children?: UserLoginMenu[]

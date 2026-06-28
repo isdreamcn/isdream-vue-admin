@@ -48,6 +48,10 @@ const { user } = useStores()
 | `setRoleMenu(menu)`               | 设置角色菜单                         |
 | `setUserPermissions(permissions)` | 设置权限列表                         |
 
+::: tip 数据格式
+`setRoleMenu` 与 `setUserPermissions` 传入的数据，每项使用路由的**权限标识 key**（路由有 `name` 时取 `name`，否则取 `path`）进行匹配。详见 [权限系统 - 权限标识 key](./permission.md#权限标识-key)。
+:::
+
 ### 使用示例
 
 ```typescript
