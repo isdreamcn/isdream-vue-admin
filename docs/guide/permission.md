@@ -102,10 +102,10 @@ key = route.name（字符串时优先） ?? route.path（兜底）
 
 对应到两种模式的数据格式：
 
-| 模式 | 后端返回数据 | 取值 |
-| --- | --- | --- |
-| `roleMenu` | 角色菜单 `UserLoginMenu[]`（含 `name` / `path`） | 每个菜单项用 `name ?? path` 作为匹配键 |
-| `permissions` | 权限字符串 `string[]` | 数组元素即 key（路由有 name 时填 name，否则填 path） |
+| 模式          | 后端返回数据                                     | 取值                                                 |
+| ------------- | ------------------------------------------------ | ---------------------------------------------------- |
+| `roleMenu`    | 角色菜单 `UserLoginMenu[]`（含 `name` / `path`） | 每个菜单项用 `name ?? path` 作为匹配键               |
+| `permissions` | 权限字符串 `string[]`                            | 数组元素即 key（路由有 name 时填 name，否则填 path） |
 
 匹配逻辑实现见 `src/router/useRoutesHandler/utils.ts` 中的 `getRouteKey` 与 `getRoleMenuKey`。
 

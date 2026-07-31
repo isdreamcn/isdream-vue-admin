@@ -25,7 +25,8 @@
 
 ### Exposes
 
-| 名称     | 说明         | 类型          |
-| -------- | ------------ | ------------- |
-| chart    | ECharts 实例 | `ECharts`     |
-| chartRef | 渲染容器 DOM | `HTMLElement` |
+| 名称     | 说明             | 类型          |
+| -------- | ---------------- | ------------- |
+| chart    | ECharts 实例     | `ECharts`     |
+| chartRef | 渲染容器 DOM     | `HTMLElement` |
+| resize   | 手动触发图表重绘 | `() => void`  |
