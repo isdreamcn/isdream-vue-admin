@@ -8,7 +8,14 @@
 import type { Editor } from 'tinymce'
 import { editorProps, editorEmits } from './editor'
 import tinymce from 'tinymce/tinymce'
-import { watch, useAttrs, onMounted, onActivated, onBeforeUnmount } from 'vue'
+import {
+  watch,
+  useAttrs,
+  onMounted,
+  onActivated,
+  onDeactivated,
+  onBeforeUnmount
+} from 'vue'
 import { setBaseUrlFile, removeBaseUrlFile } from '@/utils'
 import { bindHandlers } from './tinymce/helper'
 import { useTinymceOptions, useTinymceImgUpload } from './hooks'
@@ -62,6 +69,12 @@ onBeforeUnmount(() => {
 onActivated(() => {
   destory()
   initEditor()
+})
+
+// keep-alive 缓存切走时销毁 tinymce 实例（含 iframe、事件、定时器），
+// 与 onActivated 配对，避免多个缓存页累积实例导致内存增长
+onDeactivated(() => {
+  destory()
 })
 
 // disabled

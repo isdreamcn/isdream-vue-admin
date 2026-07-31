@@ -58,6 +58,8 @@ let successFileList: UploadFile[] = []
 
 // 追踪需要释放的 Blob URL
 const blobUrls = new Set<string>()
+// 追踪进行中的进度模拟定时器，组件卸载时统一取消
+const progressCancellers = new Set<() => void>()
 
 const revokeBlobUrl = (url: string) => {
   if (blobUrls.has(url)) {
@@ -225,6 +227,7 @@ const httpRequest: ElUploadProps['httpRequest'] = (options) => {
       increaseNum: 3
     }
   )
+  progressCancellers.add(cancel)
 
   // 请求上传接口
   const formdata = new FormData()
@@ -249,11 +252,17 @@ const httpRequest: ElUploadProps['httpRequest'] = (options) => {
         ElMessage.error('上传失败')
       }
     })
-    .finally(cancel)
+    .finally(() => {
+      cancel()
+      progressCancellers.delete(cancel)
+    })
 }
 
 onBeforeUnmount(() => {
   revokeAllBlobUrls()
+  // 取消所有进行中的进度模拟定时器，避免卸载后继续写 reactive 状态
+  progressCancellers.forEach((cancel) => cancel())
+  progressCancellers.clear()
 })
 </script>
 

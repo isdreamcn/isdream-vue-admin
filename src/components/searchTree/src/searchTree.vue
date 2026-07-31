@@ -31,7 +31,15 @@
 <script lang="ts" setup>
 import type { ElTree } from 'element-plus'
 import type { TreeNodeData } from 'element-plus/es/components/tree/src/tree.type'
-import { ref, watch, computed, useAttrs, toRaw, nextTick } from 'vue'
+import {
+  ref,
+  watch,
+  computed,
+  useAttrs,
+  toRaw,
+  nextTick,
+  onBeforeUnmount
+} from 'vue'
 import { searchTreeProps, searchTreeEmits } from './searchTree'
 import { updateObjKeys, debounce } from '@/utils'
 
@@ -82,6 +90,11 @@ const selectChange = debounce(() => {
     : treeRef.value?.getCurrentKey()
 
   emit('update:modelValue', selectKeys)
+})
+
+// 卸载时取消 pending 的 debounce 回调，避免向已卸载的父组件 emit 旧值
+onBeforeUnmount(() => {
+  selectChange.cancel()
 })
 
 const setSelectKeys = (val?: any) => {

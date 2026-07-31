@@ -30,7 +30,7 @@
 
 <script setup lang="ts">
 import type { FormInstance } from 'element-plus'
-import { computed, watch, ref } from 'vue'
+import { computed, watch, ref, onBeforeUnmount } from 'vue'
 import { cloneDeep } from '@/utils'
 import { formDialogProps, formDialogEmits } from './formDialog'
 
@@ -56,6 +56,8 @@ const visible = ref(props.modelValue)
 
 // 生成请求ID来标识每个请求
 let currentRequestId = 0
+// 组件卸载标志，防止异步回调在卸载后继续写状态
+let isUnmounted = false
 
 let elFormRef: Nullable<FormInstance> = null
 const getForm = (form: FormInstance) => {
@@ -84,7 +86,8 @@ const init = () => {
   if (props.id) {
     const requestId = ++currentRequestId
     props.httpGet(props.id).then((res) => {
-      if (requestId !== currentRequestId) return
+      // 请求串扰或组件已卸载时，丢弃回调结果
+      if (requestId !== currentRequestId || isUnmounted) return
       formData.value = props.getHandler({
         ...value,
         ...res.data
@@ -104,22 +107,28 @@ const cancel = () => {
   emit('update:modelValue', false)
 }
 
-const submit = (formData: Record<string, any>) => {
-  formData = props.handler(formData)
+const submit = (formDataValue: Record<string, any>) => {
+  const submitData = props.handler(formDataValue)
   loading.value = true
   let requestRes: Promise<any>
   if (props.id) {
-    requestRes = props.httpEdit(props.id, formData)
+    requestRes = props.httpEdit(props.id, submitData)
   } else {
-    requestRes = props.httpAdd(formData)
+    requestRes = props.httpAdd(submitData)
   }
   requestRes
     .then(() => {
       cancel()
       emit('reload')
     })
+    // 错误提示已由全局拦截器 useHandleError 统一处理，此处捕获仅防止 unhandled rejection
+    .catch(() => {})
     .finally(() => (loading.value = false))
 }
+
+onBeforeUnmount(() => {
+  isUnmounted = true
+})
 
 watch(
   () => props.modelValue,

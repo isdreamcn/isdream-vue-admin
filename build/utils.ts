@@ -1,4 +1,4 @@
-const stringToBoolean = (str: string) => str === 'true'
+const stringToBoolean = (str: string) => str.trim().toLowerCase() === 'true'
 
 // 处理env
 export const wrapperLoadViteEnv = <T extends LoadViteEnv>(env: T): ViteEnv => {

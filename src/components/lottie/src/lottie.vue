@@ -5,7 +5,7 @@
 <script setup lang="ts">
 import type { AnimationItem } from 'lottie-web'
 import lottie from 'lottie-web/build/player/lottie_light'
-import { ref, onMounted, onBeforeUnmount, computed } from 'vue'
+import { ref, shallowRef, onMounted, onBeforeUnmount, computed } from 'vue'
 import { lottieProps, lottieEmits } from './lottie'
 
 defineOptions({
@@ -25,9 +25,10 @@ const style = computed(() => {
 
 const lottieContainerRef = ref<Element>()
 
-let anim: Nullable<AnimationItem> = null
+// 使用 shallowRef 以便 defineExpose 能暴露最新实例（普通 let 变量只会暴露初始 null）
+const anim = shallowRef<Nullable<AnimationItem>>(null)
 onMounted(() => {
-  anim = lottie.loadAnimation({
+  anim.value = lottie.loadAnimation({
     renderer: 'svg',
     loop: true,
     autoplay: true,
@@ -35,11 +36,12 @@ onMounted(() => {
     animationData: props.data,
     container: lottieContainerRef.value!
   })
-  emit('created', anim)
+  emit('created', anim.value)
 })
 
 const destroy = () => {
-  anim?.destroy()
+  anim.value?.destroy()
+  anim.value = null
 }
 
 onBeforeUnmount(() => {

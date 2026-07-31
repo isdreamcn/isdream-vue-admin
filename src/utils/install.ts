@@ -32,7 +32,12 @@ export const withInstall = <T, E extends Record<string, any>>(
 }
 
 export const withInstallFunction = <T>(fn: T, name: string) => {
-  ;(fn as SFCWithInstall<T>).install = (app: App) => {
+  ;(fn as SFCInstallWithContext<T>).install = (app: App) => {
+    if (import.meta.env.DEV && app.config.globalProperties[name]) {
+      console.warn(
+        `[withInstallFunction] globalProperties ${name} has been registered`
+      )
+    }
     ;(fn as SFCInstallWithContext<T>)._context = app._context
     app.config.globalProperties[name] = fn
   }

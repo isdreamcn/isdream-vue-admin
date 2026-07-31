@@ -7,7 +7,7 @@ import 'vditor/dist/index.css'
 import Vditor from 'vditor'
 
 import { markdownViewProps } from './markdownView'
-import { ref, watch, onMounted } from 'vue'
+import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
 import { useVditorTheme, useVditorCDN } from './hooks'
 import { setBaseUrlFile } from '@/utils'
 
@@ -52,6 +52,13 @@ const init = () => {
 
 onMounted(() => {
   init()
+})
+
+// Vditor.preview 为静态渲染，无 destroy API，卸载时清空容器释放注入的 DOM
+onBeforeUnmount(() => {
+  if (vditorViewRef.value) {
+    vditorViewRef.value.innerHTML = ''
+  }
 })
 
 watch(

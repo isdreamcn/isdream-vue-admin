@@ -43,14 +43,12 @@ export const useHandleError = (): ServiceInterceptors => {
         return Promise.reject({ code, message, response: res })
       }
 
-      // 只有code为200才算成功
-      // if (code !== 200) {
-      //   if (message) {
+      // 只有 code 为 200（HttpStatusCode.OK）才算成功，其余业务错误码一律视为失败
+      // if (code !== HttpStatusCode.OK) {
+      //   if (!res.config._silentError && message) {
       //     ElMessage.error(message)
       //   }
-      //   return Promise.reject({
-      //     response: res
-      //   })
+      //   return Promise.reject({ code, message, response: res })
       // }
       return res
     },

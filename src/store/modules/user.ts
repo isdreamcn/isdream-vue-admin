@@ -171,17 +171,20 @@ export const useUserStore = defineStore('user', {
         closeLoading: false
       })
 
-      await promise
-
-      await router.replace({
-        ...getRouteLocationRaw(appConfig.routerHistory),
-        force: true
-      })
-
-      routerStore.setState({
-        loading: false,
-        closeLoading: true
-      })
+      try {
+        await promise
+        await router.replace({
+          ...getRouteLocationRaw(appConfig.routerHistory),
+          force: true
+        })
+      } finally {
+        // 无论成功失败，都要恢复 loading 状态，否则会与 router.setState 的锁定逻辑
+        // (loading && !closeLoading) 叠加，导致全局 loading 永久卡死
+        routerStore.setState({
+          loading: false,
+          closeLoading: true
+        })
+      }
     }
   }
 })
@@ -207,7 +210,10 @@ function getRouteLocationRaw(mode: 'Hash' | 'HTML5') {
     // 导致刷新后路径累积重复的前缀（如 /web/web/login）。
     const base = (import.meta.env.VITE_BASE_URL || '').replace(/\/$/, '')
     const pathname = location.pathname || '/'
-    path = base && pathname.startsWith(base) ? pathname.slice(base.length) || '/' : pathname
+    path =
+      base && pathname.startsWith(base)
+        ? pathname.slice(base.length) || '/'
+        : pathname
     query = location.search ? parseQuery(location.search.substring(1)) : {}
     hash = location.hash
   }
