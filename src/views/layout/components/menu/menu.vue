@@ -5,7 +5,12 @@
     :collapse="appSetting.menu.collapsed"
     :mode="appSetting.menu.mode"
   >
-    <SubMenu :menu="menu" @click="clickMenuItem" />
+    <SubMenu
+      v-for="item in menu"
+      :key="item.path"
+      :menu="item"
+      @click="clickMenuItem"
+    />
   </el-menu>
 </template>
 
