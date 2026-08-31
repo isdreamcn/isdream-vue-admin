@@ -10,6 +10,7 @@
 - **布局系统** — 侧边栏布局与顶部菜单布局，运行时动态切换
 - **二次封装组件** — Table、Form、FormDialog、Upload、Editor、Markdown、Chart 等
 - **Mock 数据** — 基于 MSW（Mock Service Worker）的接口模拟
+- **单元测试** — Vitest + happy-dom，覆盖工具函数、路由、Store、服务层等模块
 - **代码规范** — ESLint + Prettier + Husky + Commitlint + Commitizen
 
 ## 预览
@@ -35,6 +36,7 @@
 | 动画            | Lottie       |
 | CSS 预处理      | Sass         |
 | 图片查看        | v-viewer     |
+| 单元测试        | Vitest       |
 | 文档            | VitePress    |
 
 ## 目录结构
@@ -100,6 +102,9 @@ pnpm build:prod   # 生产环境构建
 
 ```bash
 pnpm preview      # 预览构建产物
+pnpm test         # 运行测试（watch 模式）
+pnpm test:run     # 运行测试（单次执行）
+pnpm test:coverage # 生成测试覆盖率报告
 pnpm type-check   # TypeScript 类型检查
 pnpm lint         # ESLint 检查
 pnpm lint:fix     # ESLint 自动修复
@@ -109,6 +114,17 @@ pnpm docs:dev     # 文档站点开发
 pnpm docs:build   # 文档站点构建
 pnpm docs:preview # 文档站点预览
 ```
+
+### 从模板创建新项目
+
+基于当前仓库生成用于开发新项目的精简模板（移除文档站点、测试用例与测试依赖，保留组件 README 与示例页面）：
+
+```bash
+pnpm create:template ../my-new-app          # 生成精简模板
+pnpm create:template ../my-new-app --init   # 生成并初始化为独立 git 仓库
+```
+
+产物是仓库之外的独立目录，与模板仓库无任何 git 关联；模板自身的文档与测试保留在 main 分支，不影响已生成的项目。
 
 ## 权限系统
 
