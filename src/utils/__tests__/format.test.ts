@@ -103,21 +103,28 @@ describe('setBaseUrlFile', () => {
 })
 
 describe('removeBaseUrlFile', () => {
-  it('移除 URL 中的 baseUrlFile 前缀', () => {
-    expect(removeBaseUrlFile('http://localhost/uploads/img.png')).toBe(
-      '/uploads/img.png'
+  it('空字符串直接返回', () => {
+    expect(removeBaseUrlFile('')).toBe('')
+  })
+
+  it('移除 Markdown 图片 URL 中的 baseUrlFile', () => {
+    expect(removeBaseUrlFile('![img](http://localhost/uploads/img.png)')).toBe(
+      '![img](/uploads/img.png)'
     )
   })
 
   it('无 baseUrlFile 时不变', () => {
-    expect(removeBaseUrlFile('https://other.com/img.png')).toBe(
-      'https://other.com/img.png'
-    )
+    expect(
+      removeBaseUrlFile('![img](https://other.com/img.png)')
+    ).toBe('![img](https://other.com/img.png)')
   })
 
-  it('替换所有出现的 baseUrlFile', () => {
-    const input = 'http://localhost/a and http://localhost/b'
-    expect(removeBaseUrlFile(input)).toBe('/a and /b')
+  it('仅剥离图片上下文中的 baseUrlFile，正文中的保留', () => {
+    const input =
+      '![a](http://localhost/a) 正文 http://localhost/c <img src="http://localhost/b">'
+    expect(removeBaseUrlFile(input)).toBe(
+      '![a](/a) 正文 http://localhost/c <img src="/b">'
+    )
   })
 })
 

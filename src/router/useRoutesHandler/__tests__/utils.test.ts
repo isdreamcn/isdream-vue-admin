@@ -301,9 +301,9 @@ describe('generUserMenu', () => {
 })
 
 describe('generRoutesByRoleMenu', () => {
-  it('按 roleMenu 的 path 匹配路由', () => {
+  it('无 name 时按 roleMenu 的 path 匹配路由', () => {
     const routeMap = new Map([
-      ['/a', { route: { path: '/a', meta: {} } }]
+      ['/a', { key: '/a', route: { path: '/a', meta: {} } }]
     ]) as any
 
     const result = generRoutesByRoleMenu([{ path: '/a' }], routeMap)
@@ -312,7 +312,21 @@ describe('generRoutesByRoleMenu', () => {
     expect(result[0].path).toBe('/a')
   })
 
-  it('过滤 routeMap 中不存在的 path', () => {
+  it('路由有 name 时按 name 匹配，path 变动不受影响', () => {
+    const routeMap = new Map([
+      [
+        '/old-path',
+        { key: 'RouteA', route: { path: '/new-path', name: 'RouteA', meta: {} } }
+      ]
+    ]) as any
+
+    const result = generRoutesByRoleMenu([{ path: '/old-path', name: 'RouteA' }], routeMap)
+
+    expect(result).toHaveLength(1)
+    expect(result[0].path).toBe('/new-path')
+  })
+
+  it('过滤 routeMap 中不存在的 key', () => {
     const routeMap = new Map() as any
 
     const result = generRoutesByRoleMenu([{ path: '/not-exist' }], routeMap)
@@ -325,6 +339,7 @@ describe('generRoutesByRoleMenu', () => {
       [
         '/a',
         {
+          key: '/a',
           route: {
             path: '/a',
             meta: { title: '原始', icon: 'old', link: '/old' }
@@ -348,7 +363,7 @@ describe('generRoutesByRoleMenu', () => {
     const routeMap = new Map([
       [
         '/a',
-        { route: { path: '/a', meta: { title: '原始标题', icon: 'orig' } } }
+        { key: '/a', route: { path: '/a', meta: { title: '原始标题', icon: 'orig' } } }
       ]
     ]) as any
 
@@ -361,8 +376,11 @@ describe('generRoutesByRoleMenu', () => {
 
   it('递归处理 children', () => {
     const routeMap = new Map([
-      ['/parent', { route: { path: '/parent', meta: {} } }],
-      ['/parent/child', { route: { path: '/parent/child', meta: {} } }]
+      ['/parent', { key: '/parent', route: { path: '/parent', meta: {} } }],
+      [
+        '/parent/child',
+        { key: '/parent/child', route: { path: '/parent/child', meta: {} } }
+      ]
     ]) as any
 
     const result = generRoutesByRoleMenu(
