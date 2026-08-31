@@ -34,6 +34,7 @@ isdream-vue-admin/
 ├── .env.dev                  # 开发环境变量
 ├── .env.prod                 # 生产环境变量
 ├── vite.config.ts            # Vite 配置
+├── vitest.config.ts          # Vitest 测试配置
 └── tsconfig.json             # TypeScript 配置
 ```
 
@@ -115,3 +116,14 @@ src/router/
 │   └── useDocumentTitle.ts   # 页面标题
 └── useRoutesHandler/         # 动态路由权限处理
 ```
+
+### 单元测试
+
+测试框架为 Vitest + happy-dom，配置见 `vitest.config.ts`，全局 setup 见 `src/test/setup.ts`。测试文件统一放在被测模块同级的 `__tests__/` 目录：
+
+```
+src/utils/format.ts
+src/utils/__tests__/format.test.ts
+```
+
+常用命令：`pnpm test`（watch 模式）、`pnpm test:run`（单次执行）、`pnpm test:coverage`（覆盖率报告）。

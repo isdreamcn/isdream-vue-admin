@@ -19,10 +19,20 @@ pnpm lint           # ESLint 检查（pre-commit 会跑）
 pnpm lint:fix       # ESLint 自动修复
 pnpm format         # Prettier 格式化
 pnpm commit         # Commitizen 规范提交（也可直接 git commit，commit-msg 会校验）
+pnpm test           # Vitest 测试（watch 模式）
+pnpm test:run       # Vitest 单次执行全量测试
+pnpm test:coverage  # Vitest 覆盖率报告
+pnpm create:template <目录> [--init]  # 从当前 HEAD 生成新项目精简模板（移除文档/测试）
 pnpm docs:dev       # VitePress 文档站点
 ```
 
-> Husky `pre-commit` 执行 `type-check` + `lint`；`commit-msg` 用 commitlint 强制 Conventional Commits。提交前确保这两步通过。
+> Husky `pre-commit` 执行 `type-check` + `lint`；`commit-msg` 用 commitlint 强制 Conventional Commits（subject 不得以大写字母开头）。提交前确保这两步通过。
+
+## 测试约定
+
+- 测试框架为 **Vitest + happy-dom**，配置在 `vitest.config.ts`，全局 setup 见 `src/test/setup.ts`。
+- 测试文件放在被测模块同级的 `__tests__/` 目录（如 `src/utils/__tests__/format.test.ts`）。
+- 测试中 `vi.mock('@/config')` 等方式隔离 `appConfig`；修改被测模块行为后，同步检查对应 `__tests__` 用例。
 
 ## 代码风格
 
@@ -91,7 +101,7 @@ docs/                      # VitePress 文档站点（guide/ 与 components/）
 
 ## 生成文件 / 勿手改
 
-`auto-imports.d.ts`、`components.d.ts`（由 unplugin 生成，已 gitignore 但本地存在）、`dist/`、`stats.html`、`docs/.vitepress/{cache,dist}`。
+`auto-imports.d.ts`、`components.d.ts`（由 unplugin 生成，被 git 跟踪、勿手改）、`dist/`、`stats.html`、`docs/.vitepress/{cache,dist}`。
 
 ## 已知坑点
 

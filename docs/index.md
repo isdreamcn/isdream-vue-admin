@@ -38,4 +38,7 @@ features:
   - title: Mock 数据
     details: 集成 MSW (Mock Service Worker)，支持前后端并行开发
     icon: 🧪
+  - title: 单元测试
+    details: 内置 Vitest 测试基础设施，500+ 用例覆盖工具、路由、Store 与服务层
+    icon: ✅
 ---
