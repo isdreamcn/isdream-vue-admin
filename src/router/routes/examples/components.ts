@@ -47,19 +47,11 @@ export default {
         import('@/views/examples/components/formDialog/formDialog.vue')
     },
     {
-      path: 'deleteButton',
+      path: 'button',
       meta: {
-        title: '批量删除按钮'
+        title: '按钮'
       },
-      component: () =>
-        import('@/views/examples/components/deleteButton/deleteButton.vue')
-    },
-    {
-      path: 'a',
-      meta: {
-        title: 'a按钮'
-      },
-      component: () => import('@/views/examples/components/a/a.vue')
+      component: () => import('@/views/examples/components/button/button.vue')
     },
     {
       path: 'editor',

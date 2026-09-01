@@ -155,23 +155,22 @@ pnpm create:template ../my-new-app --init   # 生成并初始化为独立 git �
 
 ## 封装组件
 
-| 组件         | 说明                                        |
-| ------------ | ------------------------------------------- |
-| Table        | 数据表格，支持分页、多选、HTTP 自动请求     |
-| Form         | 动态表单，支持配置式字段渲染与校验          |
-| FormDialog   | 弹窗表单，封装新增/编辑的 CRUD 流程         |
-| Upload       | 文件上传，支持拖拽、预览、格式校验          |
-| Editor       | TinyMCE 富文本编辑器，集成图片上传          |
-| Markdown     | Vditor Markdown 编辑器，集成上传            |
-| Chart        | ECharts 图表封装                            |
-| SearchTree   | 可搜索的树形组件                            |
-| TreeSelect   | 树形选择器                                  |
-| ColorPicker  | 颜色选择器，支持主题色联动                  |
-| Icon         | 图标组件，支持 Element Plus 图标和 iconfont |
-| DeleteButton | 带确认弹窗的删除按钮                        |
-| Loading      | 加载遮罩                                    |
-| ActionButton | 操作按钮组件                                |
-| Lottie       | Lottie 动画组件，封装 lottie-web            |
+| 组件        | 说明                                        |
+| ----------- | ------------------------------------------- |
+| Table       | 数据表格，支持分页、多选、HTTP 自动请求     |
+| Form        | 动态表单，支持配置式字段渲染与校验          |
+| FormDialog  | 弹窗表单，封装新增/编辑的 CRUD 流程         |
+| Upload      | 文件上传，支持拖拽、预览、格式校验          |
+| Editor      | TinyMCE 富文本编辑器，集成图片上传          |
+| Markdown    | Vditor Markdown 编辑器，集成上传            |
+| Chart       | ECharts 图表封装                            |
+| SearchTree  | 可搜索的树形组件                            |
+| TreeSelect  | 树形选择器                                  |
+| ColorPicker | 颜色选择器，支持主题色联动                  |
+| Icon        | 图标组件，支持 Element Plus 图标和 iconfont |
+| Button      | 增强按钮，自动 loading 与二次确认           |
+| Loading     | 加载遮罩                                    |
+| Lottie      | Lottie 动画组件，封装 lottie-web            |
 
 ## 环境配置
 

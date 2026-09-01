@@ -9,11 +9,18 @@
       :params="params"
     >
       <template #extra>
-        <el-button type="primary" @click="edit(0)">新增</el-button>
-        <MDeleteButton
-          :select-keys="selectKeys"
-          @click="del(selectKeys)"
-        ></MDeleteButton>
+        <el-space>
+          <el-button type="primary" @click="edit(0)">新增</el-button>
+          <MButton
+            type="danger"
+            message="确认要删除选择的数据吗？"
+            :disabled="!selectKeys.length"
+            disabled-tip="请选择需要删除的数据"
+            :http="() => del(selectKeys)"
+          >
+            批量删除
+          </MButton>
+        </el-space>
       </template>
 
       <template #createAt="{ value }">
@@ -21,8 +28,12 @@
       </template>
 
       <template #actions="{ row }">
-        <MA type="primary" @click="edit(row.id)">编辑</MA>
-        <MA type="danger" @click="del([row.id])">删除</MA>
+        <el-space>
+          <MButton link type="primary" @click="edit(row.id)">编辑</MButton>
+          <MButton link type="danger" :http="() => del([row.id])">
+            删除
+          </MButton>
+        </el-space>
       </template>
     </MTable>
 
@@ -78,7 +89,7 @@ const reload = () => {
 const selectKeys = ref<number[]>([])
 // 删除
 const del = (ids: number[]) => {
-  testDel(ids).then(() => {
+  return testDel(ids).then(() => {
     ElMessage.success('删除成功')
     reload()
   })

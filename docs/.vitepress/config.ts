@@ -50,15 +50,8 @@ export default defineConfig({
               link: '/components/color-picker'
             },
             { text: 'Icon 图标', link: '/components/icon' },
-            {
-              text: 'DeleteButton 删除按钮',
-              link: '/components/delete-button'
-            },
+            { text: 'Button 按钮', link: '/components/button' },
             { text: 'Loading 加载', link: '/components/loading' },
-            {
-              text: 'ActionButton 操作按钮',
-              link: '/components/action-button'
-            },
             { text: 'Lottie 动画', link: '/components/lottie' }
           ]
         }
