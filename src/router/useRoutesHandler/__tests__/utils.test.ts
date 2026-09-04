@@ -316,11 +316,17 @@ describe('generRoutesByRoleMenu', () => {
     const routeMap = new Map([
       [
         '/old-path',
-        { key: 'RouteA', route: { path: '/new-path', name: 'RouteA', meta: {} } }
+        {
+          key: 'RouteA',
+          route: { path: '/new-path', name: 'RouteA', meta: {} }
+        }
       ]
     ]) as any
 
-    const result = generRoutesByRoleMenu([{ path: '/old-path', name: 'RouteA' }], routeMap)
+    const result = generRoutesByRoleMenu(
+      [{ path: '/old-path', name: 'RouteA' }],
+      routeMap
+    )
 
     expect(result).toHaveLength(1)
     expect(result[0].path).toBe('/new-path')
@@ -363,7 +369,10 @@ describe('generRoutesByRoleMenu', () => {
     const routeMap = new Map([
       [
         '/a',
-        { key: '/a', route: { path: '/a', meta: { title: '原始标题', icon: 'orig' } } }
+        {
+          key: '/a',
+          route: { path: '/a', meta: { title: '原始标题', icon: 'orig' } }
+        }
       ]
     ]) as any
 

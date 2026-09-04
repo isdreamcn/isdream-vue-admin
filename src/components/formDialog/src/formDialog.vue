@@ -7,13 +7,15 @@
     @close="cancel"
   >
     <MForm
+      ref="mFormRef"
       v-model="formData"
       :fields="props.fields"
       :disabled="props.disabled"
       :inline="false"
       :col-attrs="24"
+      :filter="props.filter"
+      :filter-hidden="props.filterHidden"
       :loading="loading"
-      @get-form="getForm"
       @submit="submit"
       @cancel="cancel"
     >
@@ -29,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import type { FormInstance } from 'element-plus'
+import type { MFormInstance } from '@/components/form'
 import { computed, watch, ref, onBeforeUnmount } from 'vue'
 import { cloneDeep } from '@/utils'
 import { formDialogProps, formDialogEmits } from './formDialog'
@@ -59,10 +61,7 @@ let currentRequestId = 0
 // 组件卸载标志，防止异步回调在卸载后继续写状态
 let isUnmounted = false
 
-let elFormRef: Nullable<FormInstance> = null
-const getForm = (form: FormInstance) => {
-  elFormRef = form
-}
+const mFormRef = ref<MFormInstance>()
 
 const formData = ref({})
 watch(
@@ -102,7 +101,7 @@ const cancel = () => {
   if (!visible.value) {
     return
   }
-  elFormRef?.resetFields()
+  mFormRef.value?.resetFields()
   visible.value = false
   emit('update:modelValue', false)
 }

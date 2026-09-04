@@ -49,16 +49,16 @@ pnpm preview
 
 ## 其他命令
 
-| 命令                | 说明                       |
-| ------------------- | -------------------------- |
-| `pnpm test`         | Vitest 测试（watch 模式）  |
-| `pnpm test:run`     | Vitest 单次执行全量测试    |
-| `pnpm test:coverage`| Vitest 覆盖率报告          |
-| `pnpm type-check`   | TypeScript 类型检查        |
-| `pnpm lint`         | ESLint 代码检查            |
-| `pnpm lint:fix`     | ESLint 自动修复            |
-| `pnpm format`       | Prettier 格式化            |
-| `pnpm commit`       | 使用 Commitizen 规范化提交 |
+| 命令                 | 说明                       |
+| -------------------- | -------------------------- |
+| `pnpm test`          | Vitest 测试（watch 模式）  |
+| `pnpm test:run`      | Vitest 单次执行全量测试    |
+| `pnpm test:coverage` | Vitest 覆盖率报告          |
+| `pnpm type-check`    | TypeScript 类型检查        |
+| `pnpm lint`          | ESLint 代码检查            |
+| `pnpm lint:fix`      | ESLint 自动修复            |
+| `pnpm format`        | Prettier 格式化            |
+| `pnpm commit`        | 使用 Commitizen 规范化提交 |
 
 ## 从模板创建新项目
 

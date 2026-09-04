@@ -31,6 +31,18 @@ export const formDialogProps = buildProps({
     type: Boolean,
     default: false
   },
+  // 透传 MForm 的 filter：true 时提交不回传 fields 之外的字段；
+  // false 时 fields 外字段原样保留并随提交回传
+  filter: {
+    type: Boolean,
+    default: true
+  },
+  // 透传 MForm 的 filterHidden：true 时字段隐藏即清数据、提交不回传隐藏字段；
+  // false 时隐藏字段数据保留并回传
+  filterHidden: {
+    type: Boolean,
+    default: true
+  },
   disabledTitle: {
     type: String,
     default: '查看'

@@ -45,11 +45,10 @@ const buttonAttrs = computed(() => {
 
 const loading = ref(false)
 
-const hasPop = computed(
-  () =>
-    props.pop === null
-      ? false
-      : props.pop || popTypes.includes(buttonAttrs.value.type)
+const hasPop = computed(() =>
+  props.pop === null
+    ? false
+    : props.pop || popTypes.includes(buttonAttrs.value.type)
 )
 
 const messageOption = computed(() => ({

@@ -59,12 +59,10 @@ const del = (id: number) => {
 }
 
 const batchDel = () => {
-  return Promise.all(selectKeys.value.map((id) => demoUserDel(id))).then(
-    () => {
-      selectKeys.value = []
-      ElMessage.success('删除成功')
-    }
-  )
+  return Promise.all(selectKeys.value.map((id) => demoUserDel(id))).then(() => {
+    selectKeys.value = []
+    ElMessage.success('删除成功')
+  })
 }
 
 const handleClick = () => {

@@ -10,21 +10,23 @@
 
 ### FormDialog 属性
 
-| 属性名        | 说明                                                  | 类型                      | 默认值   |
-| ------------- | ----------------------------------------------------- | ------------------------- | -------- |
-| **fields**    | 表单字段配置（同 [Form fields](./form.md#formfield)） | **FormField[]**           | —        |
-| modelValue    | v-model 弹窗显示隐藏                                  | `boolean`                 | `false`  |
-| id            | 0 为新增，其他为编辑                                  | `number`                  | `0`      |
-| value         | 表单初始值                                            | `object`                  | `{}`     |
-| disabled      | 禁用表单，隐藏默认按钮                                | `boolean`                 | `false`  |
-| disabledTitle | disabled 为 true 时弹窗标题                           | `string`                  | `'查看'` |
-| addTitle      | 新增时弹窗标题                                        | `string`                  | `'新增'` |
-| editTitle     | 编辑时弹窗标题                                        | `string`                  | `'编辑'` |
-| httpGet       | 获取详情接口                                          | `(id) => Promise<{data}>` | —        |
-| httpAdd       | 新增接口                                              | `(data) => Promise`       | —        |
-| httpEdit      | 编辑接口                                              | `(id, data) => Promise`   | —        |
-| handler       | httpEdit 执行前处理数据                               | `(data) => data`          | —        |
-| getHandler    | httpGet 执行后处理返回值                              | `(data) => data`          | —        |
+| 属性名        | 说明                                                                                                               | 类型                      | 默认值   |
+| ------------- | ------------------------------------------------------------------------------------------------------------------ | ------------------------- | -------- |
+| **fields**    | 表单字段配置（同 [Form fields](./form.md#formfield)）                                                              | **FormField[]**           | —        |
+| modelValue    | v-model 弹窗显示隐藏                                                                                               | `boolean`                 | `false`  |
+| id            | 0 为新增，其他为编辑                                                                                               | `number`                  | `0`      |
+| value         | 表单初始值                                                                                                         | `object`                  | `{}`     |
+| disabled      | 禁用表单，隐藏默认按钮                                                                                             | `boolean`                 | `false`  |
+| filter        | 透传 MForm 的 filter。默认 `true`：提交不回传 fields 之外的字段；`false`：fields 外字段原样带回、由 `handler` 处理 | `boolean`                 | `true`   |
+| filterHidden  | 透传 MForm 的 filterHidden。默认 `true`：字段隐藏即清数据、提交不回传隐藏字段；`false`：隐藏字段数据保留并回传     | `boolean`                 | `true`   |
+| disabledTitle | disabled 为 true 时弹窗标题                                                                                        | `string`                  | `'查看'` |
+| addTitle      | 新增时弹窗标题                                                                                                     | `string`                  | `'新增'` |
+| editTitle     | 编辑时弹窗标题                                                                                                     | `string`                  | `'编辑'` |
+| httpGet       | 获取详情接口                                                                                                       | `(id) => Promise<{data}>` | —        |
+| httpAdd       | 新增接口                                                                                                           | `(data) => Promise`       | —        |
+| httpEdit      | 编辑接口                                                                                                           | `(id, data) => Promise`   | —        |
+| handler       | httpEdit 执行前处理数据                                                                                            | `(data) => data`          | —        |
+| getHandler    | httpGet 执行后处理返回值                                                                                           | `(data) => data`          | —        |
 
 :::info $attrs
 FormDialog 的 `$attrs` 会透传给 ElDialog 组件，支持所有 ElDialog 属性。

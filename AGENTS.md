@@ -2,7 +2,7 @@
 
 ## 项目概述
 
-`isdream-vue-admin` 是基于 **Vue 3 + TypeScript + Vite 8 + Element Plus** 的中后台管理模板（v1.4.0），提供权限系统、主题/布局切换、MSW Mock、以及一套以 `M` 为前缀的二次封装组件（Table / Form / FormDialog / Upload / Editor / Markdown / Chart 等）。
+`isdream-vue-admin` 是基于 **Vue 3 + TypeScript + Vite 8 + Element Plus** 的中后台管理模板（v1.4.0），提供权限系统、主题/布局切换、MSW Mock、以及一套以 `M` 为前缀的二次封装组件（Button / Table / Form / FormDialog / Upload / Editor / Markdown / Chart 等）。
 
 - 包管理器：**pnpm 10+**（`.npmrc` 中 `engine-strict=true`，强制 Node ^20.19.0）。存在 `preinstall` 脚本，请用 pnpm 而非 npm/yarn。
 - 路径别名：`@/` → `src/`（同时配置在 `tsconfig.json` 与 `vite.config.ts`）。
@@ -31,7 +31,7 @@ pnpm docs:dev       # VitePress 文档站点
 ## 测试约定
 
 - 测试框架为 **Vitest + happy-dom**，配置在 `vitest.config.ts`，全局 setup 见 `src/test/setup.ts`。
-- 测试文件放在被测模块同级的 `__tests__/` 目录（如 `src/utils/__tests__/format.test.ts`）。
+- 测试文件放在被测模块同级的 `__tests__/` 目录（如 `src/utils/__tests__/format.test.ts`）。组件测试用 `@vue/test-utils` 挂载（先例：`src/components/{button,form,icon}/src/__tests__/`）。
 - 测试中 `vi.mock('@/config')` 等方式隔离 `appConfig`；修改被测模块行为后，同步检查对应 `__tests__` 用例。
 
 ## 代码风格
@@ -82,6 +82,7 @@ docs/                      # VitePress 文档站点（guide/ 与 components/）
 - **Mock**：`VITE_USE_MOCK=true` 时 `main.ts` 启动 MSW worker。新增 Mock 在 `src/mocks/handlers/` 下按模块建文件，并到 `handlers/index.ts` 汇总导出。
 - **存储**：用 `import db from '@/storage'`，key 自动加 `isdream-` 前缀；`db.set(key, value, { expires })`、`db.get`、`db.removeKeys`。
 - **新增 API**：放 `src/api/<模块>/`，类型放同级 `types/`；新增页面路由放 `src/router/routes/examples/`（会被 glob 自动加载）。
+- **新增组件**：在 `src/components/<name>/` 建目录（含 `index.ts` 导出与 `README.md`），并到 `src/components/index.ts` 登记 re-export；同步更新 `docs/components/` 文档与 `src/views/examples/components/` 示例页。
 
 ## 环境变量
 
@@ -107,4 +108,5 @@ docs/                      # VitePress 文档站点（guide/ 与 components/）
 
 - **HTML5 路由模式刷新路径累积**：`createWebHistory(base)` 下 `location.pathname` 含 base 前缀，`store/modules/user.ts` 的 `getRouteLocationRaw` 已剥离 base，修改此处时勿重新拼接 base（详见代码注释与 commit `298bbcf`）。
 - **全局 loading 锁定**：`reloadCurrentPage` 无论成功失败都必须恢复 `routerStore` 的 `loading:false / closeLoading:true`，否则与 `setState` 的 `(loading && !closeLoading)` 锁定逻辑叠加会永久卡死（见 `user.ts` 注释）。
+- **MButton 的 `http` 与 `@click` 互斥**：传入 `http` 后点击只执行 `http` 并自动管理 loading，**不再触发 `click` 事件**；点击后的后续动作须写进 `http` 内联函数（详见 `src/components/button/README.md`）。
 - 组件请优先查阅对应 `README.md`（如 `src/components/table/README.md`）与 `docs/components/` 文档，避免重复造轮子。

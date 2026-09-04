@@ -81,3 +81,37 @@ export const fields = reactive<FormField[]>([
     label: '附件'
   }
 ])
+
+// 联动表单：show/attrs 函数式 + 提交过滤（默认只回传可见字段）
+export const linkageFields: FormField[] = [
+  {
+    tag: 'MSelect',
+    key: 'notifyType',
+    label: '通知方式',
+    attrs: {
+      clearable: true,
+      options: [
+        { label: '短信', value: 'sms' },
+        { label: '邮箱', value: 'email' }
+      ]
+    }
+  },
+  {
+    tag: 'ElInput',
+    key: 'phone',
+    label: '手机号',
+    show: (model) => model.notifyType === 'sms'
+  },
+  {
+    tag: 'ElInput',
+    key: 'email',
+    label: '邮箱地址',
+    show: (model) => model.notifyType === 'email'
+  },
+  {
+    tag: 'ElInput',
+    key: 'remark',
+    label: '备注（未选通知方式时禁用）',
+    attrs: (model) => ({ disabled: !model.notifyType })
+  }
+]

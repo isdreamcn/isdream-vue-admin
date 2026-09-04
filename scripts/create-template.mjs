@@ -19,6 +19,7 @@ const PRUNE_PATHS = [
   '.github/workflows/deploy-docs.yml', // GitHub Pages 文档部署
   'vitest.config.ts', // 测试配置
   'src/test', // 测试 setup
+  'scripts/create-template.mjs', // 模板生成脚本，新项目不再需要
   'CHANGELOG.md' // 模板自身历史，新项目不需要
 ]
 /** 递归删除的同名目录（测试用例目录） */
@@ -30,7 +31,8 @@ const REMOVE_SCRIPTS = [
   'docs:preview',
   'test',
   'test:run',
-  'test:coverage'
+  'test:coverage',
+  'create:template'
 ]
 const REMOVE_DEPS = [
   'vitepress',
@@ -107,7 +109,22 @@ if (pkg.devDependencies) {
 }
 fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n')
 
-// 4. 同步 tsconfig：移除 vitest 相关引用，否则删除依赖后 type-check 报错
+// 4. 生成的 AGENTS.md 顶部注入提示：文档随模板带出，测试/文档相关内容不适用
+const agentsPath = path.join(target, 'AGENTS.md')
+if (fs.existsSync(agentsPath)) {
+  const tip = [
+    '> **提示**：本项目由 isdream-vue-admin 的 create:template 生成，',
+    '> `test*`、`create:template`、`docs:dev` 命令与下文「测试约定」一节、`docs/` 相关引用',
+    '> 所指的测试与文档设施已在生成时移除，相关内容可忽略。',
+    ''
+  ].join('\n')
+  fs.writeFileSync(
+    agentsPath,
+    tip + '\n' + fs.readFileSync(agentsPath, 'utf-8')
+  )
+}
+
+// 5. 同步 tsconfig：移除 vitest 相关引用，否则删除依赖后 type-check 报错
 const rewrite = (rel, replaces) => {
   const full = path.join(target, rel)
   let content = fs.readFileSync(full, 'utf-8')
@@ -125,13 +142,16 @@ rewrite('tsconfig.json', [
 ])
 rewrite('tsconfig.node.json', [[/\s*"vitest\.config\.ts",/, '']])
 
-// 5. 可选：初始化为独立仓库
+// 6. 可选：初始化为独立仓库
 if (doInit) {
-  execSync('git init -q && git add -A && git commit -q -m "init: 基于 isdream-vue-admin 模板初始化"', {
-    cwd: target,
-    shell: true,
-    stdio: 'pipe'
-  })
+  execSync(
+    'git init -q && git add -A && git commit -q -m "init: 基于 isdream-vue-admin 模板初始化"',
+    {
+      cwd: target,
+      shell: true,
+      stdio: 'pipe'
+    }
+  )
 }
 
 console.log(`模板已生成: ${target}（来源 ${srcCommit}）`)

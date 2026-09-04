@@ -114,9 +114,9 @@ describe('removeBaseUrlFile', () => {
   })
 
   it('无 baseUrlFile 时不变', () => {
-    expect(
-      removeBaseUrlFile('![img](https://other.com/img.png)')
-    ).toBe('![img](https://other.com/img.png)')
+    expect(removeBaseUrlFile('![img](https://other.com/img.png)')).toBe(
+      '![img](https://other.com/img.png)'
+    )
   })
 
   it('仅剥离图片上下文中的 baseUrlFile，正文中的保留', () => {

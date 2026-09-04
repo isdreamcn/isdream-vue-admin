@@ -205,8 +205,6 @@ describe('MButton', () => {
     const wrapper = mountButton({
       props: { tooltipProps: { placement: 'top' } }
     })
-    expect(wrapper.find('.el-tooltip-stub').attributes('placement')).toBe(
-      'top'
-    )
+    expect(wrapper.find('.el-tooltip-stub').attributes('placement')).toBe('top')
   })
 })
