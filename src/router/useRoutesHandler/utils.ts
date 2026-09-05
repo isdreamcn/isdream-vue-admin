@@ -59,7 +59,10 @@ export const processRoutes = (
   return processed.sort((a, b) => (a.meta?.sort || 0) - (b.meta?.sort || 0))
 }
 
-// 路由扁平化
+/**
+ * 路由扁平化：递归收集所有叶子路由，丢弃父子层级关系
+ * （注册时只注册最后一层，父级路由不会被注册，见 config 的 flatRoutes 配置）
+ */
 export const flatRoutes = (
   routes: RouteRecordRaw[],
   routesArr: RouteRecordRaw[] = []
@@ -73,7 +76,11 @@ export const flatRoutes = (
   return routesArr
 }
 
-// map => 根据path快速查找route
+/**
+ * 构建以 path 为键的路由索引 map，便于快速查找路由；
+ * 同时为每个父节点标记 redirectNode（菜单中第一个可见的叶子路由），
+ * 供 guard/useRedirect 重定向到第一个叶子节点
+ */
 export const generRouteMap = (
   routes: RouteRecordRaw[],
   routeMap: RouteMap = new Map(),
@@ -86,8 +93,6 @@ export const generRouteMap = (
     if (route.children) {
       return generRouteMap(route.children, routeMap, _route)
     }
-    // 路由扁平化后，不会存在上下级关系
-    // 用于`../guard/useRedirect`重定向到第一个叶子节点
     if (!flag && !route.meta?.hiddenInMenu) {
       flag = true
       let parentRoute = _route.parentNode
@@ -100,7 +105,7 @@ export const generRouteMap = (
   return routeMap
 }
 
-// routes => userMenu
+/** 由路由树生成侧边栏菜单（userMenu），过滤 hiddenInMenu 的路由 */
 export const generUserMenu = (routes: RouteRecordRaw[]): UserMenu[] => {
   return routes
     .filter((route) => !route?.meta?.hiddenInMenu)
@@ -113,7 +118,10 @@ export const generUserMenu = (routes: RouteRecordRaw[]): UserMenu[] => {
     }))
 }
 
-// roleMenu => routes
+/**
+ * 按角色菜单（roleMenu）过滤路由树：只保留匹配的路由，
+ * 并用菜单项的 title/icon/link 覆盖路由 meta（可调整菜单名称、层级与顺序）
+ */
 export const generRoutesByRoleMenu = (
   roleMenu: RoleMenu[],
   routeMap: RouteMap
@@ -143,7 +151,10 @@ export const generRoutesByRoleMenu = (
   return build(roleMenu)
 }
 
-// permissions => routes
+/**
+ * 按权限标识过滤路由树：保留命中权限或 meta.ignoreAuth 的路由
+ * （层级固定，不能像 roleMenu 那样调整菜单名称、层级与顺序）
+ */
 export const generRoutesByPermissions = (
   permissionsMap: Map<string, boolean>,
   routes: RouteRecordRaw[]

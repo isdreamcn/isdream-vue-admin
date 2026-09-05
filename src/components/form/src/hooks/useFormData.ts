@@ -8,6 +8,10 @@ import { cloneDeep } from '@/utils'
 export const formDataKey: InjectionKey<Ref<Record<string, any>>> =
   Symbol('m-form-data')
 
+/**
+ * MForm 内部表单数据管理：由 fields 构建数据骨架（隐藏字段也保留 key），
+ * 外部 modelValue 赋值视为回显/默认值，同时刷新重置基准 initialFormData
+ */
 export const useFormData = (props: FormProps) => {
   const formData = ref<Record<string, any>>({})
   // 重置基准：最近一次外部（modelValue）真实赋值的快照，

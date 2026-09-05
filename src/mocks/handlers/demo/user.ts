@@ -22,11 +22,6 @@ const CITIES = [
 ]
 const SURNAMES = ['张', '李', '王', '赵', '刘', '陈', '杨', '黄', '周', '吴']
 
-/**
- * 生成模拟用户数据
- * @param id - 用户 ID
- * @returns 模拟用户对象
- */
 const generateMockUser = (id: number): DemoUser => ({
   id,
   name: `${SURNAMES[id % SURNAMES.length]}用户${id}`,

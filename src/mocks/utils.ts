@@ -5,18 +5,8 @@ import type {
   UserLoginMenu
 } from '@/api/user/types/login.type'
 
-/**
- * 格式化 Mock API URL
- * @param url - API 路径
- * @returns 带有 mockApi 前缀的完整 URL
- */
 export const formatUrl = (url: string) => `/mockApi/${url}`
 
-/**
- * 格式化 Mock API 响应消息
- * @param msg - 原始消息
- * @returns 带有 mockApi 标识的消息
- */
 export const formatMsg = (msg: string) => `${msg} (mockApi)`
 
 /**
@@ -42,12 +32,7 @@ interface ResultTablePaginationOptions {
   count?: number
 }
 
-/**
- * 生成分页数据
- * @param generater - 数据生成函数
- * @param options - 分页选项
- * @returns 分页结果
- */
+/** 生成分页数据（page/pageSize/count 缺省为 1/10/100） */
 export const generateResultPagination = <T>(
   generater: (index: number) => T,
   options?: ResultTablePaginationOptions
@@ -73,9 +58,6 @@ export interface MockUserLoginList extends UserLoginResult {
   permissions: string[]
 }
 
-/**
- * 模拟用户列表数据
- */
 const USER_LIST: MockUserLoginList[] = [
   {
     username: 'admin',
@@ -157,17 +139,11 @@ const USER_LIST: MockUserLoginList[] = [
   }
 ]
 
-/**
- * 获取模拟用户列表
- * @returns 用户列表数据
- */
 export const useUserList = (): MockUserLoginList[] => USER_LIST
 
 /**
  * 从 Authorization header 中提取 token
  * 支持 Bearer token 格式（不区分大小写）
- * @param authorization - Authorization header 值
- * @returns 提取的 token 或 null
  */
 export const extractToken = (authorization: string | null): string | null => {
   if (!authorization) return null
@@ -177,8 +153,7 @@ export const extractToken = (authorization: string | null): string | null => {
 
 /**
  * 验证 token 并返回对应用户信息
- * @param request - MSW 请求对象
- * @returns [错误响应, 用户信息] 元组，错误响应非 null 表示验证失败
+ * 返回 [错误响应, 用户信息] 元组，错误响应非 null 表示验证失败
  */
 export const validateTokenAndGetUser = (
   request: Request

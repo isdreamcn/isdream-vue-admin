@@ -4,10 +4,12 @@ import config from '@/config'
 import { useSetupToken, useHandleError, useLoading } from './interceptors'
 // import { useResponseAdapter } from './interceptors'
 
+/** 真实接口实例：dev 环境 baseURL 为 /proxyApi/（代理到 VITE_BASE_URL_API） */
 export const service = createService({
   baseURL: import.meta.env.DEV ? '/proxyApi/' : config.baseUrlApi
 })
 
+/** Mock 接口实例：baseURL 为 /mockApi/，配合 MSW 拦截 */
 export const mockService = createService({
   baseURL: '/mockApi/'
 })

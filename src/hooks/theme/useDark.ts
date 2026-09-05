@@ -9,6 +9,7 @@ export const applyThemeClass = () => {
   htmlEl.classList.add(isDark ? 'dark' : 'light')
 }
 
+/** 暗色模式开关：isDark 是否暗色，toggleDark 切换主题并持久化 */
 export const useDark = () => {
   const appStore = useAppStore()
 

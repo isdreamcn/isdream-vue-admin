@@ -9,6 +9,7 @@ const failAuth = () => {
 }
 interface FailHandler {
   message?: string
+  /** 命中该状态码时的自定义处理（如登录失效登出） */
   handler?: () => void
 }
 
@@ -35,6 +36,12 @@ const handleError = (code: number, message?: string, skipMessage = false) => {
   return false
 }
 
+/**
+ * 错误处理拦截器：
+ * - 业务响应 code 命中 failCodeMap 时提示并 reject（如 401 触发登出）
+ * - 请求异常时区分无响应（超时/断网）与 HTTP 错误，依次尝试业务 code、HTTP status 查表
+ * - 请求配置上可设 `_silentError: true` 跳过所有错误提示
+ */
 export const useHandleError = (): ServiceInterceptors => {
   return {
     responseInterceptor(res) {

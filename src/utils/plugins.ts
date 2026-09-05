@@ -25,6 +25,7 @@ export const hasOwn = (
 
 export const NOOP = (): void => {}
 
+/** 判断是否为非 null 的对象（数组也算，函数不算） */
 export const isObject = (val: unknown): val is Record<any, any> =>
   val !== null && typeof val === 'object'
 

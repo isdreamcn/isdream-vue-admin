@@ -48,14 +48,18 @@ const config: Readonly<AppConfig> = {
   // storage
   storageConfig: {
     prefix: 'isdream',
+    // 默认过期时长（毫秒）
     expires: 7 * 24 * 60 * 60 * 1000,
     version: 1
   },
   // service
   serviceTokenConfig: {
+    // token 注入位置：请求头/查询参数/请求体
     position: 'headers',
     key: 'Authorization',
+    // 'TOKEN' 为占位符，请求时会被实际 token 替换
     value: 'Bearer TOKEN',
+    // token 过期时长（毫秒），写入 storage 时生效
     expires: 7 * 24 * 60 * 60 * 1000
   },
   // router

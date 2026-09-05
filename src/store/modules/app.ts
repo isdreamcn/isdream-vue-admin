@@ -34,7 +34,6 @@ export interface AppSetting {
   }
 }
 
-// 项目配置
 const useAppSettingDefault = (): AppSetting => ({
   colorPrimary: '#409EFF',
   layout: 'mainLayout',
@@ -74,6 +73,7 @@ export const useAppStore = defineStore('app', {
   }),
   getters: {},
   actions: {
+    /** 应用启动时从 storage 恢复主题与设置，并应用到页面 */
     setupState() {
       const theme = db.get<string>('theme')
       const appSetting = db.get<AppSetting>('appSetting')
@@ -83,6 +83,7 @@ export const useAppStore = defineStore('app', {
       })
       this.setRootCss()
     },
+    /** 将主题色与菜单配色写入根元素 CSS 变量，并切换 dark/light class */
     setRootCss() {
       const { colorPrimary, menu } = this.appSetting
       applyThemeClass()
@@ -91,10 +92,12 @@ export const useAppStore = defineStore('app', {
       setCssVariable('--text-color', menu.textColor)
       setCssVariable('--hover-bg-color', menu.hoverBackgroundColor)
     },
+    /** 批量更新状态并写入 storage */
     setState(state: Partial<AppState>, dbOptions?: StorageSetOptions) {
       this.$patch(state)
       db.setData(state, dbOptions)
     },
+    /** 深度合并部分设置，持久化并刷新页面样式 */
     setAppSetting(appSetting: AppSettingPartial) {
       this.$patch({
         appSetting: mergeObjDeep(this.appSetting, appSetting)
@@ -103,6 +106,7 @@ export const useAppStore = defineStore('app', {
       db.set('appSetting', this.appSetting)
       this.setRootCss()
     },
+    /** 恢复默认设置，持久化并刷新页面样式 */
     resetAppSetting() {
       this.appSetting = useAppSettingDefault()
       db.set('appSetting', this.appSetting)

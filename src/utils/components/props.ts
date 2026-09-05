@@ -4,6 +4,10 @@ import { fromPairs, warn, hasOwn, isObject } from '../plugins'
 
 export const definePropType = <T>(val: any): PropType<T> => val
 
+/**
+ * 构建单个 prop 定义：将 values 与 validator 合并为最终校验器
+ * （values 校验会放行 default 值）
+ */
 export const buildProp = <Type = never>(
   prop: PropInput<Type>,
   key?: string

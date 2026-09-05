@@ -6,8 +6,11 @@ export interface PaginationParams {
   pageSize: number
 }
 
+/**
+ * 前端分页：对传入的 data 切片展示，并输出当前页起始序号；
+ * 未配置 paginationConfig 时取消分页，data 原样透传
+ */
 export const usePagination = (props: TableProps) => {
-  // 取消分页
   if (!props.paginationConfig) {
     return {
       paginationData: computed(() => props.data),

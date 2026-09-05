@@ -11,6 +11,7 @@ import {
   getUserPermissions
 } from '@/api/user/login'
 
+/** 侧边栏菜单节点（由路由/角色菜单生成，用于渲染导航） */
 export interface UserMenu {
   title: string
   name?: string
@@ -46,7 +47,7 @@ export const useUserStore = defineStore('user', {
     userPermissions: null
   }),
   getters: {
-    // 用于O(1)判断权限
+    /** 权限标识集合，用于 O(1) 判断权限 */
     userPermissionMap(state): Map<string, boolean> {
       const map = new Map<string, boolean>()
       if (state.userPermissions) {
@@ -58,6 +59,10 @@ export const useUserStore = defineStore('user', {
     }
   },
   actions: {
+    /**
+     * 应用启动时恢复状态：从 storage 读取 token/用户信息，
+     * all 模式直接注册全部路由；有 token 时拉取权限数据并重载当前页
+     */
     async setupState() {
       this.token = db.get<string>('token') ?? this.token
       this.userInfo = db.get<UserInfo>('userInfo')
@@ -70,6 +75,11 @@ export const useUserStore = defineStore('user', {
 
       this.reloadCurrentPage(this.setUserMenu())
     },
+    /**
+     * 拉取权限数据并按权限模式注册路由
+     * （roleMenu 模式额外拉取角色菜单，all 模式不注册，由 setupState 处理）
+     * 调用方需 await 完成后再跳转路由（setupState / loginHandler）
+     */
     setUserMenu() {
       return Promise.all(
         SETUP_ROUTES_TYPE === 'roleMenu'
@@ -81,7 +91,10 @@ export const useUserStore = defineStore('user', {
         }
       })
     },
-    // 获取角色菜单
+    /**
+     * 获取角色菜单：开启 userMenuStorage 时优先读 storage 缓存，
+     * 首次拉取成功后回写 storage
+     */
     setRoleMenu() {
       let http = getRoleMenu
       const roleMenu = db.get<RoleMenu[]>('roleMenu')
@@ -101,7 +114,10 @@ export const useUserStore = defineStore('user', {
         return res
       })
     },
-    // 设置用户权限
+    /**
+     * 获取用户权限标识：开启 userPermissionsStorage 时优先读 storage 缓存，
+     * 首次拉取成功后回写 storage
+     */
     setUserPermissions() {
       let http = getUserPermissions
       const userPermissions = db.get<string[]>('userPermissions')
@@ -117,6 +133,7 @@ export const useUserStore = defineStore('user', {
         return res
       })
     },
+    /** 登录成功后的统一处理：持久化 token/用户信息、注册路由并跳转主页 */
     async loginHandler(data: { token: string; user: UserInfo }) {
       this.setToken(data.token, {
         expires: appConfig.serviceTokenConfig.expires
@@ -129,13 +146,12 @@ export const useUserStore = defineStore('user', {
         name: appConfig.routeMainName
       })
     },
-    // 登录
     async login(params: UserLoginParams) {
       const res = await userLogin(params)
       await this.loginHandler(res.data)
       return res
     },
-    // 退出登录/身份验证失败
+    /** 退出登录/身份验证失败：清空相关 storage，跳转登录页并刷新页面 */
     async logout() {
       db.removeKeys('token', 'userInfo', 'userPermissions', 'roleMenu')
 
@@ -145,25 +161,30 @@ export const useUserStore = defineStore('user', {
 
       location.reload()
     },
+    /** 批量更新状态，可选同步写入 storage */
     setState(state: Partial<UserState>, dbOptions?: StorageSetOptions) {
       this.$patch(state)
       if (dbOptions) {
         db.setData(state, dbOptions)
       }
     },
+    /** 设置 token 并写入 storage */
     setToken(token: string, dbOptions?: StorageSetOptions) {
       this.token = token
       db.set('token', this.token, dbOptions)
     },
+    /** 设置用户信息并写入 storage */
     setUserInfo(userInfo: UserInfo, dbOptions?: StorageSetOptions) {
       this.userInfo = userInfo
       db.set('userInfo', this.userInfo, dbOptions)
     },
-    // 校验权限
     permissionAuth(permission: string) {
       return !!this.userPermissionMap.get(permission)
     },
-    // 重载当前页
+    /**
+     * 重载当前页：锁定全局 loading，等待权限/路由就绪后 replace 当前地址
+     * （应用启动/刷新时由 setupState 调用）
+     */
     async reloadCurrentPage(promise: Promise<any>) {
       const routerStore = useRouterStore()
       routerStore.setState({
@@ -189,7 +210,7 @@ export const useUserStore = defineStore('user', {
   }
 })
 
-// 根据路由模式从当前 URL 中解析出 path、query、hash
+/** 根据路由模式从当前 URL 中解析出 path、query、hash */
 function getRouteLocationRaw(mode: 'Hash' | 'HTML5') {
   const { location } = window
   let path = ''
@@ -221,7 +242,7 @@ function getRouteLocationRaw(mode: 'Hash' | 'HTML5') {
   return { path, query, hash }
 }
 
-// 将查询字符串解析为对象
+/** 将查询字符串解析为对象，同名 key 出现多次时收集为数组 */
 function parseQuery(queryString?: string) {
   if (!queryString) return {}
 

@@ -42,6 +42,17 @@ pnpm docs:dev       # VitePress 文档站点
 - **SCSS**：`vite.config.ts` 通过 `css.preprocessorOptions.scss.additionalData` 全局注入了 `@/assets/styles/element.scss`、`variables.scss`、`mixins.scss`——在任意 `.scss` 中可直接使用其变量/mixin，**无需手动 `@use`**。
 - 输出/注释统一使用**中文**（与现有代码一致）。
 
+### 函数注释（JSDoc）规范
+
+原则：**类型签名即文档，注释只写签名表达不了的信息**。
+
+- **要写注释**：与直觉不同的行为差异（如 `isEmpty` 的 0 例外）、隐式副作用（静默删除、写 storage、跳转路由、移除 DOM）、参数单位与特殊格式（毫秒、`'a[0].b'` 路径、`'Bearer TOKEN'` 占位符）、边界与坑点（SSR、竞态、loading 锁定）、指令等特殊 API 的用法示例。
+- **不写注释**：函数名 + 签名已自明的（`isXxx` 类型守卫、`NOOP`、`withInstall` 系列等）；内容只是复述参数名或类型的（`@param min - 最小值` 这类零信息标签）。
+- **不用 `@param` / `@returns` 标签**，行为描述写正文；需要说明参数含义时用行内括号（如「keys 为新旧 key 映射，如 `{ id: 'userId' }`」）。
+- 一句能说清用单行 `/** ... */`，多行行为描述用块式；接口字段按需加单行说明。
+- 函数级 JSDoc 与函数内部的行内注释**不重复**；把旧单行注释升级为 JSDoc 时删掉原行。
+- 存量注释不要求回改，新代码遵循本规范。
+
 ## 自动导入与组件注册（重要）
 
 - `unplugin-auto-import` 全局自动导入 **vue** 与 **vue-router** 的 API（如 `ref`、`computed`、`useRoute`），无需手动 import；类型声明见 `auto-imports.d.ts`（生成文件，勿手改）。

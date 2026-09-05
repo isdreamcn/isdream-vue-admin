@@ -1,4 +1,3 @@
-/** 邮箱格式验证 */
 export const isEmail = (val: string) =>
   /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(val)
 

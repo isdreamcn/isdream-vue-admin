@@ -1,11 +1,18 @@
 interface UseProgressFakeOptions {
+  /** 进度上限，达到后自动停止，默认 100 */
   maxNum?: number
+  /** 定时器间隔（毫秒） */
   interval: number
+  /** 每次递增的数值，默认 1 */
   increaseNum?: number
 }
 
 type UseProgressFakeCallback = (number: number) => void
 
+/**
+ * 假进度条：按 interval 周期递增数值并回调，达到 maxNum 后自动停止，
+ * 适用于上传等无法获取真实进度的场景
+ */
 export const useProgressFake = (
   callback: UseProgressFakeCallback,
   options: UseProgressFakeOptions

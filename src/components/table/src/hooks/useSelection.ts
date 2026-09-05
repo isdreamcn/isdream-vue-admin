@@ -5,6 +5,10 @@ import type { TableProps } from '../table'
 import { ref, watch, nextTick } from 'vue'
 import { isFunction, getVal } from '@/utils'
 
+/**
+ * 表格多选管理：以 selectKeys 为受控数据源，
+ * selectKeysKeep 开启时跨页/跨请求保留选中（内部用 Map 维护累计选中）
+ */
 export const useSelection = (
   props: TableProps,
   data: Ref<readonly any[]>,

@@ -26,23 +26,29 @@ export const useRouterStore = defineStore('router', {
     loading: false
   }),
   getters: {
+    /** 路由历史列表（按访问顺序） */
     routeHistory(state) {
       return [...state.routeHistoryMap.values()]
     }
   },
   actions: {
+    /** 预留空实现，与 user/app store 的启动流程保持一致 */
     setupState() {},
+    /**
+     * 批量更新状态：loading 锁定时强制保持 loading，
+     * 防止 API 拦截器在路由注册完成前提前关闭动画
+     */
     setState(state: Partial<RouterStore>) {
-      // loading锁定时，防止API拦截器提前关闭loading
       if (this.loading && !this.closeLoading && !state.closeLoading) {
         state.loading = true
       }
       this.$patch(state)
     },
-    // keepAlive
+    /** 读取 path 对应的组件缓存名集合 */
     getAlive(key: string) {
       return [...(this.keepAliveMap.get(key) ?? [])]
     },
+    /** 记录 path 下需要 keepAlive 的组件名 */
     addAlive(path: string, name: string) {
       let set = this.keepAliveMap.get(path)
       if (!set) {
@@ -53,13 +59,14 @@ export const useRouterStore = defineStore('router', {
       }
       this.keepAliveMap.set(path, set)
     },
-    // history
+    /** 新增路由历史记录（path 已存在时不重复记录） */
     addRouteHistory(routeHistoryItem: RouteHistoryItem) {
       if (this.routeHistoryMap.has(routeHistoryItem.path)) {
         return
       }
       this.routeHistoryMap.set(routeHistoryItem.path, routeHistoryItem)
     },
+    /** 删除指定 path 的路由历史记录 */
     deleteRouteHistory(path: string) {
       if (this.routeHistoryMap.has(path)) {
         this.routeHistoryMap.delete(path)
@@ -71,7 +78,7 @@ export const useRouterStore = defineStore('router', {
   }
 })
 
-// 第一个路由的path(返回首页)
+/** 第一个路由的 path（返回首页） */
 export const useRouteMainPath = () => {
   const routerStore = useRouterStore()
   return computed(() => routerStore.routeHistory[0]?.path)

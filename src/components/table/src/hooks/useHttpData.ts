@@ -8,6 +8,10 @@ interface HttpRes {
   loading: boolean
 }
 
+/**
+ * http 数据源：params/分页变化自动请求，用递增请求 ID 丢弃过期响应防止竞态；
+ * httpLazy 开启时首次变化不请求（仅标记 loading），首次请求由 isReload 或后续 params 变化触发
+ */
 export const useHttpData = (
   props: TableProps,
   paginationParams: Partial<PaginationParams>,
@@ -29,7 +33,6 @@ export const useHttpData = (
     pageSize: paginationParams.pageSize
   }))
 
-  // 生成请求ID来标识每个请求
   let currentRequestId = 0
 
   const requestHttp = () => {
@@ -68,7 +71,6 @@ export const useHttpData = (
     }
   )
 
-  // 重新请求http
   watch(
     () => props.isReload,
     (val) => {

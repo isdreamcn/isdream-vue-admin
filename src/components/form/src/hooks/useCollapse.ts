@@ -5,10 +5,6 @@ import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 /**
  * inline 表单自动折叠 Hook
  * 根据字段渲染后的换行情况判断是否显示「展开」按钮，并控制字段区域折叠高度
- *
- * @param inlineFieldsRef - inline 字段区域模板引用
- * @param props - 表单组件 props
- * @param showFieldKeys - 当前展示字段的 key 集合
  */
 export const useCollapse = (
   inlineFieldsRef: Ref<HTMLElement | undefined>,

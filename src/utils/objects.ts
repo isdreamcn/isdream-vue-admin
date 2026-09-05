@@ -3,7 +3,7 @@ import { isArray, isObject, hasOwn, cloneDeep } from './plugins'
 
 interface MergeObjOptions {
   deep: boolean
-  // 是否覆盖原值
+  /** 是否用 obj2 的值覆盖 obj1 的原值，返回 false 跳过该键 */
   overlayable: (
     val: any,
     key: string | number | symbol,
@@ -12,7 +12,10 @@ interface MergeObjOptions {
   ) => boolean
 }
 
-// 合并对象
+/**
+ * 创建对象合并函数，合并行为由 options 控制
+ * （返回合并后的新对象，不修改原对象）
+ */
 export const createMergeObjFn = (options: MergeObjOptions) => {
   const mergeObj = <T extends object = object, O extends object = object>(
     obj1: T,
@@ -43,11 +46,13 @@ export const createMergeObjFn = (options: MergeObjOptions) => {
   return mergeObj
 }
 
+/** 深度合并两个对象：同名属性总是覆盖，嵌套对象递归合并 */
 export const mergeObjDeep = createMergeObjFn({
   deep: true,
   overlayable: () => true
 })
 
+/** 按路径字符串从对象中取值，支持 'a.b.c' 与 'a[0].b' 两种写法 */
 export function getVal<T = any>(
   form: Record<string, any>,
   s: string
@@ -66,8 +71,11 @@ export function getVal<T = any>(
     }, form) as T | undefined
 }
 
-// (a.b.c, 5) => { a: { b: { c: 5 } } }
-// ([0].a, 5) => [{ a: 5 }]
+/**
+ * 按路径字符串生成嵌套对象，将值挂到最内层
+ * ('a.b.c', 5) => { a: { b: { c: 5 } } }
+ * ('[0].a', 5) => [{ a: 5 }]
+ */
 export const generateObj = (key: string, val: any) => {
   // 数组标识分隔符，用于区分数组索引与普通属性键
   const ARRAY_KEY_SEPARATOR = '##'
@@ -101,9 +109,11 @@ export const generateObj = (key: string, val: any) => {
   return o
 }
 
-/*
- 修改对象的key
-*/
+/**
+ * 修改对象的 key：将 keys 映射中旧 key 的值赋给新 key（旧 key 保留）
+ * 递归处理数组元素与 childKey 指定的子级，返回深拷贝结果
+ * keys 为新旧 key 映射，如 { id: 'userId' } 表示 o.id = o.userId
+ */
 export const updateObjKeys = <T extends object = object>(
   obj: T,
   keys: Record<string, string>,
@@ -126,11 +136,18 @@ export const updateObjKeys = <T extends object = object>(
   return _o
 }
 
+/** 校验提示：值为提示文案，或返回提示文案（校验失败）/空（通过）的校验函数 */
 type VerifyObjTip = Record<
   string,
   string | ((val?: any, key?: string) => string | void)
 >
-// 校验对象
+
+/**
+ * 校验对象：逐项校验 obj 中的字段，失败时提示并中断
+ * tip 值为函数时走自定义校验（返回字符串即失败并提示），
+ * 否则用 verifyFn 校验对应字段，失败时提示 tip 中的文案
+ * （verifyFn 缺省为 (val ?? false) !== false，null/undefined/false 视为未通过）
+ */
 export const verifyObj = (
   tip: VerifyObjTip,
   obj: Record<string, any>,
@@ -156,10 +173,13 @@ export const verifyObj = (
   return true
 }
 
-// 组合函数
 type ComposeFn<T = any> = (payload: T) => T
 type ComposePause<T = any> = (result: T) => boolean
 
+/**
+ * 组合多个函数为一条管道：依次执行，前一函数的返回值作为下一函数的入参
+ * pause 返回 true 时终止后续函数并直接返回该结果
+ */
 export const composeFns = <T = any>(
   fns: ComposeFn<T>[],
   pause?: ComposePause<T>
